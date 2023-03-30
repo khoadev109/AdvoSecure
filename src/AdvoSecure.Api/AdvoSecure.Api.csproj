@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.3" />
+		<PackageReference Include="Microsoft.Identity.Web.UI" Version="1.26.0" />
+		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.18.0" />
+		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders.TagHelpers" Version="0.18.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+		<PackageReference Include="Microsoft.Identity.Web" Version="1.26.0" />
+
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AdvoSecure.Application\AdvoSecure.Application.csproj" />
+		<ProjectReference Include="..\AdvoSecure.Common\AdvoSecure.Common.csproj" />
+		<ProjectReference Include="..\AdvoSecure.Domain\AdvoSecure.Domain.csproj" />
+		<ProjectReference Include="..\AdvoSecure.Infrastructure\AdvoSecure.Infrastructure.csproj" />
+		<ProjectReference Include="..\AdvoSecure.Security\AdvoSecure.Security.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Filters\" />
+	</ItemGroup>
+
+</Project>

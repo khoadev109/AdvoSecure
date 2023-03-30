@@ -1,0 +1,98 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{203EB168-B9F1-4C6B-A53A-E371E266BFF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AC970A37-2E8E-4CB6-BE6D-C088F4992E4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecure.Application", "src\AdvoSecure.Application\AdvoSecure.Application.csproj", "{6ACA9916-8FE1-4C18-9A1A-BABC6B8FDCF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecure.Infrastructure", "src\AdvoSecure.Infrastructure\AdvoSecure.Infrastructure.csproj", "{7F810B82-5A20-4185-BA56-79B2BE28DAEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecure.Domain", "src\AdvoSecure.Domain\AdvoSecure.Domain.csproj", "{6BAB1DC3-8C18-4B8B-8940-44CE6FE77560}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecure.Api.Test", "tests\AdvoSecure.Api.Test\AdvoSecure.Api.Test.csproj", "{3B2FB39A-ED51-45F7-B932-23848E03D5D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecure.Infrastructure.Test", "tests\AdvoSecure.Infrastructure.Test\AdvoSecure.Infrastructure.Test.csproj", "{A0B98C8D-FE93-4617-A80D-6A12A68FF354}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecure.Api", "src\AdvoSecure.Api\AdvoSecure.Api.csproj", "{A48C7A9E-EE29-404F-9DBB-7014BD67DB0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tenant", "tenant", "{5A06054C-F357-4B36-A8F0-07D816D21AD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecureTenant.Api", "src\tenant\AdvoSecureTenant.Api\AdvoSecureTenant.Api.csproj", "{66D0B561-9C30-4744-A001-C3EB79A7F68E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvoSecureTenant.Core", "src\tenant\AdvoSecureTenant.Core\AdvoSecureTenant.Core.csproj", "{5FD2770E-FEA3-43ED-AAEB-4D4CCDE314E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvoSecure.Common", "src\AdvoSecure.Common\AdvoSecure.Common.csproj", "{E9E2AB5C-B468-4631-A05E-5CD616656DF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvoSecure.Security", "src\AdvoSecure.Security\AdvoSecure.Security.csproj", "{556F16D8-BFD5-4544-9E70-6BE85788116F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6ACA9916-8FE1-4C18-9A1A-BABC6B8FDCF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ACA9916-8FE1-4C18-9A1A-BABC6B8FDCF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ACA9916-8FE1-4C18-9A1A-BABC6B8FDCF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ACA9916-8FE1-4C18-9A1A-BABC6B8FDCF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F810B82-5A20-4185-BA56-79B2BE28DAEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F810B82-5A20-4185-BA56-79B2BE28DAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F810B82-5A20-4185-BA56-79B2BE28DAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F810B82-5A20-4185-BA56-79B2BE28DAEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BAB1DC3-8C18-4B8B-8940-44CE6FE77560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BAB1DC3-8C18-4B8B-8940-44CE6FE77560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BAB1DC3-8C18-4B8B-8940-44CE6FE77560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BAB1DC3-8C18-4B8B-8940-44CE6FE77560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B2FB39A-ED51-45F7-B932-23848E03D5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B2FB39A-ED51-45F7-B932-23848E03D5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B2FB39A-ED51-45F7-B932-23848E03D5D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B2FB39A-ED51-45F7-B932-23848E03D5D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0B98C8D-FE93-4617-A80D-6A12A68FF354}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B98C8D-FE93-4617-A80D-6A12A68FF354}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B98C8D-FE93-4617-A80D-6A12A68FF354}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B98C8D-FE93-4617-A80D-6A12A68FF354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A48C7A9E-EE29-404F-9DBB-7014BD67DB0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A48C7A9E-EE29-404F-9DBB-7014BD67DB0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A48C7A9E-EE29-404F-9DBB-7014BD67DB0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A48C7A9E-EE29-404F-9DBB-7014BD67DB0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D0B561-9C30-4744-A001-C3EB79A7F68E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D0B561-9C30-4744-A001-C3EB79A7F68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D0B561-9C30-4744-A001-C3EB79A7F68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D0B561-9C30-4744-A001-C3EB79A7F68E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FD2770E-FEA3-43ED-AAEB-4D4CCDE314E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FD2770E-FEA3-43ED-AAEB-4D4CCDE314E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FD2770E-FEA3-43ED-AAEB-4D4CCDE314E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FD2770E-FEA3-43ED-AAEB-4D4CCDE314E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9E2AB5C-B468-4631-A05E-5CD616656DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9E2AB5C-B468-4631-A05E-5CD616656DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9E2AB5C-B468-4631-A05E-5CD616656DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9E2AB5C-B468-4631-A05E-5CD616656DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{556F16D8-BFD5-4544-9E70-6BE85788116F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{556F16D8-BFD5-4544-9E70-6BE85788116F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{556F16D8-BFD5-4544-9E70-6BE85788116F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{556F16D8-BFD5-4544-9E70-6BE85788116F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6ACA9916-8FE1-4C18-9A1A-BABC6B8FDCF9} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+		{7F810B82-5A20-4185-BA56-79B2BE28DAEE} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+		{6BAB1DC3-8C18-4B8B-8940-44CE6FE77560} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+		{3B2FB39A-ED51-45F7-B932-23848E03D5D2} = {AC970A37-2E8E-4CB6-BE6D-C088F4992E4A}
+		{A0B98C8D-FE93-4617-A80D-6A12A68FF354} = {AC970A37-2E8E-4CB6-BE6D-C088F4992E4A}
+		{A48C7A9E-EE29-404F-9DBB-7014BD67DB0B} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+		{5A06054C-F357-4B36-A8F0-07D816D21AD4} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+		{66D0B561-9C30-4744-A001-C3EB79A7F68E} = {5A06054C-F357-4B36-A8F0-07D816D21AD4}
+		{5FD2770E-FEA3-43ED-AAEB-4D4CCDE314E7} = {5A06054C-F357-4B36-A8F0-07D816D21AD4}
+		{E9E2AB5C-B468-4631-A05E-5CD616656DF5} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+		{556F16D8-BFD5-4544-9E70-6BE85788116F} = {203EB168-B9F1-4C6B-A53A-E371E266BFF5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75BFF099-FCC9-4AC6-ADDD-1A9AC0B16CB6}
+	EndGlobalSection
+EndGlobal

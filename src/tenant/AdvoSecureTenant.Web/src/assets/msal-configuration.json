@@ -1,0 +1,32 @@
+{
+    "msal": {
+      "auth": {
+        "clientId": "2cc9fb16-095d-4215-9b87-60ce9cab3c2d",
+        "authority": "https://login.microsoftonline.com/organizations/",
+        "redirectUri": "http://localhost:4200/",
+        "postLogoutRedirectUri": "http://localhost:4200/",
+        "navigateToLoginRequestUrl": true
+      },
+      "cache": {
+        "cacheLocation": "localStorage",
+        "storeAuthStateInCookie": true
+      }
+    },
+    "guard": {
+      "interactionType": "redirect",
+      "authRequest": {
+        "scopes": ["user.read"]
+      },
+      "loginFailedRoute": "/login-failed"
+    },
+    "interceptor": {
+      "interactionType": "redirect",
+      "protectedResourceMap": [
+        ["https://graph.microsoft.com/v1.0/me", ["user.read"]],
+        ["https://localhost:7122/api/Tenants", ["api://2cc9fb16-095d-4215-9b87-60ce9cab3c2d/Tenant.Admin"]],
+        ["https://localhost:44397/api/Account", ["api://2cc9fb16-095d-4215-9b87-60ce9cab3c2d/Tenant.User"]],
+        ["https://localhost:44397/api/Tenant", ["api://2cc9fb16-095d-4215-9b87-60ce9cab3c2d/Tenant.User"]],
+        ["https://localhost:44397/api/Home", ["api://2cc9fb16-095d-4215-9b87-60ce9cab3c2d/Tenant.User"]]
+      ]
+    }
+  }
