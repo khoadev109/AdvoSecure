@@ -1,32 +1,33 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { GraphService } from 'src/app/modules/msal/services/graph.service';
-import { Profile } from '../../msal/models/profile.model';
+import { AccountService } from '../services/account.service';
+import { AppUser } from '../models/user.model';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
 })
 export class OverviewComponent implements OnInit {
-  profile: Profile = {
-    givenName: '',
-    surname: '',
-    userPrincipalName: '',
-    id: '',
-  };
+  user: AppUser = {
+    displayName: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    userIdentifier: ""
+  }
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private graphService: GraphService
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
-    this.getProfile();
+    this.getUserProfile();
   }
 
-  getProfile() {
-    this.graphService.getProfile().subscribe((profile : Profile) => {
-      this.profile = profile;
-      this.changeDetectorRef.markForCheck();
+  getUserProfile() {
+    this.accountService.getProfile().subscribe((appUser: AppUser) => {
+      this.user = appUser;
+      this.changeDetectorRef.detectChanges();
     });
   }
 }

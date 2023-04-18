@@ -1,0 +1,48 @@
+<button routerLink="/management/account/new-user" type="button" class="btn btn-primary">
+    Create user
+  </button>
+  <br/>
+  <br/>
+  <div class="card mb-5 mb-xl-10">
+    <div class="card-header cursor-pointer">
+      <div class="card-title m-0">App users</div>
+    </div>
+
+    <div class="container">
+      <h3 class="text-center mt-5 mb-5">Users</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Identifier</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let post of POSTS
+                | paginate
+                  : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <th scope="row">{{ post.userIdentifier }}</th>
+            <td>{{ post.name }}</td>
+            <td>{{ post.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          (pageChange)="onTableDataChange($event)"
+        >
+        </pagination-controls>
+      </div>
+  </div>

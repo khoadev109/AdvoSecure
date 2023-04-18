@@ -1,0 +1,175 @@
+<!-- Dashboard -->
+<div class="menu-item me-lg-1">
+  <a class="menu-link py-3" routerLinkActive="active" routerLink="/dashboard"
+    ><span class="menu-title" translate="MENU.DASHBOARD"></span
+  ></a>
+</div>
+
+<!-- Management -->
+<div
+  class="menu-item menu-lg-down-accordion me-lg-1 menu-dropdown"
+  data-kt-menu-trigger="click"
+  data-kt-menu-placement="bottom-start"
+>
+  <span class="menu-link py-3" [ngClass]="calculateMenuItemCssClass('/management')"
+    ><span class="menu-title">Management</span></span
+  >
+  <div
+    class="
+      menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown menu-rounded-0
+      py-lg-4
+      w-lg-225px
+    "
+    data-kt-menu-dismiss="true"
+    data-popper-placement="bottom-start"
+  >
+    <div
+      class="menu-item menu-lg-down-accordion me-lg-1"
+      data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+      data-kt-menu-placement="right-start"
+    >
+      <div
+        class="
+          menu-sub
+          menu-sub-lg-down-accordion
+          menu-sub-lg-dropdown
+          menu-rounded-0
+          py-lg-4
+          w-lg-225px
+        "
+        data-kt-menu-dismiss="true"
+      >
+        <div
+          class="menu-item menu-lg-down-accordion me-lg-1"
+          data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+          data-kt-menu-placement="right-start"
+        >
+          <span
+            class="menu-link py-3"
+            [ngClass]="calculateMenuItemCssClass('/management/account')"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title" data-link="/management/account"
+              >Profile</span
+            ><span class="menu-arrow"></span
+          ></span>
+          <div
+            class="
+              menu-sub
+              menu-sub-lg-down-accordion
+              menu-sub-lg-dropdown
+              menu-rounded-0
+              py-lg-4
+              w-lg-225px
+            "
+            data-kt-menu-dismiss="true"
+          >
+            <div class="menu-item me-lg-1">
+              <a
+                class="menu-link py-3"
+                routerLinkActive="active"
+                routerLink="/management/account/new-user"
+                ><span class="menu-bullet"
+                  ><span class="bullet bullet-dot"></span></span
+                ><span class="menu-title">Register user</span></a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="menu-item menu-lg-down-accordion me-lg-1"
+          data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+          data-kt-menu-placement="right-start"
+        >
+          <span
+            class="menu-link py-3"
+            [ngClass]="calculateMenuItemCssClass('/management/pages/wizards')"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title" data-link="/management/pages/wizards"
+              >Wizards</span
+            ><span class="menu-arrow"></span
+          ></span>
+          <div
+            class="
+              menu-sub
+              menu-sub-lg-down-accordion
+              menu-sub-lg-dropdown
+              menu-rounded-0
+              py-lg-4
+              w-lg-225px
+            "
+            data-kt-menu-dismiss="true"
+          >
+            <div class="menu-item me-lg-1">
+              <a
+                class="menu-link py-3"
+                routerLinkActive="active"
+                routerLink="/management/pages/wizards/horizontal"
+                ><span class="menu-bullet"
+                  ><span class="bullet bullet-dot"></span></span
+                ><span class="menu-title">Horizontal</span></a
+              >
+            </div>
+            <div class="menu-item me-lg-1">
+              <a
+                class="menu-link py-3"
+                routerLinkActive="active"
+                routerLink="/management/pages/wizards/vertical"
+                ><span class="menu-bullet"
+                  ><span class="bullet bullet-dot"></span></span
+                ><span class="menu-title">Vertical</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="menu-item menu-lg-down-accordion me-lg-1"
+      data-kt-menu-trigger="{default:'click', lg: 'hover'}"
+      data-kt-menu-placement="right-start"
+    >
+      <span
+        class="menu-link py-3"
+        [ngClass]="calculateMenuItemCssClass('/management/account')"
+        ><span class="menu-icon"><i class="bi fs-3 bi-person"></i></span
+        ><span class="menu-title" data-link="/management/account">Accounts</span
+        ><span class="menu-arrow"></span
+      ></span>
+      <div
+        class="
+          menu-sub
+          menu-sub-lg-down-accordion
+          menu-sub-lg-dropdown
+          menu-rounded-0
+          py-lg-4
+          w-lg-225px
+        "
+        data-kt-menu-dismiss="true"
+      >
+        <div class="menu-item me-lg-1">
+          <a
+            class="menu-link py-3"
+            routerLinkActive="active"
+            routerLink="/management/account/users"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Users</span></a
+          >
+        </div>
+        <div class="menu-item me-lg-1">
+          <a
+            class="menu-link py-3"
+            routerLinkActive="active"
+            routerLink="/management/account/new-user"
+            ><span class="menu-bullet"
+              ><span class="bullet bullet-dot"></span></span
+            ><span class="menu-title">Register user</span></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

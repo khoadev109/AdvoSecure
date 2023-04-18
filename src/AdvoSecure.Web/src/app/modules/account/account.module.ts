@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InlineSVGModule } from 'ng-inline-svg';
 import { FormsModule } from '@angular/forms';
+import { InlineSVGModule } from 'ng-inline-svg';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from '../account/account.component';
 import { OverviewComponent } from './overview/overview.component';
@@ -12,7 +12,7 @@ import { DeactivateAccountComponent } from './settings/forms/deactivate-account/
 import { EmailPreferencesComponent } from './settings/forms/email-preferences/email-preferences.component';
 import { NotificationsComponent } from './settings/forms/notifications/notifications.component';
 import { SignInMethodComponent } from './settings/forms/sign-in-method/sign-in-method.component';
-import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
+import { DropdownMenusModule } from '../../_metronic/partials';
 
 @NgModule({
   declarations: [
@@ -28,11 +28,10 @@ import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AccountRoutingModule,
     InlineSVGModule,
-    FormsModule,
     DropdownMenusModule,
-    WidgetsModule,
   ],
 })
 export class AccountModule {}

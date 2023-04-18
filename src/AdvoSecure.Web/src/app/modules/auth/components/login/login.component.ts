@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { UserModel } from '../../models/user.model';
+import * as forge from 'node-forge';
+import { TokenResponse } from '../../models/login.model';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { setTokenAndIdentifiers } from '../../token-helper';
+import { pwdEncryptPublicKey } from '../../auth-pwd';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +16,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
   // KeenThemes mock, change it to:
   defaultAuth: any = {
-    email: 'admin@demo.com',
-    password: 'demo',
+    email: '',
+    password: '',
   };
   loginForm: FormGroup;
   hasError: boolean;
@@ -40,7 +42,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    // get return url from route parameters or default to '/'
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.email,
           Validators.minLength(3),
-          Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+          Validators.maxLength(320),
         ]),
       ],
       password: [
@@ -74,17 +75,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   submit() {
     this.hasError = false;
-    const loginSubscr = this.authService
-      .login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe((user: UserModel | undefined) => {
-        if (user) {
-          this.router.navigate([this.returnUrl]);
-        } else {
-          this.hasError = true;
-        }
-      });
-    this.unsubscribe.push(loginSubscr);
+    try {
+      const rsa = forge.pki.publicKeyFromPem(pwdEncryptPublicKey);
+      const encryptedPassword = window.btoa(rsa.encrypt(this.f.password.value));
+
+      this.authService
+        .login(this.f.email.value, encryptedPassword)
+        .subscribe((response: TokenResponse) => {
+          setTokenAndIdentifiers(response);
+          this.router.navigate(['/']);
+        });
+    } catch (error) {
+      console.log('login failed', error);
+      this.hasError = true;
+    }
   }
 
   ngOnDestroy() {

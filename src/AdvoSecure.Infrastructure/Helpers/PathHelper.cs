@@ -2,9 +2,9 @@
 
 namespace AdvoSecure.Infrastructure.Helpers
 {
-    public class PathHelper
+    public static class PathHelper
     {
-        public void Ensure(string path)
+        public static void Ensure(string path)
         {
             if (File.Exists(path))
             {
@@ -21,11 +21,18 @@ namespace AdvoSecure.Infrastructure.Helpers
             using FileStream file = File.Create(path);
         }
 
-        public string Get(string path)
+        public static string Get(string path)
         {
             var returnPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
 
             return returnPath;
+        }
+
+        public static string GetProjectPath(string folder)
+        {
+            string projectPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            return Path.Combine(projectPath, folder);
         }
     }
 }

@@ -1,12 +1,20 @@
-﻿using AdvoSecure.Application.Dtos;
-using AdvoSecure.Domain.Entities;
+﻿using AdvoSecure.Domain.Entities;
+using AdvoSecure.Security;
 
 namespace AdvoSecure.Application.Interfaces.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> Create(UserDto userDto);
+        Task<bool> CheckPasswordAsync(string userName, string password);
 
-        Task<bool> CheckUserExisted(string userIdentifier);
+        Task<TenantUser> FindByEmailAsync(string userName);
+
+        Task<TenantUser> FindByUserIdentifierAsync(Guid userIdentifier);
+
+        Task<TenantUser> CreateAsync(RegisterRequest request);
+
+        Task<TenantUser> SaveAsync(TenantUser user);
+
+        Task<IQueryable<TenantUser>> GetAllAsync();
     }
 }

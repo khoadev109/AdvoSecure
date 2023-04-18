@@ -1,0 +1,145 @@
+<div class="card mb-5 mb-xl-10">
+  <div
+    class="card-header border-0 cursor-pointer"
+    role="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#kt_account_profile_details"
+    aria-expanded="true"
+    aria-controls="kt_account_profile_details"
+  >
+    <div class="card-title m-0">
+      <h3 class="fw-bolder m-0">Register new user</h3>
+    </div>
+  </div>
+  <div id="kt_account_profile_details" class="collapse show">
+    <form novalidate="" class="form">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Email</label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid"
+              placeholder="Email"
+              name="email"
+              [(ngModel)]="newUser.email"
+            />
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6">Password</label>
+          <div class="col-lg-8 fv-row">
+            <input
+              type="password"
+              class="form-control form-control-lg form-control-solid"
+              placeholder="Password"
+              name="password"
+              [(ngModel)]="newUser.password"
+            />
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            >Display name</label
+          >
+          <div class="col-lg-8 fv-row">
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid"
+              placeholder="Display name"
+              name="displayName"
+              [(ngModel)]="newUser.displayName"
+            />
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Full Name</label
+          >
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-lg-6 fv-row">
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  placeholder="First name"
+                  name="fName"
+                  [(ngModel)]="newUser.firstName"
+                />
+              </div>
+              <div class="col-lg-6 fv-row">
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid"
+                  placeholder="Last name"
+                  name="lName"
+                  [(ngModel)]="newUser.lastName"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-6">
+          <label class="col-lg-4 col-form-label required fw-bold fs-6"
+            >Select tenant</label
+          >
+          <div class="col-lg-8 fv-row">
+            <select
+              class="form-select form-select-solid form-select-lg"
+              name="tenants"
+              [(ngModel)]="newUser.tenantIdentifier"
+            >
+              <option value="">Select</option>
+              <option
+                *ngFor="let tenant of allTenants"
+                [selected]="
+                  tenant.tenantIdentifier === newUser.tenantIdentifier
+                "
+                [disabled]="newUser.setAsAdmin === true"
+                [text]="tenant.name"
+                [value]="tenant.tenantIdentifier"
+              ></option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-0">
+          <label class="col-lg-4 col-form-label fw-bold fs-6"
+            >Admin</label
+          >
+          <div class="col-lg-8 d-flex align-items-center">
+            <div class="form-check form-check-solid form-switch fv-row">
+              <input
+                class="form-check-input w-45px h-30px"
+                type="checkbox"
+                name="setAsAdmin"
+                [checked]="newUser.setAsAdmin"
+                (change)="onSetAsAdminCheck(!!newUser.setAsAdmin)"
+                [(ngModel)]="newUser.setAsAdmin"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-end py-6 px-9">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="isLoading"
+          (click)="submit()"
+        >
+          <ng-container *ngIf="!isLoading">Create</ng-container>
+          <ng-container *ngIf="isLoading">
+            <span clas="indicator-progress" [style.display]="'block'">
+              Please wait...{{ " " }}
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
+          </ng-container>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

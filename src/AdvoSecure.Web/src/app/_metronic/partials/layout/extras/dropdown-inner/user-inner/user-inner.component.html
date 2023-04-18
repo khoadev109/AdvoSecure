@@ -24,10 +24,10 @@
     <div class="menu-content d-flex align-items-center px-3">
       <div class="d-flex flex-column">
         <div class="fw-bolder d-flex align-items-center fs-5">
-          {{ user.surname }}
+          {{ profile.displayName || '' }}
         </div>
         <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">
-          {{ user.userPrincipalName }}
+          {{ profile.email || '' }}
         </a>
       </div>
     </div>

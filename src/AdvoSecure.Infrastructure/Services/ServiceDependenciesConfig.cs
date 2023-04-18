@@ -9,6 +9,8 @@ namespace AdvoSecure.Infrastructure.Services
         {
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICaseService, CaseService>();
+            services.AddScoped<IContactService, ContactService>();
 
             return services;
         }

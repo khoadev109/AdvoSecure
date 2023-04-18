@@ -27,6 +27,11 @@ const Routing: Routes = [
       import('../modules/account/account.module').then((m) => m.AccountModule),
   },
   {
+    path: 'management/contact',
+    loadChildren: () =>
+      import('../modules/contact/contact.module').then((m) => m.ContactModule),
+  },
+  {
     path: 'management/pages/wizards',
     loadChildren: () =>
       import('../modules/wizards/wizards.module').then((m) => m.WizardsModule),

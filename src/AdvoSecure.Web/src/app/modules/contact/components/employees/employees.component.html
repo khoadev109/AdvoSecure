@@ -1,0 +1,55 @@
+<div class="card mb-5 mb-xl-10">
+  <div class="card-header cursor-pointer">
+    <div class="card-title m-0">Employees</div>
+  </div>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Colleague</th>
+          <th>Profession</th>
+          <th>Place, Province</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let post of POSTS
+              | paginate
+                : {
+                    itemsPerPage: tableSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+            let i = index
+          "
+        >
+          <th scope="row">{{ post.displayName }}</th>
+          <td>{{ post.profession }}</td>
+          <td>
+            {{
+              post.address1AddressCity && post.address1AddressStateOrProvince
+                ? post.address1AddressCity +
+                  ", " +
+                  post.address1AddressStateOrProvince
+                : post.address1AddressCity
+                ? post.address1AddressCity
+                : post.address1AddressStateOrProvince
+                ? post.address1AddressStateOrProvince
+                : ""
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+      >
+      </pagination-controls>
+    </div>
+  </div>
+</div>

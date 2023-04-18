@@ -38,6 +38,7 @@ import { ListsWidget2Component } from './lists/lists-widget2/lists-widget2.compo
 import { ListsWidget5Component } from './lists/lists-widget5/lists-widget5.component';
 import { ListsWidget6Component } from './lists/lists-widget6/lists-widget6.component';
 import { ListsWidget7Component } from './lists/lists-widget7/lists-widget7.component';
+import { UsersWidgetComponent } from './lists/users-widget/users-widget.component';
 import { ChartsWidget1Component } from './charts/charts-widget1/charts-widget1.component';
 import { ChartsWidget2Component } from './charts/charts-widget2/charts-widget2.component';
 import { ChartsWidget3Component } from './charts/charts-widget3/charts-widget3.component';
@@ -114,6 +115,7 @@ import { TablesWidget14Component } from './tables/tables-widget14/tables-widget1
     ListsWidget5Component,
     ListsWidget6Component,
     ListsWidget7Component,
+    UsersWidgetComponent,
     ChartsWidget1Component,
     ChartsWidget2Component,
     ChartsWidget3Component,
@@ -196,6 +198,7 @@ import { TablesWidget14Component } from './tables/tables-widget14/tables-widget1
     ListsWidget5Component,
     ListsWidget6Component,
     ListsWidget7Component,
+    UsersWidgetComponent,
     ChartsWidget1Component,
     ChartsWidget2Component,
     ChartsWidget3Component,

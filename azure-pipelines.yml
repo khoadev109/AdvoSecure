@@ -2,18 +2,25 @@ trigger:
 - feat/new-project-structure
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: NuGetToolInstaller@1
+  displayName: 'Install NuGet >=6.3.0-0'
+  inputs:
+    versionSpec: '>=6.3.0-0'
+    checkLatest: true
+
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK'
   inputs:
     version: 7.x
     performMultiLevelLookup: true
     includePreviewVersions: false
+
 
 - task: NuGetCommand@2
   displayName: NuGet v2 Restore
@@ -70,7 +77,33 @@ steps:
     verbose: false  
     customCommand: 'run build'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+    
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'AdvoSecure'
+    artifactName: 'AdvoSecure23'
+
+#- task: Docker@2
+#  displayName: Build an image
+#  inputs:
+#    repository: $(imageName)
+#    repository: 'AdvoSecure23'
+#    command: build
+#    Dockerfile: app/AdvoSecure23Dev
+    
+#- task: ArchiveFiles@2
+#  displayName: 'Archive Files'
+#  inputs:
+#    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+#    includeRootFolder: false
+#    archiveType: zip
+#    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+#    replaceExistingArchive: true
+#- upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+#  artifact: drop

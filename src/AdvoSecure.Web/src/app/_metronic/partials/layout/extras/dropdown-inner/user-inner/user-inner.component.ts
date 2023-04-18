@@ -1,10 +1,15 @@
-import { ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
 import { AuthService, UserType } from '../../../../../../modules/auth';
-import { Profile } from 'src/app/modules/msal/models/profile.model';
-import { GraphService } from 'src/app/modules/msal/services/graph.service';
-import { MsalAuthService } from 'src/app/modules/msal/services/auth.service';
+import { AccountService } from 'src/app/modules/account/services/account.service';
+import { AppUser } from 'src/app/modules/account/models/user.model';
 
 @Component({
   selector: 'app-user-inner',
@@ -17,34 +22,37 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   language: LanguageFlag;
   // user$: Observable<UserType>;
-  user: Profile= {
-    givenName: '',
-    surname: '',
-    userPrincipalName: '',
-    id: '',
-  };
 
   langs = languages;
+
+  profile: AppUser = {
+    displayName: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    userIdentifier: ""
+  }
 
   private unsubscribe: Subscription[] = [];
 
   constructor(
-    private authService: MsalAuthService,
+    private changeDetectorRef: ChangeDetectorRef,
     private translationService: TranslationService,
-    private graphService: GraphService,
-    private changeDetectorRef: ChangeDetectorRef
+    private authService: AuthService,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
     // this.user$ = this.auth.currentUserSubject.asObservable();
-    this.setProfile();
     this.setLanguage(this.translationService.getSelectedLanguage());
+
+    this.getProfile();
   }
 
-  setProfile() {
-    this.graphService.getProfile().subscribe((profile: Profile) => {
-      this.user = profile;
-      this.changeDetectorRef.markForCheck();
+  getProfile() {
+    this.accountService.getProfile().subscribe((appUser: AppUser) => {
+      this.profile = appUser;
+      this.changeDetectorRef.detectChanges();
     });
   }
 

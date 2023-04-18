@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MsalGuard } from '@azure/msal-angular';
 import { AuthGuard } from './modules/auth/services/auth.guard';
 
 export const routes: Routes = [
-  // {
-  //   path: 'auth',
-  //   loadChildren: () =>
-  //     import('./modules/auth/auth.module').then((m) => m.AuthModule),
-  // },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
   // {
   //   path: 'error',
   //   loadChildren: () =>
@@ -16,7 +15,7 @@ export const routes: Routes = [
   // },
   {
     path: '',
-    canActivate: [MsalGuard],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./_metronic/layout/layout.module').then((m) => m.LayoutModule),
   },

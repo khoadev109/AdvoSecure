@@ -7,17 +7,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="6.0.15" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.3" />
-		<PackageReference Include="Microsoft.Identity.Web.UI" Version="1.26.0" />
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.5" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.5" />
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.18.0" />
 		<PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders.TagHelpers" Version="0.18.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
-		<PackageReference Include="Microsoft.Identity.Web" Version="1.26.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -32,7 +34,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Filters\" />
+	  <Folder Include="Areas\Application\Models\Asset\" />
+	  <Folder Include="Areas\Application\Models\Activity\" />
+	  <Folder Include="Areas\Application\Models\CRM\" />
+	  <Folder Include="Areas\Application\Models\Task\" />
+	  <Folder Include="Areas\Application\Models\Phone\" />
+	  <Folder Include="Areas\Application\Models\Notes\" />
+	  <Folder Include="Areas\Management\Models\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Authentication\Keys\advopwd-pub.pem">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Authentication\Keys\advopwd.pem">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

@@ -1,28 +1,24 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { JwtModule } from "@auth0/angular-jwt";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthService } from './modules/auth/services/auth.service';
-import { MsalConfigDynamicModule } from './modules/msal/msal.module';
 import { environment } from 'src/environments/environment';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
-import { TenantModule } from './modules/tenant/tenant.module';
+import { getAccessToken } from './modules/auth/token-helper';
+import { AuthInterceptor } from './modules/auth/services/auth.interceptor';
 // #fake-end#
 
-function appInitializer(authService: AuthService) {
-  return () => {
-    return new Promise((resolve) => {
-      authService.getUserByToken().subscribe().add(resolve);
-    });
-  };
+export function tokenGetter() {
+  return getAccessToken();
 }
 
 @NgModule({
@@ -44,16 +40,16 @@ function appInitializer(authService: AuthService) {
     AppRoutingModule,
     InlineSVGModule.forRoot(),
     NgbModule,
-    TenantModule,
-    MsalConfigDynamicModule.forRoot('assets/msal-configuration.json')
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:44397"],
+        disallowedRoutes: []
+      }
+  }),
   ],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitializer,
-      multi: true,
-      deps: [AuthService],
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

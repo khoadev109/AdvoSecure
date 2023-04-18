@@ -8,11 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AdvoSecure.Domain\AdvoSecure.Domain.csproj" />
+    <ProjectReference Include="..\AdvoSecure.Security\AdvoSecure.Security.csproj" />
   </ItemGroup>
 
 </Project>

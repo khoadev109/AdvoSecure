@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { Profile } from 'src/app/modules/msal/models/profile.model';
-import { GraphService } from 'src/app/modules/msal/services/graph.service';
+import { AccountService } from '../../../services/account.service';
+import { AppUser, AppUserProfileRequest } from '../../../models/user.model';
 
 @Component({
   selector: 'app-profile-details',
@@ -12,16 +12,17 @@ export class ProfileDetailsComponent implements OnInit {
   isLoading: boolean;
   private unsubscribe: Subscription[] = [];
 
-  public profile: Profile = {
-    givenName: '',
-    surname: '',
-    userPrincipalName: '',
-    id: '',
-  };
+  user: AppUser = {
+    displayName: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    userIdentifier: ""
+  }
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private graphService: GraphService
+    private accountService: AccountService
   ) {
     const loadingSubscr = this.isLoading$
       .asObservable()
@@ -30,24 +31,38 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProfile();
+    this.getUserProfile();
+  }
+
+  getUserProfile() {
+    this.accountService.getProfile().subscribe((appUser: AppUser) => {
+      this.user = appUser;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   saveSettings() {
     this.isLoading$.next(true);
-    this.graphService.updateProfile(this.profile).subscribe((response) => {
-      setTimeout(() => {
+
+    const request: AppUserProfileRequest = {
+      displayName: this.user.displayName,
+      email: this.user.email,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      userIdentifier: this.user.userIdentifier
+    }
+
+    try {
+      this.accountService.updateProfile(request).subscribe((appUser: AppUser) => {
+        this.user = appUser;
+
         this.isLoading$.next(false);
         this.changeDetectorRef.detectChanges();
-      }, 1500);
-    });
-  }
-
-  getProfile() {
-    this.graphService.getProfile().subscribe((profile: Profile) => {
-      this.profile = profile;
-      this.changeDetectorRef.markForCheck();
-    });
+      });
+    } catch (error) {
+      console.log('Save profile error', error);
+      this.isLoading$.next(false);
+    }
   }
 
   ngOnDestroy() {

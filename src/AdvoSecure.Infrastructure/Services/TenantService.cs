@@ -2,11 +2,8 @@
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Infrastructure.Persistance;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace AdvoSecure.Infrastructure.Services
 {
@@ -14,68 +11,86 @@ namespace AdvoSecure.Infrastructure.Services
     {
         private readonly ITenantRepository _tenantRepository;
         private readonly IMapper _mapper;
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
 
-        public TenantService(ITenantRepository tenantRepository, IMapper mapper, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public TenantService(ITenantRepository tenantRepository, IMapper mapper, IConfiguration configuration)
         {
             _tenantRepository = tenantRepository;
             _mapper = mapper;
-            _httpClientFactory = httpClientFactory;
             _configuration = configuration;
         }
 
-        public async Task<TenantDto> CreateTenantFromTenantBase(OrgInitializationRequestDto orgRequestDto)
+        public async Task<TenantSettingDto> GetCurrentTenant(Guid identifier, Guid adminIdentifier)
         {
-            bool isTenantExisted = await _tenantRepository.CheckTenantExisted(orgRequestDto.AzureTenantId);
-            if (isTenantExisted)
-            {
-                return new TenantDto();
-            }
+            TenantSetting tenant = await _tenantRepository.GetAsync(identifier);
 
-            var tenantBaseDto = await GetTenantFromTenantBase(orgRequestDto.AzureTenantId);
+            TenantSettingDto dto = _mapper.Map<TenantSettingDto>(tenant);
 
-            if (tenantBaseDto == null)
-            {
-                return new TenantDto();
-            }
-
-            Tenant createdTenant = await _tenantRepository.Create(tenantBaseDto, orgRequestDto.AzureIdentityId);
-
-            TenantDto createdTenantDto = _mapper.Map<TenantDto>(createdTenant);
-
-            return createdTenantDto;
+            return dto;
         }
 
-        private async Task<TenantDto> GetTenantFromTenantBase(string azureTenantId)
+        public async Task<TenantSettingDto> GetTenantAdminByUserIdentifier(Guid userIdentifier)
         {
-            var httpClient = _httpClientFactory.CreateClient("TenantApi");
+            TenantSetting tenant = await _tenantRepository.GetByUserIdentifierAsync(userIdentifier);
 
-            var getByTenantIdApiUrl = $"{_configuration["Tenant:TenantApiUrl"]}/{_configuration["Tenant:ByTenantId"]}/{azureTenantId}";
+            if (tenant.AdminId.HasValue)
+            {
+                return null;
+            }
 
-            HttpResponseMessage response = await httpClient.GetAsync(getByTenantIdApiUrl);
+            TenantSettingDto dto = _mapper.Map<TenantSettingDto>(tenant);
 
-            response.EnsureSuccessStatusCode();
-
-            var contentStream = await response.Content.ReadAsStreamAsync();
-
-            using var streamReader = new StreamReader(contentStream);
-            using var jsonReader = new JsonTextReader(streamReader);
-
-            JsonSerializer serializer = new();
-
-            var tenantFromTenantBase = serializer.Deserialize<TenantDto>(jsonReader);
-
-            return tenantFromTenantBase;
+            return dto;
         }
 
-        public async Task<TenantDto> GetTenant()
+        public async Task<TenantSettingDto> GetTenantByUserIdentifier(Guid userIdentifier)
         {
-            Tenant tenant = await _tenantRepository.Get();
+            TenantSetting tenant = await _tenantRepository.GetByUserIdentifierAsync(userIdentifier);
 
-            TenantDto tenantDto = _mapper.Map<TenantDto>(tenant);
+            if (!tenant.AdminId.HasValue)
+            {
+                return null;
+            }
 
-            return tenantDto;
+            TenantSettingDto dto = _mapper.Map<TenantSettingDto>(tenant);
+
+            return dto;
+        }
+
+        public async Task<TenantSettingDto> GetTenantById(int id)
+        {
+            TenantSetting tenant = await _tenantRepository.GetByIdAsync(id);
+
+            TenantSettingDto dto = _mapper.Map<TenantSettingDto>(tenant);
+
+            return dto;
+        }
+
+        public async Task<TenantSettingDto> GetTenantAdmin(Guid adminIdentifier)
+        {
+            TenantSetting tenant = await _tenantRepository.GetAdminAsync(adminIdentifier);
+
+            TenantSettingDto dto = _mapper.Map<TenantSettingDto>(tenant);
+
+            return dto;
+        }
+
+        public async Task<TenantSettingDto> GetTenantAdmin(int id)
+        {
+            TenantSetting tenant = await _tenantRepository.GetAdminAsync(id);
+
+            TenantSettingDto dto = _mapper.Map<TenantSettingDto>(tenant);
+
+            return dto;
+        }
+
+        public IEnumerable<TenantSettingDto> GetAllTenants()
+        {
+            IEnumerable<TenantSetting> tenants = _tenantRepository.GetAllTenants();
+
+            IEnumerable<TenantSettingDto> tenantDtos = _mapper.Map<IEnumerable<TenantSettingDto>>(tenants);
+
+            return tenantDtos;
         }
     }
 }

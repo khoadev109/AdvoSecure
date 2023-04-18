@@ -1,52 +1,38 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace AdvoSecure.Infrastructure.Swagger
 {
-	public static class SwaggerConfig
+    public static class SwaggerConfig
 	{
-		public static IServiceCollection ConfigureSwaggerApi(this IServiceCollection services, IConfiguration configuration)
+		public static IServiceCollection AddSwagger(this IServiceCollection services)
 		{
 			services.AddSwaggerGen(options =>
 			{
-				var authUrl = configuration["AzureAd:AuthorizationUrl"];
-				var tokenUrl = configuration["AzureAd:TokenUrl"];
-				//var scope = configuration["AzureAd:Scope"];
-				options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-				{
-					Type = SecuritySchemeType.OAuth2,
-					Flows = new OpenApiOAuthFlows
-					{
-						Implicit = new OpenApiOAuthFlow
-						{
-							AuthorizationUrl = new Uri(authUrl),
-							TokenUrl = new Uri(tokenUrl),
-							Scopes = new Dictionary<string, string>
-								{
-									//{ scope, scope },
-									{ "openid", "openid" },
-									{ "email", "email" },
-									{ "profile", "profile" }
-								}
-						}
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "AdvoSecure API", Version = "v1" });
 
-					}
-				});
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Enter token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
 
-				options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
 				{
 					{
 						new OpenApiSecurityScheme
 						{
+							Name = "Bearer",
+							In = ParameterLocation.Header,
 							Reference = new OpenApiReference
 							{
-								Type = ReferenceType.SecurityScheme,
-								Id = "oauth2"
-							},
-							Scheme = "oauth2",
-							Name = "oauth2",
-							In = ParameterLocation.Header
+								Id = "Bearer",
+								Type = ReferenceType.SecurityScheme
+							}
 						},
 						new List<string>()
 					}

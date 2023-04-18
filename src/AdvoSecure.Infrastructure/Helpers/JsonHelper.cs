@@ -10,11 +10,9 @@ namespace AdvoSecure.Infrastructure.Helpers
 
         public JsonHelper(string path)
         {
-            var pathHelper = new PathHelper();
+            _path = PathHelper.Get(path);
 
-            _path = pathHelper.Get(path);
-
-            pathHelper.Ensure(_path);
+            PathHelper.Ensure(_path);
         }
         
         public T Read<T>() where T: class
