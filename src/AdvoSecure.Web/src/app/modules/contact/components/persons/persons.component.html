@@ -1,0 +1,128 @@
+<div class="d-flex flex-wrap flex-stack mb-6">
+  <h3 class="fw-bolder my-2">Persons</h3>
+
+  <div class="d-flex my-2">
+    <div class="d-flex align-items-center position-relative me-4">
+      <span
+        [inlineSVG]="'./assets/media/icons/duotune/general/gen021.svg'"
+        class="svg-icon svg-icon-3 position-absolute ms-3"
+      ></span>
+      <input
+        type="text"
+        class="form-control form-control-white form-control-sm w-150px ps-9"
+        placeholder="Name"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+      />
+    </div>
+
+    <a class="btn btn-sm btn-light me-2 cursor-pointer" (click)="search()">
+      <span class="indicator-label">Find</span>
+    </a>
+  </div>
+</div>
+
+<div class="card card-xxl-stretch mb-5 mb-xl-8">
+  <!-- begin::Header -->
+  <div class="card-header border-0 pt-5 justify-content-end">
+    <div
+      class="card-toolbar"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      data-bs-trigger="hover"
+      title="Click to add a person"
+    >
+      <a href="#" class="btn btn-sm btn-light-primary">
+        <span
+          [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+          class="svg-icon svg-icon-3"
+        ></span>
+        New Person
+      </a>
+    </div>
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted">
+            <th class="min-w-150px">Name</th>
+            <th class="min-w-120px">City, Province</th>
+            <th class="min-w-100px"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr
+            *ngFor="
+              let post of POSTS
+                | paginate
+                  : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="symbol symbol-45px me-5">
+                  <img src="./assets/media/avatars/blank.png" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-column">
+                  <a href="#" class="text-dark fw-bolder fs-6">
+                    {{ post.displayName }}
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6">
+                {{
+                  post.address1AddressCity &&
+                  post.address1AddressStateOrProvince
+                    ? post.address1AddressCity +
+                      ", " +
+                      post.address1AddressStateOrProvince
+                    : post.address1AddressCity
+                    ? post.address1AddressCity
+                    : post.address1AddressStateOrProvince
+                    ? post.address1AddressStateOrProvince
+                    : ""
+                }}
+              </div>
+            </td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-light cursor-pointer">
+                <span class="indicator-label">Conflicts</span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+
+  <!-- paging -->
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>

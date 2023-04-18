@@ -19,7 +19,7 @@ export class UsersWidgetComponent implements OnInit {
   }
 
   getEmployees() {
-    this.contactService.getAllEmployees().subscribe((employees: Contact[]) => {
+    this.contactService.getEmployees().subscribe((employees: Contact[]) => {
       this.employees = employees;
       this.cdr.detectChanges();
     });

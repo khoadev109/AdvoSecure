@@ -7,6 +7,6 @@ namespace AdvoSecure.Application.Interfaces.Repositories
     {
         Task<IEnumerable<Country>> GetAllCountriesAsync();
 
-        IQueryable<Contact> GetAllEmployees();
+        IQueryable<Contact> GetContacts(string searchTerm);
     }
 }

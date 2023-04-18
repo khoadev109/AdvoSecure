@@ -1,7 +1,6 @@
 ﻿using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
-using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Infrastructure.Persistance;
 using AdvoSecure.Infrastructure.Persistance.App;

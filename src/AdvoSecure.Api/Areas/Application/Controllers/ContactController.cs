@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
 {
+    [HasPermission(Permission.AsAppUser)]
     [Route("api/[controller]")]
     [ApiController]
     public class ContactController : ControllerBase
@@ -20,7 +21,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             _userService = userService;
         }
 
-        [HasPermission(Permission.AsAppUser)]
         [HttpGet("Countries")]
         public async Task<IActionResult> GetAll()
         {
@@ -33,17 +33,40 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             return Ok(new { Countries });
         }
 
-        [HasPermission(Permission.AsAppUser)]
-        [HttpGet("employees")]
-        public async Task<IActionResult> GetAllEmployees()
+        [HttpGet("contacts")]
+        public async Task<IActionResult> GetContacts(string searchTerm)
         {
             var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
 
             await _userService.SetAppUserConnectionString(userNameClaim);
 
-            IEnumerable<ContactDto> employees = await _contactService.GetAllEmployeesAsync();
+            IEnumerable<ContactDto> contacts = await _contactService.GetContactsAsync(searchTerm);
+
+            return Ok(contacts);
+        }
+
+        [HttpGet("employees")]
+        public async Task<IActionResult> GetEmployees(string searchTerm)
+        {
+            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
+
+            await _userService.SetAppUserConnectionString(userNameClaim);
+
+            IEnumerable<ContactDto> employees = await _contactService.GetEmployeesAsync(searchTerm);
 
             return Ok(employees);
+        }
+
+        [HttpGet("persons")]
+        public async Task<IActionResult> GetPersons(string searchTerm)
+        {
+            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
+
+            await _userService.SetAppUserConnectionString(userNameClaim);
+
+            IEnumerable<ContactDto> persons = await _contactService.GetPersonsAsync(searchTerm);
+
+            return Ok(persons);
         }
     }
 }

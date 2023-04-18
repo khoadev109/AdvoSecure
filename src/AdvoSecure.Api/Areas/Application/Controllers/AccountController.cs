@@ -200,6 +200,8 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
+            // Update TenantUser password (AdvoSecure.Infrastructure.Persistance.Management.Repositories/UserRepository)
+
             var response = new ForgotPasswordMessage
             {
                 ResetToken = token,

@@ -13,7 +13,25 @@ export class ContactService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllEmployees() : Observable<Contact[]> {
-    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/employees");
+  getContacts(displayName?: string | null) : Observable<Contact[]> {
+    displayName = this.getEmptySearchTerm(displayName);
+
+    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/contacts?searchTerm=" + displayName);
+  }
+
+  getEmployees(displayName?: string | null) : Observable<Contact[]> {
+    displayName = this.getEmptySearchTerm(displayName);
+
+    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/employees?searchTerm=" + displayName || "");
+  }
+
+  getPersons(displayName?: string | null) : Observable<Contact[]> {
+    displayName = this.getEmptySearchTerm(displayName);
+
+    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/persons?searchTerm=" + displayName || "");
+  }
+
+  private getEmptySearchTerm(searchTerm?: string | null) {
+    return searchTerm ? searchTerm : "";
   }
 }

@@ -278,6 +278,21 @@ namespace AdvoSecure.Infrastructure.Persistance
 
         public static async Task SeedAsAppTables(ApplicationDbContext context)
         {
+            await SeedContactIdTypes(context);
+
+            await SeedContactCivilStatuses(context);
+
+            await context.SaveChangesAsync();
+
+            await SeedEmployees(context);
+
+            await SeedPersons(context);
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task SeedContactIdTypes(ApplicationDbContext context)
+        {
             if (!context.ContactIdTypes.Any())
             {
                 await context.ContactIdTypes.AddRangeAsync(
@@ -343,7 +358,10 @@ namespace AdvoSecure.Infrastructure.Persistance
                     }
                 );
             }
+        }
 
+        public static async Task SeedContactCivilStatuses(ApplicationDbContext context)
+        {
             if (!context.ContactCivilStatuses.Any())
             {
                 await context.ContactCivilStatuses.AddRangeAsync(
@@ -384,10 +402,11 @@ namespace AdvoSecure.Infrastructure.Persistance
                     }
                 );
             }
+        }
 
-            await context.SaveChangesAsync();
-
-            if (!context.Contacts.Any())
+        public static async Task SeedEmployees(ApplicationDbContext context)
+        {
+            if (!context.Contacts.Any(x => x.IsOurEmployee))
             {
                 await context.Contacts.AddRangeAsync(
                     new Contact
@@ -400,7 +419,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "A. ",
                         DisplayName = "Arjen Smit",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1980, 12, 20),
                         Address1AddressStreet = "Beurspoortje",
                         Address1AddressHouseNo = "174",
@@ -428,7 +447,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "L.",
                         DisplayName = "Levi de Ruiter",
-                        //CivilStatusId = 4,
+                        CivilStatusId = 4,
                         Birthday = new DateTime(1922, 11, 26),
                         Address1AddressStreet = "Aalscholverweg",
                         Address1AddressHouseNo = "362",
@@ -456,7 +475,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "C.",
                         DisplayName = "Cees Koning",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1968, 03, 27),
                         Address1AddressStreet = "Dam",
                         Address1AddressHouseNo = "128",
@@ -484,7 +503,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "K.",
                         DisplayName = "Kevin van der Berg",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(2001, 05, 16),
                         Address1AddressStreet = "Haarlemmerplein",
                         Address1AddressHouseNo = "227",
@@ -512,7 +531,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "L.",
                         DisplayName = "Luuk Bosman",
-                        //CivilStatusId = 2,
+                        CivilStatusId = 2,
                         Birthday = new DateTime(1963, 06, 25),
                         Address1AddressStreet = "Galgenstraat",
                         Address1AddressHouseNo = "65",
@@ -540,7 +559,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "S.",
                         DisplayName = "Sam Driessen",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1971, 02, 21),
                         Address1AddressStreet = "Nieuwstraat ",
                         Address1AddressHouseNo = "94",
@@ -568,7 +587,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw ",
                         Initials = "L.",
                         DisplayName = "Lisa van Veen",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1989, 07, 31),
                         Address1AddressStreet = "Adriaan Pauwstraat",
                         Address1AddressHouseNo = "169",
@@ -596,7 +615,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw ",
                         Initials = "I.",
                         DisplayName = "Indy van de Wetering",
-                        //CivilStatusId = 7,
+                        CivilStatusId = 7,
                         Birthday = new DateTime(1968, 2, 26),
                         Address1AddressStreet = "Damrak oneven",
                         Address1AddressHouseNo = "104",
@@ -624,7 +643,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw ",
                         Initials = "I.",
                         DisplayName = "Ilse van der Velde",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1997, 2, 25),
                         Address1AddressStreet = "Schoterweg",
                         Address1AddressHouseNo = "229",
@@ -652,7 +671,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw ",
                         Initials = "S.",
                         DisplayName = "Sterre van der Veen",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1997, 3, 5),
                         Address1AddressStreet = "Dollebegijnensteeg",
                         Address1AddressHouseNo = "95",
@@ -680,7 +699,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "J.",
                         DisplayName = "Jelle Peters",
-                        //CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1950, 6, 1),
                         Address1AddressStreet = "Haarlemmerdijk",
                         Address1AddressHouseNo = "270",
@@ -724,7 +743,16 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Email1DisplayName = "Elisabeth Elzinga",
                         Email1EmailAddress = "test.E.Elzinga@gmail.com",
                         CreatedBy = "TOAA"
-                    },
+                    }
+                );
+            }
+        }
+
+        public static async Task SeedPersons(ApplicationDbContext context)
+        {
+            if (!context.Contacts.Any(x => !x.IsOurEmployee))
+            {
+                await context.Contacts.AddRangeAsync(
                     new Contact
                     {
                         IsOurEmployee = false,
@@ -735,7 +763,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "E.",
                         DisplayName = "Elisabeth van Dam",
-                        // CivilStatusId = 2,
+                        CivilStatusId = 2,
                         Birthday = new DateTime(1963, 11, 27),
                         Address1AddressStreet = "Herenweg",
                         Address1AddressHouseNo = "195",
@@ -763,7 +791,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "I.",
                         DisplayName = "Isa Huisman",
-                        // CivilStatusId = 7,
+                        CivilStatusId = 7,
                         Birthday = new DateTime(1988, 06, 19),
                         Address1AddressStreet = "Houtmankade",
                         Address1AddressHouseNo = "118",
@@ -791,7 +819,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "L.",
                         DisplayName = "Luuk Smit",
-                        // CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1934, 12, 24),
                         Address1AddressStreet = "Bloedstraat",
                         Address1AddressHouseNo = "141",
@@ -819,7 +847,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "T.",
                         DisplayName = "Tessa Driessen",
-                        // CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1998, 02, 04),
                         Address1AddressStreet = "Kiel",
                         Address1AddressHouseNo = "150",
@@ -847,7 +875,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "A.",
                         DisplayName = "Anna Wolters",
-                        // CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1968, 07, 03),
                         Address1AddressStreet = "Bloedstraat",
                         Address1AddressHouseNo = "105",
@@ -865,7 +893,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Email1EmailAddress = "test.A.Wolters@hotmail.nl",
                         CreatedBy = "TOAA"
                     },
-                     new Contact
+                    new Contact
                     {
                         IsOurEmployee = false,
                         Surname = "van der Wal",
@@ -875,7 +903,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "L.",
                         DisplayName = "Lucas van der Wal",
-                        // CivilStatusId = 2,
+                        CivilStatusId = 2,
                         Birthday = new DateTime(2005, 10, 25),
                         Address1AddressStreet = "Lijsterbes",
                         Address1AddressHouseNo = "239",
@@ -903,7 +931,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "A.",
                         DisplayName = "Amber Willems",
-                        // CivilStatusId = 2,
+                        CivilStatusId = 2,
                         Birthday = new DateTime(1951, 04, 18),
                         Address1AddressStreet = "Bloedstraat",
                         Address1AddressHouseNo = "219",
@@ -931,7 +959,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "A.",
                         DisplayName = "Anne Willems",
-                        // CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(1946, 01, 12),
                         Address1AddressStreet = "Eksterweg",
                         Address1AddressHouseNo = "162",
@@ -959,7 +987,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "Mevrouw",
                         Initials = "M.",
                         DisplayName = "Maureen van de Pol",
-                        // CivilStatusId = 3,
+                        CivilStatusId = 3,
                         Birthday = new DateTime(2007, 05, 04),
                         Address1AddressStreet = "Eksterweg",
                         Address1AddressHouseNo = "18",
@@ -987,7 +1015,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Title = "De heer ",
                         Initials = "R.",
                         DisplayName = "Robin Schuitemaker",
-                        // CivilStatusId = 2,
+                        CivilStatusId = 2,
                         Birthday = new DateTime(1922, 12, 11),
                         Address1AddressStreet = "Kastanjelaan",
                         Address1AddressHouseNo = "118",
@@ -1004,11 +1032,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Email1DisplayName = "Robin Schuitemaker",
                         Email1EmailAddress = "test.R.Schuitemaker@hotmail.com",
                         CreatedBy = "TOAA"
-                    }
-                );
+                    });
             }
-
-            await context.SaveChangesAsync();
         }
     }
 }

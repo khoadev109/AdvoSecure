@@ -9,6 +9,6 @@ namespace AdvoSecure.Domain.Entities.BillingEntities
 
         public decimal PricePerUnit { get; set; }
 
-        //public ICollection<Contact> Contacts { get; set; }
+        public IList<Contact> Contacts { get; set; } = new List<Contact>();
     }
 }
