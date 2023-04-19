@@ -139,7 +139,7 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
             TenantUserDto userExists = await _userService.FindByEmailAsync(request.Email);
             if (userExists != null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new RegisterResponse { Success = false, Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status200OK, new RegisterResponse { Success = false, Message = "User already exists!" });
             }
 
             TenantUserDto result = await _userService.RegisterUserAsync(request);

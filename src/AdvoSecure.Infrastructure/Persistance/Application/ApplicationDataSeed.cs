@@ -995,7 +995,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         Address1AddressLine2 = "",
                         Address1AddressPostalCode = "9162 YQ",
                         Address1AddressCity = "Ameland",
-                        Address1AddressStateOrProvince = "Friesland",
+                        Address1AddressStateOrProvince = "Friesland", 
                         Address1AddressCountryCode = "nld",
                         Address1AddressCountry = "Nederland",
                         Telephone1DisplayName = "Robin Schuitemaker",

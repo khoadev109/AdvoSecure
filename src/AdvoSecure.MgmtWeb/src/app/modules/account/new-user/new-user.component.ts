@@ -16,6 +16,7 @@ import { Tenant } from '../models/tenant.model';
 export class NewUserComponent implements OnInit {
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;
+  emailTaken: string;
   private unsubscribe: Subscription[] = [];
 
   newUser: RegisterUserRequest = {
@@ -66,17 +67,21 @@ export class NewUserComponent implements OnInit {
         .registerUser(this.newUser)
         .subscribe((response: RegisterUserResponse) => {
           if (response.success) {
+            console.log('response.success', response.success);
             this.isLoading = false;
             this.changeDetectorRef.detectChanges();
-
             setTimeout(() => {
               this.router.navigate(['management/account/users']);
             }, 1000);
+          } else {
+            this.emailTaken = response.message;
+            this.changeDetectorRef.detectChanges();
+            console.log('msg', response.message);
           }
         });
     } catch (error) {
-      this.isLoading = false;
       console.log('register user', error);
+      this.isLoading = false;
       this.changeDetectorRef.detectChanges();
     }
   }
