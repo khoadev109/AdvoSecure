@@ -13,6 +13,8 @@ export class EmployeesComponent implements OnInit {
   tableSize: number = 7;
   tableSizes: any = [3, 6, 9, 12];
 
+  searchTerm: string;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private contactService: ContactService
@@ -23,10 +25,16 @@ export class EmployeesComponent implements OnInit {
   }
 
   fetchEmployees() {
-    this.contactService.getAllEmployees().subscribe((employees: Contact[]) => {
-      this.POSTS = employees;
-      this.changeDetectorRef.detectChanges();
-    });
+    this.contactService
+      .getEmployees(this.searchTerm)
+      .subscribe((employees: Contact[]) => {
+        this.POSTS = employees;
+        this.changeDetectorRef.detectChanges();
+      });
+  }
+
+  search() {
+    this.fetchEmployees();
   }
 
   onTableDataChange(event: any) {

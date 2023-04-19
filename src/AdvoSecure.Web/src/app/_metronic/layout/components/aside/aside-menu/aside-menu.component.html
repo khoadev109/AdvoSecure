@@ -244,9 +244,9 @@
       <a
         class="menu-link without-sub"
         routerLinkActive="active"
-        routerLink="/management/contact/persons"
+        routerLink="/management/contact/list"
         ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
-        ><span class="menu-title">Personal</span></a
+        ><span class="menu-title">All</span></a
       >
       <a
         class="menu-link without-sub"
@@ -254,6 +254,13 @@
         routerLink="/management/contact/employees"
         ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
         ><span class="menu-title">Employees</span></a
+      >
+      <a
+        class="menu-link without-sub"
+        routerLinkActive="active"
+        routerLink="/management/contact/persons"
+        ><span class="menu-bullet"><span class="bullet bullet-dot"></span></span
+        ><span class="menu-title">Personal</span></a
       >
     </div>
   </div>
@@ -278,8 +285,8 @@
         class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/general/gen010.svg'"
       ></span></span
-    ><span class="menu-title" data-link="/management/taken">Taken</span
-    ></span>
+    ><span class="menu-title" data-link="/management/taken">Taken</span></span
+  >
 </div>
 
 <!-- Separator -->
@@ -301,8 +308,8 @@
         class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/general/gen014.svg'"
       ></span></span
-    ><span class="menu-title" data-link="/management/agenda">Agenda</span
-    ></span>
+    ><span class="menu-title" data-link="/management/agenda">Agenda</span></span
+  >
 </div>
 
 <!-- Separator -->
@@ -324,8 +331,7 @@
         class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/communication/com010.svg'"
       ></span></span
-    ><span class="menu-title" data-link="/management/email">Email</span
-    >
+    ><span class="menu-title" data-link="/management/email">Email</span>
   </span>
 </div>
 
@@ -383,8 +389,10 @@
         class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/abstract/abs021.svg'"
       ></span></span
-    ><span class="menu-title" data-link="/management/opportunities">Opportunities</span
-    ></span>
+    ><span class="menu-title" data-link="/management/opportunities"
+      >Opportunities</span
+    ></span
+  >
 </div>
 
 <!-- Separator -->
@@ -406,8 +414,8 @@
         class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/general/gen013.svg'"
       ></span></span
-    ><span class="menu-title" data-link="/management/clock">Clock</span
-    ></span>
+    ><span class="menu-title" data-link="/management/clock">Clock</span></span
+  >
 </div>
 
 <!-- Separator -->
@@ -429,6 +437,8 @@
         class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/finance/fin003.svg'"
       ></span></span
-    ><span class="menu-title" data-link="/management/administration">Administration</span
-    ></span>
+    ><span class="menu-title" data-link="/management/administration"
+      >Administration</span
+    ></span
+  >
 </div>

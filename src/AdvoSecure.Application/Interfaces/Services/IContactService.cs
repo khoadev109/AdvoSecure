@@ -7,6 +7,10 @@ namespace AdvoSecure.Application.Interfaces.Services
     {
         Task<IEnumerable<CountryDto>> GetAllCountriesAsync();
 
-        Task<IEnumerable<ContactDto>> GetAllEmployeesAsync();
+        Task<IEnumerable<ContactDto>> GetContactsAsync(string searchTerm);
+
+        Task<IEnumerable<ContactDto>> GetEmployeesAsync(string searchTerm);
+
+        Task<IEnumerable<ContactDto>> GetPersonsAsync(string searchTerm);
     }
 }

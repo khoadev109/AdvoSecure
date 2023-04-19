@@ -6,6 +6,6 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
     {
         public string Title { get; set; }
 
-        //public ICollection<Contact> Contacts { get; set; }
+        public IList<Contact> Contacts { get; set; } = new List<Contact>();
     }
 }

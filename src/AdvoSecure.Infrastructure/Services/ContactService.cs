@@ -29,9 +29,27 @@ namespace AdvoSecure.Infrastructure.Services
             return countryDtos;
         }
 
-        public async Task<IEnumerable<ContactDto>> GetAllEmployeesAsync()
+        public async Task<IEnumerable<ContactDto>> GetContactsAsync(string searchTerm)
         {
-            IList<Contact> contacts = await _contactRepository.GetAllEmployees().ToListAsync();
+            IList<Contact> contacts = await _contactRepository.GetContacts(searchTerm).OrderBy(x => x.DisplayName).ToListAsync();
+
+            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(contacts);
+
+            return contactDtos;
+        }
+
+        public async Task<IEnumerable<ContactDto>> GetEmployeesAsync(string searchTerm)
+        {
+            IList<Contact> contacts = await _contactRepository.GetContacts(searchTerm).Where(c => c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
+
+            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(contacts);
+
+            return contactDtos;
+        }
+
+        public async Task<IEnumerable<ContactDto>> GetPersonsAsync(string searchTerm)
+        {
+            IList<Contact> contacts = await _contactRepository.GetContacts(searchTerm).Where(c => !c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
 
             IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(contacts);
 

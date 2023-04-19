@@ -20,9 +20,14 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
             return Countries;
         }
 
-        public IQueryable<Contact> GetAllEmployees()
+        public IQueryable<Contact> GetContacts(string searchTerm)
         {
-            IQueryable<Contact> contacts = _dbContext.Contacts.Where(c => c.IsOurEmployee).OrderBy(c => c.DisplayName).AsQueryable();
+            IQueryable<Contact> contacts = _dbContext.Contacts;
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                contacts = contacts.Where(c => !string.IsNullOrWhiteSpace(searchTerm) && c.DisplayName.Contains(searchTerm));
+            }
 
             return contacts;
         }

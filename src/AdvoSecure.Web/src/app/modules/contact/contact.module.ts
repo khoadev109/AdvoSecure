@@ -2,6 +2,7 @@ import { NgModule  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxTablePaginationModule } from 'ngx-table-pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ContactRoutingModule } from './contact-routing.module';
@@ -28,6 +29,7 @@ import { PersonsComponent } from './components/persons/persons.component';
     FormsModule,
     NgxTablePaginationModule,
     NgxPaginationModule,
+    InlineSVGModule
   ],
 })
 export class ContactModule {}

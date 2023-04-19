@@ -1032,7 +1032,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
 
         public int? BillingRateId { get; set; }
 
-        //public BillingRate BillingRate { get; set; }
+        public BillingRate BillingRate { get; set; }
 
         /// <summary>
         /// Gets or sets the civilstatus / burgelijkestaat of this contact.
@@ -1043,10 +1043,10 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// <author>GJD</author>
         public int? CivilStatusId { get; set; }
 
-        //public ContactCivilStatus CivilStatus { get; set; }
+        public ContactCivilStatus CivilStatus { get; set; }
 
         public int? IdTypeId { get; set; }
 
-        //public ContactIdType IdType { get; set; }
+        public ContactIdType IdType { get; set; }
     }
 }
