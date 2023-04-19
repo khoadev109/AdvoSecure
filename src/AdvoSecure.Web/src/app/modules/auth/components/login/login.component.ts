@@ -78,7 +78,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     try {
       const rsa = forge.pki.publicKeyFromPem(pwdEncryptPublicKey);
       const encryptedPassword = window.btoa(rsa.encrypt(this.f.password.value));
-
       this.authService
         .login(this.f.email.value, encryptedPassword)
         .subscribe((response: TokenResponse) => {

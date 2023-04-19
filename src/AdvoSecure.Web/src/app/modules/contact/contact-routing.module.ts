@@ -32,6 +32,10 @@ const routes: Routes = [
         path: 'employees',
         component: EmployeesComponent,
       },
+      {
+        path: 'edit',
+        component: ContactDetailsComponent,
+      },
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: '**', redirectTo: 'list', pathMatch: 'full' },
     ],
