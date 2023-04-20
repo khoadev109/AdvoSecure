@@ -1,256 +1,353 @@
-<div class="card mb-5 mb-xl-10">
-  <div
-    class="card-header border-0 cursor-pointer"
-    role="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#kt_account_contact_details"
-    aria-expanded="true"
-    aria-controls="kt_account_contact_details"
-  >
-    <div class="card-title m-0">
-      <h3 class="fw-bolder m-0">Contact Details</h3>
-    </div>
-  </div>
-  <div id="kt_account_contact_details" class="collapse show">
-    <form novalidate="" class="form">
-      <div class="card-body borqr-top p-9">
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6">Avatar</label>
-          <div class="col-lg-8">
-            <div
-              class="image-input image-input-outline"
-              data-kt-image-input="true"
-              [style.background-image]="'url(./assets/media/avatars/blank.png)'"
-            >
-              <div
-                class="image-input-wrapper w-125px h-125px"
-                [style.background-image]="
-                  'url(./assets/media/avatars/150-2.jpg)'
-                "
-              ></div>
-
-              <input
-                class="form-control form-control-lg form-control-solid mt-3"
-                id="file-upload"
-                type="file"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-6">
-          <label class="col-lg-4 required fw-bold fs-6">Full Name</label>
-          <div class="col-lg-8">
-            <div class="row">
-              <div class="col-lg-6 fv-row">
-                <input
-                  type="text"
-                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                  placeholder="First name"
-                  name="fName"
-                  value="Arjen "
-                />
-              </div>
-              <div class="col-lg-6 fv-row">
-                <input
-                  type="text"
-                  class="form-control form-control-lg form-control-solid"
-                  placeholder="Last name"
-                  name="lName"
-                  value="Smith"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6">Email</label>
-          <div class="col-lg-8 fv-row">
-            <input
-              type="text"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Company name"
-              name="company"
-              value="test.A.Smit@gmail.com"
-            />
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Telephone</span></label
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="d-flex justify-content-end">
+          <button
+            type="button"
+            class="btn btn-primary mr-2"
+            style="margin-right: 10px"
           >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="tel"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Telephone"
-              name="telephone"
-              value="06-99830049"
-            />
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Mobile Phone</span></label
+            Overview
+          </button>
+          <button
+            (click)="onUploadImage()"
+            type="button"
+            class="btn btn-secondary ml-2"
           >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="tel"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Mobile phone"
-              name="mobilephone"
-              value=""
-            />
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"><span class="">Fax</span></label>
-          <div class="col-lg-8 fv-row">
-            <input
-              type="tel"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Fax"
-              name="fax"
-              value=""
-            />
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Organization name </span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="text"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Organization name"
-              name="organizationName"
-              value=""
-            />
-          </div>
-        </div>
-
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Gender</span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <select
-              class="form-select form-select-solid form-select-lg fw-bold"
-              name="country"
-            >
-              <option value="">Select Gender</option>
-              <option value="AF">Male</option>
-              <option value="AF">Female</option>
-            </select>
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6">Language</label>
-          <div class="col-lg-8 fv-row">
-            <select
-              class="form-select form-select-solid form-select-lg"
-              name="language"
-            >
-              <option value="">Select a Language</option>
-              <option value="id">Bahasa Indonesia - Indonesian</option>
-              <option value="msa">Bahasa Melayu - Malay</option>
-              <option value="ca">Català - Catalan</option>
-              <option value="cs">Čeština - Czech</option>
-              <option value="da">Dansk - Danish</option>
-              <option value="de">Deutsch - German</option>
-              <option value="en">English</option>
-              <option value="en-gb">English UK - British English</option>
-              <option value="es">Español - Spanish</option>
-              <option value="fil">Filipino</option>
-              <option value="fr">Français - French</option>
-              <option value="ga">Gaeilge - Irish (beta)</option>
-              <option value="gl">Galego - Galician (beta)</option>
-              <option value="hr">Hrvatski - Croatian</option>
-              <option value="it">Italiano - Italian</option>
-              <option value="hu">Magyar - Hungarian</option>
-              <option value="nl">Nederlands - Dutch</option>
-              <option value="no">Norsk - Norwegian</option>
-              <option value="pl">Polski - Polish</option>
-              <option value="pt">Português - Portuguese</option>
-              <option value="ro">Română - Romanian</option>
-              <option value="sk">Slovenčina - Slovak</option>
-              <option value="fi">Suomi - Finnish</option>
-              <option value="sv">Svenska - Swedish</option>
-              <option value="vi">Tiếng Việt - Vietnamese</option>
-              <option value="tr">Türkçe - Turkish</option>
-              <option value="el">Ελληνικά - Greek</option>
-              <option value="bg">Български език - Bulgarian</option>
-              <option value="ru">Русский - Russian</option>
-              <option value="sr">Српски - Serbian</option>
-              <option value="uk">Українська мова - Ukrainian</option>
-              <option value="he">עִבְרִית - Hebrew</option>
-              <option value="ur">اردو - Urdu (beta)</option>
-              <option value="ar">العربية - Arabic</option>
-              <option value="fa">فارسی - Persian</option>
-              <option value="mr">मराठी - Marathi</option>
-              <option value="hi">हिन्दी - Hindi</option>
-              <option value="bn">বাংলা - Bangla</option>
-              <option value="gu">ગુજરાતી - Gujarati</option>
-              <option value="ta">தமிழ் - Tamil</option>
-              <option value="kn">ಕನ್ನಡ - Kannada</option>
-              <option value="th">ภาษาไทย - Thai</option>
-              <option value="ko">한국어 - Korean</option>
-              <option value="ja">日本語 - Japanese</option>
-              <option value="zh-cn">简体中文 - Simplified Chinese</option>
-              <option value="zh-tw">繁體中文 - Traditional Chinese</option>
-            </select>
-            <!-- <div class="form-text">
-                Please select a preferred language, including date, time, and
-                number formatting.
-              </div> -->
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Feature title</span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="text"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Feature title"
-              name="featureTitle"
-              value="Advocaat"
-            />
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Address title</span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="text"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Address title"
-              name="addressTitle"
-              value="De heer "
-            />
-          </div>
-        </div>
-        <div class="row mb-6">
-          <label class="col-lg-4 fw-bold fs-6"
-            ><span class="">Letter/email salutation</span></label
-          >
-          <div class="col-lg-8 fv-row">
-            <input
-              type="text"
-              class="form-control form-control-lg form-control-solid"
-              placeholder="Letter/email salutation"
-              name="letter/email"
-              value=""
-            />
-          </div>
+            Save
+          </button>
         </div>
       </div>
-    </form>
+    </div>
+  </div>
+
+  <div class="card mb-5 mb-xl-10">
+    <div
+      class="card-header border-0 cursor-pointer"
+      role="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#kt_account_contact_details"
+      aria-expanded="true"
+      aria-controls="kt_account_contact_details"
+    >
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">Contact Details</h3>
+      </div>
+    </div>
+    <div class="card-body borqr-top p-9">
+      <div class="d-flex justify-content-between" style="width: 800px">
+        <div
+          class="image-input image-input-outline"
+          data-kt-image-input="true"
+          [style.background-image]="'url(./assets/media/avatars/blank.png'"
+        >
+          <div
+            class="image-input-wrapper w-125px h-125px"
+            [style.background-image]="'url(./assets/media/avatars/150-2.jpg'"
+          ></div>
+          <div>
+            <p class="text-muted lead">Change Profile</p>
+          </div>
+          <div class="custom-file" style="width: 300px">
+            <input
+              (change)="onFileSelected($event)"
+              type="file"
+              class="form-control form-control-lg form-control-solid"
+            />
+          </div>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="checkbox1" />
+          <label for="checkbox1" class="form-check-label"
+            >This is an office worker.</label
+          >
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="checkbox2" />
+          <label for="checkbox2" class="form-check-label"
+            >Contact is a company.</label
+          >
+        </div>
+      </div>
+    </div>
+    <div id="kt_account_contact_details" class="collapse show">
+      <form novalidate="" class="form">
+        <div class="card-body border-top p-9">
+          <div class="row mb-6">
+            <div class="col-lg-4">
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">First Name</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="First Name"
+                      name="firstName"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Infix</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Infix"
+                      name="infix"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Last Name"
+                      name="lastName"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Suffix</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Suffix"
+                      name="suffix"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6 required"
+                      >Full Name</label
+                    >
+                    <input
+                      maxlength="50"
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Full Name"
+                      name="fullName"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Gender</label>
+                    <select
+                      class="form-select form-select-solid form-select-lg"
+                      name="gender"
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 col-form-label fw-bold fs-6"
+                      >Language</label
+                    >
+                    <div class="col-lg-8 fv-row">
+                      <select
+                        class="form-select form-select-solid form-select-lg"
+                        name="language"
+                      >
+                        <option value="">Select a Language...</option>
+                        <option value="id">
+                          Bahasa Indonesia - Indonesian
+                        </option>
+                        <option value="msa">Bahasa Melayu - Malay</option>
+                        <option value="ca">Català - Catalan</option>
+                        <option value="cs">Čeština - Czech</option>
+                        <option value="da">Dansk - Danish</option>
+                        <option value="de">Deutsch - German</option>
+                        <option value="en">English</option>
+                        <option value="en-gb">
+                          English UK - British English
+                        </option>
+                        <option value="es">Español - Spanish</option>
+                        <option value="fil">Filipino</option>
+                        <option value="fr">Français - French</option>
+                        <option value="ga">Gaeilge - Irish (beta)</option>
+                        <option value="gl">Galego - Galician (beta)</option>
+                        <option value="hr">Hrvatski - Croatian</option>
+                        <option value="it">Italiano - Italian</option>
+                        <option value="hu">Magyar - Hungarian</option>
+                        <option value="nl">Nederlands - Dutch</option>
+                        <option value="no">Norsk - Norwegian</option>
+                        <option value="pl">Polski - Polish</option>
+                        <option value="pt">Português - Portuguese</option>
+                        <option value="ro">Română - Romanian</option>
+                        <option value="sk">Slovenčina - Slovak</option>
+                        <option value="fi">Suomi - Finnish</option>
+                        <option value="sv">Svenska - Swedish</option>
+                        <option value="vi">Tiếng Việt - Vietnamese</option>
+                        <option value="tr">Türkçe - Turkish</option>
+                        <option value="el">Ελληνικά - Greek</option>
+                        <option value="bg">Български език - Bulgarian</option>
+                        <option value="ru">Русский - Russian</option>
+                        <option value="sr">Српски - Serbian</option>
+                        <option value="uk">Українська мова - Ukrainian</option>
+                        <option value="he">עִבְרִית - Hebrew</option>
+                        <option value="ur">اردو - Urdu (beta)</option>
+                        <option value="ar">العربية - Arabic</option>
+                        <option value="fa">فارسی - Persian</option>
+                        <option value="mr">मराठी - Marathi</option>
+                        <option value="hi">हिन्दी - Hindi</option>
+                        <option value="bn">বাংলা - Bangla</option>
+                        <option value="gu">ગુજરાતી - Gujarati</option>
+                        <option value="ta">தமிழ் - Tamil</option>
+                        <option value="kn">ಕನ್ನಡ - Kannada</option>
+                        <option value="th">ภาษาไทย - Thai</option>
+                        <option value="ko">한국어 - Korean</option>
+                        <option value="ja">日本語 - Japanese</option>
+                        <option value="zh-cn">
+                          简体中文 - Simplified Chinese
+                        </option>
+                        <option value="zh-tw">
+                          繁體中文 - Traditional Chinese
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Email</label>
+                    <input
+                      type="email"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Email"
+                      name="email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Fax</label>
+                    <input
+                      type="tel"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Fax"
+                      name="fax"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6"
+                      >Organization name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Organization name"
+                      name="organizationName"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Telephone</label>
+                    <input
+                      type="tel"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Telephone"
+                      name="telephone"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Mobile</label>
+                    <input
+                      type="tel"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Mobile"
+                      name="mobile"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Feature title</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Feature title"
+                      name="featureTitle"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6">Address title</label>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Address title"
+                      name="addressTitle"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-lg-12">
+                  <div class="d-flex align-items-center me-4">
+                    <label class="col-lg-4 fw-bold fs-6"
+                      >Letter/email salutation</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                      placeholder="Letter/email salutation"
+                      name="letter/email"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -1131,7 +1228,7 @@
                   <div class="d-flex align-items-center me-4">
                     <label class="col-lg-4 fw-bold fs-6">Date of birth</label>
                     <input
-                      type="text"
+                      type="date"
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Date of birth"
                       name="dateOfBirth"
@@ -1143,12 +1240,12 @@
                 <div class="col-lg-12">
                   <div class="d-flex align-items-center me-4">
                     <label class="col-lg-4 fw-bold fs-6">Legitimation</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Legitimation"
+                    <select
+                      class="form-select form-select-solid form-select-lg fw-bold"
                       name="legitimation"
-                    />
+                    >
+                      <option value="">Select Legitimation...</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -1158,7 +1255,7 @@
                     <label class="col-lg-4 fw-bold fs-6">Marital status</label>
                     <select
                       class="form-select form-select-solid form-select-lg fw-bold"
-                      name="country"
+                      name="maritalStatus"
                     >
                       <option value="">Select marital status...</option>
                     </select>
@@ -1252,7 +1349,7 @@
                   <div class="d-flex align-items-center me-4">
                     <label class="col-lg-4 fw-bold fs-6">ID valid until</label>
                     <input
-                      type="ate"
+                      type="date"
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="ID valid until"
                       name="idValidUntil"
@@ -1265,7 +1362,7 @@
                   <div class="d-flex align-items-center me-4">
                     <label class="col-lg-4 fw-bold fs-6">Wedding date</label>
                     <input
-                      type="text"
+                      type="date"
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Wedding date"
                       name="weddingDate"
@@ -1357,7 +1454,7 @@
                       >SEPA effective date</label
                     >
                     <input
-                      type="text"
+                      type="date"
                       class="form-control form-control-lg form-control-solid mb-lg-0"
                       placeholder="SEPA effective date"
                       name="sepaEffectiveDate"
@@ -1385,7 +1482,7 @@
                   <div class="d-flex align-items-center me-4">
                     <label class="col-lg-4 fw-bold fs-6">SEPA limit</label>
                     <input
-                      type="text"
+                      type="number"
                       class="form-control form-control-lg form-control-solid mb-lg-0"
                       placeholder="SEPA limit"
                       name="sepaLimit"

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Contact } from '../models/contact.model';
 import { ContactIdType } from '../models/contact-id-type.model';
 import { ContactMaritalStatus } from '../models/contact-marital-status.model';
+import { ContactUploadImage } from '../models/contact-upload-image.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,36 +13,52 @@ import { ContactMaritalStatus } from '../models/contact-marital-status.model';
 export class ContactService {
   private API_CONTACT_URL = `${environment.apiUrl}/contact`;
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
-  getContacts(displayName?: string | null) : Observable<Contact[]> {
+  getContacts(displayName?: string | null): Observable<Contact[]> {
     displayName = this.getEmptySearchTerm(displayName);
 
-    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/contacts?searchTerm=" + displayName);
+    return this.httpClient.get<Contact[]>(
+      this.API_CONTACT_URL + '/contacts?searchTerm=' + displayName
+    );
   }
 
-  getEmployees(displayName?: string | null) : Observable<Contact[]> {
+  getEmployees(displayName?: string | null): Observable<Contact[]> {
     displayName = this.getEmptySearchTerm(displayName);
 
-    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/employees?searchTerm=" + displayName || "");
+    return this.httpClient.get<Contact[]>(
+      this.API_CONTACT_URL + '/employees?searchTerm=' + displayName || ''
+    );
   }
 
-  getPersons(displayName?: string | null) : Observable<Contact[]> {
+  getPersons(displayName?: string | null): Observable<Contact[]> {
     displayName = this.getEmptySearchTerm(displayName);
 
-    return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/persons?searchTerm=" + displayName || "");
+    return this.httpClient.get<Contact[]>(
+      this.API_CONTACT_URL + '/persons?searchTerm=' + displayName || ''
+    );
   }
 
-  getIdTypes() : Observable<ContactIdType[]> {
-    return this.httpClient.get<ContactIdType[]>(this.API_CONTACT_URL + "/id-types");
+  getIdTypes(): Observable<ContactIdType[]> {
+    return this.httpClient.get<ContactIdType[]>(
+      this.API_CONTACT_URL + '/id-types'
+    );
   }
 
-  getMaritalStatuses() : Observable<ContactMaritalStatus[]> {
-    return this.httpClient.get<ContactMaritalStatus[]>(this.API_CONTACT_URL + "/marital-statuses");
+  getMaritalStatuses(): Observable<ContactMaritalStatus[]> {
+    return this.httpClient.get<ContactMaritalStatus[]>(
+      this.API_CONTACT_URL + '/marital-statuses'
+    );
+  }
+
+  updateImage(body: any): Observable<ContactUploadImage[]> {
+    return this.httpClient.post<ContactUploadImage[]>(
+      this.API_CONTACT_URL + '/update-image',
+      body
+    );
   }
 
   private getEmptySearchTerm(searchTerm?: string | null) {
-    return searchTerm ? searchTerm : "";
+    return searchTerm ? searchTerm : '';
   }
 }
