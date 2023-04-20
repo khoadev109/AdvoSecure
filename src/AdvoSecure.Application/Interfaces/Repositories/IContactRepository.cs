@@ -8,5 +8,9 @@ namespace AdvoSecure.Application.Interfaces.Repositories
         Task<IEnumerable<Country>> GetAllCountriesAsync();
 
         IQueryable<Contact> GetContacts(string searchTerm);
+
+        IQueryable<ContactIdType> GetIdTypes();
+
+        IQueryable<ContactCivilStatus> GetMaritalStatuses();
     }
 }

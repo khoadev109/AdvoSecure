@@ -55,5 +55,23 @@ namespace AdvoSecure.Infrastructure.Services
 
             return contactDtos;
         }
+
+        public async Task<IEnumerable<ContactIdTypeDto>> GetIdTypesAsync()
+        {
+            IList<ContactIdType> idTypes = await _contactRepository.GetIdTypes().ToListAsync();
+
+            IEnumerable<ContactIdTypeDto> idTypeDtos = _mapper.Map<IEnumerable<ContactIdTypeDto>>(idTypes);
+
+            return idTypeDtos;
+        }
+
+        public async Task<IEnumerable<ContactCivilStatusDto>> GetMaritalStatusesAsync()
+        {
+            IList<ContactCivilStatus> statuses = await _contactRepository.GetMaritalStatuses().ToListAsync();
+
+            IEnumerable<ContactCivilStatusDto> statusDtos = _mapper.Map<IEnumerable<ContactCivilStatusDto>>(statuses);
+
+            return statusDtos;
+        }
     }
 }

@@ -31,5 +31,15 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 
             return contacts;
         }
+
+        public IQueryable<ContactIdType> GetIdTypes()
+        {
+            return _dbContext.ContactIdTypes;
+        }
+
+        public IQueryable<ContactCivilStatus> GetMaritalStatuses()
+        {
+            return _dbContext.ContactCivilStatuses;
+        }
     }
 }

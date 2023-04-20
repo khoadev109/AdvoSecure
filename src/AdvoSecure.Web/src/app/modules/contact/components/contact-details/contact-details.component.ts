@@ -1,50 +1,26 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Contact } from '../../models/contact.model';
-import { ContactService } from '../../services/contact.service';
+import { Component, OnInit } from '@angular/core';
+
+type Tabs =
+  | 'address-tab'
+  | 'extra-tab'
+  | 'financial-tab'
+  | 'history-tab';
 
 @Component({
   selector: 'app-contact-details',
   templateUrl: './contact-details.component.html',
 })
 export class ContactDetailsComponent implements OnInit {
-  POSTS: Contact[];
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 7;
-  tableSizes: any = [3, 6, 9, 12];
+  activeTab: Tabs = 'address-tab';
 
-  searchTerm: string;
+  setTab(tab: Tabs) {
+    this.activeTab = tab;
+  }
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private contactService: ContactService
-  ) {}
+  activeClass(tab: Tabs) {
+    return tab === this.activeTab ? 'show active' : '';
+  }
 
   ngOnInit(): void {
-    this.fetchContacts();
-  }
-
-  fetchContacts() {
-    this.contactService
-      .getContacts(this.searchTerm)
-      .subscribe((contacts: Contact[]) => {
-        this.POSTS = contacts;
-        this.changeDetectorRef.detectChanges();
-      });
-  }
-
-  search() {
-    this.fetchContacts();
-  }
-
-  onTableDataChange(event: any) {
-    this.page = event;
-    this.fetchContacts();
-  }
-
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 1;
-    this.fetchContacts();
   }
 }

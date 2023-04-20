@@ -58,3 +58,20 @@ public class BaseEntity : BaseAuditableEntity<int>
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public new int Id { get; set; }
 }
+
+public class BaseStringIdEntity
+{
+    public string Id { get; set; }
+
+    public string CreatedBy { get; set; }
+
+    public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+
+    public string ModifiedBy { get; set; } = string.Empty;
+
+    public DateTime? ModifiedDateTime { get; set; } = null;
+
+    public string DeletedBy { get; set; } = string.Empty;
+
+    public DateTime? DeletedDateTime { get; set; } = null;
+}

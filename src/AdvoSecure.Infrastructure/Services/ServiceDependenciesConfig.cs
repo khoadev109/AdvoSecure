@@ -11,7 +11,7 @@ namespace AdvoSecure.Infrastructure.Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICaseService, CaseService>();
             services.AddScoped<IContactService, ContactService>();
-
+            services.AddScoped<ICommonService, CommonService>();
             return services;
         }
     }

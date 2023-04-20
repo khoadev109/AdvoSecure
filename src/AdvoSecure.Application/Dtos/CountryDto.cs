@@ -8,10 +8,10 @@
         public string PhoneIso { get; set; }
         public string CurrencyIso { get; set; }
         public string EuMember { get; set; }
-        
         public string CountryName_en { get; set; }
         public string CountryName_fr { get; set; }
         public string CountryName_de { get; set; }
+        public string CountryName_nl { get; set; }
         public string CountryName_it { get; set; }
         public string CountryName_es { get; set; }
         public string ibancode { get; set; }

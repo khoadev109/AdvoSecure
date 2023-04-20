@@ -15,22 +15,10 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         private readonly IContactService _contactService;
         private readonly IUserService _userService;
 
-        public ContactController(IContactService ContactService, IUserService userService)
+        public ContactController(IContactService contactService, IUserService userService)
         {
-            _contactService = ContactService;
+            _contactService = contactService;
             _userService = userService;
-        }
-
-        [HttpGet("Countries")]
-        public async Task<IActionResult> GetAll()
-        {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
-            IEnumerable<CountryDto> Countries = await _contactService.GetAllCountriesAsync();
-
-            return Ok(new { Countries });
         }
 
         [HttpGet("contacts")]
@@ -67,6 +55,30 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             IEnumerable<ContactDto> persons = await _contactService.GetPersonsAsync(searchTerm);
 
             return Ok(persons);
+        }
+
+        [HttpGet("id-types")]
+        public async Task<IActionResult> GetIdTypes()
+        {
+            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
+
+            await _userService.SetAppUserConnectionString(userNameClaim);
+
+            IEnumerable<ContactIdTypeDto> idTypes = await _contactService.GetIdTypesAsync();
+
+            return Ok(idTypes);
+        }
+
+        [HttpGet("marital-statuses")]
+        public async Task<IActionResult> GetMarialStatuses()
+        {
+            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
+
+            await _userService.SetAppUserConnectionString(userNameClaim);
+
+            IEnumerable<ContactCivilStatusDto> maritalStatuses = await _contactService.GetMaritalStatusesAsync();
+
+            return Ok(maritalStatuses);
         }
     }
 }

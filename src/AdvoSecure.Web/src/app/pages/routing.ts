@@ -27,7 +27,7 @@ const Routing: Routes = [
       import('../modules/account/account.module').then((m) => m.AccountModule),
   },
   {
-    path: 'management/contact',
+    path: 'management/contacts',
     loadChildren: () =>
       import('../modules/contact/contact.module').then((m) => m.ContactModule),
   },

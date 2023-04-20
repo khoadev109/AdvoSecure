@@ -3,12 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { LoginRequest, TokenResponse } from '../models/login.model';
-import {
-  getRefreshToken,
-  getAccessToken,
-  getUserIdentifier,
-  getTenantIdentifier,
-} from '../token-helper';
+import { getRefreshToken, getAccessToken, getUserIdentifier, getTenantIdentifier } from '../token-helper';
 
 const API_ACCOUNT_URL = `${environment.apiUrl}/account`;
 
@@ -21,7 +16,7 @@ export class AuthHTTPService {
   login(email: string, password: string): Observable<TokenResponse> {
     const request: LoginRequest = {
       userName: email,
-      password: password,
+      password: password
     };
 
     const body = JSON.stringify(request);
@@ -34,14 +29,11 @@ export class AuthHTTPService {
       accessToken: getAccessToken(),
       refreshToken: getRefreshToken(),
       userIdentifier: getUserIdentifier(),
-      tenantIdentifier: getTenantIdentifier(),
+      tenantIdentifier: getTenantIdentifier()
     };
 
     const body = JSON.stringify(payload);
 
-    return this.http.post<TokenResponse>(
-      `${API_ACCOUNT_URL}/refreshtoken`,
-      body
-    );
+    return this.http.post<TokenResponse>(`${API_ACCOUNT_URL}/refreshtoken`, body);
   }
 }

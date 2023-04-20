@@ -13,7 +13,7 @@ const routes: Routes = [
     component: ContactComponent,
     children: [
       {
-        path: 'list',
+        path: 'all',
         component: ContactListComponent,
       },
       {
@@ -32,12 +32,8 @@ const routes: Routes = [
         path: 'employees',
         component: EmployeesComponent,
       },
-      {
-        path: 'edit',
-        component: ContactDetailsComponent,
-      },
-      { path: '', redirectTo: 'list', pathMatch: 'full' },
-      { path: '**', redirectTo: 'list', pathMatch: 'full' },
+      { path: '', redirectTo: 'all', pathMatch: 'full' },
+      { path: '**', redirectTo: 'all', pathMatch: 'full' },
     ],
   },
 ];

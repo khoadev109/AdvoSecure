@@ -12,5 +12,9 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task<IEnumerable<ContactDto>> GetEmployeesAsync(string searchTerm);
 
         Task<IEnumerable<ContactDto>> GetPersonsAsync(string searchTerm);
+
+        Task<IEnumerable<ContactIdTypeDto>> GetIdTypesAsync();
+
+        Task<IEnumerable<ContactCivilStatusDto>> GetMaritalStatusesAsync();
     }
 }

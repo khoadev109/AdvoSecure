@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Contact } from '../models/contact.model';
+import { ContactIdType } from '../models/contact-id-type.model';
+import { ContactMaritalStatus } from '../models/contact-marital-status.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +31,14 @@ export class ContactService {
     displayName = this.getEmptySearchTerm(displayName);
 
     return this.httpClient.get<Contact[]>(this.API_CONTACT_URL + "/persons?searchTerm=" + displayName || "");
+  }
+
+  getIdTypes() : Observable<ContactIdType[]> {
+    return this.httpClient.get<ContactIdType[]>(this.API_CONTACT_URL + "/id-types");
+  }
+
+  getMaritalStatuses() : Observable<ContactMaritalStatus[]> {
+    return this.httpClient.get<ContactMaritalStatus[]>(this.API_CONTACT_URL + "/marital-statuses");
   }
 
   private getEmptySearchTerm(searchTerm?: string | null) {

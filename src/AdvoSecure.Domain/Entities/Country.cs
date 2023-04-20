@@ -2,24 +2,24 @@
 
 namespace AdvoSecure.Domain.Entities
 {
-    public class Country : AuditableEntity
+    public class Country : BaseStringIdEntity
     {
-        public string Id { get; set; }      // is not integer but 2-3 digit iso countrycode
-        public string Alpha2 { get; set; } = null!;
-        public string Alpha3 { get; set; } = null!;
-        public string PhoneIso { get; set; } = null!;
-        public string CurrencyIso { get; set; } = null!;
-        public string EuMember { get; set; } = null!;
+        // Id but 2-3 digit iso countrycode
+        public string Alpha2 { get; set; } = string.Empty;
+        public string Alpha3 { get; set; } = string.Empty;
+        public string PhoneIso { get; set; } = string.Empty;
+        public string CurrencyIso { get; set; } = string.Empty;
+        public string EuMember { get; set; } = string.Empty;
 
-        public string CountryName_en { get; set; } = null!;
-        public string CountryName_fr { get; set; } = null!;
-        public string CountryName_de { get; set; } = null!;
-        public string CountryName_it { get; set; } = null!;
-        public string CountryName_es { get; set; } = null!;
-        public string ibancode { get; set; } = null!;
-        public string ibanlen { get; set; } = null!;
-        public string ibancheck { get; set; } = null!;
-        public string sepa { get; set; } = null!;
-
+        public string CountryName_en { get; set; } = string.Empty;
+        public string CountryName_fr { get; set; } = string.Empty;
+        public string CountryName_de { get; set; } = string.Empty;
+        public string CountryName_nl { get; set; } = string.Empty;
+        public string CountryName_it { get; set; } = string.Empty;
+        public string CountryName_es { get; set; } = string.Empty;
+        public string ibancode { get; set; } = string.Empty;
+        public string ibanlen { get; set; } = string.Empty;
+        public string ibancheck { get; set; } = string.Empty;
+        public string sepa { get; set; } = string.Empty;
     }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { upperCaseFirstLetter } from 'src/app/helpers/textHelper';
 
 export interface PageLink {
   title: string;
@@ -25,7 +27,7 @@ export class PageInfoService {
     Array<PageLink>
   >([]);
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   public setTitle(_title: string) {
     this.title.next(_title);
@@ -60,7 +62,8 @@ export class PageInfoService {
   public calculateTitle() {
     const asideTitle = this.calculateTitleInMenu('asideMenu');
     const headerTitle = this.calculateTitleInMenu('#kt_header_menu');
-    const title = asideTitle || headerTitle || '';
+    const urlTitle = this.calculateTitleFromUrl();
+    const title = asideTitle || headerTitle || urlTitle || '';
     this.setTitle(title);
   }
 
@@ -88,10 +91,25 @@ export class PageInfoService {
     return titleSpan.innerText;
   }
 
+  public calculateTitleFromUrl(): string | undefined {
+    const currentUrl = this.router.url;
+    const urlSplitBySplash = currentUrl.split('/');
+    const lastFragment = upperCaseFirstLetter(
+      urlSplitBySplash[urlSplitBySplash.length - 1]
+    );
+    return lastFragment;
+  }
+
   public calculateBreadcrumbs() {
     const asideBc = this.calculateBreadcrumbsInMenu('asideMenu');
     const headerBc = this.calculateBreadcrumbsInMenu('#kt_header_menu');
-    const bc = asideBc && asideBc.length > 0 ? asideBc : headerBc;
+    const urlBc = this.calculateBreadcrumbsFromUrl();
+    const bc =
+      asideBc && asideBc.length > 0
+        ? asideBc
+        : headerBc && headerBc.length > 0
+        ? headerBc
+        : urlBc;
     if (!bc) {
       this.setBreadcrumbs([]);
       return;
@@ -102,7 +120,7 @@ export class PageInfoService {
   public calculateBreadcrumbsInMenu(
     menuId: string
   ): Array<PageLink> | undefined {
-    const result: Array<PageLink> = [];
+    let result: Array<PageLink> = [];
     const menu = document.getElementById(menuId);
     if (!menu) {
       return;
@@ -133,6 +151,44 @@ export class PageInfoService {
       result.push({
         title,
         path,
+        isSeparator: false,
+        isActive: false,
+      });
+      // add separator
+      result.push({
+        title: '',
+        path: '',
+        isSeparator: true,
+        isActive: false,
+      });
+    });
+
+    return result;
+  }
+
+  public calculateBreadcrumbsFromUrl(): Array<PageLink> {
+    const result: Array<PageLink> = [];
+
+    const startPathIndex = 2;
+
+    const currentUrl = this.router.url;
+    const urlSplitBySplash = currentUrl.split('/');
+    if (urlSplitBySplash.length < startPathIndex + 1) {
+      return [];
+    }
+
+    const endPathIndex = urlSplitBySplash.length - startPathIndex;
+
+    const rootLevel = urlSplitBySplash[startPathIndex - 1];
+    const pathLevels =
+      startPathIndex === endPathIndex
+        ? [urlSplitBySplash[startPathIndex]]
+        : urlSplitBySplash.slice(startPathIndex, endPathIndex);
+
+    pathLevels.forEach((pathLevel) => {
+      result.push({
+        title: upperCaseFirstLetter(pathLevel),
+        path: `/${rootLevel}/${pathLevel}`,
         isSeparator: false,
         isActive: false,
       });
