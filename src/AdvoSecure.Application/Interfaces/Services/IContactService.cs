@@ -16,5 +16,7 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task<IEnumerable<ContactIdTypeDto>> GetIdTypesAsync();
 
         Task<IEnumerable<ContactCivilStatusDto>> GetMaritalStatusesAsync();
+        
+        Task<IEnumerable<ContactDto>> UpdateInfoAsync();
     }
 }

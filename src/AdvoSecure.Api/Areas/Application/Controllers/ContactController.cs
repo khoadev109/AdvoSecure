@@ -80,5 +80,29 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
             return Ok(maritalStatuses);
         }
+        [HttpPost("update-image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return BadRequest("Invalid file");
+            }
+           var response = await _userService.ImageToByte(file);
+
+            return Ok();
+        }
+
+        [HttpPost("update-info")]
+        public async Task<IActionResult> UpdateInfoAsync(IFormFile image)
+        {
+            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
+
+            await _userService.SetAppUserConnectionString(userNameClaim);
+
+            IEnumerable<ContactDto> updateInfo = await _contactService.UpdateInfoAsync();
+
+            return Ok(updateInfo);
+
+        }
     }
 }

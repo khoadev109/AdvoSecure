@@ -1,4 +1,5 @@
-﻿using AdvoSecure.Application.Interfaces.Repositories;
+﻿using AdvoSecure.Application.Dtos.ContactDtos;
+using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.ContactEntities;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,11 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
         public IQueryable<ContactCivilStatus> GetMaritalStatuses()
         {
             return _dbContext.ContactCivilStatuses;
+        }
+
+        public IQueryable<ContactDto> UpdateInfo()
+        {
+            throw new NotImplementedException();
         }
     }
 }

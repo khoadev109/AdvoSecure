@@ -73,5 +73,13 @@ namespace AdvoSecure.Infrastructure.Services
 
             return statusDtos;
         }
+        public async Task<IEnumerable<ContactDto>> UpdateInfoAsync()
+        {
+            IList<ContactDto> updateInfo = await _contactRepository.UpdateInfo().ToListAsync();
+
+            IEnumerable<ContactDto> updateInfoDtos = _mapper.Map<IEnumerable<ContactDto>>(updateInfo);
+
+            return updateInfoDtos;
+        }
     }
 }
