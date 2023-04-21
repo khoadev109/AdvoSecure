@@ -1,11 +1,7 @@
 ﻿using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Tsp;
 
 namespace AdvoSecure.Infrastructure.Persistance.Management.Repositories
 {
@@ -129,10 +125,5 @@ namespace AdvoSecure.Infrastructure.Persistance.Management.Repositories
 
             return tenant;
         }
-
-
-
-        
-
     }
 }

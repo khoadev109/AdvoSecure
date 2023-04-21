@@ -414,7 +414,7 @@ namespace AdvoSecure.Infrastructure.Persistance
 
         public static async Task SeedEmployees(ApplicationDbContext context)
         {
-            if (!context.Contacts.Any(x => x.IsOurEmployee))
+            if (!context.Contacts.Any(x => !x.IsOurEmployee))
             {
                 await context.Contacts.AddRangeAsync(
                     new Contact

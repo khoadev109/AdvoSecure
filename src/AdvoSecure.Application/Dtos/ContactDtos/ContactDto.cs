@@ -1,6 +1,7 @@
 ﻿using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Domain.Entities.BillingEntities;
 using AdvoSecure.Domain.Entities.ContactEntities;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace AdvoSecure.Application.Dtos.ContactDtos
@@ -15,13 +16,10 @@ namespace AdvoSecure.Application.Dtos.ContactDtos
         ///   <c>true</c> if a firm employee; otherwise, <c>false</c>.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public bool IsOurEmployee { get; set; }
+        public bool IsOurEmployee { get; set; } = false;
 
-        public string Picture { get; set; }
+        public string Picture { get; set; } = string.Empty;
         public byte[] PictureBin { get; set; }
-
-        //public List<HttpPostedFileBase> PictureFiles { get; set; }
-
 
         #region Contact Name
 
@@ -824,15 +822,6 @@ namespace AdvoSecure.Application.Dtos.ContactDtos
         /// </value>
         /// <author>Lucas Nodine</author>
         public string ReferredByName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the civilstatus / burgelijkestaat of this contact.
-        /// </summary>
-        /// <value>
-        /// The Civil/Maritial status.
-        /// </value>
-        /// <author>GJD</author>
-        public int CivilStatus { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the person who referred this contact.

@@ -73,13 +73,18 @@ namespace AdvoSecure.Infrastructure.Services
 
             return statusDtos;
         }
-        public async Task<IEnumerable<ContactDto>> UpdateInfoAsync()
+
+        public async Task<ContactDto> SaveContactAsync(ContactDto contactDto, string userName)
         {
-            IList<ContactDto> updateInfo = await _contactRepository.UpdateInfo().ToListAsync();
+            bool exist = await _contactRepository.IsExisting(contactDto.Id);
 
-            IEnumerable<ContactDto> updateInfoDtos = _mapper.Map<IEnumerable<ContactDto>>(updateInfo);
+            Contact savingContact = _mapper.Map<Contact>(contactDto);
 
-            return updateInfoDtos;
+            Contact savedContact = exist ? await _contactRepository.Update(savingContact) : await _contactRepository.Create(savingContact, userName);
+
+            ContactDto savedContactDto = _mapper.Map<ContactDto>(savedContact);
+
+            return savedContactDto;
         }
     }
 }

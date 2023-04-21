@@ -23,7 +23,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         ///  
         /// </value>
         /// <author>GJ</author>
-        public string Picture { get; set; } = string.Empty;
+        public string? Picture { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets a user/profile picture in base64
@@ -43,7 +43,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The nickname.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Nickname { get; set; } = string.Empty;
+        public string? Nickname { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the generation suffix of the contact, such as "Jr.", "Sr.", or "III".
@@ -52,7 +52,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The generation.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Generation { get; set; } = string.Empty;
+        public string? Generation { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the title of the contact, such as "Mr." or "Mrs.".
@@ -61,7 +61,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name prefix.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string DisplayNamePrefix { get; set; } = string.Empty;
+        public string? DisplayNamePrefix { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the surname (family name) of the contact.
@@ -70,7 +70,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The surname.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Surname { get; set; } = string.Empty;
+        public string? Surname { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the middle name(s) of the contact.
@@ -79,7 +79,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The middle name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string MiddleName { get; set; } = string.Empty;
+        public string? MiddleName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the given name (first name) of the contact.
@@ -88,7 +88,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The given name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string GivenName { get; set; } = string.Empty;
+        public string? GivenName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the initials of the contact.
@@ -97,7 +97,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The initials.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Initials { get; set; } = string.Empty;
+        public string? Initials { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the full name of the contact.
@@ -119,7 +119,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Email1DisplayName { get; set; } = string.Empty;
+        public string? Email1DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the email address.
@@ -128,7 +128,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The email address.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Email1EmailAddress { get; set; } = string.Empty;
+        public string? Email1EmailAddress { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the e-mail address of the contact such as "Home", "Work", "Phone", etc.
@@ -137,7 +137,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Email2DisplayName { get; set; } = string.Empty;
+        public string? Email2DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the email address.
@@ -146,7 +146,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The email address.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Email2EmailAddress { get; set; } = string.Empty;
+        public string? Email2EmailAddress { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the e-mail address of the contact such as "Home", "Work", "Phone", etc.
@@ -155,7 +155,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Email3DisplayName { get; set; } = string.Empty;
+        public string? Email3DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the email address.
@@ -164,7 +164,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The email address.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Email3EmailAddress { get; set; } = string.Empty;
+        public string? Email3EmailAddress { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the e-mail address of the contact such as "Home", "Work", "Phone", etc..
@@ -173,7 +173,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Fax1DisplayName { get; set; } = string.Empty;
+        public string? Fax1DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the fax number for the contact.
@@ -182,7 +182,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The fax number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Fax1FaxNumber { get; set; } = string.Empty;
+        public string? Fax1FaxNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the e-mail address of the contact such as "Home", "Work", "Phone", etc..
@@ -191,7 +191,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Fax2DisplayName { get; set; } = string.Empty;
+        public string? Fax2DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the fax number for the contact.
@@ -200,7 +200,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The fax number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Fax2FaxNumber { get; set; } = string.Empty;
+        public string? Fax2FaxNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the e-mail address of the contact such as "Home", "Work", "Phone", etc..
@@ -209,7 +209,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Fax3DisplayName { get; set; } = string.Empty;
+        public string? Fax3DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the fax number for the contact.
@@ -218,7 +218,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The fax number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Fax3FaxNumber { get; set; } = string.Empty;
+        public string? Fax3FaxNumber { get; set; } = string.Empty;
 
         #endregion Electronic Address Properties
 
@@ -231,7 +231,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1DisplayName { get; set; } = string.Empty;
+        public string? Address1DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the street portion of the address.
@@ -240,9 +240,9 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The street.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressStreet { get; set; } = string.Empty;
-        public string Address1AddressHouseNo { get; set; } = string.Empty;
-        public string Address1AddressHouseNoExt { get; set; } = string.Empty;
+        public string? Address1AddressStreet { get; set; } = string.Empty;
+        public string? Address1AddressHouseNo { get; set; } = string.Empty;
+        public string? Address1AddressHouseNoExt { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the second line of the street portion of the address.
@@ -251,7 +251,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The street.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressLine2 { get; set; } = string.Empty;
+        public string? Address1AddressLine2 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the city portion of the address.
@@ -260,7 +260,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The city.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressCity { get; set; } = string.Empty;
+        public string? Address1AddressCity { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the state or province portion of the address.
@@ -269,7 +269,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The state or province.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressStateOrProvince { get; set; } = string.Empty;
+        public string? Address1AddressStateOrProvince { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the postal code portion of the address.
@@ -278,7 +278,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The postal code.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressPostalCode { get; set; } = string.Empty;
+        public string? Address1AddressPostalCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country portion of the address.
@@ -287,7 +287,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The country.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressCountry { get; set; } = string.Empty;
+        public string? Address1AddressCountry { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country/region code portion of the address.
@@ -296,7 +296,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The country/region code.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressCountryCode { get; set; } = string.Empty;
+        public string? Address1AddressCountryCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the post office box portion of the address.
@@ -305,7 +305,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The post office box.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address1AddressPostOfficeBox { get; set; } = string.Empty;
+        public string? Address1AddressPostOfficeBox { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the address of the contact such as "Home", "Work", etc.
@@ -314,7 +314,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2DisplayName { get; set; } = string.Empty;
+        public string? Address2DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the street portion of the address.
@@ -323,9 +323,9 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The street.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressStreet { get; set; } = string.Empty;
-        public string Address2AddressHouseNo { get; set; } = string.Empty;
-        public string Address2AddressHouseNoExt { get; set; } = string.Empty;
+        public string? Address2AddressStreet { get; set; } = string.Empty;
+        public string? Address2AddressHouseNo { get; set; } = string.Empty;
+        public string? Address2AddressHouseNoExt { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the second line of the street portion of the address.
@@ -334,7 +334,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The street.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressLine2 { get; set; } = string.Empty;
+        public string? Address2AddressLine2 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the city portion of the address.
@@ -343,7 +343,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The city.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressCity { get; set; } = string.Empty;
+        public string? Address2AddressCity { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the state or province portion of the address.
@@ -352,7 +352,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The state or province.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressStateOrProvince { get; set; } = string.Empty;
+        public string? Address2AddressStateOrProvince { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the postal code portion of the address.
@@ -361,7 +361,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The postal code.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressPostalCode { get; set; } = string.Empty;
+        public string? Address2AddressPostalCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country portion of the address.
@@ -370,7 +370,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The country.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressCountry { get; set; } = string.Empty;
+        public string? Address2AddressCountry { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country/region code portion of the address.
@@ -379,7 +379,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The country/region code.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressCountryCode { get; set; } = string.Empty;
+        public string? Address2AddressCountryCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the post office box portion of the address.
@@ -388,7 +388,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The post office box.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address2AddressPostOfficeBox { get; set; } = string.Empty;
+        public string? Address2AddressPostOfficeBox { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the address of the contact such as "Home", "Work", etc.
@@ -397,7 +397,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3DisplayName { get; set; } = string.Empty;
+        public string? Address3DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the street portion of the address.
@@ -406,9 +406,9 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The street.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressStreet { get; set; } = string.Empty;
-        public string Address3AddressHouseNo { get; set; } = string.Empty;
-        public string Address3AddressHouseNoExt { get; set; } = string.Empty;
+        public string? Address3AddressStreet { get; set; } = string.Empty;
+        public string? Address3AddressHouseNo { get; set; } = string.Empty;
+        public string? Address3AddressHouseNoExt { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the second line of the street portion of the address.
@@ -417,7 +417,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The street.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressLine2 { get; set; } = string.Empty;
+        public string? Address3AddressLine2 { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the city portion of the address.
@@ -426,7 +426,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The city.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressCity { get; set; } = string.Empty;
+        public string? Address3AddressCity { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the state or province portion of the address.
@@ -435,7 +435,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The state or province.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressStateOrProvince { get; set; } = string.Empty;
+        public string? Address3AddressStateOrProvince { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the postal code portion of the address.
@@ -444,7 +444,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The postal code.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressPostalCode { get; set; } = string.Empty;
+        public string? Address3AddressPostalCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country portion of the address.
@@ -453,7 +453,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The country.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressCountry { get; set; } = string.Empty;
+        public string? Address3AddressCountry { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the country/region code portion of the address.
@@ -462,7 +462,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The country/region code.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressCountryCode { get; set; } = string.Empty;
+        public string? Address3AddressCountryCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the post office box portion of the address.
@@ -471,7 +471,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The post office box.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Address3AddressPostOfficeBox { get; set; } = string.Empty;
+        public string? Address3AddressPostOfficeBox { get; set; } = string.Empty;
 
         #endregion Physical Address Properties
 
@@ -484,7 +484,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone1DisplayName { get; set; } = string.Empty;
+        public string? Telephone1DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -493,7 +493,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone1TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone1TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -502,7 +502,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone2DisplayName { get; set; } = string.Empty;
+        public string? Telephone2DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -511,7 +511,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone2TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone2TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -520,7 +520,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone3DisplayName { get; set; } = string.Empty;
+        public string? Telephone3DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -529,7 +529,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone3TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone3TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -538,7 +538,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone4DisplayName { get; set; } = string.Empty;
+        public string? Telephone4DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -547,7 +547,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone4TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone4TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -556,7 +556,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone5DisplayName { get; set; } = string.Empty;
+        public string? Telephone5DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -565,7 +565,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone5TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone5TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -574,7 +574,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone6DisplayName { get; set; } = string.Empty;
+        public string? Telephone6DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -583,7 +583,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone6TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone6TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -592,7 +592,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone7DisplayName { get; set; } = string.Empty;
+        public string? Telephone7DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -601,7 +601,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone7TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone7TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -610,7 +610,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone8DisplayName { get; set; } = string.Empty;
+        public string? Telephone8DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -619,7 +619,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone8TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone8TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -628,7 +628,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone9DisplayName { get; set; } = string.Empty;
+        public string? Telephone9DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -637,7 +637,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone9TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone9TelephoneNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the user-readable display name for the telephone number of the contact such as "Home", "Work", "Mobile", "Assistant", etc.
@@ -646,7 +646,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The display name.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone10DisplayName { get; set; } = string.Empty;
+        public string? Telephone10DisplayName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the telephone number.
@@ -655,7 +655,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The telephone number.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Telephone10TelephoneNumber { get; set; } = string.Empty;
+        public string? Telephone10TelephoneNumber { get; set; } = string.Empty;
 
         #endregion Telephone Properties
 
@@ -690,7 +690,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The title.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Title { get; set; } = string.Empty;
+        public string? Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the attorney's bar registration number
@@ -699,7 +699,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The Barnummer.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string BarNumber { get; set; } = string.Empty;
+        public string? BarNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the company that employs the contact.
@@ -708,7 +708,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The name of the company.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string CompanyName { get; set; } = string.Empty;
+        public string? CompanyName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the department to which the contact belongs.
@@ -717,7 +717,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The name of the department.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string DepartmentName { get; set; } = string.Empty;
+        public string? DepartmentName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the location of the office that the contact works in.
@@ -726,7 +726,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The office location.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string OfficeLocation { get; set; } = string.Empty;
+        public string? OfficeLocation { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the contact's manager.
@@ -735,7 +735,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The name of the manager.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string ManagerName { get; set; } = string.Empty;
+        public string? ManagerName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the contact's assistant.
@@ -744,7 +744,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The name of the assistant.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string AssistantName { get; set; } = string.Empty;
+        public string? AssistantName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the profession of the contact.
@@ -753,7 +753,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The profession.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Profession { get; set; } = string.Empty;
+        public string? Profession { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the profession of the contact.
@@ -762,7 +762,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The profession.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Saluation { get; set; } = string.Empty;
+        public string? Saluation { get; set; } = string.Empty;
 
         #endregion Professional Properties
 
@@ -775,7 +775,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The name of the spouse/partner.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string SpouseName { get; set; } = string.Empty;
+        public string? SpouseName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the language that the contact uses.
@@ -784,7 +784,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The language.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Language { get; set; } = string.Empty;
+        public string? Language { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the contact's instant messaging address.
@@ -793,7 +793,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The instant messaging address.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string InstantMessagingAddress { get; set; } = string.Empty;
+        public string? InstantMessagingAddress { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the personal home page URL.
@@ -802,7 +802,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The personal home page.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string PersonalHomePage { get; set; } = string.Empty;
+        public string? PersonalHomePage { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the business home page URL.
@@ -811,7 +811,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The business home page.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string BusinessHomePage { get; set; } = string.Empty;
+        public string? BusinessHomePage { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the gender of the contact.
@@ -820,7 +820,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The gender.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string Gender { get; set; } = string.Empty;
+        public string? Gender { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the person who referred this contact.
@@ -829,7 +829,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The referrer.
         /// </value>
         /// <author>Lucas Nodine</author>
-        public string ReferredByName { get; set; } = string.Empty;
+        public string? ReferredByName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the person who referred this contact.
@@ -838,7 +838,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The referrer.
         /// </value>
         /// <author>GJD</author>
-        public string IdNumber { get; set; } = string.Empty;
+        public string? IdNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the name of the person who referred this contact.
@@ -856,7 +856,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The referrer.
         /// </value>
         /// <author>GJD</author>
-        public string Nationality { get; set; } = string.Empty;
+        public string? Nationality { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the birthcity of this contact.
@@ -865,7 +865,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// The BirthCity
         /// </value>
         /// <author>GJD</author>
-        public string BirthCity { get; set; } = string.Empty;
+        public string? BirthCity { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the SSN / BSN.
@@ -874,7 +874,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// SSN/BSN
         /// </value>
         /// <author>GJD</author>
-        public string SocialSecurityNumber { get; set; } = string.Empty;
+        public string? SocialSecurityNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Visumnumber / Vreemdelingennummer
@@ -883,7 +883,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// VisaNumber
         /// </value>
         /// <author>GJD</author>
-        public string VNumber { get; set; } = string.Empty;
+        public string? VNumber { get; set; } = string.Empty;
 
         #endregion Other Contact Properties
 
@@ -896,7 +896,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// BankAccount
         /// </value>
         /// <author>GJD</author>
-        public string BankAccount { get; set; } = string.Empty;
+        public string? BankAccount { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the BIC/Swift number
@@ -905,7 +905,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// BIC
         /// </value>
         /// <author>GJD</author>
-        public string BicCode { get; set; } = string.Empty;
+        public string? BicCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the BankName
@@ -914,7 +914,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// BankName
         /// </value>
         /// <author>GJD</author>
-        public string BankName { get; set; } = string.Empty;
+        public string? BankName { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the sepamandatenumber for automatic payments
@@ -923,7 +923,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// SepaMandateNumber
         /// </value>
         /// <author>GJD</author>
-        public string SepaMandateNumber { get; set; } = string.Empty;
+        public string? SepaMandateNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the SepaMandateDate , the startdate of the mandate
@@ -932,7 +932,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// SepaMandateDate
         /// </value>
         /// <author>GJD</author>
-        public DateTime? SepaMandateDate { get; set; } = null;
+        public DateTime? SepaMandateDate { get; set; }
 
         /// <summary>
         /// Gets or sets the SEPA mandate limit (in currency)
@@ -941,7 +941,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// SepaMandateLimit
         /// </value>
         /// <author>GJD</author>
-        public short? SepaMandateLimit { get; set; } = null;
+        public short? SepaMandateLimit { get; set; }
 
         #endregion
 
@@ -954,7 +954,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// TaxNumber
         /// </value>
         /// <author>GJD</author>
-        public string TaxNumber { get; set; } = string.Empty;
+        public string? TaxNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Companies VAT ID / BTW number (required for EU invoicing)
@@ -963,7 +963,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// VatId
         /// </value>
         /// <author>GJD</author>
-        public string VatId { get; set; } = string.Empty;
+        public string? VatId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Companies SBI code - required for CRM usage
@@ -972,7 +972,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// SbiCode
         /// </value>
         /// <author>GJD</author>
-        public string SbiCode { get; set; } = string.Empty;
+        public string? SbiCode { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Companies businessregistration / KVK nummer - required for CRM usage
@@ -981,7 +981,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// BusinessRegistration
         /// </value>
         /// <author>GJD</author>
-        public string BusinessRegistration { get; set; } = string.Empty;
+        public string? BusinessRegistration { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Companies dateofincorporation - oprichtingsdatum - required for CRM usage
@@ -999,7 +999,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// LegalForm
         /// </value>
         /// <author>GJD</author>
-        public string LegalForm { get; set; } = string.Empty;
+        public string? LegalForm { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the Companies number of employees for crm usage (dropdown - 0, 1, 2-10, 10-50, 50-250, 250-500, 500+)
@@ -1026,7 +1026,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// WebSite
         /// </value>
         /// <author>GJD</author>
-        public string Website { get; set; } = string.Empty;
+        public string? Website { get; set; } = string.Empty;
 
         #endregion
 

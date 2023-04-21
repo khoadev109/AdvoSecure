@@ -5,6 +5,7 @@ using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using AdvoSecure.Api.Attributes;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
 {
@@ -144,15 +145,12 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
         [HasPermission(Permission.AsAppUser)]
         [HttpGet("profile")]
+        [AppUserConfigDb]
         public async Task<IActionResult> GetProfile()
         {
             try
             {
                 var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimConstants.UserId)?.Value ?? throw new UnauthorizedAccessException("User does not exist.");
-
-                var userEmail = User.Claims.FirstOrDefault(x => x.Type == ClaimConstants.UserName)?.Value ?? throw new UnauthorizedAccessException("User does not exist.");
-
-                await _userService.SetAppUserConnectionString(userEmail);
 
                 ApplicationUser user = await _userManager.FindByIdAsync(userId) ?? throw new UnauthorizedAccessException("User does not exist.");
 
@@ -166,10 +164,9 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
         [HasPermission(Permission.AsAppUser)]
         [HttpPost("update-profile")]
+        [AppUserConfigDb]
         public async Task<IActionResult> UpdateProfile(AppUserProfileRequestDto request)
         {
-            await _userService.SetAppUserConnectionString(request.Email);
-
             ApplicationUser user = await _userManager.GetUserAsync(User) ?? throw new UnauthorizedAccessException("User does not exist.");
 
             ApplicationUser updatedAppUser = await _userService.UpdateAppUserProfile(request);
@@ -191,6 +188,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
         [HasPermission(Permission.AsAppUser)]
         [HttpGet("password-reset")]
+        [AppUserConfigDb]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ForgotPasswordRequest request)
         {
@@ -199,8 +197,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             ApplicationUser user = await _userManager.FindByEmailAsync(request.Email) ?? throw new UnauthorizedAccessException("User does not exist.");
 
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            // Update TenantUser password (AdvoSecure.Infrastructure.Persistance.Management.Repositories/UserRepository)
 
             var response = new ForgotPasswordMessage
             {

@@ -1,7 +1,8 @@
-﻿using AdvoSecure.Application.Dtos;
+﻿using AdvoSecure.Api.Attributes;
 using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Infrastructure.Authorization;
+using AdvoSecure.Infrastructure.Helpers;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,25 +10,20 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 {
     [HasPermission(Permission.AsAppUser)]
     [Route("api/[controller]")]
+    [AppUserConfigDb]
     [ApiController]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
-        private readonly IUserService _userService;
 
-        public ContactController(IContactService contactService, IUserService userService)
+        public ContactController(IContactService contactService)
         {
             _contactService = contactService;
-            _userService = userService;
         }
 
         [HttpGet("contacts")]
         public async Task<IActionResult> GetContacts(string searchTerm)
         {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
             IEnumerable<ContactDto> contacts = await _contactService.GetContactsAsync(searchTerm);
 
             return Ok(contacts);
@@ -36,10 +32,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("employees")]
         public async Task<IActionResult> GetEmployees(string searchTerm)
         {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
             IEnumerable<ContactDto> employees = await _contactService.GetEmployeesAsync(searchTerm);
 
             return Ok(employees);
@@ -48,10 +40,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("persons")]
         public async Task<IActionResult> GetPersons(string searchTerm)
         {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
             IEnumerable<ContactDto> persons = await _contactService.GetPersonsAsync(searchTerm);
 
             return Ok(persons);
@@ -60,10 +48,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("id-types")]
         public async Task<IActionResult> GetIdTypes()
         {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
             IEnumerable<ContactIdTypeDto> idTypes = await _contactService.GetIdTypesAsync();
 
             return Ok(idTypes);
@@ -72,37 +56,26 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("marital-statuses")]
         public async Task<IActionResult> GetMarialStatuses()
         {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
             IEnumerable<ContactCivilStatusDto> maritalStatuses = await _contactService.GetMaritalStatusesAsync();
 
             return Ok(maritalStatuses);
         }
-        [HttpPost("update-image")]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] ContactDto contact)
         {
-            if (file == null || file.Length == 0)
+            try
             {
-                return BadRequest("Invalid file");
+                var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
+
+                ContactDto contactDto = await _contactService.SaveContactAsync(contact, userNameClaim);
+
+                return Ok(contactDto);
             }
-           var response = await _userService.ImageToByte(file);
-
-            return Ok();
-        }
-
-        [HttpPost("update-info")]
-        public async Task<IActionResult> UpdateInfoAsync(IFormFile image)
-        {
-            var userNameClaim = User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value;
-
-            await _userService.SetAppUserConnectionString(userNameClaim);
-
-            IEnumerable<ContactDto> updateInfo = await _contactService.UpdateInfoAsync();
-
-            return Ok(updateInfo);
-
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
     }
 }

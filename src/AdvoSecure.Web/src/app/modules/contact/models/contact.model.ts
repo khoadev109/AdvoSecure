@@ -1,12 +1,14 @@
 export interface Contact {
-  isOurEmployee: boolean;
+  isOurEmployee?: boolean;
   displayName: string;
-  profession: string;
-  address1AddressCity: string;
-  address1AddressStateOrProvince: string;
-  picture: string;
-  pictureBin: number;
-  billingRateId: number;
-  civilStatusId: number;
-  idTypeId: number;
+  surname?: string;
+  givenName?: string;
+  gender?: string;
+  profession?: string;
+  address1AddressCity?: string;
+  address1AddressStateOrProvince?: string;
+  pictureBin?: string;
+  billingRateId?: number;
+  civilStatusId?: number;
+  idTypeId?: number;
 }

@@ -1,17 +1,17 @@
 export interface Country {
-    Id: string;
-    Alpha2: string;
-    Alpha3: string;
-    PhoneIso: string;
-    CurrencyIso: string;
-    EuMember: string;
-    CountryName_en: string;
-    CountryName_fr: string;
-    CountryName_de: string;
-    CountryName_it: string;
-    CountryName_es: string;
-    ibancode: string;
-    ibanlen: string;
-    ibancheck: string;
-    sepa: string;
+    id: string;
+    alpha2?: string;
+    alpha3?: string;
+    phoneIso?: string;
+    currencyIso?: string;
+    euMember?: string;
+    countryName_en: string;
+    countryName_fr?: string;
+    countryName_de?: string;
+    countryName_it?: string;
+    countryName_es?: string;
+    ibancode?: string;
+    ibanlen?: string;
+    ibancheck?: string;
+    sepa?: string;
 }

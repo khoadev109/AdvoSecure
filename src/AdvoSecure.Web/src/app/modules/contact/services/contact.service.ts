@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Contact } from '../models/contact.model';
 import { ContactIdType } from '../models/contact-id-type.model';
 import { ContactMaritalStatus } from '../models/contact-marital-status.model';
-import { ContactUploadImage } from '../models/contact-upload-image.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class ContactService {
     displayName = this.getEmptySearchTerm(displayName);
 
     return this.httpClient.get<Contact[]>(
-      this.API_CONTACT_URL + '/employees?searchTerm=' + displayName || ''
+      this.API_CONTACT_URL + '/employees?searchTerm=' + displayName
     );
   }
 
@@ -35,7 +34,7 @@ export class ContactService {
     displayName = this.getEmptySearchTerm(displayName);
 
     return this.httpClient.get<Contact[]>(
-      this.API_CONTACT_URL + '/persons?searchTerm=' + displayName || ''
+      this.API_CONTACT_URL + '/persons?searchTerm=' + displayName
     );
   }
 
@@ -51,11 +50,14 @@ export class ContactService {
     );
   }
 
-  updateImage(body: any): Observable<ContactUploadImage[]> {
-    return this.httpClient.post<ContactUploadImage[]>(
-      this.API_CONTACT_URL + '/update-image',
-      body
-    );
+  createContact(payload: Contact): Observable<any> {
+    const body = JSON.stringify(payload);
+    return this.httpClient.post(this.API_CONTACT_URL + '/create', body);
+  }
+
+  updateContact(payload: Contact): Observable<any> {
+    const body = JSON.stringify(payload);
+    return this.httpClient.put(this.API_CONTACT_URL + '/update', body);
   }
 
   private getEmptySearchTerm(searchTerm?: string | null) {

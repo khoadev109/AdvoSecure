@@ -7,8 +7,6 @@ using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
 using AdvoSecure.Security;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 
 namespace AdvoSecure.Infrastructure.Services
@@ -32,7 +30,6 @@ namespace AdvoSecure.Infrastructure.Services
             _tenantRepository = tenantRepository;
             _directoryRepository = directoryRepository;
             _refreshTokenRepositoryFactory = refreshTokenRepositoryFactory;
-
             _mapper = mapper;
         }
 
@@ -240,20 +237,6 @@ namespace AdvoSecure.Infrastructure.Services
                     await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
                 }
             }
-            
-        }
-
-
-        public async Task<byte[]> ImageToByte(IFormFile file)
-        {
-            byte[] imageData = null;
-            using (var memoryStream = new MemoryStream())
-            {
-                await file.CopyToAsync(memoryStream);
-                imageData = memoryStream.ToArray();
-            }
-
-            return imageData;
         }
     }
 }

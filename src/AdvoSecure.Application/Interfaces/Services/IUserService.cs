@@ -1,6 +1,5 @@
 ﻿using AdvoSecure.Application.Dtos;
 using AdvoSecure.Security;
-using Microsoft.AspNetCore.Http;
 
 namespace AdvoSecure.Application.Interfaces.Services
 {
@@ -29,8 +28,5 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task SaveAppRefreshTokenAsync(RefreshTokenDto dto);
 
         Task SetAppUserConnectionString(string userEmail);
-        Task<byte[]> ImageToByte(IFormFile file);
-
-
     }
 }

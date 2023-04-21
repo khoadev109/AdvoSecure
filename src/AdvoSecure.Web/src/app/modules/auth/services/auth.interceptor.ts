@@ -57,7 +57,7 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-  addHeader(request: HttpRequest<any>, token: any) {
+  addHeader(request: HttpRequest<any>, token: any, fileUpload?: boolean) {
     return request.clone({
       setHeaders: {
         Authorization: 'Bearer ' + token,

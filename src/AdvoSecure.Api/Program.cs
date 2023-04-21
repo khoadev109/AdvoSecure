@@ -13,6 +13,7 @@ using AdvoSecure.Security;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,13 @@ services.AddHttpClient("AdvosecureApi", configureClient =>
 {
     configureClient.BaseAddress = new Uri(configuration["Tenant:BaseApiUrl"] ?? string.Empty);
     configureClient.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
+services.Configure<FormOptions>(o =>
+{
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
+    o.MemoryBufferThreshold = int.MaxValue;
 });
 
 services.AddDistributedMemoryCache();
