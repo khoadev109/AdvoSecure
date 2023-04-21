@@ -274,7 +274,45 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Email"
                       name="email"
+                      formControlName="email"
+                      autocomplete="off"
+                      [ngClass]="{
+                        'is-invalid': email.controls['email'].invalid,
+                        'is-valid': email.controls['email'].valid
+                      }"
                     />
+                    <ng-container
+                      [ngTemplateOutlet]="formError"
+                      [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'Email is required',
+                        control: email.controls['email']
+                      }"
+                    ></ng-container>
+                    <ng-container
+                      [ngTemplateOutlet]="formError"
+                      [ngTemplateOutletContext]="{
+                        validation: 'email',
+                        message: 'Email is invalid',
+                        control: email.controls['email']
+                      }"
+                    ></ng-container>
+                    <ng-container
+                      [ngTemplateOutlet]="formError"
+                      [ngTemplateOutletContext]="{
+                        validation: 'minLength',
+                        message: 'Email should have at least 3 symbols',
+                        control: email.controls['email']
+                      }"
+                    ></ng-container>
+                    <ng-container
+                      [ngTemplateOutlet]="formError"
+                      [ngTemplateOutletContext]="{
+                        validation: 'maxLength',
+                        message: 'Email should have maximum 360 symbols',
+                        control: email.controls['email']
+                      }"
+                    ></ng-container>
                   </div>
                 </div>
               </div>
@@ -732,7 +770,20 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Date of birth"
                       name="dateOfBirth"
+                      ngModel
+                      #dob="ngModel"
+                      [ngClass]="{ 'is-invalid': dob.invalid }"
+                      pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$"
                     />
+                    <div *ngIf="dob.errors" class="invalid-feedback">
+                      <div *ngIf="dob.errors.required">
+                        Date of Birth is required
+                      </div>
+                      <div *ngIf="dob.errors.pattern">
+                        Date of Birth must be a valid date in the format
+                        YYYY-MM-DD
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1014,3 +1065,19 @@
     <!-- end::Tap Financial-->
   </div>
 </div>
+<ng-template
+  #formError
+  let-control="control"
+  let-message="message"
+  let-validation="validation"
+>
+  <ng-container
+    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
+  >
+    <div class="fv-plugins-message-container">
+      <span role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

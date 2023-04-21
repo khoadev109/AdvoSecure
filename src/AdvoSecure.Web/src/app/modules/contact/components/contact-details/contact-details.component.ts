@@ -9,6 +9,7 @@ import { ContactMaritalStatus } from '../../models/contact-marital-status.model'
 import { BillingRate } from 'src/app/models/billing-rate.model';
 import { Country } from 'src/app/models/country.model';
 import { CommonService } from 'src/app/services/common.service';
+import { FormGroup } from '@angular/forms';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
@@ -38,8 +39,15 @@ export class ContactDetailsComponent implements OnInit {
 
   contact: Contact = {
     displayName: '',
+    bankAccount: '',
+    bicCode: '',
+    bankName: '',
+    sepaMandateNumber: '',
+    sepaMandateDate: new Date(),
+    sepaMandateLimit: 0,
   };
 
+  email: FormGroup;
   idTypes: ContactIdType[] = [];
   maritalStatuses: ContactMaritalStatus[] = [];
   billingRates: BillingRate[] = [];
@@ -137,7 +145,6 @@ export class ContactDetailsComponent implements OnInit {
       };
 
       reader.readAsBinaryString(this.imageFile);
-
     } catch (error) {
       console.log('save contact', error);
       this.isLoading = false;

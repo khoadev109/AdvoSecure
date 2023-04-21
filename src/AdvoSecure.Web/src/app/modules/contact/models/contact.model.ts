@@ -12,4 +12,10 @@ export interface Contact {
   billingRateId?: number;
   civilStatusId?: number;
   idTypeId?: number;
+  bankAccount: string;
+  bicCode: string;
+  bankName: string;
+  sepaMandateNumber: string;
+  sepaMandateDate: Date;
+  sepaMandateLimit: number;
 }
