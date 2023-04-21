@@ -8,6 +8,7 @@ export interface Contact {
   address1AddressCity?: string;
   address1AddressStateOrProvince?: string;
   pictureBin?: string;
+  avatar?: any;
   billingRateId?: number;
   civilStatusId?: number;
   idTypeId?: number;

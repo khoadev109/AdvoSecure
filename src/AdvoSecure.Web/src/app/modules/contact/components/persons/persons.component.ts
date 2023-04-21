@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../models/contact.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-persons',
@@ -16,6 +17,7 @@ export class PersonsComponent implements OnInit {
   searchTerm: string;
 
   constructor(
+    private sanitizer: DomSanitizer,
     private changeDetectorRef: ChangeDetectorRef,
     private contactService: ContactService
   ) {}
@@ -28,7 +30,14 @@ export class PersonsComponent implements OnInit {
     this.contactService
       .getPersons(this.searchTerm)
       .subscribe((persons: Contact[]) => {
-        this.POSTS = persons;
+        this.POSTS = persons.map((person) => {
+          person.avatar = person.pictureBin
+            ? this.sanitizer.bypassSecurityTrustUrl(
+                'data:image/jpeg;base64,' + person.pictureBin
+              )
+            : './assets/media/avatars/blank.png';
+          return person;
+        });
         this.changeDetectorRef.detectChanges();
       });
   }
