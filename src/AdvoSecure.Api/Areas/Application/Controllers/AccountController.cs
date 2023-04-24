@@ -1,17 +1,16 @@
-﻿using AdvoSecure.Application.Dtos;
-using AdvoSecure.Application.Interfaces.Services;
+﻿using AdvoSecure.Api.Attributes;
 using AdvoSecure.Api.Authentication;
+using AdvoSecure.Api.Controllers;
+using AdvoSecure.Application.Dtos;
+using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using AdvoSecure.Api.Attributes;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : AdvoControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -145,12 +144,12 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
         [HasPermission(Permission.AsAppUser)]
         [HttpGet("profile")]
-        [AppUserConfigDb]
+        [AppUserDbConfigAction]
         public async Task<IActionResult> GetProfile()
         {
             try
             {
-                var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimConstants.UserId)?.Value ?? throw new UnauthorizedAccessException("User does not exist.");
+                var userId = CurrentUserId ?? throw new UnauthorizedAccessException("User does not exist.");
 
                 ApplicationUser user = await _userManager.FindByIdAsync(userId) ?? throw new UnauthorizedAccessException("User does not exist.");
 
@@ -164,7 +163,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
         [HasPermission(Permission.AsAppUser)]
         [HttpPost("update-profile")]
-        [AppUserConfigDb]
+        [AppUserDbConfigAction]
         public async Task<IActionResult> UpdateProfile(AppUserProfileRequestDto request)
         {
             ApplicationUser user = await _userManager.GetUserAsync(User) ?? throw new UnauthorizedAccessException("User does not exist.");
@@ -188,12 +187,10 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
         [HasPermission(Permission.AsAppUser)]
         [HttpGet("password-reset")]
-        [AppUserConfigDb]
+        [AppUserDbConfigAction]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ForgotPasswordRequest request)
         {
-            await _userService.SetAppUserConnectionString(request.Email);
-
             ApplicationUser user = await _userManager.FindByEmailAsync(request.Email) ?? throw new UnauthorizedAccessException("User does not exist.");
 
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);

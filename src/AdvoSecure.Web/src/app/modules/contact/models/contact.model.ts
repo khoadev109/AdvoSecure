@@ -1,4 +1,5 @@
 export interface Contact {
+  id: number;
   isOurEmployee?: boolean;
   displayName: string;
   surname?: string;

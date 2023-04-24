@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Api.Attributes;
+using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Application.Interfaces.Services;
@@ -6,10 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
 {
-    [Route("api/[controller]")]
-    [AppUserConfigDb]
-    [ApiController]
-    public class CommonController : ControllerBase
+    [AppUserDbConfigAction]
+    public class CommonController : AdvoControllerBase
     {
         private readonly ICommonService _commonService;
 

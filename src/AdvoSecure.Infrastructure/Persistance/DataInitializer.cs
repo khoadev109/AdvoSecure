@@ -8,6 +8,8 @@ namespace AdvoSecure.Infrastructure.Persistance
 {
     public static class DataInitializer
     {
+        private static SemaphoreSlim _semaphoreSlim = new(1, 1);
+
         public async static Task BootstrapPostgres(this IHost host)
         {
             using var scope = host.Services.CreateScope();
@@ -26,20 +28,28 @@ namespace AdvoSecure.Infrastructure.Persistance
             }
         }
 
-        public static async Task SetConnectionStringAndRunMigration(this ApplicationDbContext dbContext, string connectionString)
+        public static async Task SetConnectionStringAndRunMigration(this ApplicationDbContext appDbContext, string connectionString)
         {
-            if (dbContext.Database.IsNpgsql())
+            await _semaphoreSlim.WaitAsync();
+
+            try
             {
-                var dbBoostrapped = await dbContext.Database.CanConnectAsync();
+               var currentConnectionString = appDbContext.Database.GetConnectionString() ?? string.Empty;
+
+                var dbBoostrapped = await appDbContext.Database.CanConnectAsync();
 
                 if (!dbBoostrapped)
                 {
-                    dbContext.Database.SetConnectionString(connectionString);
+                    appDbContext.Database.SetConnectionString(connectionString);
 
-                    await dbContext.Database.MigrateAsync();
+                    await appDbContext.Database.MigrateAsync();
 
-                    await ApplicationDataSeed.SeedAsAppTables(dbContext);
+                    await ApplicationDataSeed.SeedAsAppTables(appDbContext);
                 }
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
             }
         }
     }

@@ -14,10 +14,12 @@ namespace AdvoSecure.Application.Interfaces.Repositories
 
         IQueryable<ContactCivilStatus> GetMaritalStatuses();
 
+        Task<Contact> GetById(int id);
+
         Task<bool> IsExisting(int id);
 
         Task<Contact> Create(Contact contact, string userEmail);
 
-        Task<Contact> Update(Contact contact);
+        Task<Contact> Update(ContactDto contactDto, string userEmail);
     }
 }

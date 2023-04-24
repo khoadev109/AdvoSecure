@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, NgModule } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
 import { Router } from '@angular/router';
@@ -11,15 +11,14 @@ import { BillingRate } from 'src/app/models/billing-rate.model';
 import { Country } from 'src/app/models/country.model';
 import { CommonService } from 'src/app/services/common.service';
 import { FormGroup } from '@angular/forms';
-import { genders } from 'src/app/helpers/staticListHelper';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
 @Component({
-  selector: 'app-contact-details',
-  templateUrl: './contact-details.component.html',
+  selector: 'app-company-details',
+  templateUrl: './company-details.component.html',
 })
-export class ContactDetailsComponent implements OnInit {
+export class CompanyDetailsComponent implements OnInit {
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;
   private unsubscribe: Subscription[] = [];
@@ -33,37 +32,10 @@ export class ContactDetailsComponent implements OnInit {
   avatarSrc: string | SafeUrl = '/assets/media/avatars/blank.png';
 
   routeContactId: string | null;
-  routeContactTypeParam: string | null;
-  contactFormTitle: string = 'Contact details';
-
-  sameAsPostalAddress: boolean;
-  streetPostbox1: '';
-  streetPostbox2: '';
-  addressModel1: '';
-  addressModel2: '';
-  postCode1: '';
-  postCode2: '';
-  houseNumber1: '';
-  houseNumber2: '';
-  place1: '';
-  place2: '';
-  provinceState1: '';
-  provinceState2: '';
-  addition1: '';
-  addition2: '';
-  country1: '';
-  country2: '';
-  isChecked: false;
 
   contact: Contact = {
     id: 0,
     displayName: '',
-    bankAccount: '',
-    bicCode: '',
-    bankName: '',
-    sepaMandateNumber: '',
-    sepaMandateDate: new Date(),
-    sepaMandateLimit: 0,
     middleName: '',
     initials: '',
     onlineStatusId: 0,
@@ -140,26 +112,11 @@ export class ContactDetailsComponent implements OnInit {
   maritalStatuses: ContactMaritalStatus[] = [];
   billingRates: BillingRate[] = [];
   countries: Country[] = [];
-  genders = genders;
-  date = '';
 
-  // activeTab: Tabs = 'address-tab';
   selectedIdTypeId: number | undefined = 0;
   selectedMaritalStatusId: number | undefined = 0;
   selectedCountryId: string | undefined = '';
   selectedCountryVaId: string | undefined = '';
-  selectedGender: string | undefined = '';
-  selectedCountryId1: string | undefined = '';
-  selectedCountryId2: string | undefined = '';
-
-  dateOfBirth: Date = new Date();
-  today: Date = new Date();
-  maxDate =
-    new Date().getFullYear().toString() +
-    '-0' +
-    (new Date().getMonth() + 1).toString() +
-    '-' +
-    new Date().getDate().toString();
 
   constructor(
     private router: Router,
@@ -181,13 +138,6 @@ export class ContactDetailsComponent implements OnInit {
       this.loadContact(parseInt(this.routeContactId));
     }
 
-    this.routeContactTypeParam = this.route.snapshot.queryParamMap.get('type');
-    if (this.routeContactTypeParam === 'employee') {
-      this.contactFormTitle = 'Employee details';
-    } else if (this.routeContactTypeParam === 'person') {
-      this.contactFormTitle = 'Person details';
-    }
-
     this.loadSelectList();
   }
 
@@ -205,7 +155,6 @@ export class ContactDetailsComponent implements OnInit {
       this.enableSaveButtonFirstEdit = true;
       this.selectedIdTypeId = this.contact.idTypeId;
       this.selectedMaritalStatusId = this.contact.civilStatusId;
-      this.selectedGender = this.contact.gender;
 
       this.changeDetectorRef.detectChanges();
     });
@@ -262,7 +211,6 @@ export class ContactDetailsComponent implements OnInit {
         this.contact.pictureBin = btoa(binaryString);
         this.contact.idTypeId = this.selectedIdTypeId;
         this.contact.civilStatusId = this.selectedMaritalStatusId;
-        this.contact.gender = this.selectedGender;
 
         if (this.routeContactId) {
           this.contactService
@@ -295,62 +243,8 @@ export class ContactDetailsComponent implements OnInit {
     }
   };
 
-  updateInput() {
-    if (this.isChecked) {
-      this.streetPostbox2 = this.streetPostbox1;
-      this.addressModel2 = this.addressModel1;
-      this.postCode2 = this.postCode1;
-      this.houseNumber2 = this.houseNumber1;
-      this.place2 = this.place1;
-      this.provinceState2 = this.provinceState1;
-      this.addition2 = this.addition1;
-      this.selectedCountryId2 = this.selectedCountryId1;
-    } else {
-      this.streetPostbox2 = '';
-      this.addressModel2 = '';
-      this.postCode2 = '';
-      this.houseNumber2 = '';
-      this.place2 = '';
-      this.provinceState2 = '';
-      this.addition2 = '';
-      this.selectedCountryId2 = '';
-    }
-  }
-
-  goToAll() {
-    this.router.navigate(['/management/contacts/all']);
-  }
-
-  isValidDateOfBirth(dateOfBirth: string): boolean {
-    const date = new Date(dateOfBirth);
-
-    if (isNaN(date.getTime())) {
-      return false;
-    }
-
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-
-    const age = diff / 1000 / 60 / 60 / 24 / 365.25;
-    return age >= 18;
-  }
-
-  dateChange(event: any) {
-    const dob = event.target?.value;
-    if (this.isValidDateOfBirth(dob)) {
-      this.date = 'Valid date of birth';
-    } else {
-      this.date = 'Invalid date of birth';
-    }
-  }
   redirectToListPage() {
-    if (this.routeContactTypeParam === 'employee') {
-      this.router.navigate(['/management/contacts/employees']);
-    } else if (this.routeContactTypeParam === 'person') {
-      this.router.navigate(['/management/contacts/persons']);
-    } else {
-      this.router.navigate(['/management/contacts/all']);
-    }
+    this.router.navigate(['/management/contacts/companies']);
   }
 
   ngOnDestroy() {

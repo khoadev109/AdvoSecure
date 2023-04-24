@@ -49,8 +49,6 @@ namespace AdvoSecure.Infrastructure.Authorization
 
                 if (isAppUser)
                 {
-                    await permissionService.SetAppUserConnectionString(parsedTenantIdentifier);
-
                     context.Succeed(requirement);
                 }
             }

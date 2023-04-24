@@ -1,6 +1,4 @@
-﻿using AdvoSecure.Domain.Entities;
-using AdvoSecure.Infrastructure.Persistance;
-using AdvoSecure.Infrastructure.Persistance.App;
+﻿using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,16 +27,6 @@ namespace AdvoSecure.Infrastructure.Authorization
             bool existing = await _tenantDbContext.TenantSettings?.AnyAsync(t => t.TenantIdentifier == tenantIndentifier && t.AdminId.HasValue);
 
             return existing;
-        }
-
-        public async Task SetAppUserConnectionString(Guid tenantIndentifier)
-        {
-            TenantSetting tenant = await _tenantDbContext.TenantSettings?.FirstOrDefaultAsync(t => t.TenantIdentifier == tenantIndentifier);
-
-            if (tenant != null)
-            {
-                await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
-            }
         }
     }
 }

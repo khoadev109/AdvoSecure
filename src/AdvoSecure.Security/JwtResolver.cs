@@ -41,6 +41,7 @@ namespace AdvoSecure.Security
                 new (ClaimConstants.TenantAdminIdentifier, userClaims.TenantAdminIdentifier),
                 new (ClaimConstants.UserId, userClaims.Id),
                 new (ClaimConstants.UserName, userClaims.Email),
+                new (ClaimConstants.DisplayName, userClaims.Name),
             };
 
             if (!string.IsNullOrWhiteSpace(userClaims.TenantIdentifier))

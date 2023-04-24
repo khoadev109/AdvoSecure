@@ -1,50 +1,37 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../models/contact.model';
+import { DomSanitizer } from '@angular/platform-browser';
+import { PagingContactListComponent } from '../../paging-contact-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
 })
-export class ContactListComponent implements OnInit {
-  POSTS: Contact[];
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 7;
-  tableSizes: any = [3, 6, 9, 12];
-
-  searchTerm: string;
-
+export class ContactListComponent extends PagingContactListComponent {
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private contactService: ContactService
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchContacts();
+    router: Router,
+    changeDetectorRef: ChangeDetectorRef,
+    contactService: ContactService,
+    sanitizer: DomSanitizer,
+  ) {
+    super(router, changeDetectorRef, contactService, sanitizer);
   }
 
   fetchContacts() {
     this.contactService
       .getContacts(this.searchTerm)
       .subscribe((contacts: Contact[]) => {
-        this.POSTS = contacts;
+        this.POSTS = contacts.map((contact) => {
+          contact.avatar = contact.pictureBin
+            ? this.sanitizer?.bypassSecurityTrustUrl(
+                'data:image/jpeg;base64,' + contact.pictureBin
+              )
+            : './assets/media/avatars/blank.png';
+          return contact;
+        });
         this.changeDetectorRef.detectChanges();
       });
-  }
-
-  search() {
-    this.fetchContacts();
-  }
-
-  onTableDataChange(event: any) {
-    this.page = event;
-    this.fetchContacts();
-  }
-
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 1;
-    this.fetchContacts();
   }
 }

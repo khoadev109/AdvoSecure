@@ -414,7 +414,7 @@ namespace AdvoSecure.Infrastructure.Persistance
 
         public static async Task SeedEmployees(ApplicationDbContext context)
         {
-            if (!context.Contacts.Any(x => !x.IsOurEmployee))
+            if (!context.Contacts.Any(x => x.IsOurEmployee && !x.IsOrganization))
             {
                 await context.Contacts.AddRangeAsync(
                     new Contact
@@ -426,7 +426,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Arjen",
                         Title = "De heer ",
                         Initials = "A. ",
-                        DisplayName = "Arjen Smit",
+                        DisplayName = "Arjen Smit employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1980, 12, 20),
                         Address1AddressStreet = "Beurspoortje",
@@ -454,7 +454,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Levi",
                         Title = "De heer ",
                         Initials = "L.",
-                        DisplayName = "Levi de Ruiter",
+                        DisplayName = "Levi de Ruiter employee",
                         CivilStatusId = 4,
                         Birthday = new DateTime(1922, 11, 26),
                         Address1AddressStreet = "Aalscholverweg",
@@ -482,7 +482,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Cees",
                         Title = "De heer ",
                         Initials = "C.",
-                        DisplayName = "Cees Koning",
+                        DisplayName = "Cees Koning employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1968, 03, 27),
                         Address1AddressStreet = "Dam",
@@ -510,7 +510,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Kevin",
                         Title = "De heer ",
                         Initials = "K.",
-                        DisplayName = "Kevin van der Berg",
+                        DisplayName = "Kevin van der Berg employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(2001, 05, 16),
                         Address1AddressStreet = "Haarlemmerplein",
@@ -538,7 +538,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Luuk",
                         Title = "De heer ",
                         Initials = "L.",
-                        DisplayName = "Luuk Bosman",
+                        DisplayName = "Luuk Bosman employee",
                         CivilStatusId = 2,
                         Birthday = new DateTime(1963, 06, 25),
                         Address1AddressStreet = "Galgenstraat",
@@ -566,7 +566,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Sam",
                         Title = "De heer ",
                         Initials = "S.",
-                        DisplayName = "Sam Driessen",
+                        DisplayName = "Sam Driessen employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1971, 02, 21),
                         Address1AddressStreet = "Nieuwstraat ",
@@ -594,7 +594,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Lisa",
                         Title = "Mevrouw ",
                         Initials = "L.",
-                        DisplayName = "Lisa van Veen",
+                        DisplayName = "Lisa van Veen employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1989, 07, 31),
                         Address1AddressStreet = "Adriaan Pauwstraat",
@@ -622,7 +622,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Indy",
                         Title = "Mevrouw ",
                         Initials = "I.",
-                        DisplayName = "Indy van de Wetering",
+                        DisplayName = "Indy van de Wetering employee",
                         CivilStatusId = 7,
                         Birthday = new DateTime(1968, 2, 26),
                         Address1AddressStreet = "Damrak oneven",
@@ -650,7 +650,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Ilse",
                         Title = "Mevrouw ",
                         Initials = "I.",
-                        DisplayName = "Ilse van der Velde",
+                        DisplayName = "Ilse van der Velde employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1997, 2, 25),
                         Address1AddressStreet = "Schoterweg",
@@ -678,7 +678,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Sterre",
                         Title = "Mevrouw ",
                         Initials = "S.",
-                        DisplayName = "Sterre van der Veen",
+                        DisplayName = "Sterre van der Veen employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1997, 3, 5),
                         Address1AddressStreet = "Dollebegijnensteeg",
@@ -706,7 +706,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Jelle",
                         Title = "De heer ",
                         Initials = "J.",
-                        DisplayName = "Jelle Peters",
+                        DisplayName = "Jelle Peters employee",
                         CivilStatusId = 3,
                         Birthday = new DateTime(1950, 6, 1),
                         Address1AddressStreet = "Haarlemmerdijk",
@@ -734,7 +734,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         GivenName = "Elisabeth",
                         Title = "Mevrouw ",
                         Initials = "E.",
-                        DisplayName = "Elisabeth Elzinga",
+                        DisplayName = "Elisabeth Elzinga employee",
                         Birthday = new DateTime(1997, 3, 9),
                         Address1AddressStreet = "Beursstraat",
                         Address1AddressHouseNo = "298",
@@ -758,7 +758,7 @@ namespace AdvoSecure.Infrastructure.Persistance
 
         public static async Task SeedPersons(ApplicationDbContext context)
         {
-            if (!context.Contacts.Any(x => !x.IsOurEmployee))
+            if (!context.Contacts.Any(x => !x.IsOurEmployee && !x.IsOrganization))
             {
                 await context.Contacts.AddRangeAsync(
                     new Contact

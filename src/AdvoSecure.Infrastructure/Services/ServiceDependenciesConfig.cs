@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Infrastructure.Persistance;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AdvoSecure.Infrastructure.Services
@@ -12,6 +13,8 @@ namespace AdvoSecure.Infrastructure.Services
             services.AddScoped<ICaseService, CaseService>();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<ICommonService, CommonService>();
+            services.AddSingleton<AppDataInitialize>();
+
             return services;
         }
     }

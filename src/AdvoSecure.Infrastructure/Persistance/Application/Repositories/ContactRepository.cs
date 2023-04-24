@@ -11,7 +11,7 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
     public class ContactRepository : IContactRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IMapper _mapper;
+        private IMapper _mapper;
 
         public ContactRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
@@ -47,9 +47,16 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
             return _dbContext.ContactCivilStatuses;
         }
 
-        public Task<bool> IsExisting(int id)
+        public async Task<bool> IsExisting(int id)
         {
-            return _dbContext.Contacts.AnyAsync(c => c.Id == id);
+            return await _dbContext.Contacts.AnyAsync(c => c.Id == id);
+        }
+
+        public async Task<Contact> GetById(int id)
+        {
+            Contact contact = await _dbContext.Contacts.FindAsync(id);
+
+            return contact;
         }
 
         public async Task<Contact> Create(Contact contact, string userEmail)
@@ -72,9 +79,14 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
             }
         }
 
-        public async Task<Contact> Update(Contact contact)
+        public async Task<Contact> Update(ContactDto contactDto, string userEmail)
         {
-            EntityEntry<Contact> result = _dbContext.Update<Contact>(contact);
+            Contact existingContact = await _dbContext.Contacts.FindAsync(contactDto.Id);
+            existingContact.CreatedBy = userEmail;
+
+            existingContact = _mapper.Map(contactDto, existingContact);
+
+            EntityEntry<Contact> result = _dbContext.Update<Contact>(existingContact);
 
             await _dbContext.SaveChangesAsync();
 

@@ -32,7 +32,10 @@
       data-bs-trigger="hover"
       title="Click to add an employee"
     >
-      <a href="#" class="btn btn-sm btn-light-primary">
+      <a
+        class="btn btn-sm btn-light-primary"
+        (click)="redirectToNewEmployee()"
+      >
         <span
           [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
           class="svg-icon svg-icon-3"
@@ -77,10 +80,13 @@
             <td>
               <div class="d-flex align-items-center">
                 <div class="symbol symbol-45px me-5">
-                  <img src="./assets/media/avatars/blank.png" alt="" />
+                  <img [src]="post.avatar" alt="" />
                 </div>
                 <div class="d-flex justify-content-start flex-column">
-                  <a href="#" class="text-dark fw-bolder fs-6">
+                  <a
+                    class="text-dark fw-bolder text-hover-primary fs-6"
+                    (click)="redirectToExistingEmployee(post.id)"
+                  >
                     {{ post.displayName }}
                   </a>
                 </div>
