@@ -1,416 +1,384 @@
-<div>
-  <div class="d-flex justify-content-end mb-6">
-    <button
-      type="button"
-      class="btn btn-primary mr-2"
-      style="margin-right: 10px"
-    >
-      Overview
-    </button>
-    <button
-      type="button"
-      class="btn btn-secondary ml-2"
-      [disabled]="isLoading || contactForm.invalid"
-      (click)="save()"
-    >
-      <ng-container *ngIf="!isLoading">Save</ng-container>
+<div class="d-flex justify-content-end mb-6">
+  <button
+    (click)="goToAll()"
+    type="button"
+    class="btn btn-primary mr-2"
+    style="margin-right: 10px"
+  >
+    Overview
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary ml-2"
+    [disabled]="isLoading || contactForm.invalid"
+    (click)="save()"
+  >
+    <ng-container *ngIf="!isLoading">Save</ng-container>
 
-      <ng-container *ngIf="isLoading">
-        <span clas="indicator-progress" [style.display]="'block'">
-          Please wait...{{ " " }}
-          <span
-            class="spinner-border spinner-border-sm align-middle ms-2"
-          ></span>
-        </span>
-      </ng-container>
-    </button>
-  </div>
-  <form novalidate="" class="form" #contactForm="ngForm">
-    <div class="card mb-5 mb-xl-10">
-      <div
-        class="card-header border-0 cursor-pointer"
-        role="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#kt_account_contact_details"
-        aria-expanded="true"
-        aria-controls="kt_account_contact_details"
-      >
-        <div class="card-title m-0">
-          <h3 class="fw-bolder m-0">Contact Details</h3>
-        </div>
+    <ng-container *ngIf="isLoading">
+      <span clas="indicator-progress" [style.display]="'block'">
+        Please wait...{{ " " }}
+        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+      </span>
+    </ng-container>
+  </button>
+</div>
+<form novalidate="" class="form" #contactForm="ngForm">
+  <div class="card mb-5 mb-xl-10">
+    <div
+      class="card-header border-0 cursor-pointer"
+      role="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#kt_account_contact_details"
+      aria-expanded="true"
+      aria-controls="kt_account_contact_details"
+    >
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0">Contact Details</h3>
       </div>
-      <div class="card-body borqr-top p-9">
-        <div class="d-flex justify-content-between" style="width: 800px">
-          <div
-            class="image-input image-input-outline"
-            data-kt-image-input="true"
-          >
-            <img
-              class="image-input-wrapper w-125px h-125px"
-              [src]="imageSrc"
-              avatar="Avatar"
+    </div>
+    <div class="card-body borqr-top p-9">
+      <div class="d-flex justify-content-between" style="width: 800px">
+        <div class="image-input image-input-outline" data-kt-image-input="true">
+          <img
+            class="image-input-wrapper w-125px h-125px"
+            [src]="imageSrc"
+            avatar="Avatar"
+          />
+          <div class="mt-4 cursor-pointer">
+            <p class="text-muted lead" (click)="selectImage.click()">
+              Change Profile
+            </p>
+          </div>
+          <div class="custom-file" style="width: 300px">
+            <input
+              type="file"
+              class="form-control form-control-lg form-control-solid temp-hidden"
+              (change)="updateAvatar($event)"
+              #selectImage
             />
-            <div class="mt-4 cursor-pointer">
-              <p class="text-muted lead" (click)="selectImage.click()">
-                Change Profile
-              </p>
-            </div>
-            <div class="custom-file" style="width: 300px">
-              <input
-                type="file"
-                class="form-control form-control-lg form-control-solid temp-hidden"
-                (change)="updateAvatar($event)"
-                #selectImage
-              />
-            </div>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="checkbox1" />
-            <label for="checkbox1" class="form-check-label"
-              >This is an office worker.</label
-            >
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="checkbox2" />
-            <label for="checkbox2" class="form-check-label"
-              >Contact is a company.</label
-            >
           </div>
         </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="checkbox1" />
+          <label for="checkbox1" class="form-check-label"
+            >This is an office worker.</label
+          >
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="checkbox2" />
+          <label for="checkbox2" class="form-check-label"
+            >Contact is a company.</label
+          >
+        </div>
       </div>
-      <div id="kt_account_contact_details" class="collapse show">
-        <div class="card-body border-top p-9">
-          <div class="row mb-6">
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">First Name</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="First Name"
-                      name="firstName"
-                      [(ngModel)]="contact.givenName"
-                    />
-                  </div>
+    </div>
+    <div id="kt_account_contact_details" class="collapse show">
+      <div class="card-body border-top p-9">
+        <div class="row mb-6">
+          <div class="col-lg-4">
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="First Name"
+                    name="firstName"
+                    [(ngModel)]="contact.givenName"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Infix</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Infix"
-                      name="infix"
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Infix</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Infix"
+                    name="infix"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Last Name</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Last Name"
-                      name="lastName"
-                      [(ngModel)]="contact.surname"
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Last Name"
+                    name="lastName"
+                    [(ngModel)]="contact.surname"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Suffix</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Suffix"
-                      name="suffix"
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Suffix</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Suffix"
+                    name="suffix"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6 required"
-                      >Full Name</label
-                    >
-                    <input
-                      maxlength="50"
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Full Name"
-                      name="displayName"
-                      [(ngModel)]="contact.displayName"
-                      #name="ngModel"
-                      required
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6 required"
+                    >Full Name</label
+                  >
+                  <input
+                    maxlength="50"
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Full Name"
+                    name="displayName"
+                    [(ngModel)]="contact.displayName"
+                    #name="ngModel"
+                    required
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <div class="col-lg-4"></div>
-                    <!-- Validate Display Name -->
-                    <div
-                      *ngIf="name.invalid && (name.dirty || name.touched)"
-                      class="form-text"
-                    >
-                      <div *ngIf="name.errors?.required">
-                        Full name is required
-                      </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <div class="col-lg-4"></div>
+                  <!-- Validate Display Name -->
+                  <div
+                    *ngIf="name.invalid && (name.dirty || name.touched)"
+                    class="form-text"
+                  >
+                    <div *ngIf="name.errors?.required">
+                      Full name is required
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Gender</label>
+          </div>
+          <div class="col-lg-4">
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Gender</label>
+                  <select
+                    class="form-select form-select-solid form-select-lg fw-bold"
+                    name="countryVa"
+                    [(ngModel)]="selectedGender"
+                  >
+                    <option value="">Select gender</option>
+                    <option
+                      *ngFor="let gender of genders"
+                      [selected]="selectedGender === gender.value"
+                      [text]="gender.text"
+                      [value]="gender.value"
+                    ></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 col-form-label fw-bold fs-6"
+                    >Language</label
+                  >
+                  <div class="col-lg-8 fv-row">
                     <select
-                      class="form-select form-select-solid form-select-lg fw-bold"
-                      name="countryVa"
-                      [(ngModel)]="selectedGender"
+                      class="form-select form-select-solid form-select-lg"
+                      name="language"
                     >
-                      <option value="">Select gender</option>
-                      <option
-                        *ngFor="let gender of genders"
-                        [selected]="selectedGender === gender.value"
-                        [text]="gender.text"
-                        [value]="gender.value"
-                      ></option>
+                      <option value="">Select a Language</option>
+                      <option value="id">Bahasa Indonesia - Indonesian</option>
+                      <option value="msa">Bahasa Melayu - Malay</option>
+                      <option value="ca">Català - Catalan</option>
+                      <option value="cs">Čeština - Czech</option>
+                      <option value="da">Dansk - Danish</option>
+                      <option value="de">Deutsch - German</option>
+                      <option value="en">English</option>
+                      <option value="en-gb">
+                        English UK - British English
+                      </option>
+                      <option value="es">Español - Spanish</option>
+                      <option value="fil">Filipino</option>
+                      <option value="fr">Français - French</option>
+                      <option value="ga">Gaeilge - Irish (beta)</option>
+                      <option value="gl">Galego - Galician (beta)</option>
+                      <option value="hr">Hrvatski - Croatian</option>
+                      <option value="it">Italiano - Italian</option>
+                      <option value="hu">Magyar - Hungarian</option>
+                      <option value="nl">Nederlands - Dutch</option>
+                      <option value="no">Norsk - Norwegian</option>
+                      <option value="pl">Polski - Polish</option>
+                      <option value="pt">Português - Portuguese</option>
+                      <option value="ro">Română - Romanian</option>
+                      <option value="sk">Slovenčina - Slovak</option>
+                      <option value="fi">Suomi - Finnish</option>
+                      <option value="sv">Svenska - Swedish</option>
+                      <option value="vi">Tiếng Việt - Vietnamese</option>
+                      <option value="tr">Türkçe - Turkish</option>
+                      <option value="el">Ελληνικά - Greek</option>
+                      <option value="bg">Български език - Bulgarian</option>
+                      <option value="ru">Русский - Russian</option>
+                      <option value="sr">Српски - Serbian</option>
+                      <option value="uk">Українська мова - Ukrainian</option>
+                      <option value="he">עִבְרִית - Hebrew</option>
+                      <option value="ur">اردو - Urdu (beta)</option>
+                      <option value="ar">العربية - Arabic</option>
+                      <option value="fa">فارسی - Persian</option>
+                      <option value="mr">मराठी - Marathi</option>
+                      <option value="hi">हिन्दी - Hindi</option>
+                      <option value="bn">বাংলা - Bangla</option>
+                      <option value="gu">ગુજરાતી - Gujarati</option>
+                      <option value="ta">தமிழ் - Tamil</option>
+                      <option value="kn">ಕನ್ನಡ - Kannada</option>
+                      <option value="th">ภาษาไทย - Thai</option>
+                      <option value="ko">한국어 - Korean</option>
+                      <option value="ja">日本語 - Japanese</option>
+                      <option value="zh-cn">
+                        简体中文 - Simplified Chinese
+                      </option>
+                      <option value="zh-tw">
+                        繁體中文 - Traditional Chinese
+                      </option>
                     </select>
                   </div>
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 col-form-label fw-bold fs-6"
-                      >Language</label
-                    >
-                    <div class="col-lg-8 fv-row">
-                      <select
-                        class="form-select form-select-solid form-select-lg"
-                        name="language"
-                      >
-                        <option value="">Select a Language</option>
-                        <option value="id">
-                          Bahasa Indonesia - Indonesian
-                        </option>
-                        <option value="msa">Bahasa Melayu - Malay</option>
-                        <option value="ca">Català - Catalan</option>
-                        <option value="cs">Čeština - Czech</option>
-                        <option value="da">Dansk - Danish</option>
-                        <option value="de">Deutsch - German</option>
-                        <option value="en">English</option>
-                        <option value="en-gb">
-                          English UK - British English
-                        </option>
-                        <option value="es">Español - Spanish</option>
-                        <option value="fil">Filipino</option>
-                        <option value="fr">Français - French</option>
-                        <option value="ga">Gaeilge - Irish (beta)</option>
-                        <option value="gl">Galego - Galician (beta)</option>
-                        <option value="hr">Hrvatski - Croatian</option>
-                        <option value="it">Italiano - Italian</option>
-                        <option value="hu">Magyar - Hungarian</option>
-                        <option value="nl">Nederlands - Dutch</option>
-                        <option value="no">Norsk - Norwegian</option>
-                        <option value="pl">Polski - Polish</option>
-                        <option value="pt">Português - Portuguese</option>
-                        <option value="ro">Română - Romanian</option>
-                        <option value="sk">Slovenčina - Slovak</option>
-                        <option value="fi">Suomi - Finnish</option>
-                        <option value="sv">Svenska - Swedish</option>
-                        <option value="vi">Tiếng Việt - Vietnamese</option>
-                        <option value="tr">Türkçe - Turkish</option>
-                        <option value="el">Ελληνικά - Greek</option>
-                        <option value="bg">Български език - Bulgarian</option>
-                        <option value="ru">Русский - Russian</option>
-                        <option value="sr">Српски - Serbian</option>
-                        <option value="uk">Українська мова - Ukrainian</option>
-                        <option value="he">עִבְרִית - Hebrew</option>
-                        <option value="ur">اردو - Urdu (beta)</option>
-                        <option value="ar">العربية - Arabic</option>
-                        <option value="fa">فارسی - Persian</option>
-                        <option value="mr">मराठी - Marathi</option>
-                        <option value="hi">हिन्दी - Hindi</option>
-                        <option value="bn">বাংলা - Bangla</option>
-                        <option value="gu">ગુજરાતી - Gujarati</option>
-                        <option value="ta">தமிழ் - Tamil</option>
-                        <option value="kn">ಕನ್ನಡ - Kannada</option>
-                        <option value="th">ภาษาไทย - Thai</option>
-                        <option value="ko">한국어 - Korean</option>
-                        <option value="ja">日本語 - Japanese</option>
-                        <option value="zh-cn">
-                          简体中文 - Simplified Chinese
-                        </option>
-                        <option value="zh-tw">
-                          繁體中文 - Traditional Chinese
-                        </option>
-                      </select>
-                    </div>
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6" for="emailInput"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    id="emailInput"
+                    placeholder="Email"
+                    name="email"
+                    email
+                    ngModel
+                    #email="ngModel"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    required
+                  />
                 </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Email</label>
-                    <input
-                      type="email"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Email"
-                      name="email"
-                      formControlName="email"
-                      autocomplete="off"
-                      [ngClass]="{
-                        'is-invalid': email.controls['email'].invalid,
-                        'is-valid': email.controls['email'].valid
-                      }"
-                    />
-                    <ng-container
-                      [ngTemplateOutlet]="formError"
-                      [ngTemplateOutletContext]="{
-                        validation: 'required',
-                        message: 'Email is required',
-                        control: email.controls['email']
-                      }"
-                    ></ng-container>
-                    <ng-container
-                      [ngTemplateOutlet]="formError"
-                      [ngTemplateOutletContext]="{
-                        validation: 'email',
-                        message: 'Email is invalid',
-                        control: email.controls['email']
-                      }"
-                    ></ng-container>
-                    <ng-container
-                      [ngTemplateOutlet]="formError"
-                      [ngTemplateOutletContext]="{
-                        validation: 'minLength',
-                        message: 'Email should have at least 3 symbols',
-                        control: email.controls['email']
-                      }"
-                    ></ng-container>
-                    <ng-container
-                      [ngTemplateOutlet]="formError"
-                      [ngTemplateOutletContext]="{
-                        validation: 'maxLength',
-                        message: 'Email should have maximum 360 symbols',
-                        control: email.controls['email']
-                      }"
-                    ></ng-container>
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Fax</label>
-                    <input
-                      type="tel"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Fax"
-                      name="fax"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6"
-                      >Organization name</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Organization name"
-                      name="organizationName"
-                    />
-                  </div>
+                <div *ngIf="email.touched">
+                  <p *ngIf="email.errors?.required">
+                    Email is a required field!
+                  </p>
+                  <p *ngIf="email.errors?.pattern">
+                    This is not a valid Email!!!
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Telephone</label>
-                    <input
-                      type="tel"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Telephone"
-                      name="telephone"
-                    />
-                  </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Fax</label>
+                  <input
+                    type="tel"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Fax"
+                    name="fax"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Mobile</label>
-                    <input
-                      type="tel"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Mobile"
-                      name="mobile"
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Organization name</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Organization name"
+                    name="organizationName"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Feature title</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Feature title"
-                      name="featureTitle"
-                    />
-                  </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Telephone</label>
+                  <input
+                    type="tel"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Telephone"
+                    name="telephone"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Address title</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Address title"
-                      name="addressTitle"
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Mobile</label>
+                  <input
+                    type="tel"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Mobile"
+                    name="mobile"
+                  />
                 </div>
               </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6"
-                      >Letter/email salutation</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Letter/email salutation"
-                      name="letter/email"
-                    />
-                  </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Feature title</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Feature title"
+                    name="featureTitle"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6">Address title</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Address title"
+                    name="addressTitle"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="d-flex align-items-center me-4">
+                  <label class="col-lg-4 fw-bold fs-6"
+                    >Letter/email salutation</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                    placeholder="Letter/email salutation"
+                    name="letter/email"
+                  />
                 </div>
               </div>
             </div>
@@ -418,8 +386,8 @@
         </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>
 
 <div class="card mb-5 mb-xl-10">
   <div class="card-body pt-9 pb-0 mb-6">
@@ -490,12 +458,16 @@
               <div class="row mb-3">
                 <div class="col-lg-12">
                   <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Street/Postbox</label>
+                    <label class="col-lg-4 fw-bold fs-6"
+                      >Street/Postbox 1</label
+                    >
                     <input
                       type="text"
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Street/Postbox"
                       name="streetPostbox"
+                      id="streetPostbox"
+                      [(ngModel)]="streetPostbox1"
                     />
                   </div>
                 </div>
@@ -509,6 +481,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Address 2"
                       name="address2"
+                      [(ngModel)]="addressModel1"
                     />
                   </div>
                 </div>
@@ -522,6 +495,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Postcode"
                       name="postcode"
+                      [(ngModel)]="postCode1"
                     />
                   </div>
                 </div>
@@ -537,6 +511,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="House number"
                       name="houseNumber"
+                      [(ngModel)]="houseNumber1"
                     />
                   </div>
                 </div>
@@ -550,6 +525,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Place"
                       name="place"
+                      [(ngModel)]="place1"
                     />
                   </div>
                 </div>
@@ -565,6 +541,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Province / State"
                       name="provinceState"
+                      [(ngModel)]="provinceState1"
                     />
                   </div>
                 </div>
@@ -580,6 +557,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Addition"
                       name="addition"
+                      [(ngModel)]="addition1"
                     />
                   </div>
                 </div>
@@ -591,12 +569,12 @@
                     <select
                       class="form-select form-select-solid form-select-lg fw-bold"
                       name="country"
-                      [(ngModel)]="selectedCountryId"
+                      [(ngModel)]="selectedCountryId1"
                     >
                       <option value="">Select a Country</option>
                       <option
                         *ngFor="let country of countries"
-                        [selected]="selectedCountryId === country.id"
+                        [selected]="selectedCountryId1 === country.id"
                         [text]="country.countryName_en"
                         [value]="country.id"
                       ></option>
@@ -618,6 +596,8 @@
                 class="form-check-input"
                 name="sameAsPostalAddress"
                 type="checkbox"
+                [(ngModel)]="isChecked"
+                (change)="updateInput()"
               />
               )
             </h5>
@@ -629,12 +609,17 @@
               <div class="row mb-3">
                 <div class="col-lg-12">
                   <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Street/Postbox</label>
+                    <label class="col-lg-4 fw-bold fs-6"
+                      >Street/Postbox 2</label
+                    >
                     <input
                       type="text"
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Street/Postbox"
                       name="streetPostbox"
+                      id="streetPostbox"
+                      [disabled]="isChecked"
+                      [(ngModel)]="streetPostbox2"
                     />
                   </div>
                 </div>
@@ -648,6 +633,8 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Address 2"
                       name="address2"
+                      [disabled]="isChecked"
+                      [(ngModel)]="addressModel2"
                     />
                   </div>
                 </div>
@@ -661,6 +648,8 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Postcode"
                       name="postcode"
+                      [disabled]="isChecked"
+                      [(ngModel)]="postCode2"
                     />
                   </div>
                 </div>
@@ -676,6 +665,8 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="House number"
                       name="houseNumber"
+                      [disabled]="isChecked"
+                      [(ngModel)]="houseNumber2"
                     />
                   </div>
                 </div>
@@ -689,6 +680,8 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Place"
                       name="place"
+                      [disabled]="isChecked"
+                      [(ngModel)]="place2"
                     />
                   </div>
                 </div>
@@ -704,6 +697,8 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Province / State"
                       name="provinceState"
+                      [disabled]="isChecked"
+                      [(ngModel)]="provinceState2"
                     />
                   </div>
                 </div>
@@ -719,6 +714,8 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Addition"
                       name="addition"
+                      [disabled]="isChecked"
+                      [(ngModel)]="addition2"
                     />
                   </div>
                 </div>
@@ -730,7 +727,8 @@
                     <select
                       class="form-select form-select-solid form-select-lg fw-bold"
                       name="countryVa"
-                      [(ngModel)]="selectedCountryId"
+                      [(ngModel)]="selectedCountryId2"
+                      [disabled]="isChecked"
                     >
                       <option value="">Select a Country</option>
                       <option
@@ -770,20 +768,16 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Date of birth"
                       name="dateOfBirth"
-                      ngModel
-                      #dob="ngModel"
-                      [ngClass]="{ 'is-invalid': dob.invalid }"
-                      pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$"
+                      [(ngModel)]="dateOfBirth"
+                      required
+                      min="1900-01-01"
+                      [max]="maxDate"
+                      #dateOfBirthVar="ngModel"
+                      (input)="dateChange($event)"
                     />
-                    <div *ngIf="dob.errors" class="invalid-feedback">
-                      <div *ngIf="dob.errors.required">
-                        Date of Birth is required
-                      </div>
-                      <div *ngIf="dob.errors.pattern">
-                        Date of Birth must be a valid date in the format
-                        YYYY-MM-DD
-                      </div>
-                    </div>
+                  </div>
+                  <div>
+                    {{ date }}
                   </div>
                 </div>
               </div>
@@ -1065,19 +1059,3 @@
     <!-- end::Tap Financial-->
   </div>
 </div>
-<ng-template
-  #formError
-  let-control="control"
-  let-message="message"
-  let-validation="validation"
->
-  <ng-container
-    *ngIf="control.hasError(validation) && (control.dirty || control.touched)"
-  >
-    <div class="fv-plugins-message-container">
-      <span role="alert">
-        {{ message }}
-      </span>
-    </div>
-  </ng-container>
-</ng-template>
