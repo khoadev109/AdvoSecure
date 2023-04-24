@@ -1,8 +1,6 @@
-﻿using AdvoSecure.Application.Dtos;
-using AdvoSecure.Application.Dtos.ContactDtos;
+﻿using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
-using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.ContactEntities;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -20,15 +18,6 @@ namespace AdvoSecure.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CountryDto>> GetAllCountriesAsync()
-        {
-            IEnumerable<Country> countries = await _contactRepository.GetAllCountriesAsync();
-
-            IEnumerable<CountryDto> countryDtos = _mapper.Map<IEnumerable<CountryDto>>(countries);
-
-            return countryDtos;
-        }
-
         public async Task<IEnumerable<ContactDto>> GetContactsAsync(string searchTerm)
         {
             IList<Contact> contacts = await _contactRepository.GetContacts(searchTerm).OrderBy(x => x.DisplayName).ToListAsync();
@@ -38,20 +27,29 @@ namespace AdvoSecure.Infrastructure.Services
             return contactDtos;
         }
 
+        public async Task<IEnumerable<ContactDto>> GetCompaniesAsync(string searchTerm)
+        {
+            IList<Contact> companies = await _contactRepository.GetContacts(searchTerm).Where(c => c.IsOrganization).OrderBy(x => x.DisplayName).ToListAsync();
+
+            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(companies);
+
+            return contactDtos;
+        }
+
         public async Task<IEnumerable<ContactDto>> GetEmployeesAsync(string searchTerm)
         {
-            IList<Contact> contacts = await _contactRepository.GetContacts(searchTerm).Where(c => c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
+            IList<Contact> employees = await _contactRepository.GetContacts(searchTerm).Where(c => c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
 
-            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(contacts);
+            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(employees);
 
             return contactDtos;
         }
 
         public async Task<IEnumerable<ContactDto>> GetPersonsAsync(string searchTerm)
         {
-            IList<Contact> contacts = await _contactRepository.GetContacts(searchTerm).Where(c => !c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
+            IList<Contact> persons = await _contactRepository.GetContacts(searchTerm).Where(c => !c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
 
-            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(contacts);
+            IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(persons);
 
             return contactDtos;
         }
@@ -73,18 +71,36 @@ namespace AdvoSecure.Infrastructure.Services
 
             return statusDtos;
         }
-
-        public async Task<ContactDto> SaveContactAsync(ContactDto contactDto, string userName)
+        
+        public async Task<ContactDto> GetContactByIdAsync(int id)
         {
-            bool exist = await _contactRepository.IsExisting(contactDto.Id);
+            Contact contact = await _contactRepository.GetById(id);
 
-            Contact savingContact = _mapper.Map<Contact>(contactDto);
+            ContactDto contactDto = _mapper.Map<ContactDto>(contact);
 
-            Contact savedContact = exist ? await _contactRepository.Update(savingContact) : await _contactRepository.Create(savingContact, userName);
+            return contactDto;
+        }
 
-            ContactDto savedContactDto = _mapper.Map<ContactDto>(savedContact);
+        public async Task<ContactDto> CreateContactAsync(ContactDto contactDto, string userName)
+        {
+            Contact newContact = _mapper.Map<Contact>(contactDto);
 
-            return savedContactDto;
+            Contact createdContact = await _contactRepository.Create(newContact, userName);
+
+            ContactDto createdContactDto = _mapper.Map<ContactDto>(createdContact);
+
+            return createdContactDto;
+        }
+
+        public async Task<ContactDto> UpdateContactAsync(int id, ContactDto contactDto, string userName)
+        {
+            contactDto.Id = id;
+
+            Contact updatedContact = await _contactRepository.Update(contactDto, userName);
+
+            ContactDto updatedContactDto = _mapper.Map<ContactDto>(updatedContact);
+
+            return updatedContactDto;
         }
     }
 }

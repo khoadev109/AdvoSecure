@@ -1,17 +1,14 @@
-﻿using AdvoSecure.Application.Dtos;
+﻿using AdvoSecure.Api.Authentication;
+using AdvoSecure.Api.Controllers;
+using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces.Services;
-using AdvoSecure.Api.Authentication;
 using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Security;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace AdvoSecure.Api.Areas.Management.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TenantAccountController : ControllerBase
+    public class TenantAccountController : AdvoControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly JwtResolver _jwtResolver;
@@ -127,9 +124,7 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
         [HttpPost("register-user")]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterRequest request)
         {
-            var tenantAdminIdentifierClaim = User.Claims.First(x => x.Type == ClaimConstants.TenantAdminIdentifier)?.Value;
-
-            if (!Guid.TryParse(tenantAdminIdentifierClaim, out Guid tenantAdminIdentifier))
+            if (!Guid.TryParse(CurrentTenantAdminIdentifier, out Guid tenantAdminIdentifier))
             {
                 throw new UnauthorizedAccessException("Missing tenant identifier.");
             }

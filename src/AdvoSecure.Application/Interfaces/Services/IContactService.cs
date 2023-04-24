@@ -5,9 +5,9 @@ namespace AdvoSecure.Application.Interfaces.Services
 {
     public interface IContactService
     {
-        Task<IEnumerable<CountryDto>> GetAllCountriesAsync();
-
         Task<IEnumerable<ContactDto>> GetContactsAsync(string searchTerm);
+
+        Task<IEnumerable<ContactDto>> GetCompaniesAsync(string searchTerm);
 
         Task<IEnumerable<ContactDto>> GetEmployeesAsync(string searchTerm);
 
@@ -17,6 +17,10 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<IEnumerable<ContactCivilStatusDto>> GetMaritalStatusesAsync();
 
-        Task<ContactDto> SaveContactAsync(ContactDto contactDto, string userName);
+        Task<ContactDto> GetContactByIdAsync(int id);
+
+        Task<ContactDto> CreateContactAsync(ContactDto contactDto, string userName);
+
+        Task<ContactDto> UpdateContactAsync(int id, ContactDto contactDto, string userName);
     }
 }

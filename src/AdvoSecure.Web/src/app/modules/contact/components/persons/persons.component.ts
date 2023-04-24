@@ -1,38 +1,31 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../models/contact.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PagingContactListComponent } from '../../paging-contact-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-persons',
   templateUrl: './persons.component.html',
 })
-export class PersonsComponent implements OnInit {
-  POSTS: Contact[];
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 7;
-  tableSizes: any = [3, 6, 9, 12];
-
-  searchTerm: string;
-
+export class PersonsComponent extends PagingContactListComponent {
   constructor(
-    private sanitizer: DomSanitizer,
-    private changeDetectorRef: ChangeDetectorRef,
-    private contactService: ContactService
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchPersons();
+    router: Router,
+    changeDetectorRef: ChangeDetectorRef,
+    contactService: ContactService,
+    sanitizer: DomSanitizer
+  ) {
+    super(router, changeDetectorRef, contactService, sanitizer);
   }
 
-  fetchPersons() {
+  fetchContacts() {
     this.contactService
       .getPersons(this.searchTerm)
       .subscribe((persons: Contact[]) => {
         this.POSTS = persons.map((person) => {
           person.avatar = person.pictureBin
-            ? this.sanitizer.bypassSecurityTrustUrl(
+            ? this.sanitizer?.bypassSecurityTrustUrl(
                 'data:image/jpeg;base64,' + person.pictureBin
               )
             : './assets/media/avatars/blank.png';
@@ -42,18 +35,15 @@ export class PersonsComponent implements OnInit {
       });
   }
 
-  search() {
-    this.fetchPersons();
+  redirectToNewPerson() {
+    this.router.navigate(['/management/contacts/details'], {
+      queryParams: { type: 'person' },
+    });
   }
 
-  onTableDataChange(event: any) {
-    this.page = event;
-    this.fetchPersons();
-  }
-
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 1;
-    this.fetchPersons();
+  redirectToExistingPerson(id: number) {
+    this.router.navigate(['/management/contacts/details/' + id], {
+      queryParams: { type: 'person' },
+    });
   }
 }

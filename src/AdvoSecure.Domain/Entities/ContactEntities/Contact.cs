@@ -16,6 +16,8 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// <author>Lucas Nodine</author>
         public bool IsOurEmployee { get; set; }
 
+        public bool IsOrganization { get; set; }
+
         /// <summary>
         /// Gets or sets a user/profile picture  path/filename.jpg|png|bmp|gif
         /// </summary>

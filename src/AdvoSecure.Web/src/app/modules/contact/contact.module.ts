@@ -12,15 +12,21 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { PersonsComponent } from './components/persons/persons.component';
+import { CompaniesComponent } from './components/companies/companies.component';
+import { CompanyDetailsComponent } from './components/company-details/company-details.component';
+import { PagingContactListComponent } from './paging-contact-list.component';
 
 @NgModule({
   declarations: [
+    PagingContactListComponent,
     ContactComponent,
-    ConflictsComponent,
-    ContactDetailsComponent,
     ContactListComponent,
     EmployeesComponent,
-    PersonsComponent
+    PersonsComponent,
+    CompaniesComponent,
+    CompanyDetailsComponent,
+    ContactDetailsComponent,
+    ConflictsComponent,
   ],
   imports: [
     CommonModule,

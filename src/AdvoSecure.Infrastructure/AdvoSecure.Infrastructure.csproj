@@ -33,4 +33,10 @@
     <ProjectReference Include="..\AdvoSecure.Security\AdvoSecure.Security.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+    <Folder Include="Persistance\Application\Queries\" />
+    <Folder Include="Persistance\Management\Queries\" />
+  </ItemGroup>
+
 </Project>

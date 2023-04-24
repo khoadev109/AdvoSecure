@@ -1,3 +1,4 @@
+using AdvoSecure.Api;
 using AdvoSecure.Api.Areas.Application.Models.Validators;
 using AdvoSecure.Api.Attributes;
 using AdvoSecure.Api.Authentication;
@@ -14,6 +15,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 

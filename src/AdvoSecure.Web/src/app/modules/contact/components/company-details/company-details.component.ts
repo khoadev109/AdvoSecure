@@ -11,15 +11,14 @@ import { BillingRate } from 'src/app/models/billing-rate.model';
 import { Country } from 'src/app/models/country.model';
 import { CommonService } from 'src/app/services/common.service';
 import { FormGroup } from '@angular/forms';
-import { genders } from 'src/app/helpers/staticListHelper';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
 @Component({
-  selector: 'app-contact-details',
-  templateUrl: './contact-details.component.html',
+  selector: 'app-company-details',
+  templateUrl: './company-details.component.html',
 })
-export class ContactDetailsComponent implements OnInit {
+export class CompanyDetailsComponent implements OnInit {
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;
   private unsubscribe: Subscription[] = [];
@@ -33,8 +32,6 @@ export class ContactDetailsComponent implements OnInit {
   avatarSrc: string | SafeUrl = '/assets/media/avatars/blank.png';
 
   routeContactId: string | null;
-  routeContactTypeParam: string | null;
-  contactFormTitle: string = 'Contact details';
 
   contact: Contact = {
     id: 0,
@@ -45,13 +42,11 @@ export class ContactDetailsComponent implements OnInit {
   maritalStatuses: ContactMaritalStatus[] = [];
   billingRates: BillingRate[] = [];
   countries: Country[] = [];
-  genders = genders;
 
   selectedIdTypeId: number | undefined = 0;
   selectedMaritalStatusId: number | undefined = 0;
   selectedCountryId: string | undefined = '';
   selectedCountryVaId: string | undefined = '';
-  selectedGender: string | undefined = '';
 
   constructor(
     private router: Router,
@@ -73,13 +68,6 @@ export class ContactDetailsComponent implements OnInit {
       this.loadContact(parseInt(this.routeContactId));
     }
 
-    this.routeContactTypeParam = this.route.snapshot.queryParamMap.get('type');
-    if (this.routeContactTypeParam === 'employee') {
-      this.contactFormTitle = 'Employee details';
-    } else if (this.routeContactTypeParam === 'person') {
-      this.contactFormTitle = 'Person details';
-    }
-
     this.loadSelectList();
   }
 
@@ -97,7 +85,6 @@ export class ContactDetailsComponent implements OnInit {
       this.enableSaveButtonFirstEdit = true;
       this.selectedIdTypeId = this.contact.idTypeId;
       this.selectedMaritalStatusId = this.contact.civilStatusId;
-      this.selectedGender = this.contact.gender;
 
       this.changeDetectorRef.detectChanges();
     });
@@ -154,7 +141,6 @@ export class ContactDetailsComponent implements OnInit {
         this.contact.pictureBin = btoa(binaryString);
         this.contact.idTypeId = this.selectedIdTypeId;
         this.contact.civilStatusId = this.selectedMaritalStatusId;
-        this.contact.gender = this.selectedGender;
 
         if (this.routeContactId) {
           this.contactService
@@ -188,13 +174,7 @@ export class ContactDetailsComponent implements OnInit {
   };
 
   redirectToListPage() {
-    if (this.routeContactTypeParam === 'employee') {
-      this.router.navigate(['/management/contacts/employees']);
-    } else if (this.routeContactTypeParam === 'person') {
-      this.router.navigate(['/management/contacts/persons']);
-    } else {
-      this.router.navigate(['/management/contacts/all']);
-    }
+    this.router.navigate(['/management/contacts/companies']);
   }
 
   ngOnDestroy() {

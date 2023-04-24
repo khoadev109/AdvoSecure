@@ -6,6 +6,8 @@ import { ContactDetailsComponent } from './components/contact-details/contact-de
 import { ConflictsComponent } from './components/conflicts/conflicts.component';
 import { PersonsComponent } from './components/persons/persons.component';
 import { EmployeesComponent } from './components/employees/employees.component';
+import { CompaniesComponent } from './components/companies/companies.component';
+import { CompanyDetailsComponent } from './components/company-details/company-details.component';
 
 const routes: Routes = [
   {
@@ -17,12 +19,8 @@ const routes: Routes = [
         component: ContactListComponent,
       },
       {
-        path: 'details',
-        component: ContactDetailsComponent,
-      },
-      {
-        path: 'conflicts',
-        component: ConflictsComponent,
+        path: 'companies',
+        component: CompaniesComponent,
       },
       {
         path: 'persons',
@@ -32,6 +30,20 @@ const routes: Routes = [
         path: 'employees',
         component: EmployeesComponent,
       },
+      {
+        path: 'conflicts',
+        component: ConflictsComponent,
+      },
+      {
+        path: 'company-details/:id',
+        component: CompanyDetailsComponent,
+      },
+      { path: 'company-details', redirectTo: 'company-details/', pathMatch: 'full' },
+      {
+        path: 'details/:id',
+        component: ContactDetailsComponent,
+      },
+      { path: 'details', redirectTo: 'details/', pathMatch: 'full' },
       { path: '', redirectTo: 'all', pathMatch: 'full' },
       { path: '**', redirectTo: 'all', pathMatch: 'full' },
     ],

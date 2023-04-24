@@ -14,11 +14,23 @@ export class ContactService {
 
   constructor(private httpClient: HttpClient) {}
 
+  getContact(id: number): Observable<Contact> {
+    return this.httpClient.get<Contact>(this.API_CONTACT_URL + '/' + id);
+  }
+
   getContacts(displayName?: string | null): Observable<Contact[]> {
     displayName = this.getEmptySearchTerm(displayName);
 
     return this.httpClient.get<Contact[]>(
-      this.API_CONTACT_URL + '/contacts?searchTerm=' + displayName
+      this.API_CONTACT_URL + '/list?searchTerm=' + displayName
+    );
+  }
+
+  getCompanies(displayName?: string | null): Observable<Contact[]> {
+    displayName = this.getEmptySearchTerm(displayName);
+
+    return this.httpClient.get<Contact[]>(
+      this.API_CONTACT_URL + '/companies?searchTerm=' + displayName
     );
   }
 
@@ -52,12 +64,12 @@ export class ContactService {
 
   createContact(payload: Contact): Observable<any> {
     const body = JSON.stringify(payload);
-    return this.httpClient.post(this.API_CONTACT_URL + '/create', body);
+    return this.httpClient.post(this.API_CONTACT_URL, body);
   }
 
-  updateContact(payload: Contact): Observable<any> {
+  updateContact(id: string, payload: Contact): Observable<any> {
     const body = JSON.stringify(payload);
-    return this.httpClient.put(this.API_CONTACT_URL + '/update', body);
+    return this.httpClient.put(this.API_CONTACT_URL + '/' + id, body);
   }
 
   private getEmptySearchTerm(searchTerm?: string | null) {

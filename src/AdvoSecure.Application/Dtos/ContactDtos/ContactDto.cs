@@ -1,8 +1,4 @@
-﻿using AdvoSecure.Application.Dtos.BillingDtos;
-using AdvoSecure.Domain.Entities.BillingEntities;
-using AdvoSecure.Domain.Entities.ContactEntities;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AdvoSecure.Application.Dtos.ContactDtos
 {
@@ -17,6 +13,8 @@ namespace AdvoSecure.Application.Dtos.ContactDtos
         /// </value>
         /// <author>Lucas Nodine</author>
         public bool IsOurEmployee { get; set; } = false;
+
+        public bool IsOrganization { get; set; } = false;
 
         public string Picture { get; set; } = string.Empty;
         public byte[] PictureBin { get; set; }

@@ -1,50 +1,49 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ContactService } from '../../services/contact.service';
 import { Contact } from '../../models/contact.model';
+import { DomSanitizer } from '@angular/platform-browser';
+import { PagingContactListComponent } from '../../paging-contact-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
 })
-export class EmployeesComponent implements OnInit {
-  POSTS: Contact[];
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 7;
-  tableSizes: any = [3, 6, 9, 12];
-
-  searchTerm: string;
-
+export class EmployeesComponent extends PagingContactListComponent {
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private contactService: ContactService
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchEmployees();
+    router: Router,
+    changeDetectorRef: ChangeDetectorRef,
+    contactService: ContactService,
+    sanitizer: DomSanitizer,
+  ) {
+    super(router, changeDetectorRef, contactService, sanitizer);
   }
 
-  fetchEmployees() {
+  fetchContacts() {
     this.contactService
       .getEmployees(this.searchTerm)
       .subscribe((employees: Contact[]) => {
-        this.POSTS = employees;
+        this.POSTS = employees.map((employee) => {
+          employee.avatar = employee.pictureBin
+            ? this.sanitizer?.bypassSecurityTrustUrl(
+                'data:image/jpeg;base64,' + employee.pictureBin
+              )
+            : './assets/media/avatars/blank.png';
+          return employee;
+        });
         this.changeDetectorRef.detectChanges();
       });
   }
 
-  search() {
-    this.fetchEmployees();
+  redirectToNewEmployee() {
+    this.router.navigate(['/management/contacts/details'], {
+      queryParams: { type: 'employee' },
+    });
   }
 
-  onTableDataChange(event: any) {
-    this.page = event;
-    this.fetchEmployees();
-  }
-
-  onTableSizeChange(event: any): void {
-    this.tableSize = event.target.value;
-    this.page = 1;
-    this.fetchEmployees();
+  redirectToExistingEmployee(id: number) {
+    this.router.navigate(['/management/contacts/details/' + id], {
+      queryParams: { type: 'employee' },
+    });
   }
 }

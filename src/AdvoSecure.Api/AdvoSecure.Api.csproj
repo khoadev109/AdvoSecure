@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Areas\Management\Models\**" />
+	  <Content Remove="Areas\Management\Models\**" />
+	  <EmbeddedResource Remove="Areas\Management\Models\**" />
+	  <None Remove="Areas\Management\Models\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -40,7 +47,6 @@
 	  <Folder Include="Areas\Application\Models\Task\" />
 	  <Folder Include="Areas\Application\Models\Phone\" />
 	  <Folder Include="Areas\Application\Models\Notes\" />
-	  <Folder Include="Areas\Management\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,14 +1,13 @@
-﻿using AdvoSecure.Application.Dtos;
+﻿using AdvoSecure.Api.Controllers;
+using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Infrastructure.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Management.Controllers
 {
-    [Route("api/[controller]")]
     [HasPermission(Permission.AsTenantAdmin)]
-    [ApiController]
-    public class TenantController : ControllerBase
+    public class TenantController : AdvoControllerBase
     {
         private readonly ITenantService _tenantService;
 
