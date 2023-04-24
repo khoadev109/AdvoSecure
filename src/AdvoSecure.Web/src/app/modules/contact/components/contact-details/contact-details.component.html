@@ -217,6 +217,7 @@
                     ngModel
                     #email="ngModel"
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    [(ngModel)]="contact.email1DisplayName"
                   />
                 </div>
                 <div *ngIf="email.touched">
@@ -233,6 +234,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Fax"
                     name="fax"
+                    [(ngModel)]="contact.fax1DisplayName"
                   />
                 </div>
               </div>
@@ -246,6 +248,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Organization name"
                     name="organizationName"
+                    [(ngModel)]="contact.companyName"
                   />
                 </div>
               </div>
@@ -261,6 +264,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Telephone"
                     name="telephone"
+                    [(ngModel)]="contact.telephone1TelephoneNumber"
                   />
                 </div>
               </div>
@@ -274,6 +278,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Mobile"
                     name="mobile"
+                    [(ngModel)]="contact.telephone2TelephoneNumber"
                   />
                 </div>
               </div>
@@ -287,6 +292,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Feature title"
                     name="featureTitle"
+                    [(ngModel)]="contact.profession"
                   />
                 </div>
               </div>
@@ -300,6 +306,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Address title"
                     name="addressTitle"
+                    [(ngModel)]="contact.title"
                   />
                 </div>
               </div>
@@ -315,6 +322,7 @@
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     placeholder="Letter/email salutation"
                     name="letter/email"
+                    [(ngModel)]="contact.saluation"
                   />
                 </div>
               </div>
@@ -404,7 +412,7 @@
                       placeholder="Street/Postbox"
                       name="streetPostbox"
                       id="streetPostbox"
-                      [(ngModel)]="streetPostbox1"
+                      [(ngModel)]="contact.address1AddressStreet"
                     />
                   </div>
                 </div>
@@ -418,7 +426,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Address 2"
                       name="address2"
-                      [(ngModel)]="addressModel1"
+                      [(ngModel)]="contact.address1AddressLine2"
                     />
                   </div>
                 </div>
@@ -432,7 +440,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Postcode"
                       name="postcode"
-                      [(ngModel)]="postCode1"
+                      [(ngModel)]="contact.address1AddressPostalCode"
                     />
                   </div>
                 </div>
@@ -448,7 +456,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="House number"
                       name="houseNumber"
-                      [(ngModel)]="houseNumber1"
+                      [(ngModel)]="contact.address2AddressHouseNo"
                     />
                   </div>
                 </div>
@@ -462,7 +470,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Place"
                       name="place"
-                      [(ngModel)]="place1"
+                      [(ngModel)]="contact.address2AddressCity"
                     />
                   </div>
                 </div>
@@ -478,7 +486,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Province / State"
                       name="provinceState"
-                      [(ngModel)]="provinceState1"
+                      [(ngModel)]="contact.address1AddressStateOrProvince"
                     />
                   </div>
                 </div>
@@ -494,7 +502,7 @@
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                       placeholder="Addition"
                       name="addition"
-                      [(ngModel)]="addition1"
+                      [(ngModel)]="contact.address2AddressHouseNoExt"
                     />
                   </div>
                 </div>
@@ -506,7 +514,7 @@
                     <select
                       class="form-select form-select-solid form-select-lg fw-bold"
                       name="country"
-                      [(ngModel)]="selectedCountryId1"
+                      [(ngModel)]="contact.address1AddressCountry"
                     >
                       <option value="">Select a Country</option>
                       <option
@@ -556,7 +564,7 @@
                       name="streetPostbox"
                       id="streetPostbox"
                       [disabled]="isChecked"
-                      [(ngModel)]="streetPostbox2"
+                      [(ngModel)]="contact.address2AddressStreet"
                     />
                   </div>
                 </div>
@@ -571,7 +579,7 @@
                       placeholder="Address 2"
                       name="address2"
                       [disabled]="isChecked"
-                      [(ngModel)]="addressModel2"
+                      [(ngModel)]="contact.address2AddressLine2"
                     />
                   </div>
                 </div>
@@ -586,7 +594,7 @@
                       placeholder="Postcode"
                       name="postcode"
                       [disabled]="isChecked"
-                      [(ngModel)]="postCode2"
+                      [(ngModel)]="contact.address2AddressPostalCode"
                     />
                   </div>
                 </div>
@@ -603,7 +611,7 @@
                       placeholder="House number"
                       name="houseNumber"
                       [disabled]="isChecked"
-                      [(ngModel)]="houseNumber2"
+                      [(ngModel)]="contact.address3AddressHouseNo"
                     />
                   </div>
                 </div>
@@ -618,7 +626,7 @@
                       placeholder="Place"
                       name="place"
                       [disabled]="isChecked"
-                      [(ngModel)]="place2"
+                      [(ngModel)]="contact.address3AddressCity"
                     />
                   </div>
                 </div>
@@ -635,7 +643,7 @@
                       placeholder="Province / State"
                       name="provinceState"
                       [disabled]="isChecked"
-                      [(ngModel)]="provinceState2"
+                      [(ngModel)]="contact.address2AddressStateOrProvince"
                     />
                   </div>
                 </div>
@@ -652,7 +660,7 @@
                       placeholder="Addition"
                       name="addition"
                       [disabled]="isChecked"
-                      [(ngModel)]="addition2"
+                      [(ngModel)]="contact.address3AddressHouseNoExt"
                     />
                   </div>
                 </div>
@@ -664,7 +672,7 @@
                     <select
                       class="form-select form-select-solid form-select-lg fw-bold"
                       name="countryVa"
-                      [(ngModel)]="selectedCountryId2"
+                      [(ngModel)]="contact.address2AddressCountry"
                       [disabled]="isChecked"
                     >
                       <option value="">Select a Country</option>
@@ -692,115 +700,6 @@
       [ngClass]="activeClass('extra-tab')"
       id="extra-tab"
     >
-      <div class="card mb-5 mb-xl-10">
-        <div class="card-body border-top p-9">
-          <div class="row mb-6">
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Date of birth</label>
-                    <input
-                      type="date"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Date of birth"
-                      name="dateOfBirth"
-                      [(ngModel)]="dateOfBirth"
-                      required
-                      min="1900-01-01"
-                      [max]="maxDate"
-                      #dateOfBirthVar="ngModel"
-                      (input)="dateChange($event)"
-                    />
-                  </div>
-                  <div>
-                    {{ date }}
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="row mb-3">
-                  <div class="col-lg-12">
-                    <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">House number</label>
-                      <input
-                        type="text"
-                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="House number"
-                        name="houseNumber"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-12">
-                    <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Place</label>
-                      <input
-                        type="text"
-                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Place"
-                        name="place"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-12">
-                    <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >Province / State</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Province / State"
-                        name="provinceState"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="row mb-3">
-                  <div class="col-lg-12">
-                    <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Addition</label>
-                      <input
-                        type="text"
-                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Addition"
-                        name="addition"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-12">
-                    <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Country</label>
-                      <select
-                        class="form-select form-select-solid form-select-lg fw-bold"
-                        name="countryVa"
-                        [(ngModel)]="selectedCountryId"
-                      >
-                        <option value="">Select a Country</option>
-                        <option
-                          *ngFor="let country of countries"
-                          [selected]="selectedCountryVaId === country.id"
-                          [text]="country.countryName_en"
-                          [value]="country.id"
-                        ></option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- end::Visiting Address-->
-        </div>
-      </div>
       <!-- end::Tap Address-->
 
       <!-- begin::Tap Extra-->
@@ -822,7 +721,15 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Date of birth"
                         name="dateOfBirth"
+                        [ngModel]="contact.birthday"
+                        (ngModelChange)="(contact.birthday)"
+                        required
+                        #dateOfBirthVar="ngModel"
+                        (input)="dateChange($event)"
                       />
+                    </div>
+                    <div>
+                      {{ date }}
                     </div>
                   </div>
                 </div>
@@ -833,7 +740,7 @@
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="legitimation"
-                        [(ngModel)]="selectedIdTypeId"
+                        [(ngModel)]="contact.idTypeId"
                       >
                         <option value="0">Select legitimation</option>
                         <option
@@ -855,7 +762,7 @@
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="maritalStatus"
-                        [(ngModel)]="selectedMaritalStatusId"
+                        [(ngModel)]="contact.civilStatusId"
                       >
                         <option value="0">Select marital status</option>
                         <option
@@ -879,6 +786,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="VNumber"
                         name="vNumber"
+                        [(ngModel)]="contact.vNumber"
                       />
                     </div>
                   </div>
@@ -894,6 +802,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Birthplace"
                         name="birthplace"
+                        [(ngModel)]="contact.birthCity"
                       />
                     </div>
                   </div>
@@ -907,6 +816,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="ID number"
                         name="idNumber"
+                        [(ngModel)]="contact.idNumber"
                       />
                     </div>
                   </div>
@@ -920,6 +830,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Partner"
                         name="partner"
+                        [(ngModel)]="contact.spouseName"
                       />
                     </div>
                   </div>
@@ -933,6 +844,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="BAR-number"
                         name="barNumber"
+                        [(ngModel)]="contact.barNumber"
                       />
                     </div>
                   </div>
@@ -948,6 +860,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Nationality"
                         name="nationality"
+                        [(ngModel)]="contact.nationality"
                       />
                     </div>
                   </div>
@@ -963,6 +876,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="ID valid until"
                         name="idValidUntil"
+                        [(ngModel)]="contact.idDateExpiry"
                       />
                     </div>
                   </div>
@@ -976,6 +890,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Wedding date"
                         name="weddingDate"
+                        [(ngModel)]="contact.wedding"
                       />
                     </div>
                   </div>
@@ -989,6 +904,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         placeholder="Source"
                         name="source"
+                        [(ngModel)]="contact.referredByName"
                       />
                     </div>
                   </div>

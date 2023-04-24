@@ -37,22 +37,6 @@ export class ContactDetailsComponent implements OnInit {
   contactFormTitle: string = 'Contact details';
 
   sameAsPostalAddress: boolean;
-  streetPostbox1: '';
-  streetPostbox2: '';
-  addressModel1: '';
-  addressModel2: '';
-  postCode1: '';
-  postCode2: '';
-  houseNumber1: '';
-  houseNumber2: '';
-  place1: '';
-  place2: '';
-  provinceState1: '';
-  provinceState2: '';
-  addition1: '';
-  addition2: '';
-  country1: '';
-  country2: '';
   isChecked: false;
 
   contact: Contact = {
@@ -176,15 +160,19 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('on init');
     this.routeContactId = this.route.snapshot.paramMap.get('id');
     if (this.routeContactId) {
+      console.log('route contact id');
       this.loadContact(parseInt(this.routeContactId));
     }
 
     this.routeContactTypeParam = this.route.snapshot.queryParamMap.get('type');
     if (this.routeContactTypeParam === 'employee') {
+      console.log('employee');
       this.contactFormTitle = 'Employee details';
     } else if (this.routeContactTypeParam === 'person') {
+      console.log('person');
       this.contactFormTitle = 'Person details';
     }
 
@@ -192,6 +180,7 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   loadContact(id: number) {
+    console.log('load contact');
     this.contactService.getContact(id).subscribe((contact: Contact) => {
       this.contact = contact;
 
@@ -255,6 +244,7 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   save = () => {
+    console.log('123123123');
     try {
       var reader = new FileReader();
       reader.onload = (event: any) => {
@@ -297,23 +287,29 @@ export class ContactDetailsComponent implements OnInit {
 
   updateInput() {
     if (this.isChecked) {
-      this.streetPostbox2 = this.streetPostbox1;
-      this.addressModel2 = this.addressModel1;
-      this.postCode2 = this.postCode1;
-      this.houseNumber2 = this.houseNumber1;
-      this.place2 = this.place1;
-      this.provinceState2 = this.provinceState1;
-      this.addition2 = this.addition1;
-      this.selectedCountryId2 = this.selectedCountryId1;
+      this.contact.address2AddressStreet = this.contact.address1AddressStreet;
+      this.contact.address2AddressLine2 = this.contact.address1AddressLine2;
+      this.contact.address2AddressPostalCode =
+        this.contact.address1AddressPostalCode;
+      this.contact.address3AddressHouseNo = this.contact.address2AddressHouseNo;
+      this.contact.address3AddressCity = this.contact.address2AddressCity;
+      this.contact.address2AddressStateOrProvince =
+        this.contact.address1AddressStateOrProvince;
+      this.contact.address3AddressHouseNoExt =
+        this.contact.address2AddressHouseNoExt;
+      this.contact.address2AddressCountry = this.contact.address1AddressCountry;
     } else {
-      this.streetPostbox2 = '';
-      this.addressModel2 = '';
-      this.postCode2 = '';
-      this.houseNumber2 = '';
-      this.place2 = '';
-      this.provinceState2 = '';
-      this.addition2 = '';
-      this.selectedCountryId2 = '';
+      this.contact.address2AddressStreet = this.contact.address1AddressStreet;
+      this.contact.address2AddressLine2 = this.contact.address1AddressLine2;
+      this.contact.address2AddressPostalCode =
+        this.contact.address1AddressPostalCode;
+      this.contact.address3AddressHouseNo = this.contact.address2AddressHouseNo;
+      this.contact.address3AddressCity = this.contact.address2AddressCity;
+      this.contact.address2AddressStateOrProvince =
+        this.contact.address1AddressStateOrProvince;
+      this.contact.address3AddressHouseNoExt =
+        this.contact.address2AddressHouseNoExt;
+      this.contact.address2AddressCountry = this.contact.address1AddressCountry;
     }
   }
 

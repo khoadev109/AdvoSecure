@@ -37,7 +37,7 @@ export interface Contact {
   address2AddressHouseNoExt: string;
   address2AddressHouseNo: string;
   address2AddressLine2: string;
-  address2AddressStateOrProvince: string;
+  address2AddressStateOrProvince: string | undefined;
   address2AddressPostalCode: string;
   address2AddressCountry: string;
   address2AddressCountryCode: string;
