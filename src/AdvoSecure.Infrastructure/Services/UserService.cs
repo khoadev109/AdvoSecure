@@ -14,7 +14,6 @@ namespace AdvoSecure.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _appDbContext;
-        private readonly AppDataInitialize _appUserDataInitialize;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserRepository _userRepository;
         private readonly ITenantRepository _tenantRepository;
@@ -22,10 +21,9 @@ namespace AdvoSecure.Infrastructure.Services
         private readonly IRefreshTokenRepositoryFactory _refreshTokenRepositoryFactory;
         private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext appDbContext, AppDataInitialize appUserDataInitialize, UserManager<ApplicationUser> userManager, IUserRepository userRepository, ITenantRepository tenantRepository, IDirectoryRepository directoryRepository, IRefreshTokenRepositoryFactory refreshTokenRepositoryFactory, IMapper mapper)
+        public UserService(ApplicationDbContext appDbContext, UserManager<ApplicationUser> userManager, IUserRepository userRepository, ITenantRepository tenantRepository, IDirectoryRepository directoryRepository, IRefreshTokenRepositoryFactory refreshTokenRepositoryFactory, IMapper mapper)
         {
             _appDbContext = appDbContext;
-            _appUserDataInitialize = appUserDataInitialize;
             _userManager = userManager;
             _userRepository = userRepository;
             _tenantRepository = tenantRepository;
@@ -91,7 +89,7 @@ namespace AdvoSecure.Infrastructure.Services
 
                 TenantUser newUser = await _userRepository.CreateAsync(request);
 
-                await _appUserDataInitialize.SetConnectionStringAndRunMigration(tenant.ConnectionString);
+                await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
 
                 if (tenant != null && newUser != null)
                 {
@@ -231,7 +229,7 @@ namespace AdvoSecure.Infrastructure.Services
 
             if (tenant?.AdminId.HasValue ?? false) //temporary fix . Root tenant should not login via appFE
             {
-                await _appUserDataInitialize.SetConnectionStringAndRunMigration(tenant.ConnectionString);
+                await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
             }
         }
     }

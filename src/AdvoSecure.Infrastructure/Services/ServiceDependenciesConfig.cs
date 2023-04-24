@@ -13,7 +13,6 @@ namespace AdvoSecure.Infrastructure.Services
             services.AddScoped<ICaseService, CaseService>();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<ICommonService, CommonService>();
-            services.AddSingleton<AppDataInitialize>();
 
             return services;
         }
