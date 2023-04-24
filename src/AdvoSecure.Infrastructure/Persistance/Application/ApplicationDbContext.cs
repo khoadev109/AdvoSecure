@@ -4,7 +4,6 @@ using AdvoSecure.Domain.Entities.ContactEntities;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace AdvoSecure.Infrastructure.Persistance.App
 {
@@ -22,6 +21,8 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<Contact> Contacts => Set<Contact>();
 
+        public DbSet<CompanyLegalStatus> CompanyLegalStatuses => Set<CompanyLegalStatus>();
+
         public DbSet<ContactCivilStatus> ContactCivilStatuses => Set<ContactCivilStatus>();
 
         public DbSet<ContactIdType> ContactIdTypes => Set<ContactIdType>();
@@ -31,8 +32,6 @@ namespace AdvoSecure.Infrastructure.Persistance.App
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
-            builder.Entity<ContactCivilStatus>().ToTable("ContactCivilStatuses");
 
             base.OnModelCreating(builder);
         }

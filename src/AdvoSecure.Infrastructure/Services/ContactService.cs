@@ -47,7 +47,7 @@ namespace AdvoSecure.Infrastructure.Services
 
         public async Task<IEnumerable<ContactDto>> GetPersonsAsync(string searchTerm)
         {
-            IList<Contact> persons = await _contactRepository.GetContacts(searchTerm).Where(c => !c.IsOurEmployee).OrderBy(x => x.DisplayName).ToListAsync();
+            IList<Contact> persons = await _contactRepository.GetContacts(searchTerm).Where(c => !c.IsOurEmployee && !c.IsOrganization).OrderBy(x => x.DisplayName).ToListAsync();
 
             IEnumerable<ContactDto> contactDtos = _mapper.Map<IEnumerable<ContactDto>>(persons);
 

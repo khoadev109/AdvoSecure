@@ -1050,5 +1050,9 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         public int? IdTypeId { get; set; }
 
         public ContactIdType IdType { get; set; }
+
+        public int? CompanyLegalStatusId { get; set; }
+
+        public CompanyLegalStatus CompanyLegalStatus { get; set; }
     }
 }

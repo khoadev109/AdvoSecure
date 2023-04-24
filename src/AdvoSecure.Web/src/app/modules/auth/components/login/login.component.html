@@ -8,16 +8,7 @@
 >
   <!--begin::Heading-->
   <div class="text-center mb-10">
-    <h2 class="text-dark mb-3">Sign In to AdvoSecure</h2>
-    <div class="text-gray-400 fw-bold fs-4 temp-hidden">
-      New Here?
-      <!-- <a
-        routerLink="/auth/registration"
-        id="kt_login_signup"
-        class="link-primary fw-bolder"
-        >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a
-      > -->
-    </div>
+    <h2 class="text-dark mb-3" translate="AUTH.LOGIN.HEADER_TITLE"></h2>
   </div>
   <!--end::Heading-->
 
@@ -35,16 +26,20 @@
   <!-- begin::Alert error-->
   <ng-container *ngIf="hasError">
     <div class="mb-lg-15 alert alert-danger">
-      <div class="alert-text font-weight-bold">
-        The login details are incorrect
-      </div>
+      <div
+        class="alert-text font-weight-bold"
+        translate="AUTH.LOGIN.ERROR"
+      ></div>
     </div>
   </ng-container>
   <!-- end::Alert error-->
 
   <!--begin::Form group-->
   <div class="fv-row mb-10">
-    <label class="form-label fs-6 fw-bolder text-dark">Email</label>
+    <label
+      class="form-label fs-6 fw-bolder text-dark"
+      translate="COMMON.EMAIL"
+    ></label>
     <input
       class="form-control form-control-lg form-control-solid"
       type="email"
@@ -96,12 +91,16 @@
   <div class="fv-row mb-10">
     <div class="d-flex justify-content-between mt-n5">
       <div class="d-flex flex-stack mb-2">
-        <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
+        <label
+          class="form-label fw-bolder text-dark fs-6 mb-0"
+          translate="AUTH.LOGIN.PASSWORD"
+        ></label>
         <a
           routerLink="/auth/forgot-password"
           class="link-primary fs-6 fw-bolder"
           id="kt_login_forgot"
           [style.margin-left]="'5px'"
+          translate="AUTH.LOGIN.FORGOT_PASSWORD"
         >
           Forgot Password ?
         </a>
@@ -156,7 +155,11 @@
       [disabled]="loginForm.invalid"
     >
       <ng-container *ngIf="isLoading$ | async">
-        <span class="indicator-progress" [style.display]="'block'">
+        <span
+          class="indicator-progress"
+          [style.display]="'block'"
+          translate="COMMON.PLEASE_WAIT"
+        >
           Please wait...
           <span
             class="spinner-border spinner-border-sm align-middle ms-2"
@@ -173,21 +176,13 @@
     <!-- end::Separator  -->
 
     <a
-      class="
-        btn btn-flex
-        flex-center
-        btn-light btn-lg
-        w-100
-        mb-5
-        cursor-pointer
-      "
+      class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5 cursor-pointer"
+      translate="AUTH.LOGIN.CONTINUE_WITH_GOOGLE"
     >
       <img
         class="h-20px me-3"
         src="./assets/media/svg/brand-logos/google-icon.svg"
       />
-
-      Continue with Google
     </a>
   </div>
   <!--end::Action-->

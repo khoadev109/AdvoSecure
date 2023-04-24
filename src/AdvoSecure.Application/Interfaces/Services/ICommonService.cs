@@ -7,6 +7,8 @@ namespace AdvoSecure.Application.Interfaces.Services
     {
         Task<IEnumerable<BillingRateDto>> GetBillingRatesAsync();
 
+        Task<IEnumerable<CompanyLegalStatusDto>> GetCompanyLegalStatusesAsync();
+
         Task<IEnumerable<CountryDto>> GetCountriesAsync();
     }
 }

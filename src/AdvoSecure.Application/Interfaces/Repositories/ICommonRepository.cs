@@ -7,6 +7,8 @@ namespace AdvoSecure.Application.Interfaces.Repositories
     {
         IQueryable<BillingRate> GetBillingRates();
 
+        IQueryable<CompanyLegalStatus> GetCompanyLegalStatuses();
+
         IQueryable<Country> GetCountries();
     }
 }

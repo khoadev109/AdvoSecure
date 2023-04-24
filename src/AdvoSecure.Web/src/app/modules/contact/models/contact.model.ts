@@ -1,6 +1,7 @@
 export interface Contact {
   id: number;
   isOurEmployee?: boolean;
+  isOrganization?: boolean;
   displayName: string;
   surname?: string;
   middleName: string;
@@ -117,4 +118,13 @@ export interface Contact {
   sepaMandateNumber?: string;
   sepaMandateDate?: Date;
   sepaMandateLimit?: number;
+
+  sbiCode?: string;
+  taxNumber?: string;
+  vatId?: string;
+  businessRegistration?: string;
+  companyLegalStatusId?: number;
+  numberEmployees?: number;
+  turnOver?: number;
+  website?: string;
 }

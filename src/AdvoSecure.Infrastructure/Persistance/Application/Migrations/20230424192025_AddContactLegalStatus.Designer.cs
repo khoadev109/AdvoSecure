@@ -3,6 +3,7 @@ using System;
 using AdvoSecure.Infrastructure.Persistance.App;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230424192025_AddContactLegalStatus")]
+    partial class AddContactLegalStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,50 +24,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.BillingEntities.BillingRate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletedDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("ModifiedDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("PricePerUnit")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BillingRates");
-                });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Case", b =>
                 {
@@ -129,6 +88,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("ModifiedBy")
                         .IsRequired()
                         .HasColumnType("text");
@@ -143,6 +106,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CompanyLegalStatuses");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("CompanyLegalStatus");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.Contact", b =>
@@ -589,7 +556,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactCivilStatuses");
+                    b.ToTable("ContactCivilStatuses", (string)null);
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.ContactIdType", b =>
@@ -964,10 +931,20 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.BillingEntities.BillingRate", b =>
+                {
+                    b.HasBaseType("AdvoSecure.Domain.Entities.CompanyLegalStatus");
+
+                    b.Property<decimal>("PricePerUnit")
+                        .HasColumnType("numeric");
+
+                    b.HasDiscriminator().HasValue("BillingRate");
+                });
+
             modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.Contact", b =>
                 {
                     b.HasOne("AdvoSecure.Domain.Entities.BillingEntities.BillingRate", "BillingRate")
-                        .WithMany("Contacts")
+                        .WithMany()
                         .HasForeignKey("BillingRateId");
 
                     b.HasOne("AdvoSecure.Domain.Entities.ContactEntities.ContactCivilStatus", "CivilStatus")
@@ -1040,11 +1017,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.BillingEntities.BillingRate", b =>
-                {
-                    b.Navigation("Contacts");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.CompanyLegalStatus", b =>

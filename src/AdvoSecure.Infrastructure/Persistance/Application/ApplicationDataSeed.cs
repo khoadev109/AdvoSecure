@@ -282,765 +282,120 @@ namespace AdvoSecure.Infrastructure.Persistance
 
         public static async Task SeedAsAppTables(ApplicationDbContext context)
         {
-            await SeedContactIdTypes(context);
-
-            await SeedContactCivilStatuses(context);
-
-            await context.SaveChangesAsync();
-
-            await SeedEmployees(context);
-
-            await SeedPersons(context);
-
-            await SeedBillingRates(context);
-
-            await SeedCountries(context);
-
-            await context.SaveChangesAsync();
-        }
-
-        public static async Task SeedContactIdTypes(ApplicationDbContext context)
-        {
-            if (!context.ContactIdTypes.Any())
+            try
             {
-                await context.ContactIdTypes.AddRangeAsync(
-                    new ContactIdType
-                    {
-                        Title = "Nederlands Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Nederlandse Identiteitskaart",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Rijbewijs",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Toeristenkaart",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Diplomatiek/Dienst Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Vreemdelingen Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Vluchtelingen Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "EU/EER Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Buitenlands Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Vluchtelingen Paspoort",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Vreemdelingen W-Document",
-                        CreatedBy = "TOAA"
-                    },
-                    new ContactIdType
-                    {
-                        Title = "Vreemdelingen W2-Document",
-                        CreatedBy = "TOAA"
-                    }
-                );
+                await SeedBillingRates(context);
+
+                await SeedCompanyLegalStatuses(context);
+
+                await SeedCountries(context);
+
+                await SeedContactIdTypes(context);
+
+                await SeedContactCivilStatuses(context);
+
+                await context.SaveChangesAsync();
+
+                await SeedEmployees(context);
+
+                await SeedPersons(context);
+
+                await SeedCompanies(context);
+
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
-        public static async Task SeedContactCivilStatuses(ApplicationDbContext context)
+        public static async Task SeedCompanyLegalStatuses(ApplicationDbContext context)
         {
-            if (!context.ContactCivilStatuses.Any())
+            if (!context.CompanyLegalStatuses.Any())
             {
-                await context.ContactCivilStatuses.AddRangeAsync(
-                    new ContactCivilStatus
+                await context.CompanyLegalStatuses.AddRangeAsync(
+                    new CompanyLegalStatus
                     {
-                        Title = "Ongehuwd",
+                        Title = "Eenmanszaak",
                         CreatedBy = "TOAA"
                     },
-                    new ContactCivilStatus
+                    new CompanyLegalStatus
                     {
-                        Title = "Wettig Gehuwd",
+                        Title = "VOF",
                         CreatedBy = "TOAA"
                     },
-                    new ContactCivilStatus
+                    new CompanyLegalStatus
                     {
-                        Title = "Geregistreerd Partnerschap",
+                        Title = "Maatschap",
                         CreatedBy = "TOAA"
                     },
-                    new ContactCivilStatus
+                    new CompanyLegalStatus
                     {
-                        Title = "Verweduwd na wettig huwelijk",
+                        Title = "BV",
                         CreatedBy = "TOAA"
                     },
-                    new ContactCivilStatus
+                    new CompanyLegalStatus
                     {
-                        Title = "Verweduwd na partnerschap",
+                        Title = "NV",
                         CreatedBy = "TOAA"
                     },
-                    new ContactCivilStatus
+                    new CompanyLegalStatus
                     {
-                        Title = "Gescheiden na partnerschap",
+                        Title = "CV",
                         CreatedBy = "TOAA"
                     },
-                    new ContactCivilStatus
+                    new CompanyLegalStatus
                     {
-                        Title = "Gescheiden na wettig huwelijk",
+                        Title = "Stichting",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "Vereniging",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "Coöperatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "GmbH",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "GbR",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "KG",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "AG",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "SE",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "SCE",
+                        CreatedBy = "TOAA"
+                    },
+                    new CompanyLegalStatus
+                    {
+                        Title = "EESV",
                         CreatedBy = "TOAA"
                     }
                 );
-            }
-        }
-
-        public static async Task SeedEmployees(ApplicationDbContext context)
-        {
-            if (!context.Contacts.Any(x => x.IsOurEmployee && !x.IsOrganization))
-            {
-                await context.Contacts.AddRangeAsync(
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "Smit",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Arjen",
-                        Title = "De heer ",
-                        Initials = "A. ",
-                        DisplayName = "Arjen Smit employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1980, 12, 20),
-                        Address1AddressStreet = "Beurspoortje",
-                        Address1AddressHouseNo = "174",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "8387 EX",
-                        Address1AddressCity = "Westerveld",
-                        Address1AddressStateOrProvince = "Drenthe",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Arjen Smit",
-                        Telephone1TelephoneNumber = "06-99830049",
-                        Profession = "Advocaat",
-                        Email1DisplayName = "Arjen Smit",
-                        Email1EmailAddress = "test.A.Smit@gmail.com",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "de Ruiter",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Levi",
-                        Title = "De heer ",
-                        Initials = "L.",
-                        DisplayName = "Levi de Ruiter employee",
-                        CivilStatusId = 4,
-                        Birthday = new DateTime(1922, 11, 26),
-                        Address1AddressStreet = "Aalscholverweg",
-                        Address1AddressHouseNo = "362",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "8305 MC",
-                        Address1AddressCity = "Noordoostpolder",
-                        Address1AddressStateOrProvince = "Flevoland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Levi de Ruiter",
-                        Telephone1TelephoneNumber = "06-99966807",
-                        Profession = "Advocaat Partner",
-                        Email1DisplayName = "Levi de Ruiter",
-                        Email1EmailAddress = "test.L.deRuiter@totaldesk.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "Koning",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Cees",
-                        Title = "De heer ",
-                        Initials = "C.",
-                        DisplayName = "Cees Koning employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1968, 03, 27),
-                        Address1AddressStreet = "Dam",
-                        Address1AddressHouseNo = "128",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "9965 QW",
-                        Address1AddressCity = "De Marne",
-                        Address1AddressStateOrProvince = "Groningen",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Cees Koning",
-                        Telephone1TelephoneNumber = "06-99170928",
-                        Profession = "Administratiefmedewerker",
-                        Email1DisplayName = "Cees Koning",
-                        Email1EmailAddress = "test.C.Koning@hotmail.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "van der Berg",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Kevin",
-                        Title = "De heer ",
-                        Initials = "K.",
-                        DisplayName = "Kevin van der Berg employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(2001, 05, 16),
-                        Address1AddressStreet = "Haarlemmerplein",
-                        Address1AddressHouseNo = "227",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "1476 EF",
-                        Address1AddressCity = "Edam-Volendam",
-                        Address1AddressStateOrProvince = "Noord-Holland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Adcocaat Partner",
-                        Telephone1TelephoneNumber = "06-99871731",
-                        Profession = "Psychiater",
-                        Email1DisplayName = "Kevin van der Berg",
-                        Email1EmailAddress = "test.K.vanderBerg@gmail.com",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "Bosman",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Luuk",
-                        Title = "De heer ",
-                        Initials = "L.",
-                        DisplayName = "Luuk Bosman employee",
-                        CivilStatusId = 2,
-                        Birthday = new DateTime(1963, 06, 25),
-                        Address1AddressStreet = "Galgenstraat",
-                        Address1AddressHouseNo = "65",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "3356 VK",
-                        Address1AddressCity = "Papendrecht",
-                        Address1AddressStateOrProvince = "Zuid-Holland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Luuk Bosman",
-                        Telephone1TelephoneNumber = "06-99569595",
-                        Profession = "Advocaat",
-                        Email1DisplayName = "Luuk Bosman",
-                        Email1EmailAddress = "test.L.Bosman@emaildomeinen",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "Driessen",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Sam",
-                        Title = "De heer ",
-                        Initials = "S.",
-                        DisplayName = "Sam Driessen employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1971, 02, 21),
-                        Address1AddressStreet = "Nieuwstraat ",
-                        Address1AddressHouseNo = "94",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "3257 YP",
-                        Address1AddressCity = "Goeree-Overflakkee",
-                        Address1AddressStateOrProvince = "Zuid-Holland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Sam Driessen",
-                        Telephone1TelephoneNumber = "06-99813475",
-                        Profession = "Advocaat",
-                        Email1DisplayName = "Sam Driessen",
-                        Email1EmailAddress = "test.S.Driessen@gmail.com",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "van Veen",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Lisa",
-                        Title = "Mevrouw ",
-                        Initials = "L.",
-                        DisplayName = "Lisa van Veen employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1989, 07, 31),
-                        Address1AddressStreet = "Adriaan Pauwstraat",
-                        Address1AddressHouseNo = "169",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "5764 YY",
-                        Address1AddressCity = "Gemert-Bakel",
-                        Address1AddressStateOrProvince = "Noord-Brabant",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Lisa van Veen",
-                        Telephone1TelephoneNumber = "06-99809211",
-                        Profession = "Advocaat",
-                        Email1DisplayName = "Lisa van Veen",
-                        Email1EmailAddress = "test.L.vanVeen@glomos.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "van de Wetering",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Indy",
-                        Title = "Mevrouw ",
-                        Initials = "I.",
-                        DisplayName = "Indy van de Wetering employee",
-                        CivilStatusId = 7,
-                        Birthday = new DateTime(1968, 2, 26),
-                        Address1AddressStreet = "Damrak oneven",
-                        Address1AddressHouseNo = "104",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "2861 XQ",
-                        Address1AddressCity = "Krimpenerwaard",
-                        Address1AddressStateOrProvince = "Zuid-Holland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Indy van de Wetering",
-                        Telephone1TelephoneNumber = "06-99142478",
-                        Profession = "Secretaresse",
-                        Email1DisplayName = "Indy van de Wetering",
-                        Email1EmailAddress = "test.I.vandeWetering@hotmail.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "van der Velde",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Ilse",
-                        Title = "Mevrouw ",
-                        Initials = "I.",
-                        DisplayName = "Ilse van der Velde employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1997, 2, 25),
-                        Address1AddressStreet = "Schoterweg",
-                        Address1AddressHouseNo = "229",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "7949 YN",
-                        Address1AddressCity = "Meppel",
-                        Address1AddressStateOrProvince = "Drenthe",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Ilse van der Velde",
-                        Telephone1TelephoneNumber = "06-99226127",
-                        Profession = "Secretaresse",
-                        Email1DisplayName = "Ilse van der Velde",
-                        Email1EmailAddress = "test.I.vanderVelde@hotmail.com",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "van der Veen",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Sterre",
-                        Title = "Mevrouw ",
-                        Initials = "S.",
-                        DisplayName = "Sterre van der Veen employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1997, 3, 5),
-                        Address1AddressStreet = "Dollebegijnensteeg",
-                        Address1AddressHouseNo = "95",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "4707 PS",
-                        Address1AddressCity = "Roosendaal",
-                        Address1AddressStateOrProvince = "Noord-Brabant",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Sterre van der Veen",
-                        Telephone1TelephoneNumber = " 06-99825596",
-                        Profession = " Kapper",
-                        Email1DisplayName = "Sterre van der Veen",
-                        Email1EmailAddress = "test.S.vanderVeen@totaldesk.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "Peters",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Jelle",
-                        Title = "De heer ",
-                        Initials = "J.",
-                        DisplayName = "Jelle Peters employee",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1950, 6, 1),
-                        Address1AddressStreet = "Haarlemmerdijk",
-                        Address1AddressHouseNo = "270",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "9241 BW",
-                        Address1AddressCity = "Opsterland",
-                        Address1AddressStateOrProvince = "Friesland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Jelle Peters",
-                        Telephone1TelephoneNumber = "06-99944060",
-                        Profession = "Projectmanager",
-                        Email1DisplayName = "Jelle Peters",
-                        Email1EmailAddress = "test.J.Peters@totaldesk.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = true,
-                        Surname = "Elzinga",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Elisabeth",
-                        Title = "Mevrouw ",
-                        Initials = "E.",
-                        DisplayName = "Elisabeth Elzinga employee",
-                        Birthday = new DateTime(1997, 3, 9),
-                        Address1AddressStreet = "Beursstraat",
-                        Address1AddressHouseNo = "298",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "7217 ZN",
-                        Address1AddressCity = "Lochem",
-                        Address1AddressStateOrProvince = "Gelderland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Elisabeth Elzinga",
-                        Telephone1TelephoneNumber = "06-99864860",
-                        Profession = "Stewardes",
-                        Email1DisplayName = "Elisabeth Elzinga",
-                        Email1EmailAddress = "test.E.Elzinga@gmail.com",
-                        CreatedBy = "TOAA"
-                    }
-                );
-            }
-        }
-
-        public static async Task SeedPersons(ApplicationDbContext context)
-        {
-            if (!context.Contacts.Any(x => !x.IsOurEmployee && !x.IsOrganization))
-            {
-                await context.Contacts.AddRangeAsync(
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "van Dam",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Elisabeth",
-                        Title = "Mevrouw",
-                        Initials = "E.",
-                        DisplayName = "Elisabeth van Dam",
-                        CivilStatusId = 2,
-                        Birthday = new DateTime(1963, 11, 27),
-                        Address1AddressStreet = "Herenweg",
-                        Address1AddressHouseNo = "195",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "7475 VV",
-                        Address1AddressCity = "Hof van Twente",
-                        Address1AddressStateOrProvince = "Overijssel",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Elisabeth van Dam",
-                        Telephone1TelephoneNumber = "06-992524",
-                        Profession = "Therapeut",
-                        Email1DisplayName = "Elisabeth van Dam",
-                        Email1EmailAddress = "test.E.vanDam@totaldesk.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Huisman",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Isa",
-                        Title = "Mevrouw",
-                        Initials = "I.",
-                        DisplayName = "Isa Huisman",
-                        CivilStatusId = 7,
-                        Birthday = new DateTime(1988, 06, 19),
-                        Address1AddressStreet = "Houtmankade",
-                        Address1AddressHouseNo = "118",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "6231 CU",
-                        Address1AddressCity = "Meerssen",
-                        Address1AddressStateOrProvince = "Limburg",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Isa Huisman",
-                        Telephone1TelephoneNumber = "06-99804254",
-                        Profession = "Inspecteur",
-                        Email1DisplayName = "Isa Huisman",
-                        Email1EmailAddress = "test.I.Huisman@totaldesk.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Smit",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Luuk",
-                        Title = "De heer ",
-                        Initials = "L.",
-                        DisplayName = "Luuk Smit",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1934, 12, 24),
-                        Address1AddressStreet = "Bloedstraat",
-                        Address1AddressHouseNo = "141",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "5469 CS",
-                        Address1AddressCity = "Meierijstad",
-                        Address1AddressStateOrProvince = "Noord-Brabant",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Luuk Smit",
-                        Telephone1TelephoneNumber = "06-99857038",
-                        Profession = "Arbeider Bouw",
-                        Email1DisplayName = "Luuk Smit",
-                        Email1EmailAddress = "test.L.Smit@gmail.com",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Driessen",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Tessa",
-                        Title = "Mevrouw",
-                        Initials = "T.",
-                        DisplayName = "Tessa Driessen",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1998, 02, 04),
-                        Address1AddressStreet = "Kiel",
-                        Address1AddressHouseNo = "150",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "6595 TC",
-                        Address1AddressCity = "Gennep",
-                        Address1AddressStateOrProvince = "Limburg",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Tessa Driessen",
-                        Telephone1TelephoneNumber = "06-99124691",
-                        Profession = "Inspecteur",
-                        Email1DisplayName = "Tessa Driessen",
-                        Email1EmailAddress = "test.T.Driessen@emaildomeinen",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Wolters",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Anna",
-                        Title = "Mevrouw",
-                        Initials = "A.",
-                        DisplayName = "Anna Wolters",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1968, 07, 03),
-                        Address1AddressStreet = "Bloedstraat",
-                        Address1AddressHouseNo = "105",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "8141 FG",
-                        Address1AddressCity = "Raalte",
-                        Address1AddressStateOrProvince = "Overijssel",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Anna Wolters",
-                        Telephone1TelephoneNumber = "06-99952012",
-                        Profession = "Huisarts",
-                        Email1DisplayName = "Anna Wolters",
-                        Email1EmailAddress = "test.A.Wolters@hotmail.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "van der Wal",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Lucas",
-                        Title = "De heer ",
-                        Initials = "L.",
-                        DisplayName = "Lucas van der Wal",
-                        CivilStatusId = 2,
-                        Birthday = new DateTime(2005, 10, 25),
-                        Address1AddressStreet = "Lijsterbes",
-                        Address1AddressHouseNo = "239",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "5492 YE",
-                        Address1AddressCity = "Meierijstad",
-                        Address1AddressStateOrProvince = "Noord-Brabant",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Lucas van der Wal",
-                        Telephone1TelephoneNumber = "06-9938484",
-                        Profession = "Dierenarts",
-                        Email1DisplayName = "Lucas van der Wal",
-                        Email1EmailAddress = "test.L.vanderWal@emaildomeinen",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Willems",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Amber",
-                        Title = "Mevrouw",
-                        Initials = "A.",
-                        DisplayName = "Amber Willems",
-                        CivilStatusId = 2,
-                        Birthday = new DateTime(1951, 04, 18),
-                        Address1AddressStreet = "Bloedstraat",
-                        Address1AddressHouseNo = "219",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "5513 LC",
-                        Address1AddressCity = "Eersel",
-                        Address1AddressStateOrProvince = "Noord-Brabant",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Amber Willems",
-                        Telephone1TelephoneNumber = "06-99746503",
-                        Profession = "Personal Assistant",
-                        Email1DisplayName = "Amber Willems",
-                        Email1EmailAddress = "test.A.Willems@emaildomeinen",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Willems",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Anne",
-                        Title = "Mevrouw",
-                        Initials = "A.",
-                        DisplayName = "Anne Willems",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(1946, 01, 12),
-                        Address1AddressStreet = "Eksterweg",
-                        Address1AddressHouseNo = "162",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "6005 DE",
-                        Address1AddressCity = "Weert",
-                        Address1AddressStateOrProvince = "Limburg",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Anne Willems",
-                        Telephone1TelephoneNumber = "06-99462845",
-                        Profession = "Rechter",
-                        Email1DisplayName = "Anne Willems",
-                        Email1EmailAddress = "test.A.Willems@hotmail.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "van de Pol",
-                        MiddleName = "",
-                        Gender = "F",
-                        GivenName = "Maureen",
-                        Title = "Mevrouw",
-                        Initials = "M.",
-                        DisplayName = "Maureen van de Pol",
-                        CivilStatusId = 3,
-                        Birthday = new DateTime(2007, 05, 04),
-                        Address1AddressStreet = "Eksterweg",
-                        Address1AddressHouseNo = "18",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "6286 JR",
-                        Address1AddressCity = "Gulpen-Wittem",
-                        Address1AddressStateOrProvince = "Limburg",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Maureen van de Pol",
-                        Telephone1TelephoneNumber = "06-99548432",
-                        Profession = "Baliemedewerker",
-                        Email1DisplayName = "Maureen van de Pol",
-                        Email1EmailAddress = "test.M.vandePol@totaldesk.nl",
-                        CreatedBy = "TOAA"
-                    },
-                    new Contact
-                    {
-                        IsOurEmployee = false,
-                        Surname = "Schuitemaker",
-                        MiddleName = "",
-                        Gender = "M",
-                        GivenName = "Robin",
-                        Title = "De heer ",
-                        Initials = "R.",
-                        DisplayName = "Robin Schuitemaker",
-                        CivilStatusId = 2,
-                        Birthday = new DateTime(1922, 12, 11),
-                        Address1AddressStreet = "Kastanjelaan",
-                        Address1AddressHouseNo = "118",
-                        Address1AddressHouseNoExt = "",
-                        Address1AddressLine2 = "",
-                        Address1AddressPostalCode = "9162 YQ",
-                        Address1AddressCity = "Ameland",
-                        Address1AddressStateOrProvince = "Friesland",
-                        Address1AddressCountryCode = "nld",
-                        Address1AddressCountry = "Nederland",
-                        Telephone1DisplayName = "Robin Schuitemaker",
-                        Telephone1TelephoneNumber = "06-9980558",
-                        Profession = "Clientadviseur",
-                        Email1DisplayName = "Robin Schuitemaker",
-                        Email1EmailAddress = "test.R.Schuitemaker@hotmail.com",
-                        CreatedBy = "TOAA"
-                    });
             }
         }
 
@@ -2611,6 +1966,800 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Country { Id = "894", Alpha2 = "zm", Alpha3 = "	zmb", PhoneIso = "	260    ", CurrencyIso = "	   ", EuMember = "N/A", CountryName_en = "Zambia", CreatedBy = "TOAA" },
                     new Country { Id = "716", Alpha2 = "zw", Alpha3 = "	zwe", PhoneIso = "	263    ", CurrencyIso = "	   ", EuMember = "N/A", CountryName_en = "Zimbabwe", CreatedBy = "TOAA" }
                 );
+            }
+        }
+
+        public static async Task SeedContactIdTypes(ApplicationDbContext context)
+        {
+            if (!context.ContactIdTypes.Any())
+            {
+                await context.ContactIdTypes.AddRangeAsync(
+                    new ContactIdType
+                    {
+                        Title = "Nederlands Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Nederlandse Identiteitskaart",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Rijbewijs",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Toeristenkaart",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Diplomatiek/Dienst Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Vreemdelingen Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Vluchtelingen Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "EU/EER Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Buitenlands Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Vluchtelingen Paspoort",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Vreemdelingen W-Document",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactIdType
+                    {
+                        Title = "Vreemdelingen W2-Document",
+                        CreatedBy = "TOAA"
+                    }
+                );
+            }
+        }
+
+        public static async Task SeedContactCivilStatuses(ApplicationDbContext context)
+        {
+            if (!context.ContactCivilStatuses.Any())
+            {
+                await context.ContactCivilStatuses.AddRangeAsync(
+                    new ContactCivilStatus
+                    {
+                        Title = "Ongehuwd",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactCivilStatus
+                    {
+                        Title = "Wettig Gehuwd",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactCivilStatus
+                    {
+                        Title = "Geregistreerd Partnerschap",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactCivilStatus
+                    {
+                        Title = "Verweduwd na wettig huwelijk",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactCivilStatus
+                    {
+                        Title = "Verweduwd na partnerschap",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactCivilStatus
+                    {
+                        Title = "Gescheiden na partnerschap",
+                        CreatedBy = "TOAA"
+                    },
+                    new ContactCivilStatus
+                    {
+                        Title = "Gescheiden na wettig huwelijk",
+                        CreatedBy = "TOAA"
+                    }
+                );
+            }
+        }
+
+        public static async Task SeedEmployees(ApplicationDbContext context)
+        {
+            if (!context.Contacts.Any(x => x.IsOurEmployee && !x.IsOrganization))
+            {
+                await context.Contacts.AddRangeAsync(
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "Smit",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Arjen",
+                        Title = "De heer ",
+                        Initials = "A. ",
+                        DisplayName = "Arjen Smit employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1980, 12, 20),
+                        Address1AddressStreet = "Beurspoortje",
+                        Address1AddressHouseNo = "174",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "8387 EX",
+                        Address1AddressCity = "Westerveld",
+                        Address1AddressStateOrProvince = "Drenthe",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Arjen Smit",
+                        Telephone1TelephoneNumber = "06-99830049",
+                        Profession = "Advocaat",
+                        Email1DisplayName = "Arjen Smit",
+                        Email1EmailAddress = "test.A.Smit@gmail.com",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "de Ruiter",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Levi",
+                        Title = "De heer ",
+                        Initials = "L.",
+                        DisplayName = "Levi de Ruiter employee",
+                        CivilStatusId = 4,
+                        Birthday = new DateTime(1922, 11, 26),
+                        Address1AddressStreet = "Aalscholverweg",
+                        Address1AddressHouseNo = "362",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "8305 MC",
+                        Address1AddressCity = "Noordoostpolder",
+                        Address1AddressStateOrProvince = "Flevoland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Levi de Ruiter",
+                        Telephone1TelephoneNumber = "06-99966807",
+                        Profession = "Advocaat Partner",
+                        Email1DisplayName = "Levi de Ruiter",
+                        Email1EmailAddress = "test.L.deRuiter@totaldesk.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "Koning",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Cees",
+                        Title = "De heer ",
+                        Initials = "C.",
+                        DisplayName = "Cees Koning employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1968, 03, 27),
+                        Address1AddressStreet = "Dam",
+                        Address1AddressHouseNo = "128",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "9965 QW",
+                        Address1AddressCity = "De Marne",
+                        Address1AddressStateOrProvince = "Groningen",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Cees Koning",
+                        Telephone1TelephoneNumber = "06-99170928",
+                        Profession = "Administratiefmedewerker",
+                        Email1DisplayName = "Cees Koning",
+                        Email1EmailAddress = "test.C.Koning@hotmail.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "van der Berg",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Kevin",
+                        Title = "De heer ",
+                        Initials = "K.",
+                        DisplayName = "Kevin van der Berg employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(2001, 05, 16),
+                        Address1AddressStreet = "Haarlemmerplein",
+                        Address1AddressHouseNo = "227",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "1476 EF",
+                        Address1AddressCity = "Edam-Volendam",
+                        Address1AddressStateOrProvince = "Noord-Holland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Adcocaat Partner",
+                        Telephone1TelephoneNumber = "06-99871731",
+                        Profession = "Psychiater",
+                        Email1DisplayName = "Kevin van der Berg",
+                        Email1EmailAddress = "test.K.vanderBerg@gmail.com",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "Bosman",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Luuk",
+                        Title = "De heer ",
+                        Initials = "L.",
+                        DisplayName = "Luuk Bosman employee",
+                        CivilStatusId = 2,
+                        Birthday = new DateTime(1963, 06, 25),
+                        Address1AddressStreet = "Galgenstraat",
+                        Address1AddressHouseNo = "65",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "3356 VK",
+                        Address1AddressCity = "Papendrecht",
+                        Address1AddressStateOrProvince = "Zuid-Holland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Luuk Bosman",
+                        Telephone1TelephoneNumber = "06-99569595",
+                        Profession = "Advocaat",
+                        Email1DisplayName = "Luuk Bosman",
+                        Email1EmailAddress = "test.L.Bosman@emaildomeinen",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "Driessen",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Sam",
+                        Title = "De heer ",
+                        Initials = "S.",
+                        DisplayName = "Sam Driessen employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1971, 02, 21),
+                        Address1AddressStreet = "Nieuwstraat ",
+                        Address1AddressHouseNo = "94",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "3257 YP",
+                        Address1AddressCity = "Goeree-Overflakkee",
+                        Address1AddressStateOrProvince = "Zuid-Holland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Sam Driessen",
+                        Telephone1TelephoneNumber = "06-99813475",
+                        Profession = "Advocaat",
+                        Email1DisplayName = "Sam Driessen",
+                        Email1EmailAddress = "test.S.Driessen@gmail.com",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "van Veen",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Lisa",
+                        Title = "Mevrouw ",
+                        Initials = "L.",
+                        DisplayName = "Lisa van Veen employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1989, 07, 31),
+                        Address1AddressStreet = "Adriaan Pauwstraat",
+                        Address1AddressHouseNo = "169",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "5764 YY",
+                        Address1AddressCity = "Gemert-Bakel",
+                        Address1AddressStateOrProvince = "Noord-Brabant",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Lisa van Veen",
+                        Telephone1TelephoneNumber = "06-99809211",
+                        Profession = "Advocaat",
+                        Email1DisplayName = "Lisa van Veen",
+                        Email1EmailAddress = "test.L.vanVeen@glomos.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "van de Wetering",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Indy",
+                        Title = "Mevrouw ",
+                        Initials = "I.",
+                        DisplayName = "Indy van de Wetering employee",
+                        CivilStatusId = 7,
+                        Birthday = new DateTime(1968, 2, 26),
+                        Address1AddressStreet = "Damrak oneven",
+                        Address1AddressHouseNo = "104",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "2861 XQ",
+                        Address1AddressCity = "Krimpenerwaard",
+                        Address1AddressStateOrProvince = "Zuid-Holland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Indy van de Wetering",
+                        Telephone1TelephoneNumber = "06-99142478",
+                        Profession = "Secretaresse",
+                        Email1DisplayName = "Indy van de Wetering",
+                        Email1EmailAddress = "test.I.vandeWetering@hotmail.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "van der Velde",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Ilse",
+                        Title = "Mevrouw ",
+                        Initials = "I.",
+                        DisplayName = "Ilse van der Velde employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1997, 2, 25),
+                        Address1AddressStreet = "Schoterweg",
+                        Address1AddressHouseNo = "229",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "7949 YN",
+                        Address1AddressCity = "Meppel",
+                        Address1AddressStateOrProvince = "Drenthe",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Ilse van der Velde",
+                        Telephone1TelephoneNumber = "06-99226127",
+                        Profession = "Secretaresse",
+                        Email1DisplayName = "Ilse van der Velde",
+                        Email1EmailAddress = "test.I.vanderVelde@hotmail.com",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "van der Veen",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Sterre",
+                        Title = "Mevrouw ",
+                        Initials = "S.",
+                        DisplayName = "Sterre van der Veen employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1997, 3, 5),
+                        Address1AddressStreet = "Dollebegijnensteeg",
+                        Address1AddressHouseNo = "95",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "4707 PS",
+                        Address1AddressCity = "Roosendaal",
+                        Address1AddressStateOrProvince = "Noord-Brabant",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Sterre van der Veen",
+                        Telephone1TelephoneNumber = " 06-99825596",
+                        Profession = " Kapper",
+                        Email1DisplayName = "Sterre van der Veen",
+                        Email1EmailAddress = "test.S.vanderVeen@totaldesk.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "Peters",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Jelle",
+                        Title = "De heer ",
+                        Initials = "J.",
+                        DisplayName = "Jelle Peters employee",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1950, 6, 1),
+                        Address1AddressStreet = "Haarlemmerdijk",
+                        Address1AddressHouseNo = "270",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "9241 BW",
+                        Address1AddressCity = "Opsterland",
+                        Address1AddressStateOrProvince = "Friesland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Jelle Peters",
+                        Telephone1TelephoneNumber = "06-99944060",
+                        Profession = "Projectmanager",
+                        Email1DisplayName = "Jelle Peters",
+                        Email1EmailAddress = "test.J.Peters@totaldesk.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = true,
+                        Surname = "Elzinga",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Elisabeth",
+                        Title = "Mevrouw ",
+                        Initials = "E.",
+                        DisplayName = "Elisabeth Elzinga employee",
+                        Birthday = new DateTime(1997, 3, 9),
+                        Address1AddressStreet = "Beursstraat",
+                        Address1AddressHouseNo = "298",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "7217 ZN",
+                        Address1AddressCity = "Lochem",
+                        Address1AddressStateOrProvince = "Gelderland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Elisabeth Elzinga",
+                        Telephone1TelephoneNumber = "06-99864860",
+                        Profession = "Stewardes",
+                        Email1DisplayName = "Elisabeth Elzinga",
+                        Email1EmailAddress = "test.E.Elzinga@gmail.com",
+                        CreatedBy = "TOAA"
+                    }
+                );
+            }
+        }
+
+        public static async Task SeedPersons(ApplicationDbContext context)
+        {
+            if (!context.Contacts.Any(x => !x.IsOurEmployee && !x.IsOrganization))
+            {
+                await context.Contacts.AddRangeAsync(
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "van Dam",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Elisabeth",
+                        Title = "Mevrouw",
+                        Initials = "E.",
+                        DisplayName = "Elisabeth van Dam",
+                        CivilStatusId = 2,
+                        Birthday = new DateTime(1963, 11, 27),
+                        Address1AddressStreet = "Herenweg",
+                        Address1AddressHouseNo = "195",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "7475 VV",
+                        Address1AddressCity = "Hof van Twente",
+                        Address1AddressStateOrProvince = "Overijssel",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Elisabeth van Dam",
+                        Telephone1TelephoneNumber = "06-992524",
+                        Profession = "Therapeut",
+                        Email1DisplayName = "Elisabeth van Dam",
+                        Email1EmailAddress = "test.E.vanDam@totaldesk.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Huisman",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Isa",
+                        Title = "Mevrouw",
+                        Initials = "I.",
+                        DisplayName = "Isa Huisman",
+                        CivilStatusId = 7,
+                        Birthday = new DateTime(1988, 06, 19),
+                        Address1AddressStreet = "Houtmankade",
+                        Address1AddressHouseNo = "118",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "6231 CU",
+                        Address1AddressCity = "Meerssen",
+                        Address1AddressStateOrProvince = "Limburg",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Isa Huisman",
+                        Telephone1TelephoneNumber = "06-99804254",
+                        Profession = "Inspecteur",
+                        Email1DisplayName = "Isa Huisman",
+                        Email1EmailAddress = "test.I.Huisman@totaldesk.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Smit",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Luuk",
+                        Title = "De heer ",
+                        Initials = "L.",
+                        DisplayName = "Luuk Smit",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1934, 12, 24),
+                        Address1AddressStreet = "Bloedstraat",
+                        Address1AddressHouseNo = "141",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "5469 CS",
+                        Address1AddressCity = "Meierijstad",
+                        Address1AddressStateOrProvince = "Noord-Brabant",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Luuk Smit",
+                        Telephone1TelephoneNumber = "06-99857038",
+                        Profession = "Arbeider Bouw",
+                        Email1DisplayName = "Luuk Smit",
+                        Email1EmailAddress = "test.L.Smit@gmail.com",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Driessen",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Tessa",
+                        Title = "Mevrouw",
+                        Initials = "T.",
+                        DisplayName = "Tessa Driessen",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1998, 02, 04),
+                        Address1AddressStreet = "Kiel",
+                        Address1AddressHouseNo = "150",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "6595 TC",
+                        Address1AddressCity = "Gennep",
+                        Address1AddressStateOrProvince = "Limburg",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Tessa Driessen",
+                        Telephone1TelephoneNumber = "06-99124691",
+                        Profession = "Inspecteur",
+                        Email1DisplayName = "Tessa Driessen",
+                        Email1EmailAddress = "test.T.Driessen@emaildomeinen",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Wolters",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Anna",
+                        Title = "Mevrouw",
+                        Initials = "A.",
+                        DisplayName = "Anna Wolters",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1968, 07, 03),
+                        Address1AddressStreet = "Bloedstraat",
+                        Address1AddressHouseNo = "105",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "8141 FG",
+                        Address1AddressCity = "Raalte",
+                        Address1AddressStateOrProvince = "Overijssel",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Anna Wolters",
+                        Telephone1TelephoneNumber = "06-99952012",
+                        Profession = "Huisarts",
+                        Email1DisplayName = "Anna Wolters",
+                        Email1EmailAddress = "test.A.Wolters@hotmail.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "van der Wal",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Lucas",
+                        Title = "De heer ",
+                        Initials = "L.",
+                        DisplayName = "Lucas van der Wal",
+                        CivilStatusId = 2,
+                        Birthday = new DateTime(2005, 10, 25),
+                        Address1AddressStreet = "Lijsterbes",
+                        Address1AddressHouseNo = "239",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "5492 YE",
+                        Address1AddressCity = "Meierijstad",
+                        Address1AddressStateOrProvince = "Noord-Brabant",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Lucas van der Wal",
+                        Telephone1TelephoneNumber = "06-9938484",
+                        Profession = "Dierenarts",
+                        Email1DisplayName = "Lucas van der Wal",
+                        Email1EmailAddress = "test.L.vanderWal@emaildomeinen",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Willems",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Amber",
+                        Title = "Mevrouw",
+                        Initials = "A.",
+                        DisplayName = "Amber Willems",
+                        CivilStatusId = 2,
+                        Birthday = new DateTime(1951, 04, 18),
+                        Address1AddressStreet = "Bloedstraat",
+                        Address1AddressHouseNo = "219",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "5513 LC",
+                        Address1AddressCity = "Eersel",
+                        Address1AddressStateOrProvince = "Noord-Brabant",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Amber Willems",
+                        Telephone1TelephoneNumber = "06-99746503",
+                        Profession = "Personal Assistant",
+                        Email1DisplayName = "Amber Willems",
+                        Email1EmailAddress = "test.A.Willems@emaildomeinen",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Willems",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Anne",
+                        Title = "Mevrouw",
+                        Initials = "A.",
+                        DisplayName = "Anne Willems",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(1946, 01, 12),
+                        Address1AddressStreet = "Eksterweg",
+                        Address1AddressHouseNo = "162",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "6005 DE",
+                        Address1AddressCity = "Weert",
+                        Address1AddressStateOrProvince = "Limburg",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Anne Willems",
+                        Telephone1TelephoneNumber = "06-99462845",
+                        Profession = "Rechter",
+                        Email1DisplayName = "Anne Willems",
+                        Email1EmailAddress = "test.A.Willems@hotmail.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "van de Pol",
+                        MiddleName = "",
+                        Gender = "F",
+                        GivenName = "Maureen",
+                        Title = "Mevrouw",
+                        Initials = "M.",
+                        DisplayName = "Maureen van de Pol",
+                        CivilStatusId = 3,
+                        Birthday = new DateTime(2007, 05, 04),
+                        Address1AddressStreet = "Eksterweg",
+                        Address1AddressHouseNo = "18",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "6286 JR",
+                        Address1AddressCity = "Gulpen-Wittem",
+                        Address1AddressStateOrProvince = "Limburg",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Maureen van de Pol",
+                        Telephone1TelephoneNumber = "06-99548432",
+                        Profession = "Baliemedewerker",
+                        Email1DisplayName = "Maureen van de Pol",
+                        Email1EmailAddress = "test.M.vandePol@totaldesk.nl",
+                        CreatedBy = "TOAA"
+                    },
+                    new Contact
+                    {
+                        IsOurEmployee = false,
+                        Surname = "Schuitemaker",
+                        MiddleName = "",
+                        Gender = "M",
+                        GivenName = "Robin",
+                        Title = "De heer ",
+                        Initials = "R.",
+                        DisplayName = "Robin Schuitemaker",
+                        CivilStatusId = 2,
+                        Birthday = new DateTime(1922, 12, 11),
+                        Address1AddressStreet = "Kastanjelaan",
+                        Address1AddressHouseNo = "118",
+                        Address1AddressHouseNoExt = "",
+                        Address1AddressLine2 = "",
+                        Address1AddressPostalCode = "9162 YQ",
+                        Address1AddressCity = "Ameland",
+                        Address1AddressStateOrProvince = "Friesland",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Telephone1DisplayName = "Robin Schuitemaker",
+                        Telephone1TelephoneNumber = "06-9980558",
+                        Profession = "Clientadviseur",
+                        Email1DisplayName = "Robin Schuitemaker",
+                        Email1EmailAddress = "test.R.Schuitemaker@hotmail.com",
+                        CreatedBy = "TOAA"
+                    });
+            }
+        }
+
+        public static async Task SeedCompanies(ApplicationDbContext context)
+        {
+            if (!context.Contacts.Any(x => x.IsOrganization))
+            {
+                await context.Contacts.AddRangeAsync(
+                    new Contact
+                    {
+                        IsOrganization = true,
+                        DisplayName = "Advocaten kantoor Bloem en Boter",
+                        Email1EmailAddress = "info@bloemenboter.nl",
+                        Language = "NL",
+                        Address1AddressStateOrProvince = "NH",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        CompanyLegalStatusId = 1,
+                        CreatedBy = "TOAA"
+                    });
+            }
+
+            if (!context.Contacts.Any(x => x.IsOrganization && x.IsOurEmployee))
+            {
+                await context.Contacts.AddRangeAsync(
+                    new Contact
+                    {
+                        IsOrganization = true,
+                        IsOurEmployee = true,
+                        Surname = "Bastiaan",
+                        MiddleName = "De",
+                        Gender = "M",
+                        GivenName = "Jonge",
+                        DisplayName = "Bastiaan Jonge",
+                        Email1EmailAddress = "bastiaan@advosecure.nl",
+                        Telephone1TelephoneNumber = "06-12345678",
+                        Telephone2TelephoneNumber = "0614154578",
+                        CompanyName = "Bastiaan Holding B.V.",
+                        Profession = "aartsbisschop",
+                        Title = "Zijne Hoogwaardige Excellentie Mgr.",
+                        Saluation = "Monseigneur",
+                        Address1AddressCountryCode = "nld",
+                        Address1AddressCountry = "Nederland",
+                        Address2AddressCountryCode = "nld",
+                        Address2AddressCountry = "Nederland",
+                        CompanyLegalStatusId = 1,
+                        BillingRateId = 1,
+                        CreatedBy = "TOAA"
+                    });
             }
         }
     }

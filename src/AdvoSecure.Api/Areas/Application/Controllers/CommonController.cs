@@ -2,7 +2,9 @@
 using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.BillingDtos;
+using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
@@ -23,6 +25,14 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             IEnumerable<BillingRateDto> billingRates = await _commonService.GetBillingRatesAsync();
 
             return Ok(billingRates);
+        }
+
+        [HttpGet("company-legal-statuses")]
+        public async Task<IActionResult> GetCompanyLegalStatuses()
+        {
+            IEnumerable<CompanyLegalStatusDto> legalStatuses = await _commonService.GetCompanyLegalStatusesAsync();
+
+            return Ok(legalStatuses);
         }
 
         [HttpGet("countries")]

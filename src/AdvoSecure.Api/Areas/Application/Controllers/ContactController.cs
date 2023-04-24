@@ -2,9 +2,7 @@
 using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Services;
-using AdvoSecure.Domain.Entities.ContactEntities;
 using AdvoSecure.Infrastructure.Authorization;
-using AdvoSecure.Security;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers

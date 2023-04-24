@@ -10,8 +10,8 @@ import { ContactMaritalStatus } from '../../models/contact-marital-status.model'
 import { BillingRate } from 'src/app/models/billing-rate.model';
 import { Country } from 'src/app/models/country.model';
 import { CommonService } from 'src/app/services/common.service';
-import { FormGroup } from '@angular/forms';
 import { genders } from 'src/app/helpers/staticListHelper';
+import { CompanyLegalStatus } from 'src/app/models/company-legal-status.model';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
@@ -25,9 +25,6 @@ export class ContactDetailsComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   activeTab: Tabs = 'address-tab';
-  formGroup: FormGroup;
-
-  enableSaveButtonFirstEdit: boolean = false;
 
   avatarImageFile: File;
   avatarSrc: string | SafeUrl = '/assets/media/avatars/blank.png';
@@ -123,13 +120,14 @@ export class ContactDetailsComponent implements OnInit {
   idTypes: ContactIdType[] = [];
   maritalStatuses: ContactMaritalStatus[] = [];
   billingRates: BillingRate[] = [];
+  companyLegalStatuses: CompanyLegalStatus[] = [];
   countries: Country[] = [];
   genders = genders;
   date = '';
 
-  // activeTab: Tabs = 'address-tab';
   selectedIdTypeId: number | undefined = 0;
   selectedMaritalStatusId: number | undefined = 0;
+  selectedLegalStatusId: number | undefined = 0;
   selectedCountryId: string | undefined = '';
   selectedCountryVaId: string | undefined = '';
   selectedGender: string | undefined = '';
@@ -160,23 +158,27 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('on init');
-    this.routeContactId = this.route.snapshot.paramMap.get('id');
-    if (this.routeContactId) {
-      console.log('route contact id');
-      this.loadContact(parseInt(this.routeContactId));
-    }
-
     this.routeContactTypeParam = this.route.snapshot.queryParamMap.get('type');
     if (this.routeContactTypeParam === 'employee') {
-      console.log('employee');
       this.contactFormTitle = 'Employee details';
     } else if (this.routeContactTypeParam === 'person') {
-      console.log('person');
       this.contactFormTitle = 'Person details';
+    } else if (this.routeContactTypeParam === 'company') {
+      this.contactFormTitle = 'Company details';
+    }
+
+    this.routeContactId = this.route.snapshot.paramMap.get('id');
+    if (this.routeContactId) {
+      this.loadContact(parseInt(this.routeContactId));
+    } else {
+      this.loadNewContact();
     }
 
     this.loadSelectList();
+  }
+
+  loadNewContact() {
+    this.contact.isOrganization = this.routeContactTypeParam === 'company';
   }
 
   loadContact(id: number) {
@@ -191,9 +193,9 @@ export class ContactDetailsComponent implements OnInit {
           );
       }
 
-      this.enableSaveButtonFirstEdit = true;
       this.selectedIdTypeId = this.contact.idTypeId;
       this.selectedMaritalStatusId = this.contact.civilStatusId;
+      this.selectedLegalStatusId = this.contact.companyLegalStatusId;
       this.selectedGender = this.contact.gender;
 
       this.changeDetectorRef.detectChanges();
@@ -215,6 +217,11 @@ export class ContactDetailsComponent implements OnInit {
 
     this.commonService.getBillingRates().subscribe((result: BillingRate[]) => {
       this.billingRates = result;
+      this.changeDetectorRef.detectChanges();
+    });
+
+    this.commonService.getCompanyLegalStatuses().subscribe((result: CompanyLegalStatus[]) => {
+      this.companyLegalStatuses = result;
       this.changeDetectorRef.detectChanges();
     });
 
@@ -252,6 +259,7 @@ export class ContactDetailsComponent implements OnInit {
         this.contact.pictureBin = btoa(binaryString);
         this.contact.idTypeId = this.selectedIdTypeId;
         this.contact.civilStatusId = this.selectedMaritalStatusId;
+        this.contact.companyLegalStatusId = this.selectedLegalStatusId;
         this.contact.gender = this.selectedGender;
 
         if (this.routeContactId) {
@@ -313,10 +321,6 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
-  goToAll() {
-    this.router.navigate(['/management/contacts/all']);
-  }
-
   isValidDateOfBirth(dateOfBirth: string): boolean {
     const date = new Date(dateOfBirth);
 
@@ -339,12 +343,15 @@ export class ContactDetailsComponent implements OnInit {
       this.date = 'Invalid date of birth';
     }
   }
+
   redirectToListPage() {
     if (this.routeContactTypeParam === 'employee') {
       this.router.navigate(['/management/contacts/employees']);
     } else if (this.routeContactTypeParam === 'person') {
       this.router.navigate(['/management/contacts/persons']);
-    } else {
+    } else if (this.routeContactTypeParam === 'company') {
+      this.router.navigate(['/management/contacts/companies']);
+    }else {
       this.router.navigate(['/management/contacts/all']);
     }
   }

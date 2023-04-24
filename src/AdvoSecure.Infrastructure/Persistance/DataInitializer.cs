@@ -34,8 +34,6 @@ namespace AdvoSecure.Infrastructure.Persistance
 
             try
             {
-               var currentConnectionString = appDbContext.Database.GetConnectionString() ?? string.Empty;
-
                 var dbBoostrapped = await appDbContext.Database.CanConnectAsync();
 
                 if (!dbBoostrapped)

@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxTablePaginationModule } from 'ngx-table-pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslationModule } from '../../modules/i18n';
 import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './contact.component';
 import { ConflictsComponent } from './components/conflicts/conflicts.component';
@@ -13,7 +15,6 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
 import { EmployeesComponent } from './components/employees/employees.component';
 import { PersonsComponent } from './components/persons/persons.component';
 import { CompaniesComponent } from './components/companies/companies.component';
-import { CompanyDetailsComponent } from './components/company-details/company-details.component';
 import { PagingContactListComponent } from './paging-contact-list.component';
 
 @NgModule({
@@ -24,7 +25,6 @@ import { PagingContactListComponent } from './paging-contact-list.component';
     EmployeesComponent,
     PersonsComponent,
     CompaniesComponent,
-    CompanyDetailsComponent,
     ContactDetailsComponent,
     ConflictsComponent,
   ],
@@ -35,7 +35,9 @@ import { PagingContactListComponent } from './paging-contact-list.component';
     FormsModule,
     NgxTablePaginationModule,
     NgxPaginationModule,
-    InlineSVGModule
+    InlineSVGModule,
+    TranslationModule,
+    TranslateModule,
   ],
 })
 export class ContactModule {}

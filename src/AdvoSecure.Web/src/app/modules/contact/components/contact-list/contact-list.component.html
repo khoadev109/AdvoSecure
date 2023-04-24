@@ -1,5 +1,5 @@
 <div class="d-flex flex-wrap flex-stack mb-6">
-  <h3 class="fw-bolder my-2">Contacts</h3>
+  <h3 class="fw-bolder my-2" translate="PAGES.CONTACT.CONTACTS"></h3>
 
   <div class="d-flex my-2">
     <div class="d-flex align-items-center position-relative me-4">
@@ -17,7 +17,7 @@
     </div>
 
     <a class="btn btn-sm btn-light me-2 cursor-pointer" (click)="search()">
-      <span class="indicator-label">Find</span>
+      <span class="indicator-label" translate="PAGES.CONTACT.FIND"></span>
     </a>
   </div>
 </div>
@@ -30,17 +30,16 @@
       data-bs-toggle="tooltip"
       data-bs-placement="top"
       data-bs-trigger="hover"
-      title="Click to add a contact"
     >
       <a
         routerLink="/management/contacts/details"
         class="btn btn-sm btn-light-primary"
+        translate="PAGES.CONTACT.NEW_CONTACT"
       >
         <span
           [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
           class="svg-icon svg-icon-3"
         ></span>
-        New Contact
       </a>
     </div>
   </div>
@@ -56,9 +55,12 @@
         <!-- begin::Table head -->
         <thead>
           <tr class="fw-bolder text-muted">
-            <th class="min-w-150px">Full name</th>
-            <th class="min-w-140px">Type</th>
-            <th class="min-w-120px">City, State, Country</th>
+            <th class="min-w-150px" translate="PAGES.CONTACT.FULL_NAME"></th>
+            <th class="min-w-140px" translate="PAGES.CONTACT.TYPE"></th>
+            <th
+              class="min-w-120px"
+              translate="PAGES.CONTACT.CITY_STATE_COUNTRY"
+            ></th>
             <th class="min-w-100px"></th>
           </tr>
         </thead>
@@ -115,7 +117,10 @@
             </td>
             <td class="text-end">
               <a class="btn btn-sm btn-light cursor-pointer">
-                <span class="indicator-label">Conflicts</span>
+                <span
+                  class="indicator-label"
+                  translate="PAGES.CONTACT.CONFLICTS"
+                ></span>
               </a>
             </td>
           </tr>

@@ -68,6 +68,13 @@ namespace AdvoSecure.Application.Mappers
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
                     .ForMember(x => x.DeletedBy, x => x.Ignore())
                     .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+
+            config.CreateMap<CompanyLegalStatus, CompanyLegalStatusDto>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
         }
 
         private static void MapContacts(this IMapperConfigurationExpression config)

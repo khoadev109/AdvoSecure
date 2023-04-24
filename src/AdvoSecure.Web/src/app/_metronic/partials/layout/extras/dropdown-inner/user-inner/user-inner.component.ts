@@ -43,9 +43,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.user$ = this.auth.currentUserSubject.asObservable();
     this.setLanguage(this.translationService.getSelectedLanguage());
-
     this.getProfile();
   }
 
@@ -57,8 +55,6 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // this.auth.logout();
-    // document.location.reload();
     this.authService.logout();
   }
 
@@ -97,6 +93,13 @@ const languages = [
     name: 'English',
     flag: './assets/media/flags/united-states.svg',
   },
+
+  // {
+  //   lang: '	nl',
+  //   name: 'Dutch',
+  //   flag: './assets/media/flags/netherlands.svg',
+  // },
+
   {
     lang: 'zh',
     name: 'Mandarin',

@@ -18,6 +18,11 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
             return _dbContext.BillingRates;
         }
 
+        public IQueryable<CompanyLegalStatus> GetCompanyLegalStatuses()
+        {
+            return _dbContext.CompanyLegalStatuses;
+        }
+
         public IQueryable<Country> GetCountries()
         {
             return _dbContext.Countries;

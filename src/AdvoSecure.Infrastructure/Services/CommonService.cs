@@ -29,6 +29,15 @@ namespace AdvoSecure.Infrastructure.Services
             return billingRateDtos;
         }
 
+        public async Task<IEnumerable<CompanyLegalStatusDto>> GetCompanyLegalStatusesAsync()
+        {
+            IList<CompanyLegalStatus> companyLegalStatuses = await _commonRepository.GetCompanyLegalStatuses().ToListAsync();
+
+            IEnumerable<CompanyLegalStatusDto> companyLegalStatusDtos = _mapper.Map<IEnumerable<CompanyLegalStatusDto>>(companyLegalStatuses);
+
+            return companyLegalStatusDtos;
+        }
+
         public async Task<IEnumerable<CountryDto>> GetCountriesAsync()
         {
             IList<Country> countries = await _commonRepository.GetCountries().ToListAsync();

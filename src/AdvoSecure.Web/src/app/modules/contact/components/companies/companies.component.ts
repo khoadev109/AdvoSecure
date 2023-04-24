@@ -25,4 +25,16 @@ export class CompaniesComponent extends PagingContactListComponent {
         this.changeDetectorRef.detectChanges();
       });
   }
+
+  redirectToNewCompany() {
+    this.router.navigate(['/management/contacts/details'], {
+      queryParams: { type: 'company' },
+    });
+  }
+
+  redirectToExistingCompany(id: number) {
+    this.router.navigate(['/management/contacts/details/' + id], {
+      queryParams: { type: 'company' },
+    });
+  }
 }

@@ -3,21 +3,26 @@
     type="button"
     class="btn btn-primary mr-2"
     style="margin-right: 10px"
+    translate="PAGES.CONTACT.OVERVIEW"
     (click)="redirectToListPage()"
-  >
-    Overview
-  </button>
+  ></button>
   <button
     type="button"
     class="btn btn-secondary ml-2"
-    [disabled]="!enableSaveButtonFirstEdit || isLoading || contactForm.invalid"
+    [disabled]="isLoading || contactForm.invalid"
     (click)="save()"
   >
-    <ng-container *ngIf="!isLoading">Save</ng-container>
+    <div translate="COMMON.SAVE">
+      <ng-container *ngIf="!isLoading"></ng-container>
+    </div>
 
     <ng-container *ngIf="isLoading">
-      <span class="indicator-progress" [style.display]="'block'">
-        Please wait...{{ " " }}
+      <span
+        class="indicator-progress"
+        [style.display]="'block'"
+        translate="COMMON.PLEASE_WAIT"
+      >
+        {{ " " }}
         <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
       </span>
     </ng-container>
@@ -39,14 +44,17 @@
             avatar="Avatar"
           />
           <div class="mt-4 cursor-pointer">
-            <p class="text-muted lead" (click)="selectImage.click()">
-              Change Profile
-            </p>
+            <p
+              class="text-muted"
+              (click)="selectImage.click()"
+              translate="PAGES.CONTACT.CHANGE_PROFILE"
+            ></p>
           </div>
           <div class="custom-file" style="width: 300px">
             <input
               type="file"
               class="form-control form-control-lg form-control-solid temp-hidden"
+              name="avatar-upload"
               (change)="updateAvatar($event)"
               #selectImage
             />
@@ -57,12 +65,32 @@
           <input
             class="form-check-input"
             type="checkbox"
-            id="checkbox1"
+            id="isOurEmployee"
+            name="isOurEmployee"
             [(ngModel)]="contact.isOurEmployee"
+            [checked]="contact.isOurEmployee"
           />
-          <label for="checkbox1" class="form-check-label"
-            >This is an office worker.</label
-          >
+          <label
+            for="isOurEmployee"
+            class="form-check-label"
+            translate="PAGES.CONTACT.IS_OUR_EMPLOYEE"
+          ></label>
+        </div>
+
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="isOrganization"
+            name="isOrganization"
+            [(ngModel)]="contact.isOrganization"
+            [checked]="contact.isOrganization"
+          />
+          <label
+            for="isOrganization"
+            class="form-check-label"
+            translate="PAGES.CONTACT.IS_ORGANIZATION"
+          ></label>
         </div>
       </div>
     </div>
@@ -73,11 +101,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">First Name</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.FIRST_NAME"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="First Name"
                     name="firstName"
                     [(ngModel)]="contact.givenName"
                   />
@@ -87,11 +117,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Infix</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.INFIX"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Infix"
                     name="infix"
                     [(ngModel)]="contact.middleName"
                   />
@@ -101,11 +133,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Last Name</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.LAST_NAME"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Last Name"
                     name="lastName"
                     [(ngModel)]="contact.surname"
                   />
@@ -115,11 +149,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Suffix</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.SUFFIX"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Suffix"
                     name="suffix"
                     [(ngModel)]="contact.generation"
                   />
@@ -129,14 +165,14 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6 required"
-                    >Full Name</label
-                  >
+                  <label
+                    class="col-lg-4 fw-bold fs-6 required"
+                    translate="PAGES.CONTACT.FULL_NAME"
+                  ></label>
                   <input
                     maxlength="50"
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Full Name"
                     name="displayName"
                     [(ngModel)]="contact.displayName"
                     #name="ngModel"
@@ -154,9 +190,10 @@
                     *ngIf="name.invalid && (name.dirty || name.touched)"
                     class="form-text"
                   >
-                    <div *ngIf="name.errors?.required">
-                      Full name is required
-                    </div>
+                    <div
+                      *ngIf="name.errors?.required"
+                      translate="PAGES.CONTACT.FULL_NAME_REQUIRED"
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -166,13 +203,19 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Gender</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.GENDER"
+                  ></label>
                   <select
                     class="form-select form-select-solid form-select-lg fw-bold"
                     name="countryVa"
                     [(ngModel)]="selectedGender"
                   >
-                    <option value="">Select gender</option>
+                    <option
+                      value=""
+                      translate="PAGES.CONTACT.SELECT_GENDER"
+                    ></option>
                     <option
                       *ngFor="let gender of genders"
                       [selected]="selectedGender === gender.value"
@@ -186,14 +229,14 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 col-form-label fw-bold fs-6"
-                    >Language</label
-                  >
+                  <label
+                    class="col-lg-4 col-form-label fw-bold fs-6"
+                    translate="PAGES.CONTACT.LANGUAGE"
+                  ></label>
                   <div class="col-lg-8 fv-row">
                     <input
                       type="text"
                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Language"
                       name="language"
                       [(ngModel)]="contact.language"
                     />
@@ -204,35 +247,41 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6" for="emailInput"
-                    >Email</label
-                  >
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    for="emailInput"
+                    translate="COMMON.EMAIL"
+                  ></label>
                   <input
                     type="email"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                     id="emailInput"
-                    placeholder="Email"
                     name="email"
                     email
                     ngModel
                     #email="ngModel"
                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                    [(ngModel)]="contact.email1DisplayName"
+                    [(ngModel)]="contact.email1EmailAddress"
                   />
                 </div>
                 <div *ngIf="email.touched">
-                  <p *ngIf="email.errors?.pattern">This is not a valid Email</p>
+                  <p
+                    *ngIf="email.errors?.pattern"
+                    translate="COMMON.INVALID_EMAIL"
+                  ></p>
                 </div>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Fax</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.FAX"
+                  ></label>
                   <input
                     type="tel"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Fax"
                     name="fax"
                     [(ngModel)]="contact.fax1DisplayName"
                   />
@@ -242,11 +291,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Organization name</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.ORGANIZATION_NAME"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Organization name"
                     name="organizationName"
                     [(ngModel)]="contact.companyName"
                   />
@@ -258,11 +309,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Telephone</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.TELEPHONE"
+                  ></label>
                   <input
                     type="tel"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Telephone"
                     name="telephone"
                     [(ngModel)]="contact.telephone1TelephoneNumber"
                   />
@@ -272,11 +325,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Mobile</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.MOBILE"
+                  ></label>
                   <input
                     type="tel"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Mobile"
                     name="mobile"
                     [(ngModel)]="contact.telephone2TelephoneNumber"
                   />
@@ -286,11 +341,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Feature title</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.FEATURE_TITLE"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Feature title"
                     name="featureTitle"
                     [(ngModel)]="contact.profession"
                   />
@@ -300,11 +357,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6">Address title</label>
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.ADDRESS_TITLE"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Address title"
                     name="addressTitle"
                     [(ngModel)]="contact.title"
                   />
@@ -314,13 +373,13 @@
             <div class="row mb-3">
               <div class="col-lg-12">
                 <div class="d-flex align-items-center me-4">
-                  <label class="col-lg-4 fw-bold fs-6"
-                    >Letter/email salutation</label
-                  >
+                  <label
+                    class="col-lg-4 fw-bold fs-6"
+                    translate="PAGES.CONTACT.LETTER_EMAIL_SALUTATION"
+                  ></label>
                   <input
                     type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    placeholder="Letter/email salutation"
                     name="letter/email"
                     [(ngModel)]="contact.saluation"
                   />
@@ -332,374 +391,400 @@
       </div>
     </div>
   </div>
-</form>
-
-<div class="card mb-5 mb-xl-10">
-  <div class="card-body pt-9 pb-0 mb-6">
-    <div class="d-flex overflow-auto h-55px">
-      <ul
-        class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap"
-      >
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6 cursor-pointer"
-            [ngClass]="activeClass('address-tab')"
-            (click)="setTab('address-tab')"
-            data-bs-toggle="tab"
-          >
-            Address data
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6 cursor-pointer"
-            [ngClass]="activeClass('extra-tab')"
-            (click)="setTab('extra-tab')"
-            data-bs-toggle="tab"
-          >
-            Extra data
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6 cursor-pointer"
-            [ngClass]="activeClass('financial-tab')"
-            (click)="setTab('financial-tab')"
-            data-bs-toggle="tab"
-          >
-            Financial
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link text-active-primary me-6 cursor-pointer"
-            [ngClass]="activeClass('history-tab')"
-            (click)="setTab('history-tab')"
-            data-bs-toggle="tab"
-          >
-            History
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="tab-content">
-    <!-- begin::Tap Address-->
-    <div
-      class="tab-pane fade"
-      [ngClass]="activeClass('address-tab')"
-      id="address-tab"
-    >
-      <div class="card mb-5 mb-xl-10">
-        <!-- begin::Correspondence Address-->
-        <div class="card-header border-0">
-          <div class="card-title m-0">
-            <h5 class="fw-bolder m-0">Correspondence Address</h5>
-          </div>
-        </div>
-        <div class="card-body border-top p-9">
-          <div class="row mb-6">
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6"
-                      >Street/Postbox 1</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Street/Postbox"
-                      name="streetPostbox"
-                      id="streetPostbox"
-                      [(ngModel)]="contact.address1AddressStreet"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Address 2</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Address 2"
-                      name="address2"
-                      [(ngModel)]="contact.address1AddressLine2"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Postcode</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Postcode"
-                      name="postcode"
-                      [(ngModel)]="contact.address1AddressPostalCode"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">House number</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="House number"
-                      name="houseNumber"
-                      [(ngModel)]="contact.address2AddressHouseNo"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Place</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Place"
-                      name="place"
-                      [(ngModel)]="contact.address2AddressCity"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6"
-                      >Province / State</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Province / State"
-                      name="provinceState"
-                      [(ngModel)]="contact.address1AddressStateOrProvince"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Addition</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Addition"
-                      name="addition"
-                      [(ngModel)]="contact.address2AddressHouseNoExt"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Country</label>
-                    <select
-                      class="form-select form-select-solid form-select-lg fw-bold"
-                      name="country"
-                      [(ngModel)]="contact.address1AddressCountry"
-                    >
-                      <option value="">Select a Country</option>
-                      <option
-                        *ngFor="let country of countries"
-                        [selected]="selectedCountryId1 === country.id"
-                        [text]="country.countryName_en"
-                        [value]="country.id"
-                      ></option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end::Correspondence Address-->
-
-        <!-- begin::Visiting Address-->
-        <div class="card-header border-0">
-          <div class="card-title m-0">
-            <h5 class="fw-bolder m-0">
-              Visiting address ( same as postal address
-              <input
-                class="form-check-input"
-                name="sameAsPostalAddress"
-                type="checkbox"
-                [(ngModel)]="isChecked"
-                (change)="updateInput()"
-              />
-              )
-            </h5>
-          </div>
-        </div>
-        <div class="card-body border-top p-9">
-          <div class="row mb-6">
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6"
-                      >Street/Postbox 2</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Street/Postbox"
-                      name="streetPostbox"
-                      id="streetPostbox"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address2AddressStreet"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Address 2</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Address 2"
-                      name="address2"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address2AddressLine2"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Postcode</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Postcode"
-                      name="postcode"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address2AddressPostalCode"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">House number</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="House number"
-                      name="houseNumber"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address3AddressHouseNo"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Place</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Place"
-                      name="place"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address3AddressCity"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6"
-                      >Province / State</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Province / State"
-                      name="provinceState"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address2AddressStateOrProvince"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Addition</label>
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      placeholder="Addition"
-                      name="addition"
-                      [disabled]="isChecked"
-                      [(ngModel)]="contact.address3AddressHouseNoExt"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-12">
-                  <div class="d-flex align-items-center me-4">
-                    <label class="col-lg-4 fw-bold fs-6">Country</label>
-                    <select
-                      class="form-select form-select-solid form-select-lg fw-bold"
-                      name="countryVa"
-                      [(ngModel)]="contact.address2AddressCountry"
-                      [disabled]="isChecked"
-                    >
-                      <option value="">Select a Country</option>
-                      <option
-                        *ngFor="let country of countries"
-                        [selected]="selectedCountryVaId === country.id"
-                        [text]="country.countryName_en"
-                        [value]="country.id"
-                      ></option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end::Visiting Address-->
+  <div class="card mb-5 mb-xl-10">
+    <div class="card-body pt-9 pb-0 mb-6">
+      <div class="d-flex overflow-auto h-55px">
+        <ul
+          class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap"
+        >
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6 cursor-pointer"
+              [ngClass]="activeClass('address-tab')"
+              (click)="setTab('address-tab')"
+              data-bs-toggle="tab"
+              translate="PAGES.CONTACT.ADDRESS_DATA"
+            >
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6 cursor-pointer"
+              [ngClass]="activeClass('extra-tab')"
+              (click)="setTab('extra-tab')"
+              data-bs-toggle="tab"
+              translate="PAGES.CONTACT.EXTRA_DATA"
+            >
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6 cursor-pointer"
+              [ngClass]="activeClass('financial-tab')"
+              (click)="setTab('financial-tab')"
+              data-bs-toggle="tab"
+              translate="PAGES.CONTACT.FINANCIAL"
+            >
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link text-active-primary me-6 cursor-pointer"
+              [ngClass]="activeClass('history-tab')"
+              (click)="setTab('history-tab')"
+              data-bs-toggle="tab"
+              translate="PAGES.CONTACT.HISTORY"
+            >
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    <!-- end::Tap Address-->
+    <div class="tab-content">
+      <!-- begin::Tap Address-->
+      <div
+        class="tab-pane fade"
+        [ngClass]="activeClass('address-tab')"
+        id="address-tab"
+      >
+        <div class="card mb-5 mb-xl-10">
+          <!-- begin::Correspondence Address-->
+          <div class="card-header border-0">
+            <div class="card-title m-0">
+              <h5
+                class="fw-bolder m-0"
+                translate="PAGES.CONTACT.CORRESPONDENCE_ADDRESS"
+              ></h5>
+            </div>
+          </div>
+          <div class="card-body border-top p-9">
+            <div class="row mb-6">
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.STREET_POSTBOX"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="streetPostbox"
+                        id="streetPostbox"
+                        [(ngModel)]="contact.address1AddressStreet"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ADDRESS_2"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="address2"
+                        [(ngModel)]="contact.address1AddressLine2"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.POSTCODE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="postcode"
+                        [(ngModel)]="contact.address1AddressPostalCode"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.HOUSE_NUMBER"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="houseNumber"
+                        [(ngModel)]="contact.address2AddressHouseNo"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.PLACE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="place"
+                        [(ngModel)]="contact.address2AddressCity"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.PROVINCE_STATE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="provinceState"
+                        [(ngModel)]="contact.address1AddressStateOrProvince"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ADDITION"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.address2AddressHouseNoExt"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="COMMON.COUNTRY"
+                      ></label>
+                      <select
+                        class="form-select form-select-solid form-select-lg fw-bold"
+                        name="country"
+                        [(ngModel)]="contact.address1AddressCountry"
+                      >
+                        <option
+                          value=""
+                          translate="COMMON.SELECT_A_COUNTRY"
+                        ></option>
+                        <option
+                          *ngFor="let country of countries"
+                          [selected]="selectedCountryId1 === country.id"
+                          [text]="country.countryName_en"
+                          [value]="country.id"
+                        ></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end::Correspondence Address-->
 
-    <!-- begin::Tap Extra-->
-    <div
-      class="tab-pane fade"
-      [ngClass]="activeClass('extra-tab')"
-      id="extra-tab"
-    >
+          <!-- begin::Visiting Address-->
+          <div class="card-header border-0">
+            <div class="card-title m-0">
+              <h5
+                class="fw-bolder m-0"
+                translate="PAGES.CONTACT.VISITING_ADDRESS"
+              >
+                <input
+                  class="form-check-input ml-2"
+                  name="sameAsPostalAddress"
+                  type="checkbox"
+                  [(ngModel)]="isChecked"
+                  (change)="updateInput()"
+                />
+              </h5>
+            </div>
+          </div>
+          <div class="card-body border-top p-9">
+            <div class="row mb-6">
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.STREET_POSTBOX"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="streetPostbox"
+                        id="streetPostbox"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address2AddressStreet"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ADDRESS_2"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="address2"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address2AddressLine2"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.POSTCODE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="postcode"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address2AddressPostalCode"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.HOUSE_NUMBER"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="houseNumber"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address3AddressHouseNo"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.PLACE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="place"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address3AddressCity"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.PROVINCE_STATE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="provinceState"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address2AddressStateOrProvince"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ADDITION"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [disabled]="isChecked"
+                        [(ngModel)]="contact.address3AddressHouseNoExt"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="COMMON.COUNTRY"
+                      ></label>
+                      <select
+                        class="form-select form-select-solid form-select-lg fw-bold"
+                        name="countryVa"
+                        [(ngModel)]="contact.address2AddressCountry"
+                        [disabled]="isChecked"
+                      >
+                        <option
+                          value=""
+                          translate="COMMON.SELECT_A_COUNTRY"
+                        ></option>
+                        <option
+                          *ngFor="let country of countries"
+                          [selected]="selectedCountryVaId === country.id"
+                          [text]="country.countryName_en"
+                          [value]="country.id"
+                        ></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end::Visiting Address-->
+        </div>
+      </div>
       <!-- end::Tap Address-->
 
       <!-- begin::Tap Extra-->
@@ -710,20 +795,24 @@
       >
         <div class="card mb-5 mb-xl-10">
           <div class="card-body border-top p-9">
-            <div class="row mb-6">
+            <div
+              class="row mb-6 contact-info"
+              *ngIf="!contact.isOrganization"
+            >
               <div class="col-lg-4">
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Date of birth</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.DATE_OF_BIRTH"
+                      ></label>
                       <input
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Date of birth"
                         name="dateOfBirth"
                         [ngModel]="contact.birthday"
                         (ngModelChange)="(contact.birthday)"
-                        required
                         #dateOfBirthVar="ngModel"
                         (input)="dateChange($event)"
                       />
@@ -736,13 +825,19 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Legitimation</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.LEGITIMATION"
+                      ></label>
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="legitimation"
                         [(ngModel)]="contact.idTypeId"
                       >
-                        <option value="0">Select legitimation</option>
+                        <option
+                          value="0"
+                          translate="PAGES.CONTACT.SELECT_LEGITIMATION"
+                        ></option>
                         <option
                           *ngFor="let idType of idTypes"
                           [selected]="selectedIdTypeId === idType.id"
@@ -756,15 +851,19 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >Marital status</label
-                      >
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.MARITAL_STATUS"
+                      ></label>
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="maritalStatus"
                         [(ngModel)]="contact.civilStatusId"
                       >
-                        <option value="0">Select marital status</option>
+                        <option
+                          value="0"
+                          translate="PAGES.CONTACT.SELECT_MARITAL_STATUS"
+                        ></option>
                         <option
                           *ngFor="let maritalStatus of maritalStatuses"
                           [selected]="
@@ -780,11 +879,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">VNumber</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.VNUMBER"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="VNumber"
                         name="vNumber"
                         [(ngModel)]="contact.vNumber"
                       />
@@ -796,11 +897,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Birthplace</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.BIRTHPLACE"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Birthplace"
                         name="birthplace"
                         [(ngModel)]="contact.birthCity"
                       />
@@ -810,11 +913,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">ID number</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ID_NUMBER"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="ID number"
                         name="idNumber"
                         [(ngModel)]="contact.idNumber"
                       />
@@ -824,11 +929,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Partner</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.PARTNER"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Partner"
                         name="partner"
                         [(ngModel)]="contact.spouseName"
                       />
@@ -838,11 +945,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">BAR-number</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.BAR_NUMBER"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="BAR-number"
                         name="barNumber"
                         [(ngModel)]="contact.barNumber"
                       />
@@ -854,11 +963,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Nationality</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.NATIONALITY"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Nationality"
                         name="nationality"
                         [(ngModel)]="contact.nationality"
                       />
@@ -868,13 +979,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >ID valid until</label
-                      >
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ID_VALID_UNTIL"
+                      ></label>
                       <input
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="ID valid until"
                         name="idValidUntil"
                         [(ngModel)]="contact.idDateExpiry"
                       />
@@ -884,11 +995,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Wedding date</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.WEDDING_DATE"
+                      ></label>
                       <input
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Wedding date"
                         name="weddingDate"
                         [(ngModel)]="contact.wedding"
                       />
@@ -898,13 +1011,190 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Source</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.SOURCE"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        placeholder="Source"
                         name="source"
                         [(ngModel)]="contact.referredByName"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row mb-6 company-info"
+              *ngIf="contact.isOrganization"
+            >
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.SBI_CODE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.sbiCode"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.KVK_NUMBER"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.businessRegistration"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.NUMBER_EMPLOYEES"
+                      ></label>
+                      <input
+                        type="number"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.numberEmployees"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.RSIN"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.taxNumber"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.DATE_ESTABLISHMENT"
+                      ></label>
+                      <input
+                        type="date"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="dateOfBirth"
+                        [ngModel]="contact.birthday"
+                        (ngModelChange)="(contact.birthday)"
+                        #dateOfBirthVar="ngModel"
+                        (input)="dateChange($event)"
+                      />
+                    </div>
+                    <div>
+                      {{ date }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.ANNUAL_REVENUE"
+                      ></label>
+                      <input
+                        type="number"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.turnOver"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.BTW_NUMBER"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.vatId"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.LEGAL_FORM"
+                      ></label>
+                      <select
+                        class="form-select form-select-solid form-select-lg fw-bold"
+                        name="legalForm"
+                        [(ngModel)]="selectedLegalStatusId"
+                      >
+                        <option
+                          value="0"
+                          translate="PAGES.CONTACT.SELECT_LEGAL_FORM"
+                        ></option>
+                        <option
+                          *ngFor="
+                            let companyLegalStatus of companyLegalStatuses
+                          "
+                          [selected]="
+                            selectedLegalStatusId === companyLegalStatus.id
+                          "
+                          [text]="companyLegalStatus.title"
+                          [value]="companyLegalStatus.id"
+                        ></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-lg-12">
+                    <div class="d-flex align-items-center me-4">
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.WEBSITE"
+                      ></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                        name="addition"
+                        [(ngModel)]="contact.website"
                       />
                     </div>
                   </div>
@@ -929,13 +1219,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >Bank/IBAN account</label
-                      >
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.BANK_IBAN_ACCOUNT"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
-                        placeholder="Bank/IBAN account"
                         name="bankIBANAccount"
                         [(ngModel)]="contact.bankAccount"
                       />
@@ -945,13 +1235,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >SEPA mandate number</label
-                      >
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.SEPA_MANDATE_NUMBER"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
-                        placeholder="SEPA mandate number"
                         name="sepaMandateNumber"
                         [(ngModel)]="contact.sepaMandateNumber"
                       />
@@ -963,13 +1253,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >BIC/Swift number</label
-                      >
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.BIC_SWIFT_NUMBER"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
-                        placeholder="BIC/Swift number"
                         name="bicSwiftNumber"
                         [(ngModel)]="contact.bicCode"
                       />
@@ -979,13 +1269,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6"
-                        >SEPA effective date</label
-                      >
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.SEPA_EFFECTIVE_DATE"
+                      ></label>
                       <input
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
-                        placeholder="SEPA effective date"
                         name="sepaEffectiveDate"
                         [(ngModel)]="contact.sepaMandateDate"
                       />
@@ -997,11 +1287,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">Bank name</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.BANK_NAME"
+                      ></label>
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
-                        placeholder="Bank name"
                         name="bankName"
                         [(ngModel)]="contact.bankName"
                       />
@@ -1011,11 +1303,13 @@
                 <div class="row mb-3">
                   <div class="col-lg-12">
                     <div class="d-flex align-items-center me-4">
-                      <label class="col-lg-4 fw-bold fs-6">SEPA limit</label>
+                      <label
+                        class="col-lg-4 fw-bold fs-6"
+                        translate="PAGES.CONTACT.SEPA_LIMIT"
+                      ></label>
                       <input
                         type="number"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
-                        placeholder="SEPA limit"
                         name="sepaLimit"
                         [(ngModel)]="contact.sepaMandateLimit"
                       />
@@ -1030,4 +1324,4 @@
       <!-- end::Tap Financial-->
     </div>
   </div>
-</div>
+</form>
