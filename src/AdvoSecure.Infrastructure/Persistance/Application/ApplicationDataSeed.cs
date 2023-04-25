@@ -1,6 +1,7 @@
 ﻿using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.BillingEntities;
-using AdvoSecure.Domain.Entities.ContactEntities;
+using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Enums;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
@@ -301,6 +302,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                 await SeedPersons(context);
 
                 await SeedCompanies(context);
+
+                await SeedMatterTypes(context);
 
                 await context.SaveChangesAsync();
             }
@@ -2760,6 +2763,60 @@ namespace AdvoSecure.Infrastructure.Persistance
                         BillingRateId = 1,
                         CreatedBy = "TOAA"
                     });
+            }
+        }
+
+        public static async Task SeedMatterTypes(ApplicationDbContext context)
+        {
+            if (!context.MatterTypes.Any())
+            {
+                await context.MatterTypes.AddRangeAsync(
+                    new MatterType
+                    {
+                        Title = "Kinderalimentatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Partneralimentatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Insolventie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Naturalisatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Arbeidsconflict",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Strafrecht",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Kinderalimentatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Onroerende Zaken Zakelijk recht",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Echtscheidinkk",
+                        CreatedBy = "TOAA"
+                    }
+                );
             }
         }
     }

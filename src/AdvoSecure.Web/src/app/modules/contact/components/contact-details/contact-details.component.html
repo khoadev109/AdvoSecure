@@ -1,40 +1,49 @@
-<div class="d-flex justify-content-end mb-6">
-  <button
-    type="button"
-    class="btn btn-primary mr-2"
-    style="margin-right: 10px"
-    translate="PAGES.CONTACT.OVERVIEW"
-    (click)="redirectToListPage()"
-  ></button>
-  <button
-    type="button"
-    class="btn btn-secondary ml-2"
-    [disabled]="isLoading || contactForm.invalid"
-    (click)="save()"
-  >
-    <div translate="COMMON.SAVE">
-      <ng-container *ngIf="!isLoading"></ng-container>
-    </div>
-
-    <ng-container *ngIf="isLoading">
-      <span
-        class="indicator-progress"
-        [style.display]="'block'"
-        translate="COMMON.PLEASE_WAIT"
-      >
-        {{ " " }}
-        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-      </span>
-    </ng-container>
-  </button>
-</div>
 <form novalidate="" class="form" #contactForm="ngForm">
+  <!-- begin::Buttons-->
+  <div class="d-flex justify-content-end mb-6">
+    <button
+      type="button"
+      class="btn btn-primary mr-2"
+      style="margin-right: 10px"
+      translate="PAGES.CONTACT.OVERVIEW"
+      (click)="redirectToListPage()"
+    ></button>
+    <button
+      type="button"
+      class="btn btn-secondary ml-2"
+      [disabled]="isLoading || contactForm.invalid"
+      (click)="save()"
+    >
+      <div translate="COMMON.SAVE">
+        <ng-container *ngIf="!isLoading"></ng-container>
+      </div>
+
+      <ng-container *ngIf="isLoading">
+        <span
+          class="indicator-progress"
+          [style.display]="'block'"
+          translate="COMMON.PLEASE_WAIT"
+        >
+          {{ " " }}
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </ng-container>
+    </button>
+  </div>
+  <!-- end::Buttons-->
+
   <div class="card mb-5 mb-xl-10">
+    <!-- begin::FormTitle-->
     <div class="card-header border-0 cursor-pointer" role="button">
       <div class="card-title m-0">
         <h3 class="fw-bolder m-0">{{ contactFormTitle }}</h3>
       </div>
     </div>
+    <!-- end::FormTitle-->
+
+    <!-- begin::AvatarListCheckboxes-->
     <div class="card-body borqr-top p-9">
       <div class="d-flex justify-content-between" style="width: 1000px">
         <div class="image-input image-input-outline" data-kt-image-input="true">
@@ -105,16 +114,21 @@
                 class="form-select"
                 multiple
                 aria-label="multiple select example"
+                name="billingRate"
+                [(ngModel)]="contact.billingRateId"
               >
-                <option *ngFor="let item of billingRates" value="1">
-                  {{ item.title + " (€ " + item.pricePerUnit + ")" }}
-                </option>
+                <option
+                    *ngFor="let billingRate of billingRates"
+                    [selected]="contact.billingRateId === billingRate.id"
+                    [text]="billingRate.title"
+                    [value]="billingRate.id"
+                  ></option>
               </select>
             </div>
           </div>
         </div>
 
-        <div class="form-check">
+        <div class="form-check" *ngIf="routeContactTypeParam === 'company'">
           <input
             class="form-check-input"
             type="checkbox"
@@ -131,304 +145,319 @@
         </div>
       </div>
     </div>
-    <div class="collapse show">
-      <div class="card-body border-top p-9">
-        <div class="row mb-6">
-          <div class="col-lg-4">
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.FIRST_NAME"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="firstName"
-                    [(ngModel)]="contact.givenName"
-                  />
-                </div>
+    <!-- end::AvatarListCheckboxes-->
+
+    <!-- begin::MainForm-->
+    <div class="card-body border-top p-9">
+      <div class="row mb-6">
+        <div class="col-lg-4">
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.FIRST_NAME"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="firstName"
+                  [(ngModel)]="contact.givenName"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.INFIX"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="infix"
-                    [(ngModel)]="contact.middleName"
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.INFIX"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="infix"
+                  [(ngModel)]="contact.middleName"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.LAST_NAME"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="lastName"
-                    [(ngModel)]="contact.surname"
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.LAST_NAME"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="lastName"
+                  [(ngModel)]="contact.surname"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.SUFFIX"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="suffix"
-                    [(ngModel)]="contact.generation"
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.SUFFIX"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="suffix"
+                  [(ngModel)]="contact.generation"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6 required"
-                    translate="PAGES.CONTACT.FULL_NAME"
-                  ></label>
-                  <input
-                    maxlength="50"
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="displayName"
-                    [(ngModel)]="contact.displayName"
-                    #name="ngModel"
-                    required
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6 required"
+                  translate="PAGES.CONTACT.FULL_NAME"
+                ></label>
+                <input
+                  maxlength="50"
+                  type="text"
+                  name="displayName"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  [class.is-invalid]="name.invalid && name.touched"
+                  [(ngModel)]="contact.displayName"
+                  required
+                  #name="ngModel"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <div class="col-lg-4"></div>
-                  <!-- Validate Display Name -->
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <div class="col-lg-4"></div>
+                <!-- Validate Display Name -->
+                <div
+                  *ngIf="name.invalid && (name.dirty || name.touched)"
+                  class="form-text"
+                >
                   <div
-                    *ngIf="name.invalid && (name.dirty || name.touched)"
-                    class="form-text"
-                  >
-                    <div
-                      *ngIf="name.errors?.required"
-                      translate="PAGES.CONTACT.FULL_NAME_REQUIRED"
-                    ></div>
-                  </div>
+                    *ngIf="name.errors?.required"
+                    translate="PAGES.CONTACT.FULL_NAME_REQUIRED"
+                  ></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.GENDER"
-                  ></label>
-                  <select
-                    class="form-select form-select-solid form-select-lg fw-bold"
-                    name="countryVa"
-                  >
-                    <option
-                      value=""
-                      translate="PAGES.CONTACT.SELECT_GENDER"
-                    ></option>
-                    <option
-                      *ngFor="let gender of genders"
-                      [selected]="selectedGender === gender.value"
-                      [text]="gender.text"
-                      [value]="gender.value"
-                      [(ngModel)]="contact.gender"
-                    ></option>
-                  </select>
-                </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.GENDER"
+                ></label>
+                <select
+                  class="form-select form-select-solid form-select-lg fw-bold"
+                  name="gender"
+                  [(ngModel)]="contact.gender"
+                >
+                  <option
+                    value=""
+                    translate="PAGES.CONTACT.SELECT_GENDER"
+                  ></option>
+                  <option
+                    *ngFor="let gender of genders"
+                    [selected]="contact.gender === gender.value"
+                    [text]="gender.text"
+                    [value]="gender.value"
+                  ></option>
+                </select>
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 col-form-label fw-bold fs-6"
-                    translate="PAGES.CONTACT.LANGUAGE"
-                  ></label>
-                  <div class="col-lg-8 fv-row">
-                    <input
-                      type="text"
-                      class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                      name="language"
-                      [(ngModel)]="contact.language"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    for="emailInput"
-                    translate="COMMON.EMAIL"
-                  ></label>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 col-form-label fw-bold fs-6"
+                  translate="PAGES.CONTACT.LANGUAGE"
+                ></label>
+                <div class="col-lg-8 fv-row">
                   <input
-                    type="email"
+                    type="text"
                     class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    id="emailInput"
-                    name="email"
-                    email
-                    ngModel
-                    #email="ngModel"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                    [(ngModel)]="contact.email1EmailAddress"
+                    name="language"
+                    [(ngModel)]="contact.language"
                   />
                 </div>
-                <div *ngIf="email.touched">
-                  <p
-                    *ngIf="email.errors?.pattern"
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  for="emailInput"
+                  translate="COMMON.EMAIL"
+                ></label>
+                <input
+                  type="email"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  id="emailInput"
+                  name="email"
+                  [class.is-invalid]="email.invalid && email.touched"
+                  [(ngModel)]="contact.email1EmailAddress"
+                  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                  #email="ngModel"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <div class="col-lg-4"></div>
+                <!-- Validate Email -->
+                <div
+                  *ngIf="email.invalid && (email.dirty || email.touched)"
+                  class="form-text"
+                >
+                  <div
                     translate="COMMON.INVALID_EMAIL"
-                  ></p>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.FAX"
-                  ></label>
-                  <input
-                    type="tel"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="fax"
-                    [(ngModel)]="contact.fax1DisplayName"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.ORGANIZATION_NAME"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="organizationName"
-                    [(ngModel)]="contact.companyName"
-                  />
+                  ></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.TELEPHONE"
-                  ></label>
-                  <input
-                    type="tel"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="telephone"
-                    [(ngModel)]="contact.telephone1TelephoneNumber"
-                  />
-                </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.FAX"
+                ></label>
+                <input
+                  type="tel"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="fax"
+                  [(ngModel)]="contact.fax1DisplayName"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.MOBILE"
-                  ></label>
-                  <input
-                    type="tel"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="mobile"
-                    [(ngModel)]="contact.telephone2TelephoneNumber"
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.ORGANIZATION_NAME"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="organizationName"
+                  [(ngModel)]="contact.companyName"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.FEATURE_TITLE"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="featureTitle"
-                    [(ngModel)]="contact.profession"
-                  />
-                </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.TELEPHONE"
+                ></label>
+                <input
+                  type="tel"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="telephone"
+                  [(ngModel)]="contact.telephone1TelephoneNumber"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.ADDRESS_TITLE"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="addressTitle"
-                    [(ngModel)]="contact.title"
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.MOBILE"
+                ></label>
+                <input
+                  type="tel"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="mobile"
+                  [(ngModel)]="contact.telephone2TelephoneNumber"
+                />
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="d-flex align-items-center me-4">
-                  <label
-                    class="col-lg-4 fw-bold fs-6"
-                    translate="PAGES.CONTACT.LETTER_EMAIL_SALUTATION"
-                  ></label>
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                    name="letter/email"
-                    [(ngModel)]="contact.saluation"
-                  />
-                </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.FEATURE_TITLE"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="featureTitle"
+                  [(ngModel)]="contact.profession"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.ADDRESS_TITLE"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="addressTitle"
+                  [(ngModel)]="contact.title"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="d-flex align-items-center me-4">
+                <label
+                  class="col-lg-4 fw-bold fs-6"
+                  translate="PAGES.CONTACT.LETTER_EMAIL_SALUTATION"
+                ></label>
+                <input
+                  type="text"
+                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  name="letter/email"
+                  [(ngModel)]="contact.saluation"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- end::MainForm-->
   </div>
+
+  <!-- begin::Tabs-->
   <div class="card mb-5 mb-xl-10">
+    <!-- begin::TabTitles-->
     <div class="card-body pt-9 pb-0 mb-6">
       <div class="d-flex overflow-auto h-55px">
         <ul
@@ -477,6 +506,8 @@
         </ul>
       </div>
     </div>
+    <!-- end::TabTitles-->
+
     <div class="tab-content">
       <!-- begin::Tap Address-->
       <div
@@ -507,8 +538,8 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="streetPostbox1"
                         id="streetPostbox1"
+                        name="streetPostbox1"
                         [(ngModel)]="contact.address1AddressStreet"
                       />
                     </div>
@@ -632,7 +663,9 @@
                         ></option>
                         <option
                           *ngFor="let country of countries"
-                          [selected]="selectedCountryId1 === country.id"
+                          [selected]="
+                            contact.address1AddressCountry === country.id
+                          "
                           [text]="country.countryName_en"
                           [value]="country.id"
                         ></option>
@@ -808,7 +841,9 @@
                         ></option>
                         <option
                           *ngFor="let country of countries"
-                          [selected]="selectedCountryVaId === country.id"
+                          [selected]="
+                            contact.address2AddressCountry === country.id
+                          "
                           [text]="country.countryName_en"
                           [value]="country.id"
                         ></option>
@@ -845,11 +880,9 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [(ngModel)]="contact.birthday"
+                        [ngModel]="contact.birthday | date : 'yyyy-MM-dd'"
+                        (ngModelChange)="contact.birthday = $event"
                       />
-                      <div>
-                        {{ date }}
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -871,7 +904,7 @@
                         ></option>
                         <option
                           *ngFor="let idType of idTypes"
-                          [selected]="selectedIdTypeId === idType.id"
+                          [selected]="contact.idTypeId === idType.id"
                           [text]="idType.title"
                           [value]="idType.id"
                         ></option>
@@ -898,7 +931,7 @@
                         <option
                           *ngFor="let maritalStatus of maritalStatuses"
                           [selected]="
-                            selectedMaritalStatusId === maritalStatus.id
+                            contact.civilStatusId === maritalStatus.id
                           "
                           [text]="maritalStatus.title"
                           [value]="maritalStatus.id"
@@ -1018,7 +1051,8 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="idValidUntil"
-                        [(ngModel)]="contact.idDateExpiry"
+                        [ngModel]="contact.idDateExpiry | date : 'yyyy-MM-dd'"
+                        (ngModelChange)="contact.idDateExpiry = $event"
                       />
                     </div>
                   </div>
@@ -1034,7 +1068,8 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="weddingDate"
-                        [(ngModel)]="contact.wedding"
+                        [ngModel]="contact.wedding | date : 'yyyy-MM-dd'"
+                        (ngModelChange)="contact.wedding = $event"
                       />
                     </div>
                   </div>
@@ -1069,7 +1104,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="sbiCode"
                         [(ngModel)]="contact.sbiCode"
                       />
                     </div>
@@ -1085,7 +1120,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="businessRegistration"
                         [(ngModel)]="contact.businessRegistration"
                       />
                     </div>
@@ -1101,7 +1136,7 @@
                       <input
                         type="number"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="numberOfEmployees"
                         [(ngModel)]="contact.numberEmployees"
                       />
                     </div>
@@ -1119,7 +1154,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="taxNumber"
                         [(ngModel)]="contact.taxNumber"
                       />
                     </div>
@@ -1136,14 +1171,9 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [ngModel]="contact.birthday"
-                        (ngModelChange)="(contact.birthday)"
-                        #dateOfBirthVar="ngModel"
-                        (input)="dateChange($event)"
+                        [ngModel]="contact.birthday | date : 'yyyy-MM-dd'"
+                        (ngModelChange)="contact.birthday = $event"
                       />
-                    </div>
-                    <div>
-                      {{ date }}
                     </div>
                   </div>
                 </div>
@@ -1157,7 +1187,7 @@
                       <input
                         type="number"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="turnOver"
                         [(ngModel)]="contact.turnOver"
                       />
                     </div>
@@ -1175,7 +1205,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="vatId"
                         [(ngModel)]="contact.vatId"
                       />
                     </div>
@@ -1191,7 +1221,7 @@
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="legalForm"
-                        [(ngModel)]="contact.idTypeId"
+                        [(ngModel)]="contact.companyLegalStatusId"
                       >
                         <option
                           value="0"
@@ -1202,7 +1232,7 @@
                             let companyLegalStatus of companyLegalStatuses
                           "
                           [selected]="
-                            selectedLegalStatusId === companyLegalStatus.id
+                            contact.companyLegalStatusId === companyLegalStatus.id
                           "
                           [text]="companyLegalStatus.title"
                           [value]="companyLegalStatus.id"
@@ -1221,7 +1251,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="website"
                         [(ngModel)]="contact.website"
                       />
                     </div>
@@ -1305,7 +1335,8 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
                         name="sepaEffectiveDate"
-                        [(ngModel)]="contact.sepaMandateDate"
+                        [ngModel]="contact.sepaMandateDate | date : 'yyyy-MM-dd'"
+                        (ngModelChange)="contact.sepaMandateDate = $event"
                       />
                     </div>
                   </div>
@@ -1352,4 +1383,5 @@
       <!-- end::Tap Financial-->
     </div>
   </div>
+  <!-- end::Tabs-->
 </form>

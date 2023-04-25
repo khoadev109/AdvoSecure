@@ -1,6 +1,6 @@
 ﻿using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.BillingEntities;
+using AdvoSecure.Domain.Entities.Billings;
 
 namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 {

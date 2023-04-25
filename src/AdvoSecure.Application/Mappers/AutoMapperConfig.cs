@@ -2,8 +2,8 @@
 using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.BillingEntities;
-using AdvoSecure.Domain.Entities.ContactEntities;
+using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Contacts;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 

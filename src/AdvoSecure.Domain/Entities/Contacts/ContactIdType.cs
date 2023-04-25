@@ -1,8 +1,8 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 
-namespace AdvoSecure.Domain.Entities.ContactEntities
+namespace AdvoSecure.Domain.Entities.Contacts
 {
-    public class ContactCivilStatus : BaseEntity
+    public class ContactIdType : BaseEntity
     {
         public string Title { get; set; }
 

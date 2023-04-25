@@ -1,7 +1,7 @@
 ﻿using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
-using AdvoSecure.Domain.Entities.ContactEntities;
+using AdvoSecure.Domain.Entities.Contacts;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,5 @@
 ﻿using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.BillingEntities;
+using AdvoSecure.Domain.Entities.Billings;
 
 namespace AdvoSecure.Application.Interfaces.Repositories
 {

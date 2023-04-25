@@ -1,9 +1,9 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Contacts;
 
-namespace AdvoSecure.Domain.Entities
+namespace AdvoSecure.Domain.Entities.Matters
 {
-    public class CompanyLegalStatus : BaseEntity
+    public class MatterType : BaseEntity
     {
         public string Title { get; set; }
 
