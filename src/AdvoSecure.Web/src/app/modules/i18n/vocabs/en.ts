@@ -115,6 +115,8 @@ export const locale = {
         CHANGE_PROFILE: 'Change profile',
         IS_OUR_EMPLOYEE: 'This is an office worker.',
         IS_ORGANIZATION: 'Contact is a company.',
+        DECLARATION_DETAILS: 'Declaration Details',
+        DECLARATION_RATE: 'Declaration rate',
         FIRST_NAME: 'First name',
         INFIX: 'Infix',
         LAST_NAME: 'Last name',

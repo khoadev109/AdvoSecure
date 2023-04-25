@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="card-body borqr-top p-9">
-      <div class="d-flex justify-content-between" style="width: 800px">
+      <div class="d-flex justify-content-between" style="width: 1000px">
         <div class="image-input image-input-outline" data-kt-image-input="true">
           <img
             class="image-input-wrapper w-125px h-125px"
@@ -50,7 +50,7 @@
               translate="PAGES.CONTACT.CHANGE_PROFILE"
             ></p>
           </div>
-          <div class="custom-file" style="width: 300px">
+          <div class="custom-file">
             <input
               type="file"
               class="form-control form-control-lg form-control-solid temp-hidden"
@@ -60,21 +60,58 @@
             />
           </div>
         </div>
-
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="isOurEmployee"
-            name="isOurEmployee"
-            [(ngModel)]="contact.isOurEmployee"
-            [checked]="contact.isOurEmployee"
-          />
-          <label
-            for="isOurEmployee"
-            class="form-check-label"
-            translate="PAGES.CONTACT.IS_OUR_EMPLOYEE"
-          ></label>
+        <div style="display: flex; flex-direction: column">
+          <div class="form-check" style="margin-right: 300px">
+            <div class="form-check d-flex">
+              <input
+                style="margin-right: 5px"
+                class="form-check-input"
+                type="checkbox"
+                id="isOurEmployee"
+                name="isOurEmployee"
+                [(ngModel)]="contact.isOurEmployee"
+                [checked]="contact.isOurEmployee"
+              />
+              <label
+                for="isOurEmployee"
+                class="form-check-label"
+                translate="PAGES.CONTACT.IS_OUR_EMPLOYEE"
+              ></label>
+            </div>
+          </div>
+          <div
+            *ngIf="contact.isOurEmployee"
+            class="d-flex mt-4"
+            style="margin-left: 30px"
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+              "
+            >
+              <label
+                style="font-weight: bold; opacity: 0.8"
+                translate="PAGES.CONTACT.DECLARATION_DETAILS"
+              ></label>
+              <label
+                style="margin-bottom: 30px"
+                translate="PAGES.CONTACT.DECLARATION_RATE"
+              ></label>
+            </div>
+            <div style="margin-left: 50px">
+              <select
+                class="form-select"
+                multiple
+                aria-label="multiple select example"
+              >
+                <option *ngFor="let item of billingRates" value="1">
+                  {{ item.title + " (€ " + item.pricePerUnit + ")" }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div class="form-check">
@@ -210,7 +247,6 @@
                   <select
                     class="form-select form-select-solid form-select-lg fw-bold"
                     name="countryVa"
-                    [(ngModel)]="selectedGender"
                   >
                     <option
                       value=""
@@ -221,6 +257,7 @@
                       [selected]="selectedGender === gender.value"
                       [text]="gender.text"
                       [value]="gender.value"
+                      [(ngModel)]="contact.gender"
                     ></option>
                   </select>
                 </div>
@@ -470,8 +507,8 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="streetPostbox"
-                        id="streetPostbox"
+                        name="streetPostbox1"
+                        id="streetPostbox1"
                         [(ngModel)]="contact.address1AddressStreet"
                       />
                     </div>
@@ -487,7 +524,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="address2"
+                        name="address1Line2"
                         [(ngModel)]="contact.address1AddressLine2"
                       />
                     </div>
@@ -503,7 +540,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="postcode"
+                        name="postcode1"
                         [(ngModel)]="contact.address1AddressPostalCode"
                       />
                     </div>
@@ -521,7 +558,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="houseNumber"
+                        name="houseNumber1"
                         [(ngModel)]="contact.address2AddressHouseNo"
                       />
                     </div>
@@ -537,7 +574,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="place"
+                        name="place1"
                         [(ngModel)]="contact.address2AddressCity"
                       />
                     </div>
@@ -553,7 +590,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="provinceState"
+                        name="provinceState1"
                         [(ngModel)]="contact.address1AddressStateOrProvince"
                       />
                     </div>
@@ -571,7 +608,7 @@
                       <input
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                        name="addition"
+                        name="addition1"
                         [(ngModel)]="contact.address2AddressHouseNoExt"
                       />
                     </div>
@@ -586,7 +623,7 @@
                       ></label>
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
-                        name="country"
+                        name="country1"
                         [(ngModel)]="contact.address1AddressCountry"
                       >
                         <option
@@ -795,10 +832,7 @@
       >
         <div class="card mb-5 mb-xl-10">
           <div class="card-body border-top p-9">
-            <div
-              class="row mb-6 contact-info"
-              *ngIf="!contact.isOrganization"
-            >
+            <div class="row mb-6 contact-info" *ngIf="!contact.isOrganization">
               <div class="col-lg-4">
                 <div class="row mb-3">
                   <div class="col-lg-12">
@@ -811,14 +845,11 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [ngModel]="contact.birthday"
-                        (ngModelChange)="(contact.birthday)"
-                        #dateOfBirthVar="ngModel"
-                        (input)="dateChange($event)"
+                        [(ngModel)]="contact.birthday"
                       />
-                    </div>
-                    <div>
-                      {{ date }}
+                      <div>
+                        {{ date }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1026,10 +1057,7 @@
                 </div>
               </div>
             </div>
-            <div
-              class="row mb-6 company-info"
-              *ngIf="contact.isOrganization"
-            >
+            <div class="row mb-6 company-info" *ngIf="contact.isOrganization">
               <div class="col-lg-4">
                 <div class="row mb-3">
                   <div class="col-lg-12">
@@ -1163,7 +1191,7 @@
                       <select
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="legalForm"
-                        [(ngModel)]="selectedLegalStatusId"
+                        [(ngModel)]="contact.idTypeId"
                       >
                         <option
                           value="0"

@@ -38,6 +38,7 @@ export class ContactDetailsComponent implements OnInit {
 
   contact: Contact = {
     id: 0,
+    birthday: '',
     displayName: '',
     bankAccount: '',
     bicCode: '',
@@ -135,6 +136,7 @@ export class ContactDetailsComponent implements OnInit {
   selectedCountryId2: string | undefined = '';
 
   dateOfBirth: Date = new Date();
+
   today: Date = new Date();
   maxDate =
     new Date().getFullYear().toString() +
@@ -197,7 +199,6 @@ export class ContactDetailsComponent implements OnInit {
       this.selectedMaritalStatusId = this.contact.civilStatusId;
       this.selectedLegalStatusId = this.contact.companyLegalStatusId;
       this.selectedGender = this.contact.gender;
-
       this.changeDetectorRef.detectChanges();
     });
   }
@@ -218,12 +219,15 @@ export class ContactDetailsComponent implements OnInit {
     this.commonService.getBillingRates().subscribe((result: BillingRate[]) => {
       this.billingRates = result;
       this.changeDetectorRef.detectChanges();
+      console.log('check', this.billingRates);
     });
 
-    this.commonService.getCompanyLegalStatuses().subscribe((result: CompanyLegalStatus[]) => {
-      this.companyLegalStatuses = result;
-      this.changeDetectorRef.detectChanges();
-    });
+    this.commonService
+      .getCompanyLegalStatuses()
+      .subscribe((result: CompanyLegalStatus[]) => {
+        this.companyLegalStatuses = result;
+        this.changeDetectorRef.detectChanges();
+      });
 
     this.commonService.getCountries().subscribe((result: Country[]) => {
       this.countries = result;
@@ -251,7 +255,6 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   save = () => {
-    console.log('123123123');
     try {
       var reader = new FileReader();
       reader.onload = (event: any) => {
@@ -294,31 +297,17 @@ export class ContactDetailsComponent implements OnInit {
   };
 
   updateInput() {
-    if (this.isChecked) {
-      this.contact.address2AddressStreet = this.contact.address1AddressStreet;
-      this.contact.address2AddressLine2 = this.contact.address1AddressLine2;
-      this.contact.address2AddressPostalCode =
-        this.contact.address1AddressPostalCode;
-      this.contact.address3AddressHouseNo = this.contact.address2AddressHouseNo;
-      this.contact.address3AddressCity = this.contact.address2AddressCity;
-      this.contact.address2AddressStateOrProvince =
-        this.contact.address1AddressStateOrProvince;
-      this.contact.address3AddressHouseNoExt =
-        this.contact.address2AddressHouseNoExt;
-      this.contact.address2AddressCountry = this.contact.address1AddressCountry;
-    } else {
-      this.contact.address2AddressStreet = this.contact.address1AddressStreet;
-      this.contact.address2AddressLine2 = this.contact.address1AddressLine2;
-      this.contact.address2AddressPostalCode =
-        this.contact.address1AddressPostalCode;
-      this.contact.address3AddressHouseNo = this.contact.address2AddressHouseNo;
-      this.contact.address3AddressCity = this.contact.address2AddressCity;
-      this.contact.address2AddressStateOrProvince =
-        this.contact.address1AddressStateOrProvince;
-      this.contact.address3AddressHouseNoExt =
-        this.contact.address2AddressHouseNoExt;
-      this.contact.address2AddressCountry = this.contact.address1AddressCountry;
-    }
+    this.contact.address2AddressStreet = this.contact.address1AddressStreet;
+    this.contact.address2AddressLine2 = this.contact.address1AddressLine2;
+    this.contact.address2AddressPostalCode =
+      this.contact.address1AddressPostalCode;
+    this.contact.address3AddressHouseNo = this.contact.address2AddressHouseNo;
+    this.contact.address3AddressCity = this.contact.address2AddressCity;
+    this.contact.address2AddressStateOrProvince =
+      this.contact.address1AddressStateOrProvince;
+    this.contact.address3AddressHouseNoExt =
+      this.contact.address2AddressHouseNoExt;
+    this.contact.address2AddressCountry = this.contact.address1AddressCountry;
   }
 
   isValidDateOfBirth(dateOfBirth: string): boolean {
@@ -351,7 +340,7 @@ export class ContactDetailsComponent implements OnInit {
       this.router.navigate(['/management/contacts/persons']);
     } else if (this.routeContactTypeParam === 'company') {
       this.router.navigate(['/management/contacts/companies']);
-    }else {
+    } else {
       this.router.navigate(['/management/contacts/all']);
     }
   }
