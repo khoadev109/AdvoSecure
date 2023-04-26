@@ -2,9 +2,11 @@
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Matters
 {
+    [Table("Matters")]
     public class Matter : AuditableEntity<Guid>
     {
         public long IdInt { get; set; }

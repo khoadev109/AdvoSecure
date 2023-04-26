@@ -19,7 +19,6 @@ export const locale = {
       OVERVIEW: 'Overview',
       ACCOUNTS: 'Accounts',
       SETTINGS: 'Settings',
-      MATTERS: 'Matters',
       NEW_MATTER: 'New Matter',
       CONTACT: {
         CONTACTS: 'Contacts',
@@ -28,7 +27,7 @@ export const locale = {
         PERSONS: 'Persons',
         EMPLOYEES: 'Employees',
       },
-      TAKEN: 'Taken',
+      TASK: 'Task',
       AGENDA: 'Agenda',
       EMAIL: 'Email',
       LEADS: 'Leads',
@@ -115,6 +114,8 @@ export const locale = {
         CHANGE_PROFILE: 'Change profile',
         IS_OUR_EMPLOYEE: 'This is an office worker.',
         IS_ORGANIZATION: 'Contact is a company.',
+        DECLARATION_DETAILS: 'Declaration Details',
+        DECLARATION_RATE: 'Declaration rate',
         FIRST_NAME: 'First name',
         INFIX: 'Infix',
         LAST_NAME: 'Last name',
@@ -147,6 +148,15 @@ export const locale = {
         NUMBER_EMPLOYEES: 'Number of employees',
         ANNUAL_REVENUE: 'Annual revenue',
         WEBSITE: 'Website',
+        MATTERS: {
+          TITLE: 'Title',
+          SYNOPSIS: 'Synopsis',
+        },
+        TASKS: {
+          TITLE: 'Title',
+          TYPE: 'Type',
+          DEADLINE: 'Deadline'
+        },
       },
     },
     FOOTER: {
@@ -252,6 +262,8 @@ export const locale = {
       SELECT_A_COUNTRY: 'Select a Country',
       EMAIL: 'Email',
       INVALID_EMAIL: 'This is not a valid Email',
+      MATTERS: 'Matters',
+      TASKS: 'Tasks',
     },
   },
 };

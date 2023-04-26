@@ -689,8 +689,8 @@
                   class="form-check-input ml-2"
                   name="sameAsPostalAddress"
                   type="checkbox"
-                  [(ngModel)]="isChecked"
-                  (change)="updateInput()"
+                  [(ngModel)]="checkedVisitingSameAsPostalAddress"
+                  (change)="setVisitingSameAsPostalAddress()"
                 />
               </h5>
             </div>
@@ -710,7 +710,7 @@
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="streetPostbox"
                         id="streetPostbox"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address2AddressStreet"
                       />
                     </div>
@@ -727,7 +727,7 @@
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="address2"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address2AddressLine2"
                       />
                     </div>
@@ -744,7 +744,7 @@
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="postcode"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address2AddressPostalCode"
                       />
                     </div>
@@ -763,7 +763,7 @@
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="houseNumber"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address3AddressHouseNo"
                       />
                     </div>
@@ -780,7 +780,7 @@
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="place"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address3AddressCity"
                       />
                     </div>
@@ -797,7 +797,7 @@
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="provinceState"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address2AddressStateOrProvince"
                       />
                     </div>
@@ -816,7 +816,7 @@
                         type="text"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="addition"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                         [(ngModel)]="contact.address3AddressHouseNoExt"
                       />
                     </div>
@@ -833,7 +833,7 @@
                         class="form-select form-select-solid form-select-lg fw-bold"
                         name="countryVa"
                         [(ngModel)]="contact.address2AddressCountry"
-                        [disabled]="isChecked"
+                        [disabled]="checkedVisitingSameAsPostalAddress"
                       >
                         <option
                           value=""

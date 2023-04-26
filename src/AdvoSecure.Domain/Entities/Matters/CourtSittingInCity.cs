@@ -1,7 +1,9 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Matters
 {
+    [Table("CourtSittingInCities")]
     public class CourtSittingInCity : BaseEntity
     {
         public string Title { get; set; }

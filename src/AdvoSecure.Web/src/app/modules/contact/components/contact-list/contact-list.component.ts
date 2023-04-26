@@ -19,7 +19,7 @@ export class ContactListComponent extends PagingContactListComponent {
     super(router, changeDetectorRef, contactService, sanitizer);
   }
 
-  fetchContacts() {
+  fetchData() {
     this.contactService
       .getContacts(this.searchTerm)
       .subscribe((contacts: Contact[]) => {
