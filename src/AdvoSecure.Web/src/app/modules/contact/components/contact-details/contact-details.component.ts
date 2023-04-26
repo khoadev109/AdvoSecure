@@ -79,7 +79,6 @@ export class ContactDetailsComponent implements OnInit {
     } else {
       this.loadNewContact();
     }
-
     this.loadSelectList();
   }
 

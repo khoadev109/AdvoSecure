@@ -118,11 +118,11 @@
                 [(ngModel)]="contact.billingRateId"
               >
                 <option
-                    *ngFor="let billingRate of billingRates"
-                    [selected]="contact.billingRateId === billingRate.id"
-                    [text]="billingRate.title"
-                    [value]="billingRate.id"
-                  ></option>
+                  *ngFor="let billingRate of billingRates"
+                  [selected]="contact.billingRateId === billingRate.id"
+                  [text]="billingRate.title"
+                  [value]="billingRate.id"
+                ></option>
               </select>
             </div>
           </div>
@@ -328,9 +328,7 @@
                   *ngIf="email.invalid && (email.dirty || email.touched)"
                   class="form-text"
                 >
-                  <div
-                    translate="COMMON.INVALID_EMAIL"
-                  ></div>
+                  <div translate="COMMON.INVALID_EMAIL"></div>
                 </div>
               </div>
             </div>
@@ -1232,7 +1230,8 @@
                             let companyLegalStatus of companyLegalStatuses
                           "
                           [selected]="
-                            contact.companyLegalStatusId === companyLegalStatus.id
+                            contact.companyLegalStatusId ===
+                            companyLegalStatus.id
                           "
                           [text]="companyLegalStatus.title"
                           [value]="companyLegalStatus.id"
@@ -1335,7 +1334,9 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-lg-0"
                         name="sepaEffectiveDate"
-                        [ngModel]="contact.sepaMandateDate | date : 'yyyy-MM-dd'"
+                        [ngModel]="
+                          contact.sepaMandateDate | date : 'yyyy-MM-dd'
+                        "
                         (ngModelChange)="contact.sepaMandateDate = $event"
                       />
                     </div>

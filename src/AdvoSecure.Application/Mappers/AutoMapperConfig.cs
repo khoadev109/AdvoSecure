@@ -5,7 +5,9 @@ using AdvoSecure.Application.Dtos.MatterDtos;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Entities.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -98,6 +100,20 @@ namespace AdvoSecure.Application.Mappers
                     .ForMember(x => x.DeletedDateTime, x => x.Ignore());
 
             config.CreateMap<Contact, ContactDto>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+
+            config.CreateMap<Language, LanguageDto>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+            
+            config.CreateMap<TaskType, TaskTypeDto>().ReverseMap()
                     .ForMember(x => x.Id, x => x.Ignore())
                     .ForMember(x => x.ModifiedBy, x => x.Ignore())
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())

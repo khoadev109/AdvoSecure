@@ -1,6 +1,7 @@
 ﻿using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Enums;
 using AdvoSecure.Infrastructure.Persistance.App;
@@ -8,7 +9,9 @@ using AdvoSecure.Infrastructure.Persistance.Tenant;
 using AutoMapper.Execution;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using System.Threading.Tasks;
+
 
 namespace AdvoSecure.Infrastructure.Persistance
 {
@@ -303,7 +306,11 @@ namespace AdvoSecure.Infrastructure.Persistance
 
                 await SeedCompanies(context);
 
-                await SeedMatterTypes(context);
+                await SeedMatterType(context);
+
+                await SeedLanguages(context);
+                await SeedTaskType(context);
+
 
                 await SeedMatterAreas(context);
 
@@ -2772,7 +2779,7 @@ namespace AdvoSecure.Infrastructure.Persistance
             }
         }
 
-        public static async Task SeedMatterTypes(ApplicationDbContext context)
+        public static async Task SeedMatterType(ApplicationDbContext context)
         {
             if (!context.MatterTypes.Any())
             {
@@ -2826,6 +2833,316 @@ namespace AdvoSecure.Infrastructure.Persistance
             }
         }
 
+
+        public static async Task SeedTaskType(ApplicationDbContext context)
+        {
+            if (!context.TaskTypes.Any())
+            {
+                await context.TaskTypes.AddRangeAsync(
+                    new Domain.Entities.Tasks.TaskType {
+                        Title = "Task",
+                        Icon = "fa-check",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Meeting/Appointment in Office",
+                        Icon = "fa-building",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Meeting/Appointment out of Office",
+                        Icon = "fa-image",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Meeting in Court",
+                        Icon = "fa-hospital-o",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Traveltime",
+                        Icon = "fa-cab",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Phonecall",
+                        Icon = "fa-phone",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Email",
+                        Icon = "fa-envelope",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Inlezen",
+                        Icon = "fa-folder-open",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Administratie",
+                        Icon = "fa-euro",
+                        Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                         Title = "Research/Studie",
+                         Icon = "fa-mortar-board",
+                         Group = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                          Title = "Afspraak maken",
+                          Icon = "fa-calendar",
+                          Group = "",
+                          CreatedBy = "TOAA"
+                    });
+            }
+        }
+        public static async Task SeedLanguages(ApplicationDbContext context)
+        {
+            if (!context.Languages.Any())
+            {
+                await context.Languages.AddRangeAsync(
+                    new Language
+                    {
+                        Alpha2 = "aa",
+                        Alpha3 = "aar",
+                        Title = "Afar",
+                        TitleNl = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Language
+                    {
+                        Alpha2 = "ab",
+                        Alpha3 = "abk",
+                        Title = "Abkhazian",
+                        TitleNl = "",
+                        CreatedBy = "TOAA"
+
+                    },
+                    new Language
+                    {
+                        Alpha2 = "af",
+                        Alpha3 = "afr",
+                        Title = "Afrikaans",
+                        TitleNl = "",
+                        CreatedBy = "TOAA"
+
+                    },
+                    new Language
+                    {
+                        Alpha2 = "ak",
+                        Alpha3 = "aka",
+                        Title = "Akan",
+                        TitleNl = "",
+                        CreatedBy = "TOAA"
+                    },
+                    new Language { Alpha3 = "alb", Alpha2 = "sq", Title = "Albanian", TitleNl = "Albaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "amh", Alpha2 = "am", Title = "Amharic", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ara", Alpha2 = "ar", Title = "Arabic", TitleNl = "Arabisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "arg", Alpha2 = "an", Title = "Aragonese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "arm", Alpha2 = "hy", Title = "Armenian", TitleNl = "Armeens", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "asm", Alpha2 = "as", Title = "Assamese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ava", Alpha2 = "av", Title = "Avaric", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ave", Alpha2 = "ae", Title = "Avestan", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "aym", Alpha2 = "ay", Title = "Aymara", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "aze", Alpha2 = "az", Title = "Azerbaijani", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bak", Alpha2 = "ba", Title = "Bashkir", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bam", Alpha2 = "bm", Title = "Bambara", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "baq", Alpha2 = "eu", Title = "Basque", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bel", Alpha2 = "be", Title = "Belarusian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ben", Alpha2 = "bn", Title = "Bengali", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bih", Alpha2 = "bh", Title = "Bihari languages", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bis", Alpha2 = "bi", Title = "Bislama", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bos", Alpha2 = "bs", Title = "Bosnian", TitleNl = "Bosnisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bre", Alpha2 = "br", Title = "Breton", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bul", Alpha2 = "bg", Title = "Bulgarian", TitleNl = "Bulgaars", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bur", Alpha2 = "my", Title = "Burmese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "cat", Alpha2 = "ca", Title = "Catalan", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "cha", Alpha2 = "ch", Title = "Chamorro", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "che", Alpha2 = "ce", Title = "Chechen", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "chi", Alpha2 = "zh", Title = "Chinese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "chu", Alpha2 = "cu", Title = "Church Slavic", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "chv", Alpha2 = "cv", Title = "Chuvash", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "cor", Alpha2 = "kw", Title = "Cornish", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "cos", Alpha2 = "co", Title = "Corsican", TitleNl = "Corsicaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "cre", Alpha2 = "cr", Title = "Cree", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "cze", Alpha2 = "cs", Title = "Czech", TitleNl = "Tzechisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "dan", Alpha2 = "da", Title = "Danish", TitleNl = "Deens", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "div", Alpha2 = "dv", Title = "Divehi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "dut", Alpha2 = "nl", Title = "Dutch", TitleNl = "Nederlands", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "dzo", Alpha2 = "dz", Title = "Dzongkha", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "eng", Alpha2 = "en", Title = "English", TitleNl = "Engels", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "epo", Alpha2 = "eo", Title = "Esperanto", TitleNl = "Esperanto", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "est", Alpha2 = "et", Title = "Estonian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ewe", Alpha2 = "ee", Title = "Ewe", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "fao", Alpha2 = "fo", Title = "Faroese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "fij", Alpha2 = "fj", Title = "Fijian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "fin", Alpha2 = "fi", Title = "Finnish", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "fre", Alpha2 = "fr", Title = "French", TitleNl = "Frans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "fry", Alpha2 = "fy", Title = "Western Frisian", TitleNl = "Friesch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bre", Alpha2 = "br", Title = "Breton", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ful", Alpha2 = "ff", Title = "Fulah", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "geo", Alpha2 = "ka", Title = "Georgian", TitleNl = "Georgisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ger", Alpha2 = "de", Title = "German", TitleNl = "Duits", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "gla", Alpha2 = "gd", Title = "Gaelic", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "gle", Alpha2 = "ga", Title = "Irish", TitleNl = "Iers", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "glg", Alpha2 = "gl", Title = "Galician", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "glv", Alpha2 = "gv", Title = "Manx", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "gre", Alpha2 = "el", Title = "Greek", TitleNl = "Grieks", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "grn", Alpha2 = "gn", Title = "Guarani", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "guj", Alpha2 = "gu", Title = "Gujarati", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "hat", Alpha2 = "ht", Title = "Haitian", TitleNl = "Haïtiaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "hau", Alpha2 = "ha", Title = "Hausa", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "heb", Alpha2 = "he", Title = "Hebrew", TitleNl = "Hebreeuws", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "her", Alpha2 = "hz", Title = "Herero", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "hin", Alpha2 = "hi", Title = "Hindi", TitleNl = "Hindi", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "hmo", Alpha2 = "ho", Title = "Hiri Motu", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "hrv", Alpha2 = "hr", Title = "Croatian", TitleNl = "Kroatisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "hun", Alpha2 = "hu", Title = "Hungarian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ibo", Alpha2 = "ig", Title = "Igbo", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bre", Alpha2 = "br", Title = "Breton", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ice", Alpha2 = "is", Title = "Icelandic", TitleNl = "Ijslands", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ido", Alpha2 = "io", Title = "Ido", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "iii", Alpha2 = "ii", Title = "Sichuan Yi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "iku", Alpha2 = "iu", Title = "Inuktitut", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ile", Alpha2 = "ie", Title = "Interlingue", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ina", Alpha2 = "ia", Title = "Interlingua (International Auxiliary Language Association);", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ind", Alpha2 = "id", Title = "Indonesian", TitleNl = "Indonesisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ipk", Alpha2 = "ik", Title = "Inupiaq", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ita", Alpha2 = "it", Title = "Italian", TitleNl = "Italiaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "jav", Alpha2 = "jv", Title = "Javanese", TitleNl = "Javaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "jpn", Alpha2 = "ja", Title = "Japanese", TitleNl = "Japans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kal", Alpha2 = "kl", Title = "Kalaallisut", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kan", Alpha2 = "kn", Title = "Kannada", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kas", Alpha2 = "ks", Title = "Kashmiri", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kau", Alpha2 = "kr", Title = "Kanuri", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kaz", Alpha2 = "kk", Title = "Kazakh", TitleNl = "Kazachs", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "khm", Alpha2 = "km", Title = "Central Khmer", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kik", Alpha2 = "ki", Title = "Kikuyu", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kin", Alpha2 = "rw", Title = "Kinyarwanda", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kir", Alpha2 = "ky", Title = "Kirghiz", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kom", Alpha2 = "kv", Title = "Komi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kon", Alpha2 = "kg", Title = "Kongo", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kor", Alpha2 = "ko", Title = "Korean", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kua", Alpha2 = "kj", Title = "Kuanyama", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "kur", Alpha2 = "ku", Title = "Kurdish", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lao", Alpha2 = "lo", Title = "Lao", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lat", Alpha2 = "la", Title = "Latin", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lav", Alpha2 = "lv", Title = "Latvian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lim", Alpha2 = "li", Title = "Limburgan", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lin", Alpha2 = "ln", Title = "Lingala", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lit", Alpha2 = "lt", Title = "Lithuanian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ltz", Alpha2 = "lb", Title = "Luxembourgish", TitleNl = "Luxemburgs", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lub", Alpha2 = "lu", Title = "Luba-Katanga", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "lug", Alpha2 = "lg", Title = "Ganda", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mac", Alpha2 = "mk", Title = "Macedonian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mah", Alpha2 = "mh", Title = "Marshallese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mal", Alpha2 = "ml", Title = "Malayalam", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mao", Alpha2 = "mi", Title = "Maori", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mar", Alpha2 = "mr", Title = "Marathi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "may", Alpha2 = "ms", Title = "Malay", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mlg", Alpha2 = "mg", Title = "Malagasy", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mlt", Alpha2 = "mt", Title = "Maltese", TitleNl = "Maltees", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "mon", Alpha2 = "mn", Title = "Mongolian", TitleNl = "Mongools", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nau", Alpha2 = "na", Title = "Nauru", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nav", Alpha2 = "nv", Title = "Navajo", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nbl", Alpha2 = "nr", Title = "Ndebele - South", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nde", Alpha2 = "nd", Title = "Ndebele - North", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ndo", Alpha2 = "ng", Title = "Ndonga", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nep", Alpha2 = "ne", Title = "Nepali", TitleNl = "Nepalees", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nno", Alpha2 = "nn", Title = "Norwegian Nynorsk", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nob", Alpha2 = "nb", Title = "Bokmål", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nor", Alpha2 = "no", Title = "Norwegian", TitleNl = "Noors", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "nya", Alpha2 = "ny", Title = "Chichewa", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "oci", Alpha2 = "oc", Title = "Occitan (post 1500)", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "oji", Alpha2 = "oj", Title = "Ojibwa", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ori", Alpha2 = "or", Title = "Oriya", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "orm", Alpha2 = "om", Title = "Oromo", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bre", Alpha2 = "br", Title = "Breton", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "oss", Alpha2 = "os", Title = "Ossetian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "pan", Alpha2 = "pa", Title = "Panjabi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "per", Alpha2 = "fa", Title = "Persian", TitleNl = "Farsi", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "pli", Alpha2 = "pi", Title = "Pali", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "pol", Alpha2 = "pl", Title = "Polish", TitleNl = "Pools", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "por", Alpha2 = "pt", Title = "Portuguese", TitleNl = "Portugees", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "pus", Alpha2 = "ps", Title = "Pushto", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "que", Alpha2 = "qu", Title = "Quechua", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "roh", Alpha2 = "rm", Title = "Romansh", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "rum", Alpha2 = "ro", Title = "Romanian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "run", Alpha2 = "rn", Title = "Rundi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "rus", Alpha2 = "ru", Title = "Russian", TitleNl = "Russisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "sag", Alpha2 = "sg", Title = "Sango", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "san", Alpha2 = "sa", Title = "Sanskrit", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "sin", Alpha2 = "si", Title = "Sinhala", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "slo", Alpha2 = "sk", Title = "Slovak", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "slv", Alpha2 = "sl", Title = "Slovenian", TitleNl = "Sloveens", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "sme", Alpha2 = "se", Title = "Northern Sami", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "smo", Alpha2 = "sm", Title = "Samoan", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "sna", Alpha2 = "sn", Title = "Shona", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "snd", Alpha2 = "sd", Title = "Sindhi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "som", Alpha2 = "so", Title = "Somali", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "sot", Alpha2 = "st", Title = "Sotho - Southern", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "spa", Alpha2 = "es", Title = "Spanish", TitleNl = "Spaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "srd", Alpha2 = "sc", Title = "Sardinian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "srp", Alpha2 = "sr", Title = "Serbian", TitleNl = "Servisch", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ssw", Alpha2 = "ss", Title = "Swati", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "sun", Alpha2 = "su", Title = "Sundanese", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "bre", Alpha2 = "br", Title = "Breton", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "swa", Alpha2 = "sw", Title = "Swahili", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "swe", Alpha2 = "sv", Title = "Swedish", TitleNl = "Zweeds", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tah", Alpha2 = "ty", Title = "Tahitian", TitleNl = "Tahitiaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tam", Alpha2 = "ta", Title = "Tamil", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tat", Alpha2 = "tt", Title = "Tatar", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tel", Alpha2 = "te", Title = "Telugu", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tgk", Alpha2 = "tg", Title = "Tajik", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tgl", Alpha2 = "tl", Title = "Tagalog", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tha", Alpha2 = "th", Title = "Thai", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tib", Alpha2 = "bo", Title = "Tibetan", TitleNl = "Tibetaans", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tir", Alpha2 = "ti", Title = "Tigrinya", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ton", Alpha2 = "to", Title = "Tonga (Tonga Islands)", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tsn", Alpha2 = "tn", Title = "Tswana", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tso", Alpha2 = "ts", Title = "Tsonga", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tuk", Alpha2 = "tk", Title = "Turkmen", TitleNl = "Turkmeens", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "tur", Alpha2 = "tr", Title = "Turkish", TitleNl = "Turks", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "twi", Alpha2 = "tw", Title = "Twi", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "uig", Alpha2 = "ug", Title = "Uighur", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ukr", Alpha2 = "uk", Title = "Ukrainian", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "urd", Alpha2 = "ur", Title = "Urdu", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "uzb", Alpha2 = "uz", Title = "Uzbek", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "ven", Alpha2 = "ve", Title = "Venda", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "vie", Alpha2 = "vi", Title = "Vietnamese", TitleNl = "Vietnamees", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "vol", Alpha2 = "vo", Title = "Volapük", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "wel", Alpha2 = "cy", Title = "Welsh", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "wln", Alpha2 = "wa", Title = "Walloon", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "wol", Alpha2 = "wo", Title = "Wolof", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "xho", Alpha2 = "xh", Title = "Xhosa", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "yid", Alpha2 = "yi", Title = "Yiddish", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "yor", Alpha2 = "yo", Title = "Yoruba", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "zha", Alpha2 = "za", Title = "Zhuang", TitleNl = "", CreatedBy = "TOAA" },
+                    new Language { Alpha3 = "zul", Alpha2 = "zu", Title = "Zulu", TitleNl = "", CreatedBy = "TOAA" }
+                    );
+            }
+        }
         public static async Task SeedMatterAreas(ApplicationDbContext context)
         {
             if (!context.MatterAreas.Any())
