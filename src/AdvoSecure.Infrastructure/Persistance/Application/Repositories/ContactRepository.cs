@@ -2,6 +2,8 @@
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.ContactEntities;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.TaskType;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -23,6 +25,18 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
         {
             IEnumerable<Country> Countries = await _dbContext.Countries.ToListAsync<Country>();
             return Countries;
+        }
+
+        public async Task<IEnumerable<Language>> GetLanguagesAsync()
+        {
+            IEnumerable<Language> Languages = await _dbContext.Languages.ToListAsync<Language>();
+            return Languages;
+        }
+
+        public async Task<IEnumerable<TaskType>> GetTaskType()
+        {
+            IEnumerable<TaskType> Tasktypes = await _dbContext.TaskType.ToListAsync<TaskType>();
+            return Tasktypes;
         }
 
         public IQueryable<Contact> GetContacts(string searchTerm)

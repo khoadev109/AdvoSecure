@@ -694,6 +694,7 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         /// <author>Lucas Nodine</author>
         public string? Title { get; set; } = string.Empty;
 
+
         /// <summary>
         /// Gets or sets the attorney's bar registration number
         /// </summary>

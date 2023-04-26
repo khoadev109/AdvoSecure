@@ -1,6 +1,8 @@
 ﻿using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.BillingEntities;
 using AdvoSecure.Domain.Entities.ContactEntities;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.TaskType;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,8 @@ namespace AdvoSecure.Infrastructure.Persistance.App
         public DbSet<Country> Countries => Set<Country>();
 
         public DbSet<Contact> Contacts => Set<Contact>();
+        public DbSet<Language> Languages => Set<Language>();
+        public DbSet<TaskType> TaskType => Set<TaskType>();
 
         public DbSet<CompanyLegalStatus> CompanyLegalStatuses => Set<CompanyLegalStatus>();
 

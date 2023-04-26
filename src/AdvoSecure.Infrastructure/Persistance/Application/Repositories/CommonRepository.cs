@@ -1,6 +1,8 @@
 ﻿using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.BillingEntities;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.TaskType;
 
 namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 {
@@ -26,6 +28,16 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
         public IQueryable<Country> GetCountries()
         {
             return _dbContext.Countries;
+        }
+
+        public IQueryable<Language> GetLanguages()
+        {
+            return _dbContext.Languages;
+        }
+
+        public IQueryable<TaskType> GetTaskTypes()
+        {
+            return _dbContext.TaskType;
         }
     }
 }

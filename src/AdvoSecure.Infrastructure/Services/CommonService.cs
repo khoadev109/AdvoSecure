@@ -4,6 +4,8 @@ using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.BillingEntities;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.TaskType;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +47,24 @@ namespace AdvoSecure.Infrastructure.Services
             IEnumerable<CountryDto> countryDtos = _mapper.Map<IEnumerable<CountryDto>>(countries);
 
             return countryDtos;
+        }
+
+        public async Task<IEnumerable<LanguageDto>> GetLanguagesAsync()
+        {
+            IList<Language> languages = await _commonRepository.GetLanguages().ToListAsync();
+
+            IEnumerable<LanguageDto> languageDtos = _mapper.Map<IEnumerable<LanguageDto>>(languages);
+
+            return languageDtos;
+        }
+
+        public async Task<IEnumerable<TaskTypeDto>> GetTaskTypeAsync()
+        {
+            IList<TaskType> tasktypes = await _commonRepository.GetTaskTypes().ToListAsync();
+
+            IEnumerable<TaskTypeDto> taskTypeDtos = _mapper.Map<IEnumerable<TaskTypeDto>>(tasktypes);
+
+            return taskTypeDtos;
         }
     }
 }
