@@ -309,8 +309,14 @@ namespace AdvoSecure.Infrastructure.Persistance
                 await SeedMatterType(context);
 
                 await SeedLanguages(context);
-
                 await SeedTaskType(context);
+
+
+                await SeedMatterAreas(context);
+
+                await SeedCourtGeographicalJurisdictions(context);
+
+                await SeedCourtSittingInCities(context);
 
                 await context.SaveChangesAsync();
             }
@@ -2827,6 +2833,7 @@ namespace AdvoSecure.Infrastructure.Persistance
             }
         }
 
+
         public static async Task SeedTaskType(ApplicationDbContext context)
         {
             if (!context.TaskTypes.Any())
@@ -2834,57 +2841,79 @@ namespace AdvoSecure.Infrastructure.Persistance
                 await context.TaskTypes.AddRangeAsync(
                     new Domain.Entities.Tasks.TaskType {
                         Title = "Task",
-                        Icon = "fa-check"
+                        Icon = "fa-check",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Meeting/Appointment in Office",
-                        Icon = "fa-building"
+                        Icon = "fa-building",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Meeting/Appointment out of Office",
-                        Icon = "fa-image"
+                        Icon = "fa-image",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Meeting in Court",
-                        Icon = "fa-hospital-o"
+                        Icon = "fa-hospital-o",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Traveltime",
-                        Icon = "fa-cab"
+                        Icon = "fa-cab",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Phonecall",
-                        Icon = "fa-phone"
+                        Icon = "fa-phone",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Email",
-                        Icon = "fa-envelope"
+                        Icon = "fa-envelope",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Inlezen",
-                        Icon = "fa-folder-open"
+                        Icon = "fa-folder-open",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                         Title = "Administratie",
-                        Icon = "fa-euro"
+                        Icon = "fa-euro",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                          Title = "Research/Studie",
-                         Icon = "fa-mortar-board"
+                         Icon = "fa-mortar-board",
+                         Group = "",
+                        CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
                           Title = "Afspraak maken",
-                          Icon = "fa-calendar"
+                          Icon = "fa-calendar",
+                          Group = "",
+                          CreatedBy = "TOAA"
                     });
             }
         }
@@ -3112,6 +3141,206 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Language { Alpha3 = "zha", Alpha2 = "za", Title = "Zhuang", TitleNl = "", CreatedBy = "TOAA" },
                     new Language { Alpha3 = "zul", Alpha2 = "zu", Title = "Zulu", TitleNl = "", CreatedBy = "TOAA" }
                     );
+            }
+        }
+        public static async Task SeedMatterAreas(ApplicationDbContext context)
+        {
+            if (!context.MatterAreas.Any())
+            {
+                await context.MatterAreas.AddRangeAsync(
+                    new MatterArea
+                    {
+                        AreaGroup = 1,
+                        AreaCode = "1",
+                        Title = "Onbekend of nvt",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterArea { AreaGroup = 1, AreaCode = "1", Title = "Onbekend of nvt", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 1, AreaCode = "1", Title = "Algemene praktijk", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 1, AreaCode = "1a", Title = "Burgerlijk recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 1, AreaCode = "1b", Title = "Strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 1, AreaCode = "1c", Title = "Bestuursrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2", Title = "Personen- en Familierecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2a", Title = "Echtscheidingen, alimentatiezaken, omgangsregelingen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2b", Title = "Ouderschap en erkenning", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2c", Title = "Collaborative divorce", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2d", Title = "Mediation", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2e", Title = "Jeugdbeschermingsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2f", Title = "Bijzondere curator", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2g", Title = "Internationale kinderontvoering", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 2, AreaCode = "2h", Title = "Internationaal privaatrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 3, AreaCode = "3", Title = "Erfrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 4, AreaCode = "4", Title = "Arbeidsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 4, AreaCode = "4a", Title = "Medezeggenschap", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 4, AreaCode = "4b", Title = "Collectief ontslag", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 4, AreaCode = "4c", Title = "Pensioenen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 4, AreaCode = "4d", Title = "Arbeidsmediation", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 4, AreaCode = "4e", Title = "Internationaal arbeidsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 5, AreaCode = "5", Title = "Sociaal-zekerheidsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 5, AreaCode = "5a", Title = "Werknemersverzekeringen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 5, AreaCode = "5b", Title = "Volksverzekeringen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 5, AreaCode = "5c", Title = "Sociale voorzieningen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 5, AreaCode = "5d", Title = "Internationaal (arbeids)recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 6, AreaCode = "6", Title = "Ambtenarenrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 6, AreaCode = "6a", Title = "Militairen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 7, AreaCode = "7", Title = "Huurrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 7, AreaCode = "7a", Title = "Woonruimte", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 7, AreaCode = "7b", Title = "Bedrijfsruimte", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 8, AreaCode = "8", Title = "Verbintenissenrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 9, AreaCode = "9", Title = "Sportrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 10, AreaCode = "10", Title = "Intellectueel eigendomsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 11, AreaCode = "11", Title = "Mededingingsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 12, AreaCode = "12", Title = "Aanbestedingsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13", Title = "Ondernemingsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13a", Title = "Vennootschappen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13b", Title = "Verenigingen en stichtingen", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13c", Title = "Agentuur en distributie", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13d", Title = "Fusies en overnames", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13e", Title = "Bestuurdersaansprakelijkheid", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 13, AreaCode = "13f", Title = "Beroepsaansprakelijkheid", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 14, AreaCode = "14", Title = "Burgerlijk procesrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 14, AreaCode = "14a", Title = "Arbitrage", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 14, AreaCode = "14b", Title = "Litigation", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 14, AreaCode = "14c", Title = "Beslag- en executierecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 15, AreaCode = "15", Title = "Transport- en handelsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 16, AreaCode = "16", Title = "Financieel recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 16, AreaCode = "16a", Title = "Bankrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 17, AreaCode = "17", Title = "Verzekeringsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 18, AreaCode = "18", Title = "Belastingrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 19, AreaCode = "19", Title = "ICT-recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 19, AreaCode = "19a", Title = "Privacy recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 20, AreaCode = "20", Title = "Insolventierecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 20, AreaCode = "20a", Title = "Faillissement", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 20, AreaCode = "20b", Title = "Surseance van betaling", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 20, AreaCode = "20c", Title = "WSNP", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21", Title = "Strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21a", Title = "Jeugdstrafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21b", Title = "Militair strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21c", Title = "Financieel economisch strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21d", Title = "Milieu strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21e", Title = "Fiscaal strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21f", Title = "Internationaal Strafrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21g", Title = "TBS", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21h", Title = "Uit- en overleveringszaken", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21i", Title = "Slachtofferzaken", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 21, AreaCode = "21j", Title = "Vreemdelingen(straf)recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 22, AreaCode = "22", Title = "Psychiatrisch patiëntenrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 23, AreaCode = "23", Title = "Letselschaderecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 23, AreaCode = "23a", Title = "Slachtofferzaken", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 24, AreaCode = "24", Title = "Vreemdelingenrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 24, AreaCode = "24a", Title = "Vreemdelingenbewaring", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 25, AreaCode = "25", Title = "Asiel- en vluchtelingenrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 26, AreaCode = "26", Title = "Omgevingsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 26, AreaCode = "26a", Title = "Milieurecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 26, AreaCode = "26b", Title = "Natuurbeschermingsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 26, AreaCode = "26c", Title = "Waterrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 26, AreaCode = "26d", Title = "Ruimtelijk bestuursrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 27, AreaCode = "27", Title = "Gezondheidsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 28, AreaCode = "28", Title = "Onderwijsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 29, AreaCode = "29", Title = "Onteigeningsrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 30, AreaCode = "30", Title = "Bouwrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 30, AreaCode = "30a", Title = "Vastgoedrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 31, AreaCode = "31", Title = "Agrarisch recht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32", Title = "Tuchtrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32a", Title = "Medisch tuchtrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32b", Title = "Advocatentuchtrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32c", Title = "Tuchtrecht notarissen, accountants en belastingadviseurs", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32d", Title = "Militair tuchtrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32e", Title = "Makelaardij tuchtrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 32, AreaCode = "32f", Title = "Deurwaarderstuchtrecht", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 33, AreaCode = "33", Title = "Cassatie", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 33, AreaCode = "33a", Title = "Straf", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 33, AreaCode = "33b", Title = "Civiel", CreatedBy = "TOAA" },
+                    new MatterArea { AreaGroup = 33, AreaCode = "33c", Title = "Belasting", CreatedBy = "TOAA" }
+                );
+            }
+        }
+
+        public static async Task SeedCourtGeographicalJurisdictions(ApplicationDbContext context)
+        {
+            if (!context.CourtGeographicalJurisdictions.Any())
+            {
+                await context.CourtGeographicalJurisdictions.AddRangeAsync(
+                    new CourtGeographicalJurisdiction
+                    {
+                        Title = "Noord Nederland",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtGeographicalJurisdiction
+                    {
+                        Title = "Midden Nederland",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtGeographicalJurisdiction
+                    {
+                        Title = "Limburg",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtGeographicalJurisdiction
+                    {
+                        Title = "Oost Brabant",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtGeographicalJurisdiction
+                    {
+                        Title = "Noord Holland",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtGeographicalJurisdiction
+                    {
+                        Title = "Zeeland West Brabant",
+                        CreatedBy = "TOAA"
+                    }
+                );
+            }
+        }
+
+        public static async Task SeedCourtSittingInCities(ApplicationDbContext context)
+        {
+            if (!context.CourtSittingInCities.Any())
+            {
+                await context.CourtSittingInCities.AddRangeAsync(
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Amsterdam",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Den Haag",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Leeuwarden",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Haarlem",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Vlissingen",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Arnhem",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Groningen",
+                        CreatedBy = "TOAA"
+                    },
+                    new CourtSittingInCity
+                    {
+                        Title = "Rechtbank Breda",
+                        CreatedBy = "TOAA"
+                    }
+                );
             }
         }
     }

@@ -1,9 +1,11 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Tasks
 {
+    [Table("TaskAssignedContacts")]
     public class TaskAssignedContact : AuditableEntity<Guid>
     {
         public int TaskId { get; set; }

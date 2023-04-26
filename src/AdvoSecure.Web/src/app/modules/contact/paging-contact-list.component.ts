@@ -25,37 +25,24 @@ export class PagingContactListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchContacts();
+    this.fetchData();
   }
 
-  fetchContacts() {
-    this.contactService
-      .getContacts(this.searchTerm)
-      .subscribe((contacts: Contact[]) => {
-        this.POSTS = contacts.map((contact) => {
-          contact.avatar = contact.pictureBin
-            ? this.sanitizer?.bypassSecurityTrustUrl(
-                'data:image/jpeg;base64,' + contact.pictureBin
-              )
-            : './assets/media/avatars/blank.png';
-          return contact;
-        });
-        this.changeDetectorRef.detectChanges();
-      });
+  fetchData() {
   }
 
   search() {
-    this.fetchContacts();
+    this.fetchData();
   }
 
   onTableDataChange(event: any) {
     this.page = event;
-    this.fetchContacts();
+    this.fetchData();
   }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.fetchContacts();
+    this.fetchData();
   }
 }

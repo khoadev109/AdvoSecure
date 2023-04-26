@@ -7,6 +7,8 @@ import { ConflictsComponent } from './components/conflicts/conflicts.component';
 import { PersonsComponent } from './components/persons/persons.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { CompaniesComponent } from './components/companies/companies.component';
+import { ContactMattersComponent } from './components/matters/matters.component';
+import { ContactTasksComponent } from './components/tasks/tasks.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,14 @@ const routes: Routes = [
       {
         path: 'conflicts',
         component: ConflictsComponent,
+      },
+      {
+        path: 'matters/:id',
+        component: ContactMattersComponent,
+      },
+      {
+        path: 'tasks/:id',
+        component: ContactTasksComponent,
       },
       {
         path: 'details/:id',

@@ -1,0 +1,67 @@
+<div class="d-flex flex-wrap flex-stack mb-6">
+  <h3 class="fw-bolder my-2" translate="COMMON.MATTERS"></h3>
+</div>
+
+<div class="card card-xxl-stretch mb-5 mb-xl-8">
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted">
+            <th
+              class="min-w-150px"
+              translate="PAGES.CONTACT.MATTERS.TITLE"
+            ></th>
+            <th
+              class="min-w-140px"
+              translate="PAGES.CONTACT.MATTERS.SYNOPSIS"
+            ></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr
+            *ngFor="
+              let post of POSTS
+                | paginate
+                  : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <td>
+              <div class="d-flex align-items-center"></div>
+            </td>
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6"></div>
+            </td>
+          </tr>
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+
+  <!-- paging -->
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>

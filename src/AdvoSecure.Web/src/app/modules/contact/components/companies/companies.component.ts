@@ -17,7 +17,7 @@ export class CompaniesComponent extends PagingContactListComponent {
     super(router, changeDetectorRef, contactService);
   }
 
-  fetchContacts() {
+  fetchData() {
     this.contactService
       .getCompanies(this.searchTerm)
       .subscribe((contacts: Contact[]) => {

@@ -55,8 +55,6 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<TaskMatter> TaskMatters => Set<TaskMatter>();
 
-        public object TaskType { get; internal set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

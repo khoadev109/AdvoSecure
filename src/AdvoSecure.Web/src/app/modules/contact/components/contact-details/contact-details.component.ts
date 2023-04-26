@@ -34,7 +34,7 @@ export class ContactDetailsComponent implements OnInit {
   contactFormTitle: string = 'Contact details';
 
   sameAsPostalAddress: boolean;
-  isChecked: false;
+  checkedVisitingSameAsPostalAddress: boolean;
 
   contact: Contact = {
     id: 0,
@@ -197,7 +197,7 @@ export class ContactDetailsComponent implements OnInit {
     }
   }
 
-  updateInput() {
+  setVisitingSameAsPostalAddress() {
     this.contact.address2AddressStreet = this.contact.address1AddressStreet;
     this.contact.address2AddressLine2 = this.contact.address1AddressLine2;
     this.contact.address2AddressPostalCode =
@@ -209,6 +209,8 @@ export class ContactDetailsComponent implements OnInit {
     this.contact.address3AddressHouseNoExt =
       this.contact.address2AddressHouseNoExt;
     this.contact.address2AddressCountry = this.contact.address1AddressCountry;
+
+    this.checkedVisitingSameAsPostalAddress = !this.checkedVisitingSameAsPostalAddress;
   }
 
   isValidDateOfBirth(dateOfBirth: string): boolean {

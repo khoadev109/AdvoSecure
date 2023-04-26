@@ -3,6 +3,7 @@ using System;
 using AdvoSecure.Infrastructure.Persistance.App;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230426103428_UpdateMatterTaskTableNames")]
+    partial class UpdateMatterTaskTableNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -784,23 +787,13 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.Language.Language", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.CourtGeographicalJurisdiction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Alpha2")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("character varying(2)");
-
-                    b.Property<string>("Alpha3")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("character varying(3)");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -830,22 +823,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TitleDe")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleEn")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleEs")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleFr")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleIt")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TitleNl");
                     b.HasKey("Id");
 
                     b.ToTable("CourtGeographicalJurisdictions");
@@ -889,8 +866,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
-                    b.ToTable("CourtSittingInCity");
                     b.ToTable("CourtSittingInCities");
                 });
 

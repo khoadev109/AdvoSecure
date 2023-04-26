@@ -16,6 +16,8 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { PersonsComponent } from './components/persons/persons.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { PagingContactListComponent } from './paging-contact-list.component';
+import { ContactMattersComponent } from './components/matters/matters.component';
+import { ContactTasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { PagingContactListComponent } from './paging-contact-list.component';
     CompaniesComponent,
     ContactDetailsComponent,
     ConflictsComponent,
+    ContactMattersComponent,
+    ContactTasksComponent
   ],
   imports: [
     CommonModule,

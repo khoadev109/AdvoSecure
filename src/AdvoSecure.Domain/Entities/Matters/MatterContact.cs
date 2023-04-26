@@ -1,8 +1,10 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Contacts;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Matters
 {
+    [Table("MatterContacts")]
     public class MatterContact : BaseEntity
     {
         public bool IsClient { get; set; }
