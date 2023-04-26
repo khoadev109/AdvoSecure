@@ -1,0 +1,201 @@
+<div class="d-flex flex-wrap flex-stack mb-6">
+  <h3 class="fw-bolder my-2" translate="COMMON.MATTERS"></h3>
+</div>
+
+<div class="card mb-5 mb-xl-10">
+  <div class="card-body borqr-top p-9">
+    <div class="row mb-6">
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center justify-content-start">
+          <label
+            class="col-lg-4 col-form-label fw-bold fs-6"
+            translate="PAGES.MATTER.STATUS"
+          ></label>
+          <select
+            class="form-select form-select-solid form-select-lg fw-bold"
+            name="status"
+            [(ngModel)]="searchRequest.status"
+          >
+            <option value="" translate="PAGES.MATTER.SELECT_A_STATUS"></option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center justify-content-start">
+          <label
+            class="col-lg-4 col-form-label fw-bold fs-6"
+            translate="PAGES.MATTER.CONTACT_NAME"
+          ></label>
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            name="contactName"
+            [(ngModel)]="searchRequest.contactName"
+          />
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center justify-content-start">
+          <label
+            class="col-lg-4 col-form-label fw-bold fs-6"
+            translate="PAGES.MATTER.DESCRIPTION"
+          ></label>
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            name="description"
+            [(ngModel)]="searchRequest.description"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row mb-6">
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center justify-content-start">
+          <label
+            class="col-lg-4 col-form-label fw-bold fs-6"
+            translate="PAGES.MATTER.JURISDICTION"
+          ></label>
+          <select
+            class="form-select form-select-solid form-select-lg fw-bold"
+            name="jurisdiction"
+            [(ngModel)]="searchRequest.courtGeographicalJurisdictionId"
+          >
+            <option
+              value="0"
+              translate="PAGES.MATTER.SELECT_A_JURISDICTION"
+            ></option>
+            <option
+              *ngFor="let courtGeoJd of courtGeoJds"
+              [text]="courtGeoJd.title"
+              [value]="courtGeoJd.id"
+            ></option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center justify-content-start">
+          <label
+            class="col-lg-4 col-form-label fw-bold fs-6"
+            translate="PAGES.MATTER.DISTRICT"
+          ></label>
+          <select
+            class="form-select form-select-solid form-select-lg fw-bold"
+            name="district"
+            [(ngModel)]="searchRequest.matterAreaId"
+          >
+            <option
+              value="0"
+              translate="PAGES.MATTER.SELECT_A_DISTRICT"
+            ></option>
+            <option
+              *ngFor="let matterArea of matterAreas"
+              [text]="matterArea.title"
+              [value]="matterArea.id"
+            ></option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center justify-content-start">
+          <label
+            class="col-lg-4 col-form-label fw-bold fs-6"
+            translate="PAGES.MATTER.CASE_NUMBER"
+          ></label>
+          <input
+            type="text"
+            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+            name="caseNumber"
+            [(ngModel)]="searchRequest.caseNumber"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row mb-6">
+      <div class="d-flex align-items-center justify-content-end">
+        <a class="btn btn-sm btn-light me-2 cursor-pointer" (click)="search()">
+          <span class="indicator-label" translate="PAGES.CONTACT.FIND"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card card-xxl-stretch mb-5 mb-xl-8">
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted">
+            <th class="min-w-150px" translate="PAGES.MATTER.MATTER"></th>
+            <th class="min-w-140px" translate="PAGES.MATTER.CASE_NUMBER"></th>
+            <th class="min-w-140px" translate="PAGES.MATTER.RESUME"></th>
+            <th class="min-w-140px" translate="PAGES.MATTER.JURISDICTION"></th>
+            <th class="min-w-140px" translate="PAGES.MATTER.CLIENTS"></th>
+            <th class="min-w-100px"></th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr
+            *ngFor="
+              let post of POSTS
+                | paginate
+                  : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6"></div>
+            </td>
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6"></div>
+            </td>
+            <td>
+              <div class="d-flex align-items-center"></div>
+            </td>
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6"></div>
+            </td>
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6"></div>
+            </td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-light cursor-pointer">
+                <span class="indicator-label" translate="COMMON.EDIT"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+
+  <!-- paging -->
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>

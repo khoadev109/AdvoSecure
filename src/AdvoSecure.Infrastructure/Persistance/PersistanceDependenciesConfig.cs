@@ -1,6 +1,7 @@
 ﻿using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.App.Repositories;
+using AdvoSecure.Infrastructure.Persistance.Application.Repositories;
 using AdvoSecure.Infrastructure.Persistance.Management.Repositories;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
 using AdvoSecure.Infrastructure.Persistance.Tenant.Repositories;
@@ -68,6 +69,7 @@ namespace AdvoSecure.Infrastructure.Persistance
             services.AddScoped<ICaseRepository, CaseRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ICommonRepository, CommonRepository>();
+            services.AddScoped<IMatterRepository, MatterRepository>();
             services.AddScoped<IRefreshTokenRepository, Tenant.Repositories.RefreshTokenRepository>();
             services.AddScoped<IRefreshTokenRepository, App.Repositories.RefreshTokenRepository>();
             services.AddTransient<IRefreshTokenRepositoryFactory, RefreshTokenRepositoryFactory>();

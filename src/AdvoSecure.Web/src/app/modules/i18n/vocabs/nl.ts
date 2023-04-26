@@ -158,6 +158,20 @@ export const locale = {
           DEADLINE: 'Deadline'
         },
       },
+	  MATTER: {
+		MATTER: 'Matter#',
+		CASE_NUMBER: 'Case number',
+		RESUME: 'Resume',
+		JURISDICTION: 'Jurisdiction',
+		SELECT_A_JURISDICTION: 'Select a jurisdiction',
+		CLIENTS: 'Clients',
+		STATUS: 'Status',
+		SELECT_A_STATUS: 'Select a status',
+		CONTACT_NAME: 'Contact name',
+		DESCRIPTION: 'Description',
+		DISTRICT: 'District',
+		SELECT_A_DISTRICT: 'Select a district'
+	  }
     },
     FOOTER: {
       ABOUT: 'About',
@@ -264,6 +278,10 @@ export const locale = {
       INVALID_EMAIL: 'This is not a valid Email',
       MATTERS: 'Matters',
       TASKS: 'Tasks',
+	  FIND: 'Find',
+	  EDIT: 'Edit',
+	  STATUS: 'Status',
+	  ALL: 'All'
     },
   },
 };

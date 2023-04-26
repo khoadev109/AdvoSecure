@@ -32,6 +32,11 @@ const Routing: Routes = [
       import('../modules/contact/contact.module').then((m) => m.ContactModule),
   },
   {
+    path: 'management/matters',
+    loadChildren: () =>
+      import('../modules/matter/matter.module').then((m) => m.MatterModule),
+  },
+  {
     path: 'management/pages/wizards',
     loadChildren: () =>
       import('../modules/wizards/wizards.module').then((m) => m.WizardsModule),
