@@ -1032,5 +1032,7 @@ namespace AdvoSecure.Application.Dtos.ContactDtos
         public int? CivilStatusId { get; set; } = null;
 
         public int? IdTypeId { get; set; } = null;
+
+        public int? CompanyLegalStatusId { get; set; } = null;
     }
 }

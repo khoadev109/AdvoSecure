@@ -1,16 +1,15 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AdvoSecure.Domain.Entities.TaskType
+namespace AdvoSecure.Domain.Entities.Tasks
 {
     public class TaskType : BaseEntity
     {
         public string? Title { get; set; }
 
         public string? Icon { get; set; }
+
+        public string? Group { get; set; }
+
+        public IList<Task> Tasks { get; set; } = new List<Task>();
     }
 }

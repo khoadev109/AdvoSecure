@@ -94,9 +94,21 @@ export class PageInfoService {
   public calculateTitleFromUrl(): string | undefined {
     const currentUrl = this.router.url;
     const urlSplitBySplash = currentUrl.split('/');
-    const lastFragment = upperCaseFirstLetter(
+    let lastFragment = upperCaseFirstLetter(
       urlSplitBySplash[urlSplitBySplash.length - 1]
     );
+
+    if (lastFragment.startsWith('?')) {
+      lastFragment = upperCaseFirstLetter(
+        urlSplitBySplash[urlSplitBySplash.length - 2]
+      );
+    } else if (lastFragment.includes('?')) {
+      const splitByQuestionMark = lastFragment.split('?');
+      lastFragment = upperCaseFirstLetter(
+        urlSplitBySplash[urlSplitBySplash.length - 2]
+      ) + ` - ${splitByQuestionMark[0]}`;
+    }
+
     return lastFragment;
   }
 

@@ -1,8 +1,10 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
-using AdvoSecure.Domain.Entities.BillingEntities;
+using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Entities.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdvoSecure.Domain.Entities.ContactEntities
+namespace AdvoSecure.Domain.Entities.Contacts
 {
     public class Contact : BaseEntity
     {
@@ -1055,5 +1057,13 @@ namespace AdvoSecure.Domain.Entities.ContactEntities
         public int? CompanyLegalStatusId { get; set; }
 
         public CompanyLegalStatus CompanyLegalStatus { get; set; }
+
+        public IList<BillingGroup> BillingGroups { get; set; } = new List<BillingGroup>();
+
+        public IList<Matter> Matters { get; set; } = new List<Matter>();
+
+        public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
+
+        public IList<TaskAssignedContact> TaskAssignedContacts { get; set; } = new List<TaskAssignedContact>();
     }
 }

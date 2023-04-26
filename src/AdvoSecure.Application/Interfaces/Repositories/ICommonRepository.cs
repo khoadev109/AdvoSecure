@@ -1,7 +1,8 @@
 ﻿using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.BillingEntities;
 using AdvoSecure.Domain.Entities.Language;
-using AdvoSecure.Domain.Entities.TaskType;
+
+using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Application.Interfaces.Repositories
 {

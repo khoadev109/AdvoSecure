@@ -112,7 +112,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.Contact", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Contacts.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -518,7 +518,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.ContactCivilStatus", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Contacts.ContactCivilStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -559,7 +559,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("ContactCivilStatuses", (string)null);
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.ContactIdType", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Contacts.ContactIdType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -931,7 +931,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.BillingEntities.BillingRate", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Billings.BillingRate", b =>
                 {
                     b.HasBaseType("AdvoSecure.Domain.Entities.CompanyLegalStatus");
 
@@ -941,13 +941,13 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.HasDiscriminator().HasValue("BillingRate");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.Contact", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Contacts.Contact", b =>
                 {
-                    b.HasOne("AdvoSecure.Domain.Entities.BillingEntities.BillingRate", "BillingRate")
+                    b.HasOne("AdvoSecure.Domain.Entities.Billings.BillingRate", "BillingRate")
                         .WithMany()
                         .HasForeignKey("BillingRateId");
 
-                    b.HasOne("AdvoSecure.Domain.Entities.ContactEntities.ContactCivilStatus", "CivilStatus")
+                    b.HasOne("AdvoSecure.Domain.Entities.Contacts.ContactCivilStatus", "CivilStatus")
                         .WithMany("Contacts")
                         .HasForeignKey("CivilStatusId");
 
@@ -955,7 +955,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .WithMany("Contacts")
                         .HasForeignKey("CompanyLegalStatusId");
 
-                    b.HasOne("AdvoSecure.Domain.Entities.ContactEntities.ContactIdType", "IdType")
+                    b.HasOne("AdvoSecure.Domain.Entities.Contacts.ContactIdType", "IdType")
                         .WithMany("Contacts")
                         .HasForeignKey("IdTypeId");
 
@@ -1024,12 +1024,12 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Navigation("Contacts");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.ContactCivilStatus", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Contacts.ContactCivilStatus", b =>
                 {
                     b.Navigation("Contacts");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.ContactEntities.ContactIdType", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Contacts.ContactIdType", b =>
                 {
                     b.Navigation("Contacts");
                 });

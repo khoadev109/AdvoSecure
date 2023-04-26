@@ -1,12 +1,12 @@
 ﻿using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.ContactEntities;
 using AdvoSecure.Domain.Entities.Language;
-using AdvoSecure.Domain.Entities.TaskType;
+using AdvoSecure.Domain.Entities.Contacts;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 {
@@ -35,7 +35,7 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 
         public async Task<IEnumerable<TaskType>> GetTaskType()
         {
-            IEnumerable<TaskType> Tasktypes = await _dbContext.TaskType.ToListAsync<TaskType>();
+            IEnumerable<TaskType> Tasktypes = await _dbContext.TaskTypes.ToListAsync<TaskType>();
             return Tasktypes;
         }
 

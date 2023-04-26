@@ -26,7 +26,7 @@ export class ContactDetailsComponent implements OnInit {
 
   activeTab: Tabs = 'address-tab';
 
-  avatarImageFile: File;
+  avatarFile: File;
   avatarSrc: string | SafeUrl = '/assets/media/avatars/blank.png';
 
   routeContactId: string | null;
@@ -38,84 +38,7 @@ export class ContactDetailsComponent implements OnInit {
 
   contact: Contact = {
     id: 0,
-    birthday: '',
     displayName: '',
-    bankAccount: '',
-    bicCode: '',
-    bankName: '',
-    sepaMandateNumber: '',
-    sepaMandateDate: new Date(),
-    sepaMandateLimit: 0,
-    middleName: '',
-    initials: '',
-    onlineStatusId: 0,
-    email1DisplayName: '',
-    email1EmailAddress: '',
-    email2DisplayName: '',
-    email2EmailAddress: '',
-    email3DisplayName: '',
-    email3EmailAddress: '',
-    fax1DisplayName: '',
-    fax1FaxNumber: '',
-    fax2DisplayName: '',
-    fax2FaxNumber: '',
-    fax3DisplayName: '',
-    fax3FaxNumber: '',
-    address1DisplayName: '',
-    address1AddressStreet: '',
-    address1AddressHouseNo: '',
-    address1AddressHouseNoExt: '',
-    address1AddressLine2: '',
-    address1AddressCity: '',
-    address1AddressPostalCode: '',
-    address1AddressCountry: '',
-    address1AddressCountryCode: '',
-    address2AddressStreet: '',
-    address2AddressCity: '',
-    address2AddressHouseNoExt: '',
-    address2AddressHouseNo: '',
-    address2AddressLine2: '',
-    address2AddressStateOrProvince: '',
-    address2AddressPostalCode: '',
-    address2AddressCountry: '',
-    address2AddressCountryCode: '',
-    address1AddressPostOfficeBox: '',
-    address2DisplayName: '',
-    address2AddressPostOfficeBox: '',
-    address3DisplayName: '',
-    address3AddressStreet: '',
-    address3AddressHouseNo: '',
-    address3AddressHouseNoExt: '',
-    address3AddressLine2: '',
-    address3AddressCity: '',
-    address3AddressStateOrProvince: '',
-    address3AddressPostalCode: '',
-    address3AddressCountry: '',
-    address3AddressCountryCode: '',
-    address3AddressPostOfficeBox: '',
-    telephone3DisplayName: '',
-    telephone3TelephoneNumber: '',
-    telephone4DisplayName: '',
-    telephone4TelephoneNumber: '',
-    telephone5DisplayName: '',
-    telephone5TelephoneNumber: '',
-    telephone6DisplayName: '',
-    telephone6TelephoneNumber: '',
-    telephone7DisplayName: '',
-    telephone7TelephoneNumber: '',
-    telephone8DisplayName: '',
-    telephone8TelephoneNumber: '',
-    telephone9DisplayName: '',
-    telephone10DisplayName: '',
-    telephone10TelephoneNumber: '',
-    departmentName: '',
-    officeLocation: '',
-    managerName: '',
-    assistantName: '',
-    instantMessagingAddress: '',
-    personalHomePage: '',
-    businessHomePage: '',
-    socialSecurityNumber: '',
   };
 
   idTypes: ContactIdType[] = [];
@@ -124,26 +47,7 @@ export class ContactDetailsComponent implements OnInit {
   companyLegalStatuses: CompanyLegalStatus[] = [];
   countries: Country[] = [];
   genders = genders;
-  date = '';
-
-  selectedIdTypeId: number | undefined = 0;
-  selectedMaritalStatusId: number | undefined = 0;
-  selectedLegalStatusId: number | undefined = 0;
-  selectedCountryId: string | undefined = '';
-  selectedCountryVaId: string | undefined = '';
-  selectedGender: string | undefined = '';
-  selectedCountryId1: string | undefined = '';
-  selectedCountryId2: string | undefined = '';
-
-  dateOfBirth: Date = new Date();
-
-  today: Date = new Date();
-  maxDate =
-    new Date().getFullYear().toString() +
-    '-0' +
-    (new Date().getMonth() + 1).toString() +
-    '-' +
-    new Date().getDate().toString();
+  dateErrorMessage = '';
 
   constructor(
     private router: Router,
@@ -171,7 +75,7 @@ export class ContactDetailsComponent implements OnInit {
 
     this.routeContactId = this.route.snapshot.paramMap.get('id');
     if (this.routeContactId) {
-      this.loadContact(parseInt(this.routeContactId));
+      this.loadExistingContact(parseInt(this.routeContactId));
     } else {
       this.loadNewContact();
     }
@@ -182,8 +86,7 @@ export class ContactDetailsComponent implements OnInit {
     this.contact.isOrganization = this.routeContactTypeParam === 'company';
   }
 
-  loadContact(id: number) {
-    console.log('load contact');
+  loadExistingContact(id: number) {
     this.contactService.getContact(id).subscribe((contact: Contact) => {
       this.contact = contact;
 
@@ -194,10 +97,6 @@ export class ContactDetailsComponent implements OnInit {
           );
       }
 
-      this.selectedIdTypeId = this.contact.idTypeId;
-      this.selectedMaritalStatusId = this.contact.civilStatusId;
-      this.selectedLegalStatusId = this.contact.companyLegalStatusId;
-      this.selectedGender = this.contact.gender;
       this.changeDetectorRef.detectChanges();
     });
   }
@@ -218,7 +117,6 @@ export class ContactDetailsComponent implements OnInit {
     this.commonService.getBillingRates().subscribe((result: BillingRate[]) => {
       this.billingRates = result;
       this.changeDetectorRef.detectChanges();
-      console.log('check', this.billingRates);
     });
 
     this.commonService
@@ -246,7 +144,7 @@ export class ContactDetailsComponent implements OnInit {
     const files = event.target.files;
     if (files && files[0]) {
       const file = files[0];
-      this.avatarImageFile = file;
+      this.avatarFile = file;
       this.avatarSrc = this.sanitizer.bypassSecurityTrustUrl(
         window.URL.createObjectURL(file)
       );
@@ -255,45 +153,49 @@ export class ContactDetailsComponent implements OnInit {
 
   save = () => {
     try {
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        var binaryString = event.target.result;
-        this.contact.pictureBin = btoa(binaryString);
-        this.contact.idTypeId = this.selectedIdTypeId;
-        this.contact.civilStatusId = this.selectedMaritalStatusId;
-        this.contact.companyLegalStatusId = this.selectedLegalStatusId;
-        this.contact.gender = this.selectedGender;
-
-        if (this.routeContactId) {
-          this.contactService
-            .updateContact(this.routeContactId, this.contact)
-            .subscribe((savedContact: Contact) => {
-              this.isLoading = false;
-              this.changeDetectorRef.detectChanges();
-              setTimeout(() => {
-                this.redirectToListPage();
-              }, 1000);
-            });
-        } else {
-          this.contactService
-            .createContact(this.contact)
-            .subscribe((savedContact: Contact) => {
-              this.isLoading = false;
-              this.changeDetectorRef.detectChanges();
-              setTimeout(() => {
-                this.redirectToListPage();
-              }, 1000);
-            });
-        }
-      };
-
-      reader.readAsBinaryString(this.avatarImageFile);
+      if (this.avatarFile) {
+        const reader = new FileReader();
+        reader.readAsBinaryString(this.avatarFile);
+        reader.onload = (event: any) => {
+          this.saveContact(event.target.result);
+        };
+      } else {
+        this.saveContact();
+      }
     } catch (error) {
       console.log('save contact', error);
       this.isLoading = false;
       this.changeDetectorRef.detectChanges();
     }
   };
+
+  saveContact(avatarBinaryString?: string) {
+    if (avatarBinaryString) {
+      this.contact.pictureBin = btoa(avatarBinaryString);
+    }
+
+    if (this.routeContactId) {
+      this.contactService
+        .updateContact(this.routeContactId, this.contact)
+        .subscribe((savedContact: Contact) => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+          setTimeout(() => {
+            this.redirectToListPage();
+          }, 1000);
+        });
+    } else {
+      this.contactService
+        .createContact(this.contact)
+        .subscribe((savedContact: Contact) => {
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges();
+          setTimeout(() => {
+            this.redirectToListPage();
+          }, 1000);
+        });
+    }
+  }
 
   updateInput() {
     this.contact.address2AddressStreet = this.contact.address1AddressStreet;
@@ -326,9 +228,9 @@ export class ContactDetailsComponent implements OnInit {
   dateChange(event: any) {
     const dob = event.target?.value;
     if (this.isValidDateOfBirth(dob)) {
-      this.date = 'Valid date of birth';
+      this.dateErrorMessage = 'Valid date of birth';
     } else {
-      this.date = 'Invalid date of birth';
+      this.dateErrorMessage = 'Invalid date of birth';
     }
   }
 

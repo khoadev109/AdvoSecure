@@ -1,15 +1,17 @@
 ﻿using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.BillingEntities;
-using AdvoSecure.Domain.Entities.ContactEntities;
+using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Language;
-using AdvoSecure.Domain.Entities.TaskType;
+using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Enums;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
 using AutoMapper.Execution;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using System.Threading.Tasks;
+
 
 namespace AdvoSecure.Infrastructure.Persistance
 {
@@ -304,10 +306,13 @@ namespace AdvoSecure.Infrastructure.Persistance
 
                 await SeedCompanies(context);
 
+                await SeedMatterType(context);
+
                 await SeedLanguages(context);
 
-                await context.SaveChangesAsync();
+                await SeedTaskType(context);
 
+                await context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -2767,15 +2772,119 @@ namespace AdvoSecure.Infrastructure.Persistance
                     });
             }
         }
+
+        public static async Task SeedMatterType(ApplicationDbContext context)
+        {
+            if (!context.MatterTypes.Any())
+            {
+                await context.MatterTypes.AddRangeAsync(
+                    new MatterType
+                    {
+                        Title = "Kinderalimentatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Partneralimentatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Insolventie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Naturalisatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Arbeidsconflict",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Strafrecht",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Kinderalimentatie",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Onroerende Zaken Zakelijk recht",
+                        CreatedBy = "TOAA"
+                    },
+                    new MatterType
+                    {
+                        Title = "Echtscheidinkk",
+                        CreatedBy = "TOAA"
+                    }
+                );
+            }
+        }
+
         public static async Task SeedTaskType(ApplicationDbContext context)
         {
-            if (!context.TaskType.Any())
+            if (!context.TaskTypes.Any())
             {
-                await context.TaskType.AddRangeAsync(
-                    new TaskType
-                    {
+                await context.TaskTypes.AddRangeAsync(
+                    new Domain.Entities.Tasks.TaskType {
                         Title = "Task",
-                        Icon = "fa-check",
+                        Icon = "fa-check"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Meeting/Appointment in Office",
+                        Icon = "fa-building"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Meeting/Appointment out of Office",
+                        Icon = "fa-image"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Meeting in Court",
+                        Icon = "fa-hospital-o"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Traveltime",
+                        Icon = "fa-cab"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Phonecall",
+                        Icon = "fa-phone"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Email",
+                        Icon = "fa-envelope"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Inlezen",
+                        Icon = "fa-folder-open"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                        Title = "Administratie",
+                        Icon = "fa-euro"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                         Title = "Research/Studie",
+                         Icon = "fa-mortar-board"
+                    },
+                    new Domain.Entities.Tasks.TaskType
+                    {
+                          Title = "Afspraak maken",
+                          Icon = "fa-calendar"
                     });
             }
         }
@@ -2864,7 +2973,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Language { Alpha3 = "fry", Alpha2 = "fy", Title = "Western Frisian", TitleNl = "Friesch", CreatedBy = "TOAA" },
                     new Language { Alpha3 = "bre", Alpha2 = "br", Title = "Breton", TitleNl = "", CreatedBy = "TOAA" },
                     new Language { Alpha3 = "ful", Alpha2 = "ff", Title = "Fulah", TitleNl = "", CreatedBy = "TOAA" },
-                    new Language { Alpha3 = "geo", Alpha2 = "ka", Title = "Georgian", TitleNl = "Georgisch", CreatedBy = "TOAA"},
+                    new Language { Alpha3 = "geo", Alpha2 = "ka", Title = "Georgian", TitleNl = "Georgisch", CreatedBy = "TOAA" },
                     new Language { Alpha3 = "ger", Alpha2 = "de", Title = "German", TitleNl = "Duits", CreatedBy = "TOAA" },
                     new Language { Alpha3 = "gla", Alpha2 = "gd", Title = "Gaelic", TitleNl = "", CreatedBy = "TOAA" },
                     new Language { Alpha3 = "gle", Alpha2 = "ga", Title = "Irish", TitleNl = "Iers", CreatedBy = "TOAA" },

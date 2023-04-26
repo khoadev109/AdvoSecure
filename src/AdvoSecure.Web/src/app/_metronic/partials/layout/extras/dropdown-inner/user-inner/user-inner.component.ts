@@ -26,12 +26,12 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   langs = languages;
 
   profile: AppUser = {
-    displayName: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    userIdentifier: ""
-  }
+    displayName: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    userIdentifier: '',
+  };
 
   private unsubscribe: Subscription[] = [];
 
@@ -93,36 +93,35 @@ const languages = [
     name: 'English',
     flag: './assets/media/flags/united-states.svg',
   },
+  {
+    lang: '	nl',
+    name: 'Dutch',
+    flag: './assets/media/flags/netherlands.svg',
+  },
 
   // {
-  //   lang: '	nl',
-  //   name: 'Dutch',
-  //   flag: './assets/media/flags/netherlands.svg',
+  //   lang: 'zh',
+  //   name: 'Mandarin',
+  //   flag: './assets/media/flags/china.svg',
   // },
-
-  {
-    lang: 'zh',
-    name: 'Mandarin',
-    flag: './assets/media/flags/china.svg',
-  },
-  {
-    lang: 'es',
-    name: 'Spanish',
-    flag: './assets/media/flags/spain.svg',
-  },
-  {
-    lang: 'ja',
-    name: 'Japanese',
-    flag: './assets/media/flags/japan.svg',
-  },
-  {
-    lang: 'de',
-    name: 'German',
-    flag: './assets/media/flags/germany.svg',
-  },
-  {
-    lang: 'fr',
-    name: 'French',
-    flag: './assets/media/flags/france.svg',
-  },
+  // {
+  //   lang: 'es',
+  //   name: 'Spanish',
+  //   flag: './assets/media/flags/spain.svg',
+  // },
+  // {
+  //   lang: 'ja',
+  //   name: 'Japanese',
+  //   flag: './assets/media/flags/japan.svg',
+  // },
+  // {
+  //   lang: 'de',
+  //   name: 'German',
+  //   flag: './assets/media/flags/germany.svg',
+  // },
+  // {
+  //   lang: 'fr',
+  //   name: 'French',
+  //   flag: './assets/media/flags/france.svg',
+  // },
 ];
