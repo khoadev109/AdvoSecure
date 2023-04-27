@@ -22,5 +22,7 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task<ContactDto> CreateContactAsync(ContactDto contactDto, string userName);
 
         Task<ContactDto> UpdateContactAsync(int id, ContactDto contactDto, string userName);
+
+        Task<IEnumerable<LanguageDto>> GetLanguagesAsync();
     }
 }

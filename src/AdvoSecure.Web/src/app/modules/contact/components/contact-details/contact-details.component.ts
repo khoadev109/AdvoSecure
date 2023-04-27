@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, NgModule } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { Country } from 'src/app/models/country.model';
 import { CommonService } from 'src/app/services/common.service';
 import { genders } from 'src/app/helpers/staticListHelper';
 import { CompanyLegalStatus } from 'src/app/models/company-legal-status.model';
+import { Languages } from 'src/app/models/languages.model';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
@@ -48,6 +49,7 @@ export class ContactDetailsComponent implements OnInit {
   countries: Country[] = [];
   genders = genders;
   dateErrorMessage = '';
+  languages: Languages[] = [];
 
   constructor(
     private router: Router,
@@ -130,6 +132,11 @@ export class ContactDetailsComponent implements OnInit {
       this.countries = result;
       this.changeDetectorRef.detectChanges();
     });
+
+    this.contactService.getLanguages().subscribe((result: Languages[]) => {
+      this.languages = result;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   setTab(tab: Tabs) {
@@ -209,7 +216,6 @@ export class ContactDetailsComponent implements OnInit {
     this.contact.address3AddressHouseNoExt =
       this.contact.address2AddressHouseNoExt;
     this.contact.address2AddressCountry = this.contact.address1AddressCountry;
-
     this.checkedVisitingSameAsPostalAddress =
       !this.checkedVisitingSameAsPostalAddress;
   }

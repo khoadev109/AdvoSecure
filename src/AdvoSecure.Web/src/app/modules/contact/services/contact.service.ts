@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Contact } from '../models/contact.model';
 import { ContactIdType } from '../models/contact-id-type.model';
 import { ContactMaritalStatus } from '../models/contact-marital-status.model';
+import { ContactLanguage } from '../models/contact-languages.model';
 
 @Injectable({
   providedIn: 'root',
@@ -62,13 +63,21 @@ export class ContactService {
     );
   }
 
+  getLanguages(): Observable<ContactLanguage[]> {
+    return this.httpClient.get<ContactLanguage[]>(
+      this.API_CONTACT_URL + '/languages'
+    );
+  }
+
   createContact(payload: Contact): Observable<any> {
     const body = JSON.stringify(payload);
     return this.httpClient.post(this.API_CONTACT_URL, body);
   }
 
   updateContact(id: string, payload: Contact): Observable<any> {
+    console.log('update');
     const body = JSON.stringify(payload);
+    console.log('body', body);
     return this.httpClient.put(this.API_CONTACT_URL + '/' + id, body);
   }
 

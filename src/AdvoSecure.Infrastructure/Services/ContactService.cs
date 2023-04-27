@@ -1,7 +1,10 @@
-﻿using AdvoSecure.Application.Dtos.ContactDtos;
+﻿using AdvoSecure.Application.Dtos;
+using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Infrastructure.Persistance.App.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -101,6 +104,14 @@ namespace AdvoSecure.Infrastructure.Services
             ContactDto updatedContactDto = _mapper.Map<ContactDto>(updatedContact);
 
             return updatedContactDto;
+        }
+        public async Task<IEnumerable<LanguageDto>> GetLanguagesAsync()
+        {
+            IList<Language> languages = await _contactRepository.GetLanguages().ToListAsync();
+
+            IEnumerable<LanguageDto> languageDtos = _mapper.Map<IEnumerable<LanguageDto>>(languages);
+
+            return languageDtos;
         }
     }
 }

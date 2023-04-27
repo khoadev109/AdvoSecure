@@ -12,9 +12,7 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task<IEnumerable<CompanyLegalStatusDto>> GetCompanyLegalStatusesAsync();
 
         Task<IEnumerable<CountryDto>> GetCountriesAsync();
-        
-        Task<IEnumerable<LanguageDto>> GetLanguagesAsync();
-        
+
         Task<IEnumerable<TaskTypeDto>> GetTaskTypeAsync();
     }
 }
