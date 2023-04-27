@@ -845,7 +845,50 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<string>("TitleIt")
                         .HasColumnType("text");
 
-                    b.Property<string>("TitleNl");
+                    b.Property<string>("TitleNl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.CourtGeographicalJurisdiction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("CourtGeographicalJurisdictions");
@@ -889,8 +932,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
-                    b.ToTable("CourtSittingInCity");
                     b.ToTable("CourtSittingInCities");
                 });
 
@@ -904,45 +945,37 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("AttorneyForPartyTitle")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("BillToContactDisplayName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("BillToContactId")
+                    b.Property<int>("BillToContactId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("BillingGroupId")
                         .HasColumnType("integer");
 
                     b.Property<string>("CaptionOtherPartyLong")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionOtherPartyRegular")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionOtherPartyShort")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionPlaintiffOrSubjectLong")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionPlaintiffOrSubjectRegular")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionPlaintiffOrSubjectShort")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaseNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("CourtGeographicalJurisdictionId")
@@ -958,7 +991,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("DefaultBillingRateId")
+                    b.Property<int>("DefaultBillingRateId")
                         .HasColumnType("integer");
 
                     b.Property<string>("DeletedBy")
@@ -971,7 +1004,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<decimal?>("EstimatedCharge")
                         .HasColumnType("numeric");
 
-                    b.Property<long>("IdInt")
+                    b.Property<long?>("IdInt")
                         .HasColumnType("bigint");
 
                     b.Property<int?>("MatterAreaId")
@@ -981,7 +1014,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("MatterTypeId")
+                    b.Property<int>("MatterTypeId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("MaximumCharge")
@@ -1424,11 +1457,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Group")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Icon")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
@@ -1439,7 +1470,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -1704,7 +1734,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 {
                     b.HasOne("AdvoSecure.Domain.Entities.Contacts.Contact", "BillToContact")
                         .WithMany("Matters")
-                        .HasForeignKey("BillToContactId");
+                        .HasForeignKey("BillToContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AdvoSecure.Domain.Entities.Billings.BillingGroup", "BillingGroup")
                         .WithMany()
@@ -1720,7 +1752,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasOne("AdvoSecure.Domain.Entities.Billings.BillingRate", "DefaultBillingRate")
                         .WithMany("Matters")
-                        .HasForeignKey("DefaultBillingRateId");
+                        .HasForeignKey("DefaultBillingRateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AdvoSecure.Domain.Entities.Matters.MatterArea", "MatterArea")
                         .WithMany("Matters")
@@ -1728,7 +1762,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasOne("AdvoSecure.Domain.Entities.Matters.MatterType", "MatterType")
                         .WithMany()
-                        .HasForeignKey("MatterTypeId");
+                        .HasForeignKey("MatterTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BillToContact");
 

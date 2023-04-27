@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, NgModule } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
 import { Router } from '@angular/router';
@@ -210,7 +210,8 @@ export class ContactDetailsComponent implements OnInit {
       this.contact.address2AddressHouseNoExt;
     this.contact.address2AddressCountry = this.contact.address1AddressCountry;
 
-    this.checkedVisitingSameAsPostalAddress = !this.checkedVisitingSameAsPostalAddress;
+    this.checkedVisitingSameAsPostalAddress =
+      !this.checkedVisitingSameAsPostalAddress;
   }
 
   isValidDateOfBirth(dateOfBirth: string): boolean {

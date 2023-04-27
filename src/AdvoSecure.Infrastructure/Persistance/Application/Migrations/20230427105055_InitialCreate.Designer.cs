@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230425144136_AddMatterTaskTables")]
-    partial class AddMatterTaskTables
+    [Migration("20230427105055_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,7 +77,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("BillToContactId");
 
-                    b.ToTable("BillingGroup");
+                    b.ToTable("BillingGroups");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Billings.BillingRate", b =>
@@ -787,6 +787,75 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Language.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Alpha2")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("character varying(2)");
+
+                    b.Property<string>("Alpha3")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitleDe")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitleEn")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitleEs")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitleFr")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitleIt")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TitleNl")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
+                });
+
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.CourtGeographicalJurisdiction", b =>
                 {
                     b.Property<int>("Id")
@@ -825,7 +894,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourtGeographicalJurisdiction");
+                    b.ToTable("CourtGeographicalJurisdictions");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.CourtSittingInCity", b =>
@@ -866,7 +935,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourtSittingInCity");
+                    b.ToTable("CourtSittingInCities");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.Matter", b =>
@@ -879,45 +948,37 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("AttorneyForPartyTitle")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("BillToContactDisplayName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("BillToContactId")
+                    b.Property<int>("BillToContactId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("BillingGroupId")
                         .HasColumnType("integer");
 
                     b.Property<string>("CaptionOtherPartyLong")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionOtherPartyRegular")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionOtherPartyShort")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionPlaintiffOrSubjectLong")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionPlaintiffOrSubjectRegular")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaptionPlaintiffOrSubjectShort")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("CaseNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("CourtGeographicalJurisdictionId")
@@ -933,7 +994,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("DefaultBillingRateId")
+                    b.Property<int>("DefaultBillingRateId")
                         .HasColumnType("integer");
 
                     b.Property<string>("DeletedBy")
@@ -946,7 +1007,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<decimal?>("EstimatedCharge")
                         .HasColumnType("numeric");
 
-                    b.Property<long>("IdInt")
+                    b.Property<long?>("IdInt")
                         .HasColumnType("bigint");
 
                     b.Property<int?>("MatterAreaId")
@@ -956,7 +1017,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("MatterTypeId")
+                    b.Property<int>("MatterTypeId")
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("MaximumCharge")
@@ -1002,7 +1063,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("MatterTypeId");
 
-                    b.ToTable("Matter");
+                    b.ToTable("Matters");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.MatterArea", b =>
@@ -1050,7 +1111,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MatterArea");
+                    b.ToTable("MatterAreas");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.MatterContact", b =>
@@ -1131,7 +1192,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("MatterId");
 
-                    b.ToTable("MatterContact");
+                    b.ToTable("MatterContacts");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Matters.MatterType", b =>
@@ -1172,7 +1233,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MatterType");
+                    b.ToTable("MatterTypes");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.RefreshToken", b =>
@@ -1283,7 +1344,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("TaskTypeId");
 
-                    b.ToTable("Task");
+                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.TaskAssignedContact", b =>
@@ -1328,7 +1389,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("TaskAssignedContact");
+                    b.ToTable("TaskAssignedContacts");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.TaskMatter", b =>
@@ -1370,7 +1431,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("TaskMatter");
+                    b.ToTable("TaskMatters");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.TaskType", b =>
@@ -1399,11 +1460,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Group")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Icon")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
@@ -1414,12 +1473,11 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TaskType");
+                    b.ToTable("TaskTypes");
                 });
 
             modelBuilder.Entity("AdvoSecure.Security.ApplicationUser", b =>
@@ -1679,7 +1737,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 {
                     b.HasOne("AdvoSecure.Domain.Entities.Contacts.Contact", "BillToContact")
                         .WithMany("Matters")
-                        .HasForeignKey("BillToContactId");
+                        .HasForeignKey("BillToContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AdvoSecure.Domain.Entities.Billings.BillingGroup", "BillingGroup")
                         .WithMany()
@@ -1695,7 +1755,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasOne("AdvoSecure.Domain.Entities.Billings.BillingRate", "DefaultBillingRate")
                         .WithMany("Matters")
-                        .HasForeignKey("DefaultBillingRateId");
+                        .HasForeignKey("DefaultBillingRateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AdvoSecure.Domain.Entities.Matters.MatterArea", "MatterArea")
                         .WithMany("Matters")
@@ -1703,7 +1765,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasOne("AdvoSecure.Domain.Entities.Matters.MatterType", "MatterType")
                         .WithMany()
-                        .HasForeignKey("MatterTypeId");
+                        .HasForeignKey("MatterTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BillToContact");
 

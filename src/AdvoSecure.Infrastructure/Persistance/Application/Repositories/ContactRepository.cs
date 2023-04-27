@@ -1,24 +1,24 @@
 ﻿using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 {
     public class ContactRepository : IContactRepository
     {
+        private readonly IMapper _mapper;
         private readonly ApplicationDbContext _dbContext;
-        private IMapper _mapper;
 
-        public ContactRepository(ApplicationDbContext dbContext, IMapper mapper)
+        public ContactRepository(IMapper mapper, ApplicationDbContext dbContext)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<Country>> GetAllCountriesAsync()

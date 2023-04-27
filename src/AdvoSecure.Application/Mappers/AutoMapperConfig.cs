@@ -56,7 +56,7 @@ namespace AdvoSecure.Application.Mappers
 
                 config.CreateMap<RefreshToken, RefreshTokenDto>().ReverseMap();
 
-                config.MapBillings();
+                config.MapCommon();
 
                 config.MapContacts();
 
@@ -66,9 +66,16 @@ namespace AdvoSecure.Application.Mappers
             return services;
         }
 
-        private static void MapBillings(this IMapperConfigurationExpression config)
+        private static void MapCommon(this IMapperConfigurationExpression config)
         {
             config.CreateMap<BillingRate, BillingRateDto>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+
+            config.CreateMap<BillingGroup, BillingGroupDto>().ReverseMap()
                     .ForMember(x => x.Id, x => x.Ignore())
                     .ForMember(x => x.ModifiedBy, x => x.Ignore())
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
@@ -123,7 +130,21 @@ namespace AdvoSecure.Application.Mappers
 
         private static void MapMatters(this IMapperConfigurationExpression config)
         {
+            config.CreateMap<MatterType, MatterTypeDto>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+
             config.CreateMap<MatterArea, MatterAreaDto>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+
+            config.CreateMap<CourtSittingInCity, CourtSittingInCityDto>().ReverseMap()
                     .ForMember(x => x.Id, x => x.Ignore())
                     .ForMember(x => x.ModifiedBy, x => x.Ignore())
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())

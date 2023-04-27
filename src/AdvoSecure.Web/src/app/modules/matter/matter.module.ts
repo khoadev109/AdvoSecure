@@ -10,12 +10,14 @@ import { TranslationModule } from '../i18n';
 import { MatterRoutingModule } from './matter-routing.module';
 import { MatterComponent } from './matter.component';
 import { MattersComponent } from './components/matters/matters.component';
+import { NewMatterComponent } from './components/new-matter/new-matter.component';
 
 
 @NgModule({
   declarations: [
     MatterComponent,
-    MattersComponent
+    MattersComponent,
+    NewMatterComponent
   ],
   imports: [
     CommonModule,

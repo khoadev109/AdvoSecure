@@ -1,6 +1,6 @@
 export interface MatterArea {
-    id: number;
-    areaGroup: string;
-    areaCode: string;
-    title: string;
-  }
+  id: number;
+  areaGroup: string;
+  areaCode: string;
+  title: string;
+}

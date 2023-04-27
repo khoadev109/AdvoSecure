@@ -3,11 +3,11 @@ using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Infrastructure.Services
 {
@@ -29,6 +29,15 @@ namespace AdvoSecure.Infrastructure.Services
             IEnumerable<BillingRateDto> billingRateDtos = _mapper.Map<IEnumerable<BillingRateDto>>(billingRates);
 
             return billingRateDtos;
+        }
+
+        public async Task<IEnumerable<BillingGroupDto>> GetBillingGroupsAsync()
+        {
+            IList<BillingGroup> billingGroups = await _commonRepository.GetBillingGroups().ToListAsync();
+
+            IEnumerable<BillingGroupDto> billingGroupDtos = _mapper.Map<IEnumerable<BillingGroupDto>>(billingGroups);
+
+            return billingGroupDtos;
         }
 
         public async Task<IEnumerable<CompanyLegalStatusDto>> GetCompanyLegalStatusesAsync()

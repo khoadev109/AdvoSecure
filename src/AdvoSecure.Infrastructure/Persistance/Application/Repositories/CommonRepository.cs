@@ -1,7 +1,7 @@
 ﻿using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
@@ -18,6 +18,11 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
         public IQueryable<BillingRate> GetBillingRates()
         {
             return _dbContext.BillingRates;
+        }
+
+        public IQueryable<BillingGroup> GetBillingGroups()
+        {
+            return _dbContext.BillingGroups;
         }
 
         public IQueryable<CompanyLegalStatus> GetCompanyLegalStatuses()

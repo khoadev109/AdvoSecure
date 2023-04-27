@@ -9,7 +9,7 @@ namespace AdvoSecure.Domain.Entities.Matters
     [Table("Matters")]
     public class Matter : AuditableEntity<Guid>
     {
-        public long IdInt { get; set; }
+        public long? IdInt { get; set; }
 
         public string MatterNumber { get; set; }
 
@@ -21,7 +21,7 @@ namespace AdvoSecure.Domain.Entities.Matters
 
         public bool Active { get; set; }
 
-        public string CaseNumber { get; set; }
+        public string? CaseNumber { get; set; } = string.Empty;
 
         public string BillToContactDisplayName { get; set; }
 
@@ -33,35 +33,37 @@ namespace AdvoSecure.Domain.Entities.Matters
 
         public bool OverrideMatterRateWithEmployeeRate { get; set; }
 
-        public string AttorneyForPartyTitle { get; set; }
+        public string? AttorneyForPartyTitle { get; set; } = string.Empty;
 
-        public string CaptionPlaintiffOrSubjectShort { get; set; }
+        public string? CaptionPlaintiffOrSubjectShort { get; set; } = string.Empty;
 
-        public string CaptionPlaintiffOrSubjectRegular { get; set; }
+        public string? CaptionPlaintiffOrSubjectRegular { get; set; } = string.Empty;
 
-        public string CaptionPlaintiffOrSubjectLong { get; set; }
+        public string? CaptionPlaintiffOrSubjectLong { get; set; } = string.Empty;
 
-        public string CaptionOtherPartyShort { get; set; }
+        public string? CaptionOtherPartyShort { get; set; } = string.Empty;
 
-        public string CaptionOtherPartyRegular { get; set; }
+        public string? CaptionOtherPartyRegular { get; set; } = string.Empty;
 
-        public string CaptionOtherPartyLong { get; set; }
+        public string? CaptionOtherPartyLong { get; set; } = string.Empty;
 
-        public int? MatterTypeId { get; set; }
+
+        public int MatterTypeId { get; set; }
 
         public MatterType MatterType { get; set; }
 
-        public int? BillingGroupId { get; set; }
-
-        public BillingGroup BillingGroup { get; set; }
-
-        public int? BillToContactId { get; set; }
+        public int BillToContactId { get; set; }
 
         public Contact BillToContact { get; set; }
 
-        public int? DefaultBillingRateId { get; set; }
+        public int DefaultBillingRateId { get; set; }
 
         public BillingRate DefaultBillingRate { get; set; }
+
+        
+        public int? BillingGroupId { get; set; }
+
+        public BillingGroup BillingGroup { get; set; }
 
         public int? MatterAreaId { get; set; }
 

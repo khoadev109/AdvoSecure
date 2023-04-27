@@ -20,6 +20,7 @@ body {
 	.container-xxl,
 	.container-fluid {
 		padding: 0 get($content-spacing, desktop);
+		max-width: $container-max-width;
 	}
 
 	// Wrapper

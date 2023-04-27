@@ -8,7 +8,8 @@ namespace AdvoSecure.Application.Dtos.MatterDtos
     public class MatterDto
     {
         public Guid Id { get; set; }
-        public long IdInt { get; set; }
+
+        public long? IdInt { get; set; }
 
         public string MatterNumber { get; set; }
 
@@ -20,7 +21,7 @@ namespace AdvoSecure.Application.Dtos.MatterDtos
 
         public bool Active { get; set; }
 
-        public string CaseNumber { get; set; }
+        public string? CaseNumber { get; set; } = string.Empty;
 
         public string BillToContactDisplayName { get; set; }
 
@@ -32,29 +33,31 @@ namespace AdvoSecure.Application.Dtos.MatterDtos
 
         public bool OverrideMatterRateWithEmployeeRate { get; set; }
 
-        public string AttorneyForPartyTitle { get; set; }
+        public string? AttorneyForPartyTitle { get; set; } = string.Empty;
 
-        public string CaptionPlaintiffOrSubjectShort { get; set; }
+        public string? CaptionPlaintiffOrSubjectShort { get; set; } = string.Empty;
 
-        public string CaptionPlaintiffOrSubjectRegular { get; set; }
+        public string? CaptionPlaintiffOrSubjectRegular { get; set; } = string.Empty;
 
-        public string CaptionPlaintiffOrSubjectLong { get; set; }
+        public string? CaptionPlaintiffOrSubjectLong { get; set; } = string.Empty;
 
-        public string CaptionOtherPartyShort { get; set; }
+        public string? CaptionOtherPartyShort { get; set; } = string.Empty;
 
-        public string CaptionOtherPartyRegular { get; set; }
+        public string? CaptionOtherPartyRegular { get; set; } = string.Empty;
 
-        public string CaptionOtherPartyLong { get; set; }
+        public string? CaptionOtherPartyLong { get; set; } = string.Empty;
 
-        public int? MatterTypeId { get; set; }
+        public int MatterTypeId { get; set; }
+
+        public int BillToContactId { get; set; }
+
+        public int DefaultBillingRateId { get; set; }
 
         public int? BillingGroupId { get; set; }
 
-        public int? BillToContactId { get; set; }
-
-        public int? DefaultBillingRateId { get; set; }
-
         public int? MatterAreaId { get; set; }
+
+        public MatterAreaDto MatterArea { get; set; }
 
         public int? CourtGeographicalJurisdictionId { get; set; }
 

@@ -18,6 +18,15 @@ namespace AdvoSecure.Infrastructure.Services
             _matterRepository = matterRepository;
         }
 
+        public async Task<IEnumerable<MatterTypeDto>> GetMatterTypesAsync()
+        {
+            IList<MatterType> types = await _matterRepository.GetMatterTypes().ToListAsync();
+
+            IEnumerable<MatterTypeDto> typeDtos = _mapper.Map<IEnumerable<MatterTypeDto>>(types);
+
+            return typeDtos;
+        }
+
         public async Task<IEnumerable<MatterAreaDto>> GetMatterAreasAsync()
         {
             IList<MatterArea> areas = await _matterRepository.GetMatterAreas().ToListAsync();
@@ -25,6 +34,15 @@ namespace AdvoSecure.Infrastructure.Services
             IEnumerable<MatterAreaDto> areaDtos = _mapper.Map<IEnumerable<MatterAreaDto>>(areas);
 
             return areaDtos;
+        }
+
+        public async Task<IEnumerable<CourtSittingInCityDto>> GetCourtSittingInCitiesAsync()
+        {
+            IList<CourtSittingInCity> courtSittingInCities = await _matterRepository.GetCourtSittingInCities().ToListAsync();
+
+            IEnumerable<CourtSittingInCityDto> courtSittingInCityDtos = _mapper.Map<IEnumerable<CourtSittingInCityDto>>(courtSittingInCities);
+
+            return courtSittingInCityDtos;
         }
 
         public async Task<IEnumerable<CourtGeographicalJurisdictionDto>> GetCourtGeographicalJurisdictionsAsync()
@@ -38,7 +56,7 @@ namespace AdvoSecure.Infrastructure.Services
 
         public async Task<IEnumerable<MatterDto>> SearchMattersAsync(MatterSearchRequestDto requestDto)
         {
-            IQueryable<Matter> matters = _matterRepository.GetMatters().Include(x => x.BillToContact);
+            IQueryable<Matter> matters = _matterRepository.GetMatters().Include(x => x.BillToContact).Include(x => x.MatterArea);
 
             if (!string.IsNullOrWhiteSpace(requestDto.Status))
             {
@@ -74,6 +92,8 @@ namespace AdvoSecure.Infrastructure.Services
 
             IList<Matter> filteredMatters = await matters.ToListAsync();
 
+            IList<MatterArea> areas = await _matterRepository.GetMatterAreas().ToListAsync();
+
             IEnumerable<MatterDto> filteredMatterDtos = _mapper.Map<IEnumerable<MatterDto>>(filteredMatters);
 
             return filteredMatterDtos;
@@ -81,15 +101,36 @@ namespace AdvoSecure.Infrastructure.Services
 
         private bool? GetActiveStatus(string status)
         {
-            switch (status)
+            return status switch
             {
-                case "inactive":
-                    return false;
-                case "both":
-                    return null;
-                default:
-                    return true;
-            }
+                "inactive" => false,
+                "both" => null,
+                _ => true,
+            };
+        }
+
+        public async Task<MatterDto> CreateMatterAsync(MatterDto matterDto, string userName)
+        {
+            Matter newMatter = _mapper.Map<Matter>(matterDto);
+
+            Matter createdMatter = await _matterRepository.Create(newMatter, userName);
+
+            MatterDto createdMatterDto = _mapper.Map<MatterDto>(createdMatter);
+
+            return createdMatterDto;
+        }
+
+        public async Task<MatterDto> UpdateMatterAsync(string id, MatterDto matterDto, string userName)
+        {
+            _ = Guid.TryParse(id, out Guid parsedId);
+
+            matterDto.Id = parsedId;
+
+            Matter updatedMatter = await _matterRepository.Update(matterDto, userName);
+
+            MatterDto updatedMatterDto = _mapper.Map<MatterDto>(updatedMatter);
+
+            return updatedMatterDto;
         }
     }
 }

@@ -75,11 +75,11 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ContactDto contact)
+        public async Task<IActionResult> Create([FromBody] ContactDto contactRequestDto)
         {
             try
             {
-                ContactDto contactDto = await _contactService.CreateContactAsync(contact, CurrentUserName);
+                ContactDto contactDto = await _contactService.CreateContactAsync(contactRequestDto, CurrentUserName);
 
                 return Ok(contactDto);
             }
@@ -90,11 +90,11 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ContactDto contact)
+        public async Task<IActionResult> Update(int id, [FromBody] ContactDto contactRequestDto)
         {
             try
             {
-                ContactDto contactDto = await _contactService.UpdateContactAsync(id, contact, CurrentUserName);
+                ContactDto contactDto = await _contactService.UpdateContactAsync(id, contactRequestDto, CurrentUserName);
 
                 return Ok(contactDto);
             }
