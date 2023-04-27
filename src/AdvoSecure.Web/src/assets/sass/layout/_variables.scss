@@ -11,7 +11,7 @@ $root-font-size-md:                             	12px; // Root font size for mob
 $page-bg: 											if(isDarkMode(), #151521, $gray-100) !default;
 
 // Container
-$container-max-width:								1450px;
+$container-max-width:								90%;
 
 // Content border radius
 $content-border-radius:								1.5rem !default;
