@@ -49,15 +49,6 @@ namespace AdvoSecure.Infrastructure.Services
             return countryDtos;
         }
 
-        public async Task<IEnumerable<LanguageDto>> GetLanguagesAsync()
-        {
-            IList<Language> languages = await _commonRepository.GetLanguages().ToListAsync();
-
-            IEnumerable<LanguageDto> languageDtos = _mapper.Map<IEnumerable<LanguageDto>>(languages);
-
-            return languageDtos;
-        }
-
         public async Task<IEnumerable<TaskTypeDto>> GetTaskTypeAsync()
         {
             IList<TaskType> tasktypes = await _commonRepository.GetTaskTypes().ToListAsync();

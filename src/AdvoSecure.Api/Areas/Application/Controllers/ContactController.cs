@@ -1,8 +1,10 @@
 ﻿using AdvoSecure.Api.Attributes;
 using AdvoSecure.Api.Controllers;
+using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Infrastructure.Authorization;
+using AdvoSecure.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
@@ -102,6 +104,13 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             {
                 return StatusCode(500, $"Update contact internal server error: {ex}");
             }
+        }
+        [HttpGet("languages")]
+        public async Task<IActionResult> GetLanguages()
+        {
+            IEnumerable<LanguageDto> languages = await _contactService.GetLanguagesAsync();
+
+            return Ok(languages);
         }
     }
 }

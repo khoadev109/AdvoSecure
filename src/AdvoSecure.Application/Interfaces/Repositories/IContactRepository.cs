@@ -25,5 +25,9 @@ namespace AdvoSecure.Application.Interfaces.Repositories
         Task<Contact> Create(Contact contact, string userEmail);
 
         Task<Contact> Update(ContactDto contactDto, string userEmail);
+
+        IQueryable<Language> GetLanguages();
+
+
     }
 }

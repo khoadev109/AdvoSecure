@@ -3,12 +3,15 @@ using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Matters;
+
 using AdvoSecure.Domain.Enums;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
 using AutoMapper.Execution;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using System;
 using System.Drawing;
 using System.Threading.Tasks;
 
@@ -309,14 +312,16 @@ namespace AdvoSecure.Infrastructure.Persistance
                 await SeedMatterType(context);
 
                 await SeedLanguages(context);
-                await SeedTaskType(context);
 
+                await SeedTaskType(context);
 
                 await SeedMatterAreas(context);
 
                 await SeedCourtGeographicalJurisdictions(context);
 
                 await SeedCourtSittingInCities(context);
+
+                await SeedTask(context);
 
                 await context.SaveChangesAsync();
             }
@@ -3341,6 +3346,34 @@ namespace AdvoSecure.Infrastructure.Persistance
                         CreatedBy = "TOAA"
                     }
                 );
+            }
+        }
+        public static async Task SeedTask(ApplicationDbContext context)
+        {
+            if (!context.Tasks.Any())
+            {
+                var datatask = new Domain.Entities.Tasks.Task
+                {
+                    Title = "Gesprek met advocaat wederpartij",
+                    Description = "overlegd over berekening en inkomensgegevens",
+                    ProjectedStart = null,
+                    StartDate = null,
+                    DueDate = new DateTime(2017, 12, 23, 20, 13, 33, 313),
+                    ProjectedEnd = null,
+                    ActualEnd = null,
+                    IsGroupingTask = false,
+                    Active = true,
+                    CompletePercentage = 0,
+                    ParentId = null,
+                    TaskTypeId = 1,
+                    CreatedBy = "TOAA",
+                    Id = 1,
+
+                };
+                datatask.SequentialPredecessor = datatask;
+                await context.Tasks.AddRangeAsync(
+                    datatask
+                    );
             }
         }
     }

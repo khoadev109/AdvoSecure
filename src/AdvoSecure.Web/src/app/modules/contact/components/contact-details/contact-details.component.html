@@ -109,25 +109,31 @@
                 translate="PAGES.CONTACT.DECLARATION_RATE"
               ></label>
             </div>
-            <div style="margin-left: 50px">
-              <select
-                class="form-select"
-                multiple
-                aria-label="multiple select example"
-                name="billingRate"
-                [(ngModel)]="contact.billingRateId"
-              >
-                <option
-                  *ngFor="let billingRate of billingRates"
-                  [selected]="contact.billingRateId === billingRate.id"
-                  [text]="billingRate.title"
-                  [value]="billingRate.id"
-                ></option>
-              </select>
+
+            <div style="display: flex; flex-direction: column">
+              <div class="container" *ngFor="let billingRate of billingRates">
+                <label
+                  class="fs-6 fw-bold text-gray-800"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding-bottom: 10px;
+                  "
+                  >{{ billingRate.title }}
+                  <input
+                    style="margin-left: 30px"
+                    type="radio"
+                    class="form-check-input"
+                    name="billingRateRadio"
+                    [(ngModel)]="contact.billingRateId"
+                    [value]="billingRate.id"
+                  />
+                </label>
+              </div>
             </div>
           </div>
         </div>
-
         <div class="form-check" *ngIf="routeContactTypeParam === 'company'">
           <input
             class="form-check-input"
@@ -288,12 +294,19 @@
                   translate="PAGES.CONTACT.LANGUAGE"
                 ></label>
                 <div class="col-lg-8 fv-row">
-                  <input
-                    type="text"
-                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                  <select
+                    class="form-select form-select-solid form-select-lg fw-bold"
                     name="language"
                     [(ngModel)]="contact.language"
-                  />
+                  >
+                    <option
+                      value=""
+                      *ngFor="let language of languages"
+                      [selected]="contact.language === language.id.toString()"
+                      [text]="language.title"
+                      [value]="language.id"
+                    ></option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -657,15 +670,16 @@
                       >
                         <option
                           value=""
+                          disabled
                           translate="COMMON.SELECT_A_COUNTRY"
                         ></option>
                         <option
                           *ngFor="let country of countries"
+                          [text]="country.countryName_en"
+                          [value]="country.id"
                           [selected]="
                             contact.address1AddressCountry === country.id
                           "
-                          [text]="country.countryName_en"
-                          [value]="country.id"
                         ></option>
                       </select>
                     </div>
@@ -687,9 +701,10 @@
                   class="form-check-input ml-2"
                   name="sameAsPostalAddress"
                   type="checkbox"
-                  [(ngModel)]="checkedVisitingSameAsPostalAddress"
                   (change)="setVisitingSameAsPostalAddress()"
                 />
+                <!-- [(ngModel)]="checkedVisitingSameAsPostalAddress"  -->
+                <!-- Error: click 2 times to checked and unchecked checkbox => Solution: remove ngModel -->
               </h5>
             </div>
           </div>

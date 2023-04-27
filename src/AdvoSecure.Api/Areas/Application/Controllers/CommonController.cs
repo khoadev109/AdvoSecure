@@ -43,14 +43,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             return Ok(countries);
         }
 
-        [HttpGet("languages")]
-        public async Task<IActionResult> GetLanguages()
-        {
-            IEnumerable<LanguageDto> languages = await _commonService.GetLanguagesAsync();
-
-            return Ok(languages);
-        }
-
         [HttpGet("tasktypes")]
         public async Task<IActionResult> GetTaskTypes()
         {

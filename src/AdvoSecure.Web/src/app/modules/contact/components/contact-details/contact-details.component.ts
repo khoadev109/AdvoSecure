@@ -12,6 +12,7 @@ import { Country } from 'src/app/models/country.model';
 import { CommonService } from 'src/app/services/common.service';
 import { genders } from 'src/app/helpers/staticListHelper';
 import { CompanyLegalStatus } from 'src/app/models/company-legal-status.model';
+import { Languages } from 'src/app/models/languages.model';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
@@ -48,6 +49,7 @@ export class ContactDetailsComponent implements OnInit {
   countries: Country[] = [];
   genders = genders;
   dateErrorMessage = '';
+  languages: Languages[] = [];
 
   constructor(
     private router: Router,
@@ -64,6 +66,8 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.contact.address1AddressCountry = '123';
+    this.changeDetectorRef.detectChanges();
     this.routeContactTypeParam = this.route.snapshot.queryParamMap.get('type');
     if (this.routeContactTypeParam === 'employee') {
       this.contactFormTitle = 'Employee details';
@@ -130,6 +134,11 @@ export class ContactDetailsComponent implements OnInit {
       this.countries = result;
       this.changeDetectorRef.detectChanges();
     });
+
+    this.contactService.getLanguages().subscribe((result: Languages[]) => {
+      this.languages = result;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   setTab(tab: Tabs) {
@@ -175,6 +184,7 @@ export class ContactDetailsComponent implements OnInit {
     }
 
     if (this.routeContactId) {
+      console.log(123123123);
       this.contactService
         .updateContact(this.routeContactId, this.contact)
         .subscribe((savedContact: Contact) => {
@@ -185,6 +195,7 @@ export class ContactDetailsComponent implements OnInit {
           }, 1000);
         });
     } else {
+      console.log(456456);
       this.contactService
         .createContact(this.contact)
         .subscribe((savedContact: Contact) => {
@@ -209,8 +220,8 @@ export class ContactDetailsComponent implements OnInit {
     this.contact.address3AddressHouseNoExt =
       this.contact.address2AddressHouseNoExt;
     this.contact.address2AddressCountry = this.contact.address1AddressCountry;
-
-    this.checkedVisitingSameAsPostalAddress = !this.checkedVisitingSameAsPostalAddress;
+    this.checkedVisitingSameAsPostalAddress =
+      !this.checkedVisitingSameAsPostalAddress;
   }
 
   isValidDateOfBirth(dateOfBirth: string): boolean {

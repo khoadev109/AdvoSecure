@@ -61,6 +61,11 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
             return _dbContext.ContactCivilStatuses;
         }
 
+        public IQueryable<Language> GetLanguages()
+        {
+            return _dbContext.Languages;
+        }
+
         public async Task<bool> IsExisting(int id)
         {
             return await _dbContext.Contacts.AnyAsync(c => c.Id == id);
