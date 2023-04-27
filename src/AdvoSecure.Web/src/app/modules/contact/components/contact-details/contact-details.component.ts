@@ -66,8 +66,6 @@ export class ContactDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.contact.address1AddressCountry = '123';
-    this.changeDetectorRef.detectChanges();
     this.routeContactTypeParam = this.route.snapshot.queryParamMap.get('type');
     if (this.routeContactTypeParam === 'employee') {
       this.contactFormTitle = 'Employee details';
@@ -184,7 +182,6 @@ export class ContactDetailsComponent implements OnInit {
     }
 
     if (this.routeContactId) {
-      console.log(123123123);
       this.contactService
         .updateContact(this.routeContactId, this.contact)
         .subscribe((savedContact: Contact) => {
@@ -195,7 +192,6 @@ export class ContactDetailsComponent implements OnInit {
           }, 1000);
         });
     } else {
-      console.log(456456);
       this.contactService
         .createContact(this.contact)
         .subscribe((savedContact: Contact) => {
