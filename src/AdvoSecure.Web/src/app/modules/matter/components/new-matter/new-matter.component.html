@@ -60,7 +60,20 @@
               class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
               name="matterNumber"
               [(ngModel)]="matter.matterNumber"
+              #matterNumber="ngModel"
+              required
             />
+          </div>
+          <div
+            *ngIf="
+              matterNumber.invalid &&
+              (matterNumber.dirty || matterNumber.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="matterNumber.errors?.required">
+              Matter number is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6">
@@ -74,7 +87,17 @@
               class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
               name="matterNumber"
               [(ngModel)]="matter.title"
+              #matterTitle="ngModel"
+              required
             />
+          </div>
+          <div
+            *ngIf="
+              matterTitle.invalid && (matterTitle.dirty || matterTitle.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="matterTitle.errors?.required">Title is required.</div>
           </div>
         </div>
       </div>
@@ -90,6 +113,8 @@
               class="form-select form-select-solid form-select-lg fw-bold"
               name="matterTypeId"
               [(ngModel)]="matter.matterTypeId"
+              #matterType="ngModel"
+              required
             >
               <option
                 value="0"
@@ -97,10 +122,21 @@
               ></option>
               <option
                 *ngFor="let matterType of matterTypes"
+                [selected]="matter.matterTypeId === matterType.id"
                 [text]="matterType.title"
                 [value]="matterType.id"
               ></option>
             </select>
+            <div
+              *ngIf="
+                matterType.invalid && (matterType.dirty || matterType.touched)
+              "
+              class="alert"
+            >
+              <div *ngIf="matterType.errors?.required">
+                Matter type is required.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-lg-6">
@@ -113,6 +149,8 @@
               class="form-select form-select-solid form-select-lg fw-bold"
               name="matterAreaId"
               [(ngModel)]="matter.matterAreaId"
+              #matterArea="ngModel"
+              required
             >
               <option
                 value=""
@@ -120,10 +158,21 @@
               ></option>
               <option
                 *ngFor="let matterArea of matterAreas"
+                [selected]="matter.matterAreaId === matterArea.id"
                 [text]="matterArea.title"
                 [value]="matterArea.id"
               ></option>
             </select>
+          </div>
+          <div
+            *ngIf="
+              matterArea.invalid && (matterArea.dirty || matterArea.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="matterArea.errors?.required">
+              Jurisdiction is required.
+            </div>
           </div>
         </div>
       </div>
@@ -132,7 +181,7 @@
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-start">
             <label
-              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              class="col-lg-3 col-form-label fw-bold fs-6"
               translate="PAGES.MATTER.ACTIVE"
             ></label>
             <div class="form-check">
@@ -141,6 +190,7 @@
                 type="checkbox"
                 name="active"
                 [(ngModel)]="matter.active"
+                [checked]="matter.active"
               />
             </div>
           </div>
@@ -159,7 +209,15 @@
               class="col-lg-9 form-control form-control-lg form-control-solid"
               rows="5"
               [(ngModel)]="matter.synopsis"
+              #synopsis="ngModel"
+              required
             ></textarea>
+          </div>
+          <div
+            *ngIf="synopsis.invalid && (synopsis.dirty || synopsis.touched)"
+            class="alert"
+          >
+            <div *ngIf="synopsis.errors?.required">Synopsis is required.</div>
           </div>
         </div>
       </div>
@@ -183,17 +241,31 @@
               class="form-select form-select-solid form-select-lg fw-bold"
               name="billToContactId"
               [(ngModel)]="matter.billToContactId"
+              #billToContact="ngModel"
+              required
             >
               <option
-                value="0"
+                value=""
                 translate="PAGES.MATTER.SELECT_A_CONTACT"
               ></option>
               <option
                 *ngFor="let contact of contacts"
+                [selected]="matter.billToContactId === contact.id"
                 [text]="contact.displayName"
                 [value]="contact.id"
               ></option>
             </select>
+          </div>
+          <div
+            *ngIf="
+              billToContact.invalid &&
+              (billToContact.dirty || billToContact.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="billToContact.errors?.required">
+              Contact is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6">
@@ -206,18 +278,31 @@
               class="form-select form-select-solid form-select-lg fw-bold"
               name="defaultBillingRateId"
               [(ngModel)]="matter.defaultBillingRateId"
+              #defaultBillingRate="ngModel"
+              required
             >
-              <option value="0" translate="PAGES.MATTER.SELECT_A_FEE"></option>
+              <option value="" translate="PAGES.MATTER.SELECT_A_FEE"></option>
               <option
                 *ngFor="let billingRate of billingRates"
+                [selected]="matter.defaultBillingRateId === billingRate.id"
                 [text]="billingRate.title"
                 [value]="billingRate.id"
               ></option>
             </select>
           </div>
+          <div
+            *ngIf="
+              defaultBillingRate.invalid &&
+              (defaultBillingRate.dirty || defaultBillingRate.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="defaultBillingRate.errors?.required">
+              Fee is required.
+            </div>
+          </div>
         </div>
       </div>
-
       <div class="row mb-6">
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-start">
@@ -236,6 +321,7 @@
               ></option>
               <option
                 *ngFor="let billingGroup of billingGroups"
+                [selected]="matter.billingGroupId === billingGroup.id"
                 [text]="billingGroup.title"
                 [value]="billingGroup.id"
               ></option>
@@ -257,7 +343,22 @@
                 type="checkbox"
                 name="overrideMatterRateWithEmployeeRate"
                 [(ngModel)]="matter.overrideMatterRateWithEmployeeRate"
+                [checked]="matter.overrideMatterRateWithEmployeeRate"
+                #overrideMatterRateWithEmployeeRate="ngModel"
+                required
               />
+            </div>
+          </div>
+          <div
+            *ngIf="
+              overrideMatterRateWithEmployeeRate.invalid &&
+              (overrideMatterRateWithEmployeeRate.dirty ||
+                overrideMatterRateWithEmployeeRate.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="overrideMatterRateWithEmployeeRate.errors?.required">
+              Use employee rate is required.
             </div>
           </div>
         </div>
@@ -306,6 +407,10 @@
                 *ngFor="
                   let courtGeographicalJurisdiction of courtGeographicalJurisdictions
                 "
+                [selected]="
+                  matter.courtGeographicalJurisdictionId ===
+                  courtGeographicalJurisdiction.id
+                "
                 [text]="courtGeographicalJurisdiction.title"
                 [value]="courtGeographicalJurisdiction.id"
               ></option>
@@ -332,6 +437,9 @@
               ></option>
               <option
                 *ngFor="let courtSittingInCity of courtSittingInCities"
+                [selected]="
+                  matter.courtSittingInCityId === courtSittingInCity.id
+                "
                 [text]="courtSittingInCity.title"
                 [value]="courtSittingInCity.id"
               ></option>
@@ -350,51 +458,9 @@
       </div>
 
       <div class="row mb-6">
-        <div class="col-lg-4">
-          <app-matter-contact
-            [contactNumber]="1"
-            [contacts]="contacts"
-            (selectContactEvent)="addSelectedContacts($event)"
-          ></app-matter-contact>
-        </div>
-        <div class="col-lg-4">
-          <app-matter-contact
-            [contactNumber]="2"
-            [contacts]="contacts"
-            (selectContactEvent)="addSelectedContacts($event)"
-          ></app-matter-contact>
-        </div>
-        <div class="col-lg-4">
-          <app-matter-contact
-            [contactNumber]="3"
-            [contacts]="contacts"
-            (selectContactEvent)="addSelectedContacts($event)"
-          ></app-matter-contact>
-        </div>
-      </div>
-
-      <div class="row mb-6">
-        <div class="col-lg-4">
-          <app-matter-contact
-            [contactNumber]="4"
-            [contacts]="contacts"
-            (selectContactEvent)="addSelectedContacts($event)"
-          ></app-matter-contact>
-        </div>
-        <div class="col-lg-4">
-          <app-matter-contact
-            [contactNumber]="5"
-            [contacts]="contacts"
-            (selectContactEvent)="addSelectedContacts($event)"
-          ></app-matter-contact>
-        </div>
-        <div class="col-lg-4">
-          <app-matter-contact
-            [contactNumber]="6"
-            [contacts]="contacts"
-            (selectContactEvent)="addSelectedContacts($event)"
-          ></app-matter-contact>
-        </div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"></div>
       </div>
     </div>
     <!-- end::Contacts-->
