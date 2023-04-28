@@ -1,4 +1,4 @@
-import { NgModule  } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -11,13 +11,14 @@ import { MatterRoutingModule } from './matter-routing.module';
 import { MatterComponent } from './matter.component';
 import { MattersComponent } from './components/matters/matters.component';
 import { NewMatterComponent } from './components/new-matter/new-matter.component';
-
+import { EditMatterComponent } from './components/edit-matter/edit-matter.component';
 
 @NgModule({
   declarations: [
     MatterComponent,
     MattersComponent,
-    NewMatterComponent
+    NewMatterComponent,
+    EditMatterComponent,
   ],
   imports: [
     CommonModule,
