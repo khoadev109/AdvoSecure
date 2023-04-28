@@ -97,7 +97,6 @@
               ></option>
               <option
                 *ngFor="let matterType of matterTypes"
-                [selected]="matter.matterTypeId === matterType.id"
                 [text]="matterType.title"
                 [value]="matterType.id"
               ></option>
@@ -121,7 +120,6 @@
               ></option>
               <option
                 *ngFor="let matterArea of matterAreas"
-                [selected]="matter.matterAreaId === matterArea.id"
                 [text]="matterArea.title"
                 [value]="matterArea.id"
               ></option>
@@ -134,7 +132,7 @@
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-start">
             <label
-              class="col-lg-3 col-form-label fw-bold fs-6"
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
               translate="PAGES.MATTER.ACTIVE"
             ></label>
             <div class="form-check">
@@ -143,7 +141,6 @@
                 type="checkbox"
                 name="active"
                 [(ngModel)]="matter.active"
-                [checked]="matter.active"
               />
             </div>
           </div>
@@ -193,7 +190,6 @@
               ></option>
               <option
                 *ngFor="let contact of contacts"
-                [selected]="matter.billToContactId === contact.id"
                 [text]="contact.displayName"
                 [value]="contact.id"
               ></option>
@@ -214,7 +210,6 @@
               <option value="0" translate="PAGES.MATTER.SELECT_A_FEE"></option>
               <option
                 *ngFor="let billingRate of billingRates"
-                [selected]="matter.defaultBillingRateId === billingRate.id"
                 [text]="billingRate.title"
                 [value]="billingRate.id"
               ></option>
@@ -241,7 +236,6 @@
               ></option>
               <option
                 *ngFor="let billingGroup of billingGroups"
-                [selected]="matter.billingGroupId === billingGroup.id"
                 [text]="billingGroup.title"
                 [value]="billingGroup.id"
               ></option>
@@ -263,7 +257,6 @@
                 type="checkbox"
                 name="overrideMatterRateWithEmployeeRate"
                 [(ngModel)]="matter.overrideMatterRateWithEmployeeRate"
-                [checked]="matter.overrideMatterRateWithEmployeeRate"
               />
             </div>
           </div>
@@ -313,10 +306,6 @@
                 *ngFor="
                   let courtGeographicalJurisdiction of courtGeographicalJurisdictions
                 "
-                [selected]="
-                  matter.courtGeographicalJurisdictionId ===
-                  courtGeographicalJurisdiction.id
-                "
                 [text]="courtGeographicalJurisdiction.title"
                 [value]="courtGeographicalJurisdiction.id"
               ></option>
@@ -343,9 +332,6 @@
               ></option>
               <option
                 *ngFor="let courtSittingInCity of courtSittingInCities"
-                [selected]="
-                  matter.courtSittingInCityId === courtSittingInCity.id
-                "
                 [text]="courtSittingInCity.title"
                 [value]="courtSittingInCity.id"
               ></option>
@@ -364,9 +350,51 @@
       </div>
 
       <div class="row mb-6">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="1"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="2"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="3"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="4"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="5"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="6"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
       </div>
     </div>
     <!-- end::Contacts-->

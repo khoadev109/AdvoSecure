@@ -1,4 +1,11 @@
+import { BillingGroup } from 'src/app/models/billing-group.model';
 import { MatterArea } from './matter-area.model';
+import { MatterContact } from './matter-contact.model';
+import { BillingRate } from 'src/app/models/billing-rate.model';
+import { Contact } from '../../contact/models/contact.model';
+import { MatterType } from './matter-type.model';
+import { CourtSittingInCity } from './court-sitting-city.model';
+import { CourtGeographicalJurisdiction } from './court-geo-jurisdiction.model';
 
 export interface Matter {
   id: string;
@@ -22,13 +29,20 @@ export interface Matter {
   captionOtherPartyRegular?: string;
   captionOtherPartyLong?: string;
   matterTypeId: number;
+  matterType?: MatterType;
   defaultBillingRateId: number;
+  defaultBillingRate?: BillingRate;
   billToContactId: number;
+  billToContact?: Contact;
   billingGroupId?: number;
+  billingGroup?: BillingGroup;
   matterAreaId?: number;
   matterArea?: MatterArea;
-  courtGeographicalJurisdictionId?: number;
   courtSittingInCityId?: number;
+  courtSittingInCity?: CourtSittingInCity;
+  courtGeographicalJurisdictionId?: number;
+  courtGeographicalJurisdiction?: CourtGeographicalJurisdiction;
+  matterContacts?: MatterContact[];
 }
 
 export const defaultMatter: Matter = {
@@ -45,4 +59,5 @@ export const defaultMatter: Matter = {
   billToContactId: 0,
   courtGeographicalJurisdictionId: 0,
   courtSittingInCityId: 0,
+  matterContacts: new Array<MatterContact>()
 };

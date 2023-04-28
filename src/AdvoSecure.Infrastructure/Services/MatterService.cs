@@ -54,6 +54,17 @@ namespace AdvoSecure.Infrastructure.Services
             return courtGeoDtos;
         }
 
+        public async Task<MatterDto> GetMatterAsync(string id)
+        {
+            _ = Guid.TryParse(id, out var parsedId);
+
+            Matter matter = await _matterRepository.GetMatterByIdAsync(parsedId);
+
+            MatterDto matterDto = _mapper.Map<MatterDto>(matter);
+
+            return matterDto;
+        }
+
         public async Task<IEnumerable<MatterDto>> SearchMattersAsync(MatterSearchRequestDto requestDto)
         {
             IQueryable<Matter> matters = _matterRepository.GetMatters().Include(x => x.BillToContact).Include(x => x.MatterArea);
@@ -92,8 +103,6 @@ namespace AdvoSecure.Infrastructure.Services
 
             IList<Matter> filteredMatters = await matters.ToListAsync();
 
-            IList<MatterArea> areas = await _matterRepository.GetMatterAreas().ToListAsync();
-
             IEnumerable<MatterDto> filteredMatterDtos = _mapper.Map<IEnumerable<MatterDto>>(filteredMatters);
 
             return filteredMatterDtos;
@@ -122,9 +131,7 @@ namespace AdvoSecure.Infrastructure.Services
 
         public async Task<MatterDto> UpdateMatterAsync(string id, MatterDto matterDto, string userName)
         {
-            _ = Guid.TryParse(id, out Guid parsedId);
-
-            matterDto.Id = parsedId;
+            matterDto.Id = id;
 
             Matter updatedMatter = await _matterRepository.Update(matterDto, userName);
 

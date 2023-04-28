@@ -158,7 +158,19 @@ namespace AdvoSecure.Application.Mappers
                     .ForMember(x => x.DeletedBy, x => x.Ignore())
                     .ForMember(x => x.DeletedDateTime, x => x.Ignore());
 
-            config.CreateMap<Matter, MatterDto>().ReverseMap()
+            config.CreateMap<Matter, MatterDto>()
+                    .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id.ToString()))
+                    .ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+
+            config.CreateMap<MatterContact, MatterContactDto>()
+                    .ForMember(x => x.MatterId, x => x.Ignore())
+                    .ReverseMap()
+                    .ForMember(x => x.MatterId, x => x.Ignore())
                     .ForMember(x => x.Id, x => x.Ignore())
                     .ForMember(x => x.ModifiedBy, x => x.Ignore())
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())

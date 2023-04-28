@@ -7,6 +7,8 @@ namespace AdvoSecure.Application.Interfaces.Repositories
     {
         IQueryable<MatterType> GetMatterTypes();
 
+        Task<Matter> GetMatterByIdAsync(Guid id);
+
         IQueryable<MatterArea> GetMatterAreas();
 
         IQueryable<CourtSittingInCity> GetCourtSittingInCities();
@@ -15,8 +17,8 @@ namespace AdvoSecure.Application.Interfaces.Repositories
 
         IQueryable<Matter> GetMatters();
 
-        Task<Matter> Create(Matter matter, string userEmail);
+        Task<Matter> Create(Matter matter, string userName);
 
-        Task<Matter> Update(MatterDto matterDto, string userEmail);
+        Task<Matter> Update(MatterDto matterDto, string userName);
     }
 }

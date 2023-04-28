@@ -1,0 +1,462 @@
+<div class="container">
+  <div class="row mb-6">
+    <!-- begin::Details-->
+    <div class="col-lg-6">
+      <div class="card mb-5 mb-xl-10">
+        <div class="card-header border-0">
+          <div class="card-title m-0">
+            <h3 class="fw-bolder m-0" translate="PAGES.MATTER.DETAILS"></h3>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <button
+                type="button"
+                class="btn btn-primary ml-2"
+                translate="COMMON.EDIT"
+              ></button>
+              <button type="button" class="btn btn-primary ml-2">Delete</button>
+              <button
+                type="button"
+                class="btn btn-secondary ml-2"
+                translate="PAGES.MATTER.CONTACTS"
+              ></button>
+              <button type="button" class="btn btn-secondary ml-2">
+                Report
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body border-top p-9">
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <div class="table-responsive">
+                <!-- begin::Table -->
+                <table
+                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
+                >
+                  <!-- begin::Table head -->
+                  <thead>
+                    <tr class="border-0">
+                      <th class="p-0 min-w-80px"></th>
+                      <th class="p-0 min-w-80px"></th>
+                    </tr>
+                  </thead>
+                  <!-- end::Table head -->
+                  <!-- begin::Table body -->
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.MATTER_NUMBER"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.matterNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.MATTER_TYPE"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.matterType?.title || ''  }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.CASE_NUMBER"
+                        >
+                        </span>
+                      </td>
+                      <td><span class="text-muted fw-bold">{{ matter.caseNumber }}</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.JURISDICTION"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.matterArea?.title || ''  }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.DISTRICT"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.courtGeographicalJurisdiction?.title || ''  }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.COURT"
+                        >
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                  <!-- end::Table body -->
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="table-responsive">
+                <!-- begin::Table -->
+                <table
+                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
+                >
+                  <!-- begin::Table head -->
+                  <thead>
+                    <tr class="border-0">
+                      <th class="p-0 min-w-80px"></th>
+                      <th class="p-0 min-w-80px"></th>
+                    </tr>
+                  </thead>
+                  <!-- end::Table head -->
+                  <!-- begin::Table body -->
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          Standard hourly rate
+                        </span>
+                      </td>
+                      <td>{{ matter.defaultBillingRate?.title || ''  }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.USE_EMPLOYEE_RATES"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.overrideMatterRateWithEmployeeRate ? 'Yes' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.DECLARATION_TO"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.billToContact?.displayName || '' }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.COST_CENTER"
+                        >
+                        </span>
+                      </td>
+                      <td>{{ matter.billingGroup?.title || '' }}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          Client(s)
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                  <!-- end::Table body -->
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <span
+                class="text-dark fw-bolder mb-1 fs-6"
+                translate="PAGES.MATTER.RESUME"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::Details-->
+
+    <!-- begin::Financial-->
+    <div class="col-lg-6">
+      <div class="card mb-5 mb-xl-10">
+        <div class="card-header border-0">
+          <div class="card-title m-0">
+            <h3 class="fw-bolder m-0" translate="PAGES.MATTER.FINANCIAL"></h3>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <button type="button" class="btn btn-primary ml-2">
+                New declaration
+              </button>
+              <button type="button" class="btn btn-secondary ml-2">
+                Declarations
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body border-top p-9">
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <div class="table-responsive">
+                <!-- begin::Table -->
+                <table
+                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
+                >
+                  <!-- begin::Table head -->
+                  <thead>
+                    <tr class="border-0">
+                      <th class="p-0 min-w-80px"></th>
+                      <th class="p-0 min-w-80px"></th>
+                    </tr>
+                  </thead>
+                  <!-- end::Table head -->
+                  <!-- begin::Table body -->
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          Lead
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          Opportunity
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          Source
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                  <!-- end::Table body -->
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="table-responsive">
+                <!-- begin::Table -->
+                <table
+                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
+                >
+                  <!-- begin::Table head -->
+                  <thead>
+                    <tr class="border-0">
+                      <th class="p-0 min-w-80px"></th>
+                      <th class="p-0 min-w-80px"></th>
+                    </tr>
+                  </thead>
+                  <!-- end::Table head -->
+                  <!-- begin::Table body -->
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          File value
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6">
+                          Ref. Compensation
+                        </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                  <!-- end::Table body -->
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="table-responsive">
+                <!-- begin::Table -->
+                <table
+                  class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+                >
+                  <!-- begin::Table head -->
+                  <thead>
+                    <tr class="fw-bolder text-muted">
+                      <th class="min-w-80px">Financial information</th>
+                      <th class="min-w-70px">Declared</th>
+                      <th class="min-w-70px">Billable</th>
+                      <th class="min-w-70px">Total</th>
+                      <th class="min-w-70px"></th>
+                    </tr>
+                  </thead>
+                  <!-- end::Table head -->
+                  <!-- begin::Table body -->
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td class="text-end"></td>
+                    </tr>
+                  </tbody>
+                  <!-- end::Table body -->
+                </table>
+                <!-- end::Table -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::Financial-->
+  </div>
+
+  <div class="row mb-6">
+    <div class="col-lg-12">
+      <div class="card mb-5 mb-xl-10">
+        <!-- begin::TabTitles-->
+        <div class="card-body pt-9 pb-0 mb-6">
+          <div class="d-flex overflow-auto h-55px">
+            <ul
+              class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link text-active-primary me-6 cursor-pointer"
+                  [ngClass]="activeClass('task-activity-tab')"
+                  (click)="setTab('task-activity-tab')"
+                  data-bs-toggle="tab"
+                >
+                  Tasks / Activities
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link text-active-primary me-6 cursor-pointer"
+                  [ngClass]="activeClass('note-tab')"
+                  (click)="setTab('note-tab')"
+                  data-bs-toggle="tab"
+                >
+                  Notes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link text-active-primary me-6 cursor-pointer"
+                  [ngClass]="activeClass('work-note-tab')"
+                  (click)="setTab('work-note-tab')"
+                  data-bs-toggle="tab"
+                >
+                  Work notes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link text-active-primary me-6 cursor-pointer"
+                  [ngClass]="activeClass('piece-document-tab')"
+                  (click)="setTab('piece-document-tab')"
+                  data-bs-toggle="tab"
+                >
+                  Pieces / Documents
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link text-active-primary me-6 cursor-pointer"
+                  [ngClass]="activeClass('history-tab')"
+                  (click)="setTab('history-tab')"
+                  data-bs-toggle="tab"
+                  translate="PAGES.CONTACT.HISTORY"
+                >
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- end::TabTitles-->
+
+        <div class="tab-content">
+          <!-- begin::Tab Tasks/Activies-->
+          <div
+            class="tab-pane fade"
+            [ngClass]="activeClass('task-activity-tab')"
+            id="task-activity-tab"
+          >
+            <div class="card mb-5 mb-xl-10"></div>
+          </div>
+          <!-- end::Tab Tasks/Activies-->
+
+          <!-- begin::Tab Notes-->
+          <div
+            class="tab-pane fade"
+            [ngClass]="activeClass('note-tab')"
+            id="note-tab"
+          >
+            <div class="card mb-5 mb-xl-10"></div>
+          </div>
+          <!-- end::Tab Notes-->
+
+          <!-- begin::Tab WorkNotes-->
+          <div
+            class="tab-pane fade"
+            [ngClass]="activeClass('work-note-tab')"
+            id="work-note-tab"
+          >
+            <div class="card mb-5 mb-xl-10"></div>
+          </div>
+          <!-- end::Tab WorkNotes-->
+
+          <!-- begin::Tab Piece/Document-->
+          <div
+            class="tab-pane fade"
+            [ngClass]="activeClass('piece-document-tab')"
+            id="piece-document-tab"
+          >
+            <div class="card mb-5 mb-xl-10"></div>
+          </div>
+          <!-- end::Tab Piece/Document-->
+
+          <!-- begin::Tab History-->
+          <div
+            class="tab-pane fade"
+            [ngClass]="activeClass('history-tab')"
+            id="history-tab"
+          >
+            <div class="card mb-5 mb-xl-10"></div>
+          </div>
+          <!-- end::Tab History-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

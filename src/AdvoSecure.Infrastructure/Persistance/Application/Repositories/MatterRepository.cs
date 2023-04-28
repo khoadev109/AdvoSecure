@@ -4,6 +4,7 @@ using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
@@ -39,16 +40,31 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
             return _dbContext.CourtGeographicalJurisdictions.OrderBy(x => x.Title);
         }
 
+        public async Task<Matter> GetMatterByIdAsync(Guid id)
+        {
+            Matter matter = await _dbContext.Matters
+                .Include(x => x.BillingGroup)
+                .Include(x => x.DefaultBillingRate)
+                .Include(x => x.BillToContact)
+                .Include(x => x.MatterType)
+                .Include(x => x.MatterArea)
+                .Include(x => x.CourtSittingInCity)
+                .Include(x => x.CourtGeographicalJurisdiction)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return matter;
+        }
+
         public IQueryable<Matter> GetMatters()
         {
             return _dbContext.Matters;
         }
 
-        public async Task<Matter> Create(Matter matter, string userEmail)
+        public async Task<Matter> Create(Matter matter, string userName)
         {
             try
             {
-                matter.CreatedBy = userEmail;
+                matter.CreatedBy = userName;
 
                 EntityEntry<Matter> result = await _dbContext.Matters.AddAsync(matter);
 
@@ -64,10 +80,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
             }
         }
 
-        public async Task<Matter> Update(MatterDto matterDto, string userEmail)
+        public async Task<Matter> Update(MatterDto matterDto, string userName)
         {
             Matter existingMatter = await _dbContext.Matters.FindAsync(matterDto.Id);
-            existingMatter.CreatedBy = userEmail;
+            existingMatter.CreatedBy = userName;
 
             existingMatter = _mapper.Map(matterDto, existingMatter);
 

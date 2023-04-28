@@ -1,4 +1,6 @@
-﻿using AdvoSecure.Domain.Entities.Billings;
+﻿using AdvoSecure.Application.Dtos.BillingDtos;
+using AdvoSecure.Application.Dtos.ContactDtos;
+using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Tasks;
@@ -7,7 +9,7 @@ namespace AdvoSecure.Application.Dtos.MatterDtos
 {
     public class MatterDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public long? IdInt { get; set; }
 
@@ -49,18 +51,32 @@ namespace AdvoSecure.Application.Dtos.MatterDtos
 
         public int MatterTypeId { get; set; }
 
+        public MatterTypeDto MatterType { get; set; }
+
         public int BillToContactId { get; set; }
+
+        public ContactDto BillToContact { get; set; }
 
         public int DefaultBillingRateId { get; set; }
 
+        public BillingRateDto DefaultBillingRate { get; set; }
+
         public int? BillingGroupId { get; set; }
+
+        public BillingGroupDto BillingGroup { get; set; }
 
         public int? MatterAreaId { get; set; }
 
         public MatterAreaDto MatterArea { get; set; }
 
+        public int? CourtSittingInCityId { get; set; }
+
+        public CourtSittingInCityDto CourtSittingInCity { get; set; }
+
         public int? CourtGeographicalJurisdictionId { get; set; }
 
-        public int? CourtSittingInCityId { get; set; }
+        public CourtGeographicalJurisdictionDto CourtGeographicalJurisdiction { get; set; }
+
+        public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
     }
 }

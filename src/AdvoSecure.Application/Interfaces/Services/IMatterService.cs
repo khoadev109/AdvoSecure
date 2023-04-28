@@ -12,6 +12,8 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<IEnumerable<CourtGeographicalJurisdictionDto>> GetCourtGeographicalJurisdictionsAsync();
 
+        Task<MatterDto> GetMatterAsync(string id);
+
         Task<IEnumerable<MatterDto>> SearchMattersAsync(MatterSearchRequestDto requestDto);
 
         Task<MatterDto> CreateMatterAsync(MatterDto matterDto, string userName);

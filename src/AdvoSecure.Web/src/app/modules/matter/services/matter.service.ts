@@ -37,6 +37,10 @@ export class MatterService {
     );
   }
 
+  getDetails(id: string): Observable<Matter> {
+    return this.httpClient.get<Matter>(this.API_MATTER_URL + '/' + id);
+  }
+
   searchMatters(payload: SearchMatter): Observable<Matter[]> {
     const body = JSON.stringify(payload);
     return this.httpClient.post<Matter[]>(

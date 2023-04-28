@@ -60,6 +60,14 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            MatterDto matterDto = await _matterService.GetMatterAsync(id);
+
+            return Ok(matterDto);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] MatterDto matterRequestDto)
         {

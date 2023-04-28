@@ -11,13 +11,17 @@ import { MatterRoutingModule } from './matter-routing.module';
 import { MatterComponent } from './matter.component';
 import { MattersComponent } from './components/matters/matters.component';
 import { NewMatterComponent } from './components/new-matter/new-matter.component';
+import { MatterContactComponent } from './components/matter-contact/matter-contact.component';
+import { MatterDetailsComponent } from './components/matter-details/matter-details.component';
 
 
 @NgModule({
   declarations: [
     MatterComponent,
     MattersComponent,
-    NewMatterComponent
+    NewMatterComponent,
+    MatterContactComponent,
+    MatterDetailsComponent
   ],
   imports: [
     CommonModule,

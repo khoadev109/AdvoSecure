@@ -12,6 +12,7 @@ import { Contact } from 'src/app/modules/contact/models/contact.model';
 import { CommonService } from 'src/app/services/common.service';
 import { BillingRate } from 'src/app/models/billing-rate.model';
 import { BillingGroup } from 'src/app/models/billing-group.model';
+import { MatterContact } from '../../models/matter-contact.model';
 
 @Component({
   selector: 'app-new-matter',
@@ -102,6 +103,10 @@ export class NewMatterComponent implements OnInit {
           this.redirectToListPage();
         }, 1000);
       });
+  }
+
+  addSelectedContacts(matterContact: MatterContact) {
+    this.matter.matterContacts?.push(matterContact);
   }
 
   redirectToListPage() {

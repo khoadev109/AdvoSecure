@@ -1,11 +1,6 @@
-﻿using AdvoSecure.Domain.Entities.Base;
-using AdvoSecure.Domain.Entities.Contacts;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace AdvoSecure.Domain.Entities.Matters
+﻿namespace AdvoSecure.Application.Dtos.MatterDtos
 {
-    [Table("MatterContacts")]
-    public class MatterContact : BaseEntity
+    public class MatterContactDto
     {
         public bool IsClient { get; set; }
 
@@ -26,17 +21,11 @@ namespace AdvoSecure.Domain.Entities.Matters
         public bool IsAttorney { get; set; }
 
         public bool IsSupportStaff { get; set; }
-        
-        public bool IsThirdPartyPayor { get; set; }
 
+        public bool IsThirdPartyPayor { get; set; }
 
         public string MatterId { get; set; }
 
-        public Matter Matter { get; set; }
-
-
         public int ContactId { get; set; }
-
-        public Contact Contact { get; set; }
     }
 }

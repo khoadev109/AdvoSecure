@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(authRequest).pipe(
       catchError((error) => {
-        if (error.status === 401 || error.status === 400) {
+        if (error.status === 401) {
           return this.handleRefreshToken(request, next);
         }
         return throwError(error);
