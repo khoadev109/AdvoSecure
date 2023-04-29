@@ -1,3 +1,548 @@
-<form novalidate="" class="form">
-  <div></div>
+<form novalidate="" class="form" #editMatterForm="ngForm">
+  <!-- begin::Buttons-->
+  <div class="d-flex justify-content-end mb-6">
+    <button
+      type="button"
+      class="btn btn-primary mr-2"
+      style="margin-right: 10px"
+      translate="PAGES.CONTACT.OVERVIEW"
+      (click)="redirectToListPage()"
+    ></button>
+    <button
+      type="button"
+      class="btn btn-secondary ml-2"
+      [disabled]="isLoading || editMatterForm.invalid"
+      (click)="save()"
+    >
+      <div translate="COMMON.SAVE">
+        <ng-container *ngIf="!isLoading"></ng-container>
+      </div>
+
+      <ng-container *ngIf="isLoading">
+        <span
+          class="indicator-progress"
+          [style.display]="'block'"
+          translate="COMMON.PLEASE_WAIT"
+        >
+          {{ " " }}
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </ng-container>
+    </button>
+  </div>
+  <!-- end::Buttons-->
+
+  <div class="card mb-5 mb-xl-10">
+    <!-- begin::FormTitle-->
+    <div class="card-header border-0">
+      <div class="card-title m-0">
+        <h3 class="fw-bolder m-0" translate="MENU.EDIT_MATTER"></h3>
+      </div>
+    </div>
+    <!-- end::FormTitle-->
+
+    <!-- begin::Details-->
+    <div class="card-body border-top p-9">
+      <div class="row mb-6">
+        <h4 class="col-lg-12" translate="PAGES.MATTER.DETAILS"></h4>
+      </div>
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.CASE_NUMBER"
+            ></label>
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name="caseNumber"
+              [(ngModel)]="matter.caseNumber"
+              #caseNumber="ngModel"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              caseNumber.invalid && (caseNumber.dirty || caseNumber.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="caseNumber.errors?.required">
+              Case number is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="COMMON.TITLE"
+            ></label>
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name="title"
+              [(ngModel)]="matter.title"
+              #matterTitle="ngModel"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              matterTitle.invalid && (matterTitle.dirty || matterTitle.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="matterTitle.errors?.required">Title is required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.FILE_TYPE"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="matterTypeId"
+              [(ngModel)]="matter.matterTypeId"
+              #matterType="ngModel"
+              required
+            >
+              <option
+                value="0"
+                translate="PAGES.MATTER.SELECT_A_MATTER_TYPE"
+              ></option>
+              <option
+                *ngFor="let matterType of matterTypes"
+                [selected]="matter.matterTypeId === matterType.id"
+                [text]="matterType.title"
+                [value]="matterType.id"
+              ></option>
+            </select>
+            <div
+              *ngIf="
+                matterType.invalid && (matterType.dirty || matterType.touched)
+              "
+              class="alert"
+            >
+              <div *ngIf="matterType.errors?.required">
+                File type is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.JURISDICTION"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="matterAreaId"
+              [(ngModel)]="matter.matterAreaId"
+              #matterArea="ngModel"
+              required
+            >
+              <option
+                value=""
+                translate="PAGES.MATTER.SELECT_A_JURISDICTION"
+              ></option>
+              <option
+                *ngFor="let matterArea of matterAreas"
+                [selected]="matter.matterAreaId === matterArea.id"
+                [text]="matterArea.title"
+                [value]="matterArea.id"
+              ></option>
+            </select>
+          </div>
+          <div
+            *ngIf="
+              matterArea.invalid && (matterArea.dirty || matterArea.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="matterArea.errors?.required">
+              Jurisdiction is required.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6"
+              translate="PAGES.MATTER.ACTIVE"
+            ></label>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="active"
+                [(ngModel)]="matter.active"
+                [checked]="matter.active"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-12">
+          <div class="row">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.SYNOPSIS"
+            ></label>
+            <textarea
+              name="synopsis"
+              class="col-lg-9 form-control form-control-lg form-control-solid"
+              rows="5"
+              [(ngModel)]="matter.synopsis"
+              #synopsis="ngModel"
+              required
+            ></textarea>
+          </div>
+          <div
+            *ngIf="synopsis.invalid && (synopsis.dirty || synopsis.touched)"
+            class="alert"
+          >
+            <div *ngIf="synopsis.errors?.required">Synopsis is required.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::Details-->
+
+    <!-- begin::Financial-->
+    <div class="card-body border-top p-9">
+      <div class="row mb-6">
+        <h4 class="col-lg-12" translate="PAGES.MATTER.FINANCIAL"></h4>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.STANDARD_DECLARATION_RATE"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="billToContactId"
+              [(ngModel)]="matter.billToContactId"
+              #billToContact="ngModel"
+              required
+            >
+              <option
+                value=""
+                translate="PAGES.MATTER.SELECT_A_CONTACT"
+              ></option>
+              <option
+                *ngFor="let contact of contacts"
+                [selected]="matter.billToContactId === contact.id"
+                [text]="contact.displayName"
+                [value]="contact.id"
+              ></option>
+            </select>
+          </div>
+          <div
+            *ngIf="
+              billToContact.invalid &&
+              (billToContact.dirty || billToContact.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="billToContact.errors?.required">
+              Contact is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.DECLARATION_TO"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="defaultBillingRateId"
+              [(ngModel)]="matter.defaultBillingRateId"
+              #defaultBillingRate="ngModel"
+              required
+            >
+              <option value="" translate="PAGES.MATTER.SELECT_A_FEE"></option>
+              <option
+                *ngFor="let billingRate of billingRates"
+                [selected]="matter.defaultBillingRateId === billingRate.id"
+                [text]="billingRate.title"
+                [value]="billingRate.id"
+              ></option>
+            </select>
+          </div>
+          <div
+            *ngIf="
+              defaultBillingRate.invalid &&
+              (defaultBillingRate.dirty || defaultBillingRate.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="defaultBillingRate.errors?.required">
+              Fee is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6"
+              translate="PAGES.MATTER.COST_CENTER"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="billingGroupId"
+              [(ngModel)]="matter.billingGroupId"
+            >
+              <option
+                value="0"
+                translate="PAGES.MATTER.SELECT_A_COST_CENTER"
+              ></option>
+              <option
+                *ngFor="let billingGroup of billingGroups"
+                [selected]="matter.billingGroupId === billingGroup.id"
+                [text]="billingGroup.title"
+                [value]="billingGroup.id"
+              ></option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6 required"
+              translate="PAGES.MATTER.USE_EMPLOYEE_RATES"
+            ></label>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="overrideMatterRateWithEmployeeRate"
+                [(ngModel)]="matter.overrideMatterRateWithEmployeeRate"
+                [checked]="matter.overrideMatterRateWithEmployeeRate"
+                #overrideMatterRateWithEmployeeRate="ngModel"
+                required
+              />
+            </div>
+          </div>
+          <div
+            *ngIf="
+              overrideMatterRateWithEmployeeRate.invalid &&
+              (overrideMatterRateWithEmployeeRate.dirty ||
+                overrideMatterRateWithEmployeeRate.touched)
+            "
+            class="alert"
+          >
+            <div *ngIf="overrideMatterRateWithEmployeeRate.errors?.required">
+              Use employee rate is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6"></div>
+      </div>
+    </div>
+    <!-- end::Financial-->
+
+    <!-- begin::Court-->
+    <div class="card-body border-top p-9">
+      <div class="row mb-6">
+        <h4 class="col-lg-12" translate="PAGES.MATTER.COURT"></h4>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6"
+              translate="PAGES.MATTER.CASE_NUMBER"
+            ></label>
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name="caseNumber"
+              [(ngModel)]="matter.caseNumber"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6"
+              translate="PAGES.MATTER.TITLE"
+            ></label>
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6"
+              translate="PAGES.MATTER.DISTRICT"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="courtGeographicalJurisdictionId"
+              [(ngModel)]="matter.courtGeographicalJurisdictionId"
+            >
+              <option
+                value="0"
+                translate="PAGES.MATTER.SELECT_A_DISTRICT"
+              ></option>
+              <option
+                *ngFor="
+                  let courtGeographicalJurisdiction of courtGeographicalJurisdictions
+                "
+                [selected]="
+                  matter.courtGeographicalJurisdictionId ===
+                  courtGeographicalJurisdiction.id
+                "
+                [text]="courtGeographicalJurisdiction.title"
+                [value]="courtGeographicalJurisdiction.id"
+              ></option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label
+              class="col-lg-3 col-form-label fw-bold fs-6"
+              translate="PAGES.MATTER.SEAT"
+            ></label>
+            <select
+              class="form-select form-select-solid form-select-lg fw-bold"
+              name="courtGeographicalJurisdictionId"
+              [(ngModel)]="matter.courtGeographicalJurisdictionId"
+            >
+              <option
+                value="0"
+                translate="PAGES.MATTER.SELECT_A_DISTRICT"
+              ></option>
+              <option
+                *ngFor="
+                  let courtGeographicalJurisdiction of courtGeographicalJurisdictions
+                "
+                [selected]="
+                  matter.courtGeographicalJurisdictionId ===
+                  courtGeographicalJurisdiction.id
+                "
+                [text]="courtGeographicalJurisdiction.title"
+                [value]="courtGeographicalJurisdiction.id"
+              ></option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label class="col-lg-3 col-form-label fw-bold fs-6"
+              >Indictment or Subject (Short)</label
+            >
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label class="col-lg-3 col-form-label fw-bold fs-6"
+              >Charge or Subject (Regular)</label
+            >
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label class="col-lg-3 col-form-label fw-bold fs-6"
+              >Indictment or Subject (Long)</label
+            >
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label class="col-lg-3 col-form-label fw-bold fs-6"
+              >Defense of other party (Short)</label
+            >
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label class="col-lg-3 col-form-label fw-bold fs-6"
+              >Defense of other party (Regular)</label
+            >
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex align-items-center justify-content-start">
+            <label class="col-lg-3 col-form-label fw-bold fs-6"
+              >Defense of other party (Long)</label
+            >
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+              name=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end::Court-->
+  </div>
 </form>
