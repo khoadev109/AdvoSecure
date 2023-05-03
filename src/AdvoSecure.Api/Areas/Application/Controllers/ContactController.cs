@@ -3,8 +3,8 @@ using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Infrastructure.Authorization;
-using AdvoSecure.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
@@ -23,95 +23,131 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            ContactDto contact = await _contactService.GetContactByIdAsync(id);
+            ServiceResult<ContactDto> serviceResult = await _contactService.GetContactByIdAsync(id);
 
-            return Ok(contact);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("list")]
         public async Task<IActionResult> GetContacts(string searchTerm)
         {
-            IEnumerable<ContactDto> contacts = await _contactService.GetContactsAsync(searchTerm);
+            ServiceResult<IEnumerable<ContactDto>> serviceResult = await _contactService.GetContactsAsync(searchTerm);
 
-            return Ok(contacts);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("companies")]
         public async Task<IActionResult> GetCompanies(string searchTerm)
         {
-            IEnumerable<ContactDto> employees = await _contactService.GetCompaniesAsync(searchTerm);
+            ServiceResult<IEnumerable<ContactDto>> serviceResult = await _contactService.GetCompaniesAsync(searchTerm);
 
-            return Ok(employees);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("employees")]
         public async Task<IActionResult> GetEmployees(string searchTerm)
         {
-            IEnumerable<ContactDto> employees = await _contactService.GetEmployeesAsync(searchTerm);
+            ServiceResult<IEnumerable<ContactDto>> serviceResult = await _contactService.GetEmployeesAsync(searchTerm);
 
-            return Ok(employees);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("persons")]
         public async Task<IActionResult> GetPersons(string searchTerm)
         {
-            IEnumerable<ContactDto> persons = await _contactService.GetPersonsAsync(searchTerm);
+            ServiceResult<IEnumerable<ContactDto>> serviceResult = await _contactService.GetPersonsAsync(searchTerm);
 
-            return Ok(persons);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("id-types")]
         public async Task<IActionResult> GetIdTypes()
         {
-            IEnumerable<ContactIdTypeDto> idTypes = await _contactService.GetIdTypesAsync();
+            ServiceResult<IEnumerable<ContactIdTypeDto>> serviceResult = await _contactService.GetIdTypesAsync();
 
-            return Ok(idTypes);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("marital-statuses")]
         public async Task<IActionResult> GetMarialStatuses()
         {
-            IEnumerable<ContactCivilStatusDto> maritalStatuses = await _contactService.GetMaritalStatusesAsync();
+            ServiceResult<IEnumerable<ContactCivilStatusDto>> serviceResult = await _contactService.GetMaritalStatusesAsync();
 
-            return Ok(maritalStatuses);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("languages")]
         public async Task<IActionResult> GetLanguages()
         {
-            IEnumerable<LanguageDto> languages = await _contactService.GetLanguagesAsync();
+            ServiceResult<IEnumerable<LanguageDto>> serviceResult = await _contactService.GetLanguagesAsync();
 
-            return Ok(languages);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ContactDto contactRequestDto)
         {
-            try
-            {
-                ContactDto contactDto = await _contactService.CreateContactAsync(contactRequestDto, CurrentUserName);
+            ServiceResult<ContactDto> serviceResult = await _contactService.CreateContactAsync(contactRequestDto, CurrentUserName);
 
-                return Ok(contactDto);
-            }
-            catch (Exception ex)
+            if (serviceResult.Success)
             {
-                return StatusCode(500, $"Create contact internal server error: {ex}");
+                return Ok(serviceResult.Result);
             }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] ContactDto contactRequestDto)
         {
-            try
-            {
-                ContactDto contactDto = await _contactService.UpdateContactAsync(id, contactRequestDto, CurrentUserName);
+            ServiceResult<ContactDto> serviceResult = await _contactService.UpdateContactAsync(id, contactRequestDto, CurrentUserName);
 
-                return Ok(contactDto);
-            }
-            catch (Exception ex)
+            if (serviceResult.Success)
             {
-                return StatusCode(500, $"Update contact internal server error: {ex}");
+                return Ok(serviceResult.Result);
             }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

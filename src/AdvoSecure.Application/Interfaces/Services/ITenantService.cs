@@ -1,22 +1,25 @@
 ﻿using AdvoSecure.Application.Dtos;
-using AdvoSecure.Domain.Entities;
+using AdvoSecure.Common;
+using AdvoSecure.Security;
 
 namespace AdvoSecure.Application.Interfaces.Services
 {
     public interface ITenantService
     {
-        Task<TenantSettingDto> GetCurrentTenant(Guid identifier, Guid adminIdentifier);
+        Task<ServiceResult<TenantSettingDto>> GetCurrentTenantAsync(Guid identifier, Guid adminIdentifier);
 
-        Task<TenantSettingDto> GetTenantAdminByUserIdentifier(Guid userIdentifier);
+        Task<ServiceResult<TenantSettingDto>> GetTenantAdminByUserIdentifierAsync(Guid userIdentifier);
 
-        Task<TenantSettingDto> GetTenantByUserIdentifier(Guid userIdentifier);
+        Task<ServiceResult<TenantSettingDto>> GetTenantByUserIdentifierAsync(Guid userIdentifier);
 
-        Task<TenantSettingDto> GetTenantById(int id);
+        Task<ServiceResult<TenantSettingDto>> GetTenantByIdAsync(int id);
 
-        Task<TenantSettingDto> GetTenantAdmin(Guid adminIdentifier);
+        Task<ServiceResult<TenantSettingDto>> GetTenantAdminAsync(Guid adminIdentifier);
 
-        Task<TenantSettingDto> GetTenantAdmin(int id);
+        Task<ServiceResult<TenantSettingDto>> GetTenantAdminAsync(int id);
 
-        IEnumerable<TenantSettingDto> GetAllTenants();
+        Task<ServiceResult<IEnumerable<TenantSettingDto>>> GetAllTenantsAsync();
+
+        Task<ServiceResult<TenantUserDto>> RegisterUserAsync(RegisterRequest request, string userName);
     }
 }

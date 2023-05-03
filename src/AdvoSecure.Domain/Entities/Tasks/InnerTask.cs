@@ -1,10 +1,11 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Domain.Entities.Notes;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Tasks
 {
     [Table("Tasks")]
-    public class Task : BaseEntity
+    public class InnerTask : BaseEntity
     {
         public string Title { get; set; }
 
@@ -22,7 +23,7 @@ namespace AdvoSecure.Domain.Entities.Tasks
 
         public bool IsGroupingTask { get; set; }
 
-        public Task SequentialPredecessor { get; set; }
+        public InnerTask SequentialPredecessor { get; set; }
 
         public bool Active { get; set; }
 
@@ -37,5 +38,7 @@ namespace AdvoSecure.Domain.Entities.Tasks
         public IList<TaskAssignedContact> TaskAssignedContacts { get; set; } = new List<TaskAssignedContact>();
 
         public IList<TaskMatter> TaskMatters { get; set; } = new List<TaskMatter>();
+
+        public IList<NoteTask> NoteTasks { get; set; } = new List<NoteTask>();
     }
 }

@@ -1,48 +1,21 @@
 ﻿using AdvoSecure.Application.Dtos.MatterDtos;
 using AdvoSecure.Application.Interfaces.Repositories;
-using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Infrastructure.Persistance.App;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
 {
-    public class MatterRepository : IMatterRepository
+    public class MatterRepository : Repository<Matter>, IMatterRepository
     {
-        private readonly IMapper _mapper;
-        private readonly ApplicationDbContext _dbContext;
-
-        public MatterRepository(IMapper mapper, ApplicationDbContext dbContext)
+        public MatterRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _mapper = mapper;
-            _dbContext = dbContext;
         }
 
-        public IQueryable<MatterType> GetMatterTypes()
+        public async Task<Matter> GetByIdAsync(Guid id)
         {
-            return _dbContext.MatterTypes.OrderBy(x => x.Title);
-        }
-
-        public IQueryable<MatterArea> GetMatterAreas()
-        {
-            return _dbContext.MatterAreas.OrderBy(x => x.AreaCode);
-        }
-
-        public IQueryable<CourtSittingInCity> GetCourtSittingInCities()
-        {
-            return _dbContext.CourtSittingInCities.OrderBy(x => x.Title);
-        }
-
-        public IQueryable<CourtGeographicalJurisdiction> GetCourtGeographicalJurisdictions()
-        {
-            return _dbContext.CourtGeographicalJurisdictions.OrderBy(x => x.Title);
-        }
-
-        public async Task<Matter> GetMatterByIdAsync(Guid id)
-        {
-            Matter matter = await _dbContext.Matters
+            Matter matter = await GetQueryable()
                 .Include(x => x.BillingGroup)
                 .Include(x => x.DefaultBillingRate)
                 .Include(x => x.BillToContact)
@@ -50,50 +23,78 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
                 .Include(x => x.MatterArea)
                 .Include(x => x.CourtSittingInCity)
                 .Include(x => x.CourtGeographicalJurisdiction)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id) ?? new Matter();
 
             return matter;
         }
 
-        public IQueryable<Matter> GetMatters()
+        public async Task<IEnumerable<Matter>> SearchAsync(MatterSearchRequestDto request)
         {
-            return _dbContext.Matters;
+            IQueryable<Matter> matters = GetQueryable().Include(x => x.BillToContact).Include(x => x.MatterArea);
+
+            if (!string.IsNullOrWhiteSpace(request.Status))
+            {
+                bool? active = GetActiveStatus(request.Status);
+
+                matters = matters.Where(x => x.Active == active);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.ContactName))
+            {
+                matters = matters.Where(x => x.BillToContact.DisplayName.Contains(request.ContactName));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Description))
+            {
+                matters = matters.Where(x => x.Title.Contains(request.Description));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.CaseNumber))
+            {
+                matters = matters.Where(x => x.CaseNumber.Contains(request.CaseNumber));
+            }
+
+            if (request.MatterAreaId.HasValue && request.MatterAreaId.Value > 0)
+            {
+                matters = matters.Where(x => x.MatterAreaId == request.MatterAreaId.Value);
+            }
+
+            if (request.CourtGeographicalJurisdictionId.HasValue && request.CourtGeographicalJurisdictionId.Value > 0)
+            {
+                matters = matters.Where(x => x.CourtGeographicalJurisdictionId == request.CourtGeographicalJurisdictionId.Value);
+            }
+
+            IList<Matter> atters = await matters.ToListAsync();
+
+            return matters;
         }
 
-        public async Task<Matter> Create(Matter matter, string userName)
+        public async Task<Matter> CreateAsync(Matter matter, string userName)
         {
-            try
-            {
-                matter.CreatedBy = userName;
+            matter.CreatedBy = userName;
 
-                EntityEntry<Matter> result = await _dbContext.Matters.AddAsync(matter);
+            Matter result = await AddAsync(matter);
 
-                await _dbContext.SaveChangesAsync();
-
-                Matter createdMatter = result.Entity;
-
-                return createdMatter;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            return result;
         }
 
-        public async Task<Matter> Update(MatterDto matterDto, string userName)
+        public Matter Update(Matter matter, string userName)
         {
-            Matter existingMatter = await _dbContext.Matters.FindAsync(matterDto.Id);
-            existingMatter.CreatedBy = userName;
+            matter.ModifiedBy = userName;
 
-            existingMatter = _mapper.Map(matterDto, existingMatter);
+            Matter result = Update(matter);
 
-            EntityEntry<Matter> result = _dbContext.Update<Matter>(existingMatter);
+            return result;
+        }
 
-            await _dbContext.SaveChangesAsync();
-
-            Matter updatedMatter = result.Entity;
-
-            return updatedMatter;
+        private bool? GetActiveStatus(string status)
+        {
+            return status switch
+            {
+                "inactive" => false,
+                "both" => null,
+                _ => true,
+            };
         }
     }
 }

@@ -1,31 +1,27 @@
 ﻿using AdvoSecure.Application.Interfaces.Repositories;
+using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
 
 namespace AdvoSecure.Infrastructure.Persistance.Tenant.Repositories
 {
-    public class DirectoryRepository : IDirectoryRepository
+    public class TenantDirectoryRepository : Repository<TenantDirectory>, ITenantDirectoryRepository
     {
-        private readonly MgmtDbContext _dbContext;
-
-        public DirectoryRepository(MgmtDbContext dbContext)
+        public TenantDirectoryRepository(MgmtDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
 
-        public async Task<TenantDirectory> CreateAsync(TenantSetting tenant, TenantUser user)
+        public async Task<TenantDirectory> CreateAsync(TenantSetting tenant, TenantUser user, string userName)
         {
             var tenantDirectory = new TenantDirectory
             {
                 Tenant = tenant,
                 User = user,
-                CreatedBy = "TOAA"
+                CreatedBy = userName
             };
 
             tenant.TenantDirectories.Add(tenantDirectory);
 
             user.TenantDirectories.Add(tenantDirectory);
-
-            await _dbContext.SaveChangesAsync();
 
             return tenantDirectory;
         }

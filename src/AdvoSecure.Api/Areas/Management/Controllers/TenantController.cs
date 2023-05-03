@@ -1,6 +1,7 @@
 ﻿using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Infrastructure.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,16 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllTenants()
+        public async Task<IActionResult> GetAllTenants()
         {
-            IEnumerable<TenantSettingDto> tenants = _tenantService.GetAllTenants();
+            ServiceResult<IEnumerable<TenantSettingDto>> serviceResult = await _tenantService.GetAllTenantsAsync();
 
-            return Ok(tenants);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

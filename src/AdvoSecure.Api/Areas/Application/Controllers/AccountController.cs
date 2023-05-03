@@ -3,6 +3,7 @@ using AdvoSecure.Api.Authentication;
 using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity;
@@ -36,11 +37,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
             await _userService.SetAppUserConnectionString(request.UserName);
 
-            ApplicationUser user = await _userManager.FindByNameAsync(request.UserName); 
-            if (user == null)
-            {
-                throw new UnauthorizedAccessException("User does not exist.");
-            }
+            ApplicationUser user = await _userManager.FindByNameAsync(request.UserName) ?? throw new UnauthorizedAccessException("User does not exist.");
 
             bool isValidUser = await _userManager.CheckPasswordAsync(user, plainPassword);
             if (!isValidUser)
@@ -48,14 +45,22 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
                 throw new UnauthorizedAccessException("User name or password is invalid.");
             }
 
-            TenantSettingDto tenant = await _tenantService.GetTenantByUserIdentifier(user.UserIdentifier) ?? throw new UnauthorizedAccessException("Invalid tenant.");
+            ServiceResult<TenantSettingDto> tenantResult = await _tenantService.GetTenantByUserIdentifierAsync(user.UserIdentifier);
+            if (!tenantResult.Success)
+            {
+                throw new UnauthorizedAccessException("Invalid tenant.");
+            }
+
+            TenantSettingDto tenant = tenantResult.Result;
 
             if (!tenant.AdminId.HasValue)
             {
                 throw new UnauthorizedAccessException("User is in role of tenant admin.");
             }
 
-            TenantSettingDto tenantAdmin = await _tenantService.GetTenantAdmin(tenant.AdminId.Value);
+            ServiceResult<TenantSettingDto> tenantAdminResult = await _tenantService.GetTenantAdminAsync(tenant.AdminId.Value);
+
+            TenantSettingDto tenantAdmin = tenantAdminResult.Result;
 
             var userClaims = new UserClaims
             {
@@ -111,11 +116,27 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
                 throw new UnauthorizedAccessException("Token expired.");
             }
 
-            TenantUserDto user = await _userService.FindByUserIdentifierAsync(refreshTokenDto.UserIdentifier);
+            ServiceResult<TenantUserDto> userResult = await _userService.FindByUserIdentifierAsync(refreshTokenDto.UserIdentifier);
 
-            TenantSettingDto tenant = await _tenantService.GetTenantByUserIdentifier(user.UserIdentifier) ?? throw new UnauthorizedAccessException("Invalid tenant.");
+            if (!userResult.Success)
+            {
+                throw new UnauthorizedAccessException("User does not exist.");
+            }
 
-            TenantSettingDto tenantAdmin = await _tenantService.GetTenantById(tenant.AdminId.Value);
+            TenantUserDto user = userResult.Result;
+
+            ServiceResult<TenantSettingDto> tenantResult = await _tenantService.GetTenantByUserIdentifierAsync(user.UserIdentifier);
+
+            if (!tenantResult.Success)
+            {
+                throw new UnauthorizedAccessException("Invalid tenant.");
+            }
+
+            TenantSettingDto tenant = tenantResult.Result;
+
+            ServiceResult < TenantSettingDto> tenantAdminResult = await _tenantService.GetTenantByIdAsync(tenant.AdminId.Value);
+
+            TenantSettingDto tenantAdmin = tenantAdminResult.Result;
 
             var userClaims = new UserClaims
             {
@@ -168,16 +189,16 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         {
             ApplicationUser user = await _userManager.GetUserAsync(User) ?? throw new UnauthorizedAccessException("User does not exist.");
 
-            ApplicationUser updatedAppUser = await _userService.UpdateAppUserProfile(request);
+            ServiceResult<ApplicationUser> updatedAppUserResult = await _userService.UpdateAppUserProfile(request);
 
-            if (updatedAppUser == null)
+            if (!updatedAppUserResult.Success)
             {
                 throw new Exception("Failed to update app user.");
             }
 
-            TenantUserDto updatedTenantUser = await _userService.UpdateTenantUser(request);
+            ServiceResult<TenantUserDto> updatedTenantUserResult = await _userService.UpdateTenantUser(request);
 
-            if (updatedTenantUser == null)
+            if (!updatedTenantUserResult.Success)
             {
                 throw new Exception("Failed to update tenant user.");
             }

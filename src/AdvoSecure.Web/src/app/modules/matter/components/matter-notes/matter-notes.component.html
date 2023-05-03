@@ -1,0 +1,74 @@
+<div class="card card-xxl-stretch mb-5 mb-xl-8">
+  <!-- begin::Header -->
+  <div class="card-header border-0">
+    <div class="card-title m-0">
+      <h4 class="fw-bolder m-0">Notes</h4>
+    </div>
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-end gap-3">
+        <button type="button" class="btn btn-primary ml-2">New note</button>
+        <button type="button" class="btn btn-secondary ml-2">Overview</button>
+      </div>
+    </div>
+  </div>
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  <div class="card-body py-3">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table
+        class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4"
+      >
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted">
+            <th class="min-w-150px">Date time</th>
+            <th class="min-w-140px">Title</th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr
+            *ngFor="
+              let post of POSTS
+                | paginate
+                  : {
+                      itemsPerPage: tableSize,
+                      currentPage: page,
+                      totalItems: count
+                    };
+              let i = index
+            "
+          >
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6">
+                {{ post.timestamp }}
+              </div>
+            </td>
+            <td>
+              <div class="text-dark fw-bolder d-block fs-6">
+                {{ post.title }}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+
+  <!-- paging -->
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>

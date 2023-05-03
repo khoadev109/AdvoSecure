@@ -12,6 +12,6 @@ namespace AdvoSecure.Domain.Entities.Tasks
 
         public string? Group { get; set; }
 
-        public IList<Task> Tasks { get; set; } = new List<Task>();
+        public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
     }
 }

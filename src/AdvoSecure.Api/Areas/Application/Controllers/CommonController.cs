@@ -3,6 +3,7 @@ using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
@@ -20,41 +21,66 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("billing-rates")]
         public async Task<IActionResult> GetBillingRates()
         {
-            IEnumerable<BillingRateDto> billingRates = await _commonService.GetBillingRatesAsync();
+            ServiceResult<IEnumerable<BillingRateDto>> serviceResult = await _commonService.GetBillingRatesAsync();
 
-            return Ok(billingRates);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("billing-groups")]
         public async Task<IActionResult> GetBillingGroups()
         {
-            IEnumerable<BillingGroupDto> billingGroups = await _commonService.GetBillingGroupsAsync();
+            ServiceResult<IEnumerable<BillingGroupDto>> serviceResult = await _commonService.GetBillingGroupsAsync();
 
-            return Ok(billingGroups);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("company-legal-statuses")]
         public async Task<IActionResult> GetCompanyLegalStatuses()
         {
-            IEnumerable<CompanyLegalStatusDto> legalStatuses = await _commonService.GetCompanyLegalStatusesAsync();
+            ServiceResult<IEnumerable<CompanyLegalStatusDto>> serviceResult = await _commonService.GetCompanyLegalStatusesAsync();
 
-            return Ok(legalStatuses);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("countries")]
         public async Task<IActionResult> GetCountries()
         {
-            IEnumerable<CountryDto> countries = await _commonService.GetCountriesAsync();
+            ServiceResult<IEnumerable<CountryDto>> serviceResult = await _commonService.GetCountriesAsync();
 
-            return Ok(countries);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("tasktypes")]
         public async Task<IActionResult> GetTaskTypes()
         {
-            IEnumerable<TaskTypeDto> tasktypes = await _commonService.GetTaskTypeAsync();
+            ServiceResult<IEnumerable<TaskTypeDto>> serviceResult = await _commonService.GetTaskTypeAsync();
 
-            return Ok(tasktypes);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

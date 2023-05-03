@@ -2,7 +2,7 @@
 
 namespace AdvoSecure.Domain.Entities
 {
-    public class TenantBilling : AuditableEntityIncrementalInt
+    public class TenantBilling : BaseEntity
     {
         public string FirmName { get; set; }
         public string FirmAddress { get; set; }

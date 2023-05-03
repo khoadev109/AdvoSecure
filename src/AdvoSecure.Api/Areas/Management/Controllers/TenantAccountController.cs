@@ -2,6 +2,7 @@
 using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Mvc;
@@ -30,16 +31,27 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
         {
             var plainPassword = _rsaResolver.Decrypt(request.Password);
 
-            TenantUserDto user = await _userService.FindByEmailAsync(request.UserName) ?? throw new UnauthorizedAccessException("User does not exist.");
+            ServiceResult<TenantUserDto> userResult = await _userService.FindByEmailAsync(request.UserName);
+            if (!userResult.Success)
+            {
+                throw new UnauthorizedAccessException("User does not exist.");
+            }
 
-            bool isValidUser = await _userService.CheckPasswordAsync(user.Email, plainPassword);
+            TenantUserDto user = userResult.Result;
 
-            if (!isValidUser)
+            ServiceResult<bool> validUserResult = await _userService.CheckPasswordAsync(user.Email, plainPassword);
+            if (!validUserResult.Success)
             {
                 throw new UnauthorizedAccessException("User name or password is invalid.");
             }
 
-            TenantSettingDto tenant = await _tenantService.GetTenantAdminByUserIdentifier(user.UserIdentifier) ?? throw new UnauthorizedAccessException("Invalid tenant or user is not in role of tenant admin.");
+            ServiceResult<TenantSettingDto> tenantResult = await _tenantService.GetTenantAdminByUserIdentifierAsync(user.UserIdentifier);
+            if (!tenantResult.Success)
+            {
+                throw new UnauthorizedAccessException("Invalid tenant or user is not in role of tenant admin.");
+            }
+
+            TenantSettingDto tenant = tenantResult.Result;
 
             var userClaims = new UserClaims
             {
@@ -94,7 +106,9 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
                 throw new UnauthorizedAccessException("Token expired.");
             }
 
-            TenantUserDto user = await _userService.FindByUserIdentifierAsync(refreshTokenDto.UserIdentifier);
+            ServiceResult<TenantUserDto> userResult = await _userService.FindByUserIdentifierAsync(refreshTokenDto.UserIdentifier);
+
+            TenantUserDto user = userResult.Result;
 
             var userClaims = new UserClaims
             {
@@ -131,14 +145,15 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
 
             request.TenantAdminIdentifier = tenantAdminIdentifier;
 
-            TenantUserDto userExists = await _userService.FindByEmailAsync(request.Email);
-            if (userExists != null)
+            ServiceResult<TenantUserDto> userResult = await _userService.FindByEmailAsync(request.Email);
+
+            if (!userResult.Success)
             {
                 return StatusCode(StatusCodes.Status200OK, new RegisterResponse { Success = false, Message = "User already exists!" });
             }
 
-            TenantUserDto result = await _userService.RegisterUserAsync(request);
-            if (result == null)
+            ServiceResult < TenantUserDto> registerResult = await _tenantService.RegisterUserAsync(request, CurrentUserName);
+            if (!registerResult.Success)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new RegisterResponse { Success = false, Message = "User creation failed! Please check user details and try again." });
             }
@@ -150,9 +165,14 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
         [HttpGet("all-users")]
         public async Task<IActionResult> GetAllUsers()
         {
-            IEnumerable<TenantUserDto> users = await _userService.GetAllUsersAsync();
+            ServiceResult<IEnumerable<TenantUserDto>> usersResult = await _userService.GetAllUsersAsync();
 
-            return Ok(users);
+            if (usersResult.Success)
+            {
+                return Ok(usersResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HasPermission(Permission.AsTenantAdmin)]
@@ -164,9 +184,14 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
                 throw new UnauthorizedAccessException("Missing user identifier.");
             }
 
-            TenantUserDto user = await _userService.FindByUserIdentifierAsync(parsedUserIdentifier);
+            ServiceResult<TenantUserDto> userResult = await _userService.FindByUserIdentifierAsync(parsedUserIdentifier);
 
-            return Ok(user);
+            if (userResult.Success)
+            {
+                return Ok(userResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         private async Task<string> StoreAndReturnRefreshToken(Guid userIdentifier, Guid tenantIdentifier)

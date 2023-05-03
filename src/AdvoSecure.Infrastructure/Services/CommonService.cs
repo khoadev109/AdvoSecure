@@ -1,7 +1,8 @@
 ﻿using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.BillingDtos;
-using AdvoSecure.Application.Interfaces.Repositories;
+using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Tasks;
@@ -10,60 +11,86 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdvoSecure.Infrastructure.Services
 {
-    public class CommonService : ICommonService
+    public class CommonService : ServiceBase, ICommonService
     {
-        private readonly ICommonRepository _commonRepository;
         private readonly IMapper _mapper;
+        private readonly IAppUnitOfWork _unitOfWork;
 
-        public CommonService(ICommonRepository commonRepository, IMapper mapper)
+        public CommonService(IMapper mapper, IAppUnitOfWork unitOfWork)
         {
-            _commonRepository = commonRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<BillingRateDto>> GetBillingRatesAsync()
+        public async Task<ServiceResult<IEnumerable<BillingRateDto>>> GetBillingRatesAsync()
         {
-            IList<BillingRate> billingRates = await _commonRepository.GetBillingRates().ToListAsync();
+            ServiceResult<IEnumerable<BillingRateDto>> result = await ExecuteAsync<IEnumerable<BillingRateDto>>(async () =>
+            {
+                IEnumerable<BillingRate> billingRates = await _unitOfWork.BillingRateRepository.GetAllAsync();
 
-            IEnumerable<BillingRateDto> billingRateDtos = _mapper.Map<IEnumerable<BillingRateDto>>(billingRates);
+                IEnumerable<BillingRateDto> billingRateDtos = _mapper.Map<IEnumerable<BillingRateDto>>(billingRates);
 
-            return billingRateDtos;
+                return new ServiceSuccessResult<IEnumerable<BillingRateDto>>(billingRateDtos);
+            });
+
+            return result;
         }
 
-        public async Task<IEnumerable<BillingGroupDto>> GetBillingGroupsAsync()
+        public async Task<ServiceResult<IEnumerable<BillingGroupDto>>> GetBillingGroupsAsync()
         {
-            IList<BillingGroup> billingGroups = await _commonRepository.GetBillingGroups().ToListAsync();
+            ServiceResult<IEnumerable<BillingGroupDto>> result = await ExecuteAsync<IEnumerable<BillingGroupDto>>(async () =>
+            {
+                IEnumerable<BillingGroup> billingGroups = await _unitOfWork.BillingGroupRepository.GetAllAsync();
 
-            IEnumerable<BillingGroupDto> billingGroupDtos = _mapper.Map<IEnumerable<BillingGroupDto>>(billingGroups);
+                IEnumerable<BillingGroupDto> billingGroupDtos = _mapper.Map<IEnumerable<BillingGroupDto>>(billingGroups);
 
-            return billingGroupDtos;
+                return new ServiceSuccessResult<IEnumerable<BillingGroupDto>>(billingGroupDtos);
+            });
+
+            return result;
         }
 
-        public async Task<IEnumerable<CompanyLegalStatusDto>> GetCompanyLegalStatusesAsync()
+        public async Task<ServiceResult<IEnumerable<CompanyLegalStatusDto>>> GetCompanyLegalStatusesAsync()
         {
-            IList<CompanyLegalStatus> companyLegalStatuses = await _commonRepository.GetCompanyLegalStatuses().ToListAsync();
+            ServiceResult<IEnumerable<CompanyLegalStatusDto>> result = await ExecuteAsync<IEnumerable<CompanyLegalStatusDto>>(async () =>
+            {
+                IEnumerable<CompanyLegalStatus> companyLegalStatuses = await _unitOfWork.CompanyLegalStatusRepository.GetAllAsync();
 
-            IEnumerable<CompanyLegalStatusDto> companyLegalStatusDtos = _mapper.Map<IEnumerable<CompanyLegalStatusDto>>(companyLegalStatuses);
+                IEnumerable<CompanyLegalStatusDto> companyLegalStatusDtos = _mapper.Map<IEnumerable<CompanyLegalStatusDto>>(companyLegalStatuses);
 
-            return companyLegalStatusDtos;
+                return new ServiceSuccessResult<IEnumerable<CompanyLegalStatusDto>>(companyLegalStatusDtos);
+            });
+
+            return result;
         }
 
-        public async Task<IEnumerable<CountryDto>> GetCountriesAsync()
+        public async Task<ServiceResult<IEnumerable<CountryDto>>> GetCountriesAsync()
         {
-            IList<Country> countries = await _commonRepository.GetCountries().ToListAsync();
+            ServiceResult<IEnumerable<CountryDto>> result = await ExecuteAsync<IEnumerable<CountryDto>>(async () =>
+            {
+                IEnumerable<Country> countries = await _unitOfWork.CountryRepository.GetAllAsync();
 
-            IEnumerable<CountryDto> countryDtos = _mapper.Map<IEnumerable<CountryDto>>(countries);
+                IEnumerable<CountryDto> countryDtos = _mapper.Map<IEnumerable<CountryDto>>(countries);
 
-            return countryDtos;
+                return new ServiceSuccessResult<IEnumerable<CountryDto>>(countryDtos);
+            });
+
+            return result;
         }
 
-        public async Task<IEnumerable<TaskTypeDto>> GetTaskTypeAsync()
+        public async Task<ServiceResult<IEnumerable<TaskTypeDto>>> GetTaskTypeAsync()
         {
-            IList<TaskType> tasktypes = await _commonRepository.GetTaskTypes().ToListAsync();
+            ServiceResult<IEnumerable<TaskTypeDto>> result = await ExecuteAsync<IEnumerable<TaskTypeDto>>(async () =>
+            {
+                IEnumerable<TaskType> tasktypes = await _unitOfWork.TaskTypeRepository.GetAllAsync();
 
-            IEnumerable<TaskTypeDto> taskTypeDtos = _mapper.Map<IEnumerable<TaskTypeDto>>(tasktypes);
+                IEnumerable<TaskTypeDto> taskTypeDtos = _mapper.Map<IEnumerable<TaskTypeDto>>(tasktypes);
 
-            return taskTypeDtos;
+                return new ServiceSuccessResult<IEnumerable<TaskTypeDto>>(taskTypeDtos);
+
+            });
+
+            return result;
         }
     }
 }

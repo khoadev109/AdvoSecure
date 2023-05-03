@@ -1,13 +1,14 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Matters
 {
     [Table("Matters")]
-    public class Matter : AuditableEntity<Guid>
+    public class Matter : BaseGuidEntity
     {
         public long? IdInt { get; set; }
 
@@ -80,5 +81,7 @@ namespace AdvoSecure.Domain.Entities.Matters
         public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
 
         public IList<TaskMatter> TaskMatters { get; set; } = new List<TaskMatter>();
+
+        public IList<NoteMatter> NoteMatters { get; set; } = new List<NoteMatter>();
     }
 }

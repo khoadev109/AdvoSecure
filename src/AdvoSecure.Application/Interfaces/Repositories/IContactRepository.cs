@@ -1,33 +1,20 @@
-﻿using AdvoSecure.Application.Dtos.ContactDtos;
-using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.Language;
+﻿using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities.Contacts;
-using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Application.Interfaces.Repositories
 {
-    public interface IContactRepository
+    public interface IContactRepository : IRepository<Contact>
     {
-        Task<IEnumerable<Country>> GetAllCountriesAsync();
-        Task<IEnumerable<Language>> GetLanguagesAsync();
-        Task<IEnumerable<TaskType>> GetTaskType();
+        Task<IEnumerable<Contact>> GetContactsAsync(string searchTerm);
 
-        IQueryable<Contact> GetContacts(string searchTerm);
+        Task<IEnumerable<Contact>> GetCompaniesAsync(string searchTerm);
 
-        IQueryable<ContactIdType> GetIdTypes();
+        Task<IEnumerable<Contact>> GetEmployeesAsync(string searchTerm);
 
-        IQueryable<ContactCivilStatus> GetMaritalStatuses();
+        Task<IEnumerable<Contact>> GetPersonsAsync(string searchTerm);
 
-        Task<Contact> GetById(int id);
+        Task<Contact> CreateAsync(Contact contact, string userName);
 
-        Task<bool> IsExisting(int id);
-
-        Task<Contact> Create(Contact contact, string userEmail);
-
-        Task<Contact> Update(ContactDto contactDto, string userEmail);
-
-        IQueryable<Language> GetLanguages();
-
-
+        Contact Update(Contact contact, string userName);
     }
 }

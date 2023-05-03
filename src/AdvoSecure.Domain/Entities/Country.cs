@@ -2,7 +2,7 @@
 
 namespace AdvoSecure.Domain.Entities
 {
-    public class Country : BaseStringIdEntity
+    public class Country : BaseStringEntity
     {
         // Id but 2-3 digit iso countrycode
         public string Alpha2 { get; set; } = string.Empty;

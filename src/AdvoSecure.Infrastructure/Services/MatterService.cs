@@ -1,143 +1,155 @@
-﻿using AdvoSecure.Application.Dtos.MatterDtos;
-using AdvoSecure.Application.Interfaces.Repositories;
+﻿using AdvoSecure.Application.Dtos.ContactDtos;
+using AdvoSecure.Application.Dtos.MatterDtos;
+using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
+using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Matters;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AdvoSecure.Infrastructure.Services
 {
-    public class MatterService : IMatterService
+    public class MatterService : ServiceBase, IMatterService
     {
         private readonly IMapper _mapper;
-        private readonly IMatterRepository _matterRepository;
+        private readonly IAppUnitOfWork _unitOfWork;
 
-        public MatterService(IMapper mapper, IMatterRepository matterRepository)
+        public MatterService(IMapper mapper, IAppUnitOfWork unitOfWork)
         {
             _mapper = mapper;
-            _matterRepository = matterRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<MatterTypeDto>> GetMatterTypesAsync()
+        public async Task<ServiceResult<IEnumerable<MatterTypeDto>>> GetMatterTypesAsync()
         {
-            IList<MatterType> types = await _matterRepository.GetMatterTypes().ToListAsync();
-
-            IEnumerable<MatterTypeDto> typeDtos = _mapper.Map<IEnumerable<MatterTypeDto>>(types);
-
-            return typeDtos;
-        }
-
-        public async Task<IEnumerable<MatterAreaDto>> GetMatterAreasAsync()
-        {
-            IList<MatterArea> areas = await _matterRepository.GetMatterAreas().ToListAsync();
-
-            IEnumerable<MatterAreaDto> areaDtos = _mapper.Map<IEnumerable<MatterAreaDto>>(areas);
-
-            return areaDtos;
-        }
-
-        public async Task<IEnumerable<CourtSittingInCityDto>> GetCourtSittingInCitiesAsync()
-        {
-            IList<CourtSittingInCity> courtSittingInCities = await _matterRepository.GetCourtSittingInCities().ToListAsync();
-
-            IEnumerable<CourtSittingInCityDto> courtSittingInCityDtos = _mapper.Map<IEnumerable<CourtSittingInCityDto>>(courtSittingInCities);
-
-            return courtSittingInCityDtos;
-        }
-
-        public async Task<IEnumerable<CourtGeographicalJurisdictionDto>> GetCourtGeographicalJurisdictionsAsync()
-        {
-            IList<CourtGeographicalJurisdiction> courtGeo = await _matterRepository.GetCourtGeographicalJurisdictions().ToListAsync();
-
-            IEnumerable<CourtGeographicalJurisdictionDto> courtGeoDtos = _mapper.Map<IEnumerable<CourtGeographicalJurisdictionDto >> (courtGeo);
-
-            return courtGeoDtos;
-        }
-
-        public async Task<MatterDto> GetMatterAsync(string id)
-        {
-            _ = Guid.TryParse(id, out var parsedId);
-
-            Matter matter = await _matterRepository.GetMatterByIdAsync(parsedId);
-
-            MatterDto matterDto = _mapper.Map<MatterDto>(matter);
-
-            return matterDto;
-        }
-
-        public async Task<IEnumerable<MatterDto>> SearchMattersAsync(MatterSearchRequestDto requestDto)
-        {
-            IQueryable<Matter> matters = _matterRepository.GetMatters().Include(x => x.BillToContact).Include(x => x.MatterArea);
-
-            if (!string.IsNullOrWhiteSpace(requestDto.Status))
+            ServiceResult<IEnumerable<MatterTypeDto>> result = await ExecuteAsync<IEnumerable<MatterTypeDto>>(async () =>
             {
-                bool? active = GetActiveStatus(requestDto.Status);
+                IEnumerable<MatterType> types = await _unitOfWork.MatterTypeRepository.GetAllAsync();
 
-                matters = matters.Where(x => x.Active == active);
-            }
+                IEnumerable<MatterTypeDto> typeDtos = _mapper.Map<IEnumerable<MatterTypeDto>>(types);
 
-            if (!string.IsNullOrWhiteSpace(requestDto.ContactName))
-            {
-                matters = matters.Where(x => x.BillToContact.DisplayName.Contains(requestDto.ContactName));
-            }
+                return new ServiceSuccessResult<IEnumerable<MatterTypeDto>>(typeDtos);
+            });
 
-            if (!string.IsNullOrWhiteSpace(requestDto.Description))
-            {
-                matters = matters.Where(x => x.Title.Contains(requestDto.Description));
-            }
-
-            if (!string.IsNullOrWhiteSpace(requestDto.CaseNumber))
-            {
-                matters = matters.Where(x => x.CaseNumber.Contains(requestDto.CaseNumber));
-            }
-
-            if (requestDto.MatterAreaId.HasValue && requestDto.MatterAreaId.Value > 0)
-            {
-                matters = matters.Where(x => x.MatterAreaId == requestDto.MatterAreaId.Value);
-            }
-
-            if (requestDto.CourtGeographicalJurisdictionId.HasValue && requestDto.CourtGeographicalJurisdictionId.Value > 0)
-            {
-                matters = matters.Where(x => x.CourtGeographicalJurisdictionId == requestDto.CourtGeographicalJurisdictionId.Value);
-            }
-
-            IList<Matter> filteredMatters = await matters.ToListAsync();
-
-            IEnumerable<MatterDto> filteredMatterDtos = _mapper.Map<IEnumerable<MatterDto>>(filteredMatters);
-
-            return filteredMatterDtos;
+            return result;
         }
 
-        private bool? GetActiveStatus(string status)
+        public async Task<ServiceResult<IEnumerable<MatterAreaDto>>> GetMatterAreasAsync()
         {
-            return status switch
+            ServiceResult<IEnumerable<MatterAreaDto>> result = await ExecuteAsync<IEnumerable<MatterAreaDto>>(async () =>
             {
-                "inactive" => false,
-                "both" => null,
-                _ => true,
-            };
+                IEnumerable<MatterArea> areas = await _unitOfWork.MatterAreaRepository.GetAllAsync();
+
+                IEnumerable<MatterAreaDto> areaDtos = _mapper.Map<IEnumerable<MatterAreaDto>>(areas);
+
+                return new ServiceSuccessResult<IEnumerable<MatterAreaDto>>(areaDtos);
+            });
+
+            return result;
         }
 
-        public async Task<MatterDto> CreateMatterAsync(MatterDto matterDto, string userName)
+        public async Task<ServiceResult<IEnumerable<CourtSittingInCityDto>>> GetCourtSittingInCitiesAsync()
         {
-            Matter newMatter = _mapper.Map<Matter>(matterDto);
+            ServiceResult<IEnumerable<CourtSittingInCityDto>> result = await ExecuteAsync<IEnumerable<CourtSittingInCityDto>>(async () =>
+            {
+                IEnumerable<CourtSittingInCity> courtSittingInCities = await _unitOfWork.CourtSittingInCityRepository.GetAllAsync();
 
-            Matter createdMatter = await _matterRepository.Create(newMatter, userName);
+                IEnumerable<CourtSittingInCityDto> courtSittingInCityDtos = _mapper.Map<IEnumerable<CourtSittingInCityDto>>(courtSittingInCities);
 
-            MatterDto createdMatterDto = _mapper.Map<MatterDto>(createdMatter);
+                return new ServiceSuccessResult<IEnumerable<CourtSittingInCityDto>>(courtSittingInCityDtos);
+            });
 
-            return createdMatterDto;
+            return result;
         }
 
-        public async Task<MatterDto> UpdateMatterAsync(string id, MatterDto matterDto, string userName)
+        public async Task<ServiceResult<IEnumerable<CourtGeographicalJurisdictionDto>>> GetCourtGeographicalJurisdictionsAsync()
         {
-            matterDto.Id = id;
+            ServiceResult<IEnumerable<CourtGeographicalJurisdictionDto>> result = await ExecuteAsync<IEnumerable<CourtGeographicalJurisdictionDto>>(async () =>
+            {
+                IEnumerable<CourtGeographicalJurisdiction> courtGeo = await _unitOfWork.CourtGeographicalJurisdictionRepository.GetAllAsync();
 
-            Matter updatedMatter = await _matterRepository.Update(matterDto, userName);
+                IEnumerable<CourtGeographicalJurisdictionDto> courtGeoDtos = _mapper.Map<IEnumerable<CourtGeographicalJurisdictionDto>>(courtGeo);
 
-            MatterDto updatedMatterDto = _mapper.Map<MatterDto>(updatedMatter);
+                return new ServiceSuccessResult<IEnumerable<CourtGeographicalJurisdictionDto>>(courtGeoDtos);
+            });
 
-            return updatedMatterDto;
+            return result;
+        }
+
+        public async Task<ServiceResult<MatterDto>> GetMatterAsync(string id)
+        {
+            ServiceResult<MatterDto> result = await ExecuteAsync<MatterDto>(async () =>
+            {
+                _ = Guid.TryParse(id, out var parsedId);
+
+                Matter matter = await _unitOfWork.MatterRepository.GetByIdAsync(parsedId);
+
+                MatterDto matterDto = _mapper.Map<MatterDto>(matter);
+
+                return new ServiceSuccessResult<MatterDto>(matterDto);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<IEnumerable<MatterDto>>> SearchMattersAsync(MatterSearchRequestDto requestDto)
+        {
+            ServiceResult<IEnumerable<MatterDto>> result = await ExecuteAsync<IEnumerable<MatterDto>>(async () =>
+            {
+                IEnumerable<Matter> matters = await _unitOfWork.MatterRepository.SearchAsync(requestDto);
+
+                IEnumerable<MatterDto> matterDtos = _mapper.Map<IEnumerable<MatterDto>>(matters);
+
+                return new ServiceSuccessResult<IEnumerable<MatterDto>>(matterDtos);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<MatterDto>> CreateMatterAsync(MatterDto matterDto, string userName)
+        {
+            ServiceResult<MatterDto> result = await ExecuteAsync<MatterDto>(async () =>
+            {
+                Matter newMatter = _mapper.Map<Matter>(matterDto);
+
+                Matter createdMatter = await _unitOfWork.MatterRepository.CreateAsync(newMatter, userName);
+
+                await _unitOfWork.CommitAsync();
+
+                MatterDto createdMatterDto = _mapper.Map<MatterDto>(createdMatter);
+
+                return new ServiceSuccessResult<MatterDto>(createdMatterDto);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<MatterDto>> UpdateMatterAsync(string id, MatterDto matterDto, string userName)
+        {
+            ServiceResult<MatterDto> result = await ExecuteAsync<MatterDto>(async () =>
+            {
+                matterDto.Id = id;
+
+                _ = Guid.TryParse(id, out Guid parsedId);
+
+                Matter existingMatter = await _unitOfWork.MatterRepository.GetAsync(x => x.Id == parsedId);
+
+                existingMatter.CreatedBy = userName;
+                existingMatter = _mapper.Map(matterDto, existingMatter);
+
+                Matter updatedMatter = _unitOfWork.MatterRepository.Update(existingMatter, userName);
+
+                await _unitOfWork.CommitAsync();
+
+                MatterDto updatedMatterDto = _mapper.Map<MatterDto>(updatedMatter);
+
+                return new ServiceSuccessResult<MatterDto>(updatedMatterDto);
+            });
+
+            return result;
         }
     }
 }

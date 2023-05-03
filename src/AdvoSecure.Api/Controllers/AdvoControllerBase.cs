@@ -1,5 +1,4 @@
 ﻿using AdvoSecure.Security;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Controllers

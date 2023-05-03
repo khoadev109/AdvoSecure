@@ -1,23 +1,27 @@
 ﻿using AdvoSecure.Application.Dtos;
+using AdvoSecure.Common;
 using AdvoSecure.Security;
 
 namespace AdvoSecure.Application.Interfaces.Services
 {
     public interface IUserService
     {
-        Task<bool> CheckPasswordAsync(string userName, string password);
+        Task<ServiceResult<bool>> CheckPasswordAsync(string userName, string password);
 
-        Task<TenantUserDto> FindByEmailAsync(string userName);
+        Task<ServiceResult<TenantUserDto>> FindByEmailAsync(string userName);
 
-        Task<TenantUserDto> FindByUserIdentifierAsync(Guid userIdentifier);
+        Task<ServiceResult<TenantUserDto>> FindByUserIdentifierAsync(Guid userIdentifier);
 
-        Task<TenantUserDto> RegisterUserAsync(RegisterRequest request);
+        Task<ServiceResult<IEnumerable<TenantUserDto>>> GetAllUsersAsync();
 
-        Task<ApplicationUser> UpdateAppUserProfile(AppUserProfileRequestDto request);
+        Task<ServiceResult<ApplicationUser>> UpdateAppUserProfile(AppUserProfileRequestDto request);
 
-        Task<TenantUserDto> UpdateTenantUser(AppUserProfileRequestDto request);
+        Task<ServiceResult<TenantUserDto>> UpdateTenantUser(AppUserProfileRequestDto request);
 
-        Task<IEnumerable<TenantUserDto>> GetAllUsersAsync();
+        Task<ServiceResult> SetAppUserConnectionString(string userEmail);
+
+
+        // TechDept RefreshToken
 
         Task<RefreshTokenDto> GetTenantRefreshTokenAsync(Guid userIdentifier, Guid tenantIdentifier);
 
@@ -26,7 +30,5 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task<RefreshTokenDto> GetAppRefreshTokenAsync(Guid userIdentifier, Guid tenantIdentifier);
 
         Task SaveAppRefreshTokenAsync(RefreshTokenDto dto);
-
-        Task SetAppUserConnectionString(string userEmail);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace AdvoSecure.Domain.Entities.Contacts
 {
@@ -1065,5 +1065,7 @@ namespace AdvoSecure.Domain.Entities.Contacts
         public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
 
         public IList<TaskAssignedContact> TaskAssignedContacts { get; set; } = new List<TaskAssignedContact>();
+
+        public IList<NoteNotification> NoteNotifications { get; set; } = new List<NoteNotification>();
     }
 }

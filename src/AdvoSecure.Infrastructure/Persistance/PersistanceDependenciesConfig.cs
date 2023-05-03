@@ -1,7 +1,10 @@
-﻿using AdvoSecure.Application.Interfaces.Repositories;
+﻿using AdvoSecure.Application.Interfaces;
+using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.App.Repositories;
+using AdvoSecure.Infrastructure.Persistance.Application;
 using AdvoSecure.Infrastructure.Persistance.Application.Repositories;
+using AdvoSecure.Infrastructure.Persistance.Management;
 using AdvoSecure.Infrastructure.Persistance.Management.Repositories;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
 using AdvoSecure.Infrastructure.Persistance.Tenant.Repositories;
@@ -63,16 +66,33 @@ namespace AdvoSecure.Infrastructure.Persistance
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<ITenantRepository, TenantRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IDirectoryRepository, DirectoryRepository>();
-            services.AddScoped<ICaseRepository, CaseRepository>();
+            services.AddScoped<ITenantSettingRepository, TenantSettingRepository>();
+            services.AddScoped<ITenantUserRepository, TenantUserRepository>();
+            services.AddScoped<ITenantDirectoryRepository, TenantDirectoryRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
-            services.AddScoped<ICommonRepository, CommonRepository>();
             services.AddScoped<IMatterRepository, MatterRepository>();
             services.AddScoped<IRefreshTokenRepository, Tenant.Repositories.RefreshTokenRepository>();
             services.AddScoped<IRefreshTokenRepository, App.Repositories.RefreshTokenRepository>();
             services.AddTransient<IRefreshTokenRepositoryFactory, RefreshTokenRepositoryFactory>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddUnitOfWorks(this IServiceCollection services)
+        {
+            services.AddScoped<IMgmtUnitOfWork, MgmtUnitOfWork>();
+            services.AddScoped<IAppUnitOfWork, AppUnitOfWork>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddPersistance(this IServiceCollection services)
+        {
+            services.AddMgmtDbContext();
+            services.AddAppDbContext();
+            services.AddIdentityDb();
+            services.AddRepositories();
+            services.AddUnitOfWorks();
 
             return services;
         }

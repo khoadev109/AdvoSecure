@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace AdvoSecure.Domain.Entities.Tasks
 {
     [Table("TaskMatters")]
-    public class TaskMatter : AuditableEntity<Guid>
+    public class TaskMatter : BaseGuidEntity
     {
         public int TaskId { get; set; }
 
-        public Task Task { get; set; }
+        public InnerTask Task { get; set; }
 
 
         public Guid MatterId { get; set; }

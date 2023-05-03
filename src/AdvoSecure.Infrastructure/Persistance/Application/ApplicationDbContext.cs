@@ -1,8 +1,9 @@
 ﻿using AdvoSecure.Domain.Entities;
-using AdvoSecure.Domain.Entities.Language;
+using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Tasks;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -20,11 +21,10 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<BillingGroup> BillingGroups => Set<BillingGroup>();
 
-        public DbSet<Case> Cases => Set<Case>();
-
         public DbSet<Country> Countries => Set<Country>();
 
         public DbSet<Contact> Contacts => Set<Contact>();
+
         public DbSet<Language> Languages => Set<Language>();
 
         public DbSet<CompanyLegalStatus> CompanyLegalStatuses => Set<CompanyLegalStatus>();
@@ -49,17 +49,66 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<TaskType> TaskTypes => Set<TaskType>();
 
-        public DbSet<Domain.Entities.Tasks.Task> Tasks => Set<Domain.Entities.Tasks.Task>();
+        public DbSet<Domain.Entities.Tasks.InnerTask> Tasks => Set<Domain.Entities.Tasks.InnerTask>();
 
         public DbSet<TaskAssignedContact> TaskAssignedContacts => Set<TaskAssignedContact>();
 
         public DbSet<TaskMatter> TaskMatters => Set<TaskMatter>();
+
+        public DbSet<Note> Notes => Set<Note>();
+
+        public DbSet<NoteMatter> NoteMatters => Set<NoteMatter>();
+
+        public DbSet<NoteNotification> NoteNotifications => Set<NoteNotification>();
+
+        public DbSet<NoteTask> NoteTasks => Set<NoteTask>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             base.OnModelCreating(builder);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var insertedEntries = this.ChangeTracker.Entries()
+                               .Where(x => x.State == EntityState.Added)
+                               .Select(x => x.Entity);
+
+            foreach (var insertedEntry in insertedEntries)
+            {
+                if (insertedEntry is IAuditableEntity auditableEntity)
+                {
+                    auditableEntity.CreatedDateTime = DateTime.Now;
+                }
+            }
+
+            var modifiedEntries = this.ChangeTracker.Entries()
+                       .Where(x => x.State == EntityState.Modified)
+                       .Select(x => x.Entity);
+
+            foreach (var modifiedEntry in modifiedEntries)
+            {
+                if (modifiedEntry is IAuditableEntity auditableEntity)
+                {
+                    auditableEntity.ModifiedDateTime = DateTime.Now;
+                }
+            }
+
+            var deletedEntries = this.ChangeTracker.Entries()
+                       .Where(x => x.State == EntityState.Deleted)
+                       .Select(x => x.Entity);
+
+            foreach (var deletedEntry in deletedEntries)
+            {
+                if (deletedEntry is IAuditableEntity auditableEntity)
+                {
+                    auditableEntity.DeletedDateTime = DateTime.Now;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -1,12 +1,7 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AdvoSecure.Domain.Entities.Language
+namespace AdvoSecure.Domain.Entities
 {
     public class Language : BaseEntity
     {

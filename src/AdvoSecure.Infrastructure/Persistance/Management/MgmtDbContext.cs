@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Domain.Entities;
+using AdvoSecure.Domain.Entities.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -39,6 +40,47 @@ namespace AdvoSecure.Infrastructure.Persistance.Tenant
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var insertedEntries = this.ChangeTracker.Entries()
+                               .Where(x => x.State == EntityState.Added)
+                               .Select(x => x.Entity);
+
+            foreach (var insertedEntry in insertedEntries)
+            {
+                if (insertedEntry is IAuditableEntity auditableEntity)
+                {
+                    auditableEntity.CreatedDateTime = DateTime.Now;
+                }
+            }
+
+            var modifiedEntries = this.ChangeTracker.Entries()
+                       .Where(x => x.State == EntityState.Modified)
+                       .Select(x => x.Entity);
+
+            foreach (var modifiedEntry in modifiedEntries)
+            {
+                if (modifiedEntry is IAuditableEntity auditableEntity)
+                {
+                    auditableEntity.ModifiedDateTime = DateTime.Now;
+                }
+            }
+
+            var deletedEntries = this.ChangeTracker.Entries()
+                       .Where(x => x.State == EntityState.Deleted)
+                       .Select(x => x.Entity);
+
+            foreach (var deletedEntry in deletedEntries)
+            {
+                if (deletedEntry is IAuditableEntity auditableEntity)
+                {
+                    auditableEntity.DeletedDateTime = DateTime.Now;
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AdvoSecure.Domain.Entities
 {
-    public class TenantSetting : AuditableEntityIncrementalInt
+    public class TenantSetting : BaseEntity
     {
         public Guid TenantIdentifier { get; set; }
         public string Name { get; set; }

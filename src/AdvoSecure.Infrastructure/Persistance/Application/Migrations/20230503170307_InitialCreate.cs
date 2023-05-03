@@ -65,34 +65,14 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     PricePerUnit = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BillingRates", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Cases",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedBy = table.Column<string>(type: "text", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
-                    ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cases", x => x.Id);
+                    table.PrimaryKey("PK_BillingRates", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,11 +84,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,11 +103,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -144,11 +122,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -177,9 +154,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     sepa = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -196,11 +173,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -216,11 +192,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -244,11 +219,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     TitleEs = table.Column<string>(type: "text", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -266,11 +240,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,15 +259,34 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MatterTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Body = table.Column<string>(type: "text", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -325,11 +317,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     Group = table.Column<string>(type: "text", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -571,11 +562,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     MatterTypeId = table.Column<int>(type: "integer", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -628,11 +618,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     TaskTypeId = table.Column<int>(type: "integer", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -663,11 +652,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     BillToContactId = table.Column<int>(type: "integer", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -676,6 +664,69 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         name: "FK_BillingGroups_Contacts_BillToContactId",
                         column: x => x.BillToContactId,
                         principalTable: "Contacts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NoteNotifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    NoteId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ContactId = table.Column<int>(type: "integer", nullable: false),
+                    Cleared = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NoteNotifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NoteNotifications_Contacts_ContactId",
+                        column: x => x.ContactId,
+                        principalTable: "Contacts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NoteNotifications_Notes_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "Notes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NoteTasks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    NoteId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TaskId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NoteTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NoteTasks_Notes_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "Notes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NoteTasks_Tasks_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "Tasks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -690,9 +741,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     AssignmentType = table.Column<int>(type: "integer", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -737,17 +788,17 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     CaptionOtherPartyRegular = table.Column<string>(type: "text", nullable: true),
                     CaptionOtherPartyLong = table.Column<string>(type: "text", nullable: true),
                     MatterTypeId = table.Column<int>(type: "integer", nullable: false),
-                    DefaultBillingRateId = table.Column<int>(type: "integer", nullable: false),
                     BillToContactId = table.Column<int>(type: "integer", nullable: false),
+                    DefaultBillingRateId = table.Column<int>(type: "integer", nullable: false),
                     BillingGroupId = table.Column<int>(type: "integer", nullable: true),
                     MatterAreaId = table.Column<int>(type: "integer", nullable: true),
                     CourtGeographicalJurisdictionId = table.Column<int>(type: "integer", nullable: true),
                     CourtSittingInCityId = table.Column<int>(type: "integer", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -810,15 +861,15 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     IsAttorney = table.Column<bool>(type: "boolean", nullable: false),
                     IsSupportStaff = table.Column<bool>(type: "boolean", nullable: false),
                     IsThirdPartyPayor = table.Column<bool>(type: "boolean", nullable: false),
-                    MatterId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MatterId = table.Column<string>(type: "text", nullable: false),
+                    MatterId1 = table.Column<Guid>(type: "uuid", nullable: false),
                     ContactId = table.Column<int>(type: "integer", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedById = table.Column<int>(type: "integer", nullable: false)
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -830,9 +881,40 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MatterContacts_Matters_MatterId",
+                        name: "FK_MatterContacts_Matters_MatterId1",
+                        column: x => x.MatterId1,
+                        principalTable: "Matters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NoteMatters",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    NoteId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MatterId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
+                    DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NoteMatters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NoteMatters_Matters_MatterId",
                         column: x => x.MatterId,
                         principalTable: "Matters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NoteMatters_Notes_NoteId",
+                        column: x => x.NoteId,
+                        principalTable: "Notes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -846,9 +928,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     MatterId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedBy = table.Column<string>(type: "text", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "text", nullable: true),
                     ModifiedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: true),
                     DeletedDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -941,9 +1023,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MatterContacts_MatterId",
+                name: "IX_MatterContacts_MatterId1",
                 table: "MatterContacts",
-                column: "MatterId");
+                column: "MatterId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matters_BillingGroupId",
@@ -979,6 +1061,36 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 name: "IX_Matters_MatterTypeId",
                 table: "Matters",
                 column: "MatterTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NoteMatters_MatterId",
+                table: "NoteMatters",
+                column: "MatterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NoteMatters_NoteId",
+                table: "NoteMatters",
+                column: "NoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NoteNotifications_ContactId",
+                table: "NoteNotifications",
+                column: "ContactId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NoteNotifications_NoteId",
+                table: "NoteNotifications",
+                column: "NoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NoteTasks_NoteId",
+                table: "NoteTasks",
+                column: "NoteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NoteTasks_TaskId",
+                table: "NoteTasks",
+                column: "TaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskAssignedContacts_ContactId",
@@ -1030,9 +1142,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Cases");
-
-            migrationBuilder.DropTable(
                 name: "Countries");
 
             migrationBuilder.DropTable(
@@ -1040,6 +1149,15 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
             migrationBuilder.DropTable(
                 name: "MatterContacts");
+
+            migrationBuilder.DropTable(
+                name: "NoteMatters");
+
+            migrationBuilder.DropTable(
+                name: "NoteNotifications");
+
+            migrationBuilder.DropTable(
+                name: "NoteTasks");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
@@ -1055,6 +1173,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "Matters");

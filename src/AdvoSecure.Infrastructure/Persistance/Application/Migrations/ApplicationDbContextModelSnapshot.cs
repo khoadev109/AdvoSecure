@@ -40,14 +40,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -57,7 +53,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -89,21 +84,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -121,44 +111,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("BillingRates");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.Case", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletedDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("ModifiedDateTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cases");
-                });
-
             modelBuilder.Entity("AdvoSecure.Domain.Entities.CompanyLegalStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -171,21 +123,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -350,9 +297,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -360,7 +304,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -458,7 +401,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -623,21 +565,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -664,21 +601,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -742,7 +674,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -753,7 +684,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -784,7 +714,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.Language.Language", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Language", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -806,21 +736,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -865,21 +790,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -906,21 +826,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -995,7 +910,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -1024,7 +938,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1082,21 +995,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1126,14 +1034,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -1169,11 +1073,14 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<bool>("IsWitness")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("MatterId")
+                    b.Property<string>("MatterId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("MatterId1")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1187,7 +1094,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasIndex("ContactId");
 
-                    b.HasIndex("MatterId");
+                    b.HasIndex("MatterId1");
 
                     b.ToTable("MatterContacts");
                 });
@@ -1204,21 +1111,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1231,6 +1133,170 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MatterTypes");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.Note", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.NoteMatter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("MatterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("NoteId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatterId");
+
+                    b.HasIndex("NoteId");
+
+                    b.ToTable("NoteMatters");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.NoteNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("Cleared")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ContactId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("NoteId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("NoteId");
+
+                    b.ToTable("NoteNotifications");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.NoteTask", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModifiedDateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("NoteId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NoteId");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("NoteTasks");
                 });
 
             modelBuilder.Entity("AdvoSecure.Domain.Entities.RefreshToken", b =>
@@ -1262,7 +1328,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.Task", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.InnerTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1283,14 +1349,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -1307,7 +1369,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1364,14 +1425,12 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1403,7 +1462,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -1413,7 +1471,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1443,14 +1500,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DeletedDateTime")
@@ -1463,7 +1516,6 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ModifiedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ModifiedDateTime")
@@ -1791,7 +1843,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.HasOne("AdvoSecure.Domain.Entities.Matters.Matter", "Matter")
                         .WithMany("MatterContacts")
-                        .HasForeignKey("MatterId")
+                        .HasForeignKey("MatterId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1800,9 +1852,66 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Navigation("Matter");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.Task", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.NoteMatter", b =>
                 {
-                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.Task", "SequentialPredecessor")
+                    b.HasOne("AdvoSecure.Domain.Entities.Matters.Matter", "Matter")
+                        .WithMany("NoteMatters")
+                        .HasForeignKey("MatterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdvoSecure.Domain.Entities.Notes.Note", "Note")
+                        .WithMany("NoteMatters")
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Matter");
+
+                    b.Navigation("Note");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.NoteNotification", b =>
+                {
+                    b.HasOne("AdvoSecure.Domain.Entities.Contacts.Contact", "Contact")
+                        .WithMany("NoteNotifications")
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdvoSecure.Domain.Entities.Notes.Note", "Note")
+                        .WithMany("NoteNotifications")
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contact");
+
+                    b.Navigation("Note");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.NoteTask", b =>
+                {
+                    b.HasOne("AdvoSecure.Domain.Entities.Notes.Note", "Note")
+                        .WithMany("NoteTasks")
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.InnerTask", "Task")
+                        .WithMany("NoteTasks")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Note");
+
+                    b.Navigation("Task");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.InnerTask", b =>
+                {
+                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.InnerTask", "SequentialPredecessor")
                         .WithMany()
                         .HasForeignKey("SequentialPredecessorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1825,7 +1934,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.Task", "Task")
+                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.InnerTask", "Task")
                         .WithMany("TaskAssignedContacts")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1844,7 +1953,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.Task", "Task")
+                    b.HasOne("AdvoSecure.Domain.Entities.Tasks.InnerTask", "Task")
                         .WithMany("TaskMatters")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1926,6 +2035,8 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.Navigation("Matters");
 
+                    b.Navigation("NoteNotifications");
+
                     b.Navigation("TaskAssignedContacts");
                 });
 
@@ -1953,6 +2064,8 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                 {
                     b.Navigation("MatterContacts");
 
+                    b.Navigation("NoteMatters");
+
                     b.Navigation("TaskMatters");
                 });
 
@@ -1966,8 +2079,19 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Navigation("Contacts");
                 });
 
-            modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.Task", b =>
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Notes.Note", b =>
                 {
+                    b.Navigation("NoteMatters");
+
+                    b.Navigation("NoteNotifications");
+
+                    b.Navigation("NoteTasks");
+                });
+
+            modelBuilder.Entity("AdvoSecure.Domain.Entities.Tasks.InnerTask", b =>
+                {
+                    b.Navigation("NoteTasks");
+
                     b.Navigation("TaskAssignedContacts");
 
                     b.Navigation("TaskMatters");

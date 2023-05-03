@@ -45,10 +45,7 @@ services.Configure<FormOptions>(o =>
 
 services.AddDistributedMemoryCache();
 
-services.AddMgmtDbContext();
-services.AddAppDbContext();
-
-services.AddIdentityDb();
+services.AddPersistance();
 
 services.AddHttpContextAccessor();
 
@@ -96,7 +93,6 @@ services.AddSignalR();
 services.AddSwagger();
 services.AddMappers();
 services.AddValidatorsFromAssemblyContaining<CaseFilterValidator>();
-services.AddRepositories();
 services.AddServices();
 services.AddScoped<JwtResolver>();
 services.AddScoped<RsaResolver>();

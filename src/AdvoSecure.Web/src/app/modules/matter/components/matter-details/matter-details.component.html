@@ -31,9 +31,7 @@
             <div class="col-lg-6">
               <div class="table-responsive">
                 <!-- begin::Table -->
-                <table
-                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
-                >
+                <table class="table align-middle gs-0 gy-4">
                   <!-- begin::Table head -->
                   <thead>
                     <tr class="border-0">
@@ -62,7 +60,7 @@
                         >
                         </span>
                       </td>
-                      <td>{{ matter.matterType?.title || ''  }}</td>
+                      <td>{{ matter.matterType?.title || "" }}</td>
                     </tr>
                     <tr>
                       <td>
@@ -72,7 +70,11 @@
                         >
                         </span>
                       </td>
-                      <td><span class="text-muted fw-bold">{{ matter.caseNumber }}</span></td>
+                      <td>
+                        <span class="text-muted fw-bold">{{
+                          matter.caseNumber
+                        }}</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -82,7 +84,7 @@
                         >
                         </span>
                       </td>
-                      <td>{{ matter.matterArea?.title || ''  }}</td>
+                      <td>{{ matter.matterArea?.title || "" }}</td>
                     </tr>
                     <tr>
                       <td>
@@ -92,7 +94,9 @@
                         >
                         </span>
                       </td>
-                      <td>{{ matter.courtGeographicalJurisdiction?.title || ''  }}</td>
+                      <td>
+                        {{ matter.courtGeographicalJurisdiction?.title || "" }}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -104,6 +108,21 @@
                       </td>
                       <td></td>
                     </tr>
+                    <tr>
+                      <td>
+                        <span class="text-dark fw-bolder mb-1 fs-6"> </span>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span
+                          class="text-dark fw-bolder mb-1 fs-6"
+                          translate="PAGES.MATTER.RESUME"
+                        ></span>
+                      </td>
+                      <td>{{ matter.synopsis }}</td>
+                    </tr>
                   </tbody>
                   <!-- end::Table body -->
                 </table>
@@ -112,9 +131,7 @@
             <div class="col-lg-6">
               <div class="table-responsive">
                 <!-- begin::Table -->
-                <table
-                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
-                >
+                <table class="table align-middle gs-0 gy-4">
                   <!-- begin::Table head -->
                   <thead>
                     <tr class="border-0">
@@ -131,7 +148,7 @@
                           Standard hourly rate
                         </span>
                       </td>
-                      <td>{{ matter.defaultBillingRate?.title || ''  }}</td>
+                      <td>{{ matter.defaultBillingRate?.title || "" }}</td>
                     </tr>
                     <tr>
                       <td>
@@ -141,7 +158,13 @@
                         >
                         </span>
                       </td>
-                      <td>{{ matter.overrideMatterRateWithEmployeeRate ? 'Yes' : 'No' }}</td>
+                      <td>
+                        {{
+                          matter.overrideMatterRateWithEmployeeRate
+                            ? "Yes"
+                            : "No"
+                        }}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -151,7 +174,7 @@
                         >
                         </span>
                       </td>
-                      <td>{{ matter.billToContact?.displayName || '' }}</td>
+                      <td>{{ matter.billToContact?.displayName || "" }}</td>
                     </tr>
                     <tr>
                       <td>
@@ -161,7 +184,7 @@
                         >
                         </span>
                       </td>
-                      <td>{{ matter.billingGroup?.title || '' }}</td>
+                      <td>{{ matter.billingGroup?.title || "" }}</td>
                     </tr>
                     <tr>
                       <td>
@@ -175,14 +198,6 @@
                   <!-- end::Table body -->
                 </table>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <span
-                class="text-dark fw-bolder mb-1 fs-6"
-                translate="PAGES.MATTER.RESUME"
-              ></span>
             </div>
           </div>
         </div>
@@ -213,9 +228,7 @@
             <div class="col-lg-6">
               <div class="table-responsive">
                 <!-- begin::Table -->
-                <table
-                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
-                >
+                <table class="table align-middle gs-0 gy-4">
                   <!-- begin::Table head -->
                   <thead>
                     <tr class="border-0">
@@ -258,9 +271,7 @@
             <div class="col-lg-6">
               <div class="table-responsive">
                 <!-- begin::Table -->
-                <table
-                  class="table table-row-dashed table-row-gray-200 align-middle gs-0 gy-4"
-                >
+                <table class="table align-middle gs-0 gy-4">
                   <!-- begin::Table head -->
                   <thead>
                     <tr class="border-0">
@@ -302,11 +313,11 @@
                 >
                   <!-- begin::Table head -->
                   <thead>
-                    <tr class="fw-bolder text-muted">
-                      <th class="min-w-80px">Financial information</th>
-                      <th class="min-w-70px">Declared</th>
-                      <th class="min-w-70px">Billable</th>
-                      <th class="min-w-70px">Total</th>
+                    <tr class="fw-bolder">
+                      <th class="min-w-80px"><h4>Financial information</h4></th>
+                      <th class="min-w-70px text-muted">Declared</th>
+                      <th class="min-w-70px text-muted">Billable</th>
+                      <th class="min-w-70px text-muted">Total</th>
                       <th class="min-w-70px"></th>
                     </tr>
                   </thead>
@@ -315,7 +326,60 @@
                   <tbody>
                     <tr>
                       <td>
+                        <div class="text-dark fw-bolder d-block fs-6">
+                          Expenses
+                        </div>
+                      </td>
+                      <td>
                         <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td class="text-end">
+                        <div class="d-flex align-items-center">
+                          <a class="btn">
+                            <span
+                              [inlineSVG]="
+                                './assets/media/icons/duotune/files/fil001.svg'
+                              "
+                              class="svg-icon svg-icon-3 position-absolute ms-3"
+                            ></span
+                          ></a>
+                          <a class="btn">
+                            <span
+                              [inlineSVG]="
+                                './assets/media/icons/duotune/general/gen035.svg'
+                              "
+                              class="svg-icon svg-icon-3 position-absolute ms-3"
+                            ></span>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6">Fees</div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6"></div>
+                      </td>
+                      <td class="text-end"></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="text-dark fw-bolder d-block fs-6">
+                          Hours
+                        </div>
                       </td>
                       <td>
                         <div class="text-dark fw-bolder d-block fs-6"></div>
@@ -422,7 +486,9 @@
             [ngClass]="activeClass('note-tab')"
             id="note-tab"
           >
-            <div class="card mb-5 mb-xl-10"></div>
+            <div class="card mb-5 mb-xl-10">
+              <app-matter-notes></app-matter-notes>
+            </div>
           </div>
           <!-- end::Tab Notes-->
 

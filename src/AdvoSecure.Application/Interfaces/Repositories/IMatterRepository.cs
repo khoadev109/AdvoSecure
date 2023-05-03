@@ -1,24 +1,17 @@
 ﻿using AdvoSecure.Application.Dtos.MatterDtos;
+using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities.Matters;
 
 namespace AdvoSecure.Application.Interfaces.Repositories
 {
-    public interface IMatterRepository
+    public interface IMatterRepository : IRepository<Matter>
     {
-        IQueryable<MatterType> GetMatterTypes();
+        Task<Matter> GetByIdAsync(Guid id);
 
-        Task<Matter> GetMatterByIdAsync(Guid id);
+        Task<IEnumerable<Matter>> SearchAsync(MatterSearchRequestDto request);
 
-        IQueryable<MatterArea> GetMatterAreas();
+        Task<Matter> CreateAsync(Matter matter, string userName);
 
-        IQueryable<CourtSittingInCity> GetCourtSittingInCities();
-
-        IQueryable<CourtGeographicalJurisdiction> GetCourtGeographicalJurisdictions();
-
-        IQueryable<Matter> GetMatters();
-
-        Task<Matter> Create(Matter matter, string userName);
-
-        Task<Matter> Update(MatterDto matterDto, string userName);
+        Matter Update(Matter matter, string userName);
     }
 }

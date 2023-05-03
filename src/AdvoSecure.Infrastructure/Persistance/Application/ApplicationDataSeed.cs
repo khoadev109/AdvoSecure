@@ -1,16 +1,10 @@
 ﻿using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
-using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Matters;
-using AdvoSecure.Domain.Enums;
+using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Infrastructure.Persistance.App;
-using AdvoSecure.Infrastructure.Persistance.Tenant;
-using AutoMapper.Execution;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
-using System.Threading.Tasks;
 
 namespace AdvoSecure.Infrastructure.Persistance
 {
@@ -53,6 +47,14 @@ namespace AdvoSecure.Infrastructure.Persistance
                 await SeedMatters(context);
 
                 await SeedTaskType(context);
+
+                await context.SaveChangesAsync();
+
+                await SeedNotes(context);
+
+                await context.SaveChangesAsync();
+
+                await SeedNoteMatters(context);
 
                 await context.SaveChangesAsync();
             }
@@ -3175,6 +3177,79 @@ namespace AdvoSecure.Infrastructure.Persistance
                         CreatedBy = "TOAA"
                     }
                 );
+            }
+        }
+
+        public static async Task SeedNotes(ApplicationDbContext context)
+        {
+            if (!context.Notes.Any())
+            {
+                List<Matter> matters = await context.Matters.Take(2).ToListAsync();
+
+                foreach (var matter in matters)
+                {
+                    await context.Notes.AddRangeAsync(
+                        new Note
+                        {
+                            Title = "Note test 1 " + matter.MatterNumber,
+                            Body = "Note test 1 " + matter.MatterNumber,
+                            Timestamp = DateTime.Now,
+                            CreatedBy = "TOAA"
+                        },
+                        new Note
+                        {
+                            Title = "Note test 2 " + matter.MatterNumber,
+                            Body = "Note test 2 " + matter.MatterNumber,
+                            Timestamp = DateTime.Now,
+                            CreatedBy = "TOAA"
+                        },
+                        new Note
+                        {
+                            Title = "Note test 3 " + matter.MatterNumber,
+                            Body = "Note test 3 " + matter.MatterNumber,
+                            Timestamp = DateTime.Now,
+                            CreatedBy = "TOAA"
+                        }
+                    );
+                }
+            }
+        }
+
+        public static async Task SeedNoteMatters(ApplicationDbContext context)
+        {
+            if (!context.NoteMatters.Any())
+            {
+                List<Matter> matters = await context.Matters.Take(2).ToListAsync();
+
+                List<Note> notes = await context.Notes.ToListAsync();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    var noteMatter = new NoteMatter
+                    {
+                        Note = notes[i],
+                        Matter = matters[0],
+                        CreatedBy = "TOAA"
+                    };
+
+                    notes[i].NoteMatters.Add(noteMatter);
+
+                    matters[0].NoteMatters.Add(noteMatter);
+                }
+
+                for (int i = 3; i < notes.Count; i++)
+                {
+                    var noteMatter = new NoteMatter
+                    {
+                        Note = notes[i],
+                        Matter = matters[1],
+                        CreatedBy = "TOAA"
+                    };
+
+                    notes[i].NoteMatters.Add(noteMatter);
+
+                    matters[1].NoteMatters.Add(noteMatter);
+                }
             }
         }
     }

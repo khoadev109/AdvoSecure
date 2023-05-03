@@ -8,6 +8,7 @@ import { CourtGeographicalJurisdiction } from '../models/court-geo-jurisdiction.
 import { Matter } from '../models/matter.model';
 import { SearchMatter } from '../models/search-matter.model';
 import { CourtSittingInCity } from '../models/court-sitting-city.model';
+import { Note } from '../models/note.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,12 @@ export class MatterService {
   getCourtGeoJurisdictions(): Observable<CourtGeographicalJurisdiction[]> {
     return this.httpClient.get<CourtGeographicalJurisdiction[]>(
       this.API_MATTER_URL + '/court-geo'
+    );
+  }
+
+  getMatterNotes(matterId: string): Observable<Note[]> {
+    return this.httpClient.get<Note[]>(
+      this.API_MATTER_URL + '/' + matterId + '/notes'
     );
   }
 

@@ -2,11 +2,12 @@
 using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Dtos.MatterDtos;
+using AdvoSecure.Application.Dtos.Notes;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
-using AdvoSecure.Domain.Entities.Language;
 using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,13 +41,6 @@ namespace AdvoSecure.Application.Mappers
                     .ForMember(x => x.DeletedBy, x => x.Ignore())
                     .ForMember(x => x.DeletedDateTime, x => x.Ignore());
 
-                config.CreateMap<Case, CaseDto>().ReverseMap()
-                    .ForMember(x => x.Id, x => x.Ignore())
-                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
-                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
-                    .ForMember(x => x.DeletedBy, x => x.Ignore())
-                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
-
                 config.CreateMap<Country, CountryDto>().ReverseMap()
                     .ForMember(x => x.Id, x => x.Ignore())
                     .ForMember(x => x.ModifiedBy, x => x.Ignore())
@@ -61,6 +55,8 @@ namespace AdvoSecure.Application.Mappers
                 config.MapContacts();
 
                 config.MapMatters();
+
+                config.MapNotes();
             });
 
             return services;
@@ -171,6 +167,18 @@ namespace AdvoSecure.Application.Mappers
                     .ForMember(x => x.MatterId, x => x.Ignore())
                     .ReverseMap()
                     .ForMember(x => x.MatterId, x => x.Ignore())
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+        }
+
+        private static void MapNotes(this IMapperConfigurationExpression config)
+        {
+            config.CreateMap<Note, NoteDto>()
+                    .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id.ToString()))
+                    .ReverseMap()
                     .ForMember(x => x.Id, x => x.Ignore())
                     .ForMember(x => x.ModifiedBy, x => x.Ignore())
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())

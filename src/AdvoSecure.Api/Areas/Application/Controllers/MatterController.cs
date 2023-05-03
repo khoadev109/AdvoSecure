@@ -1,10 +1,10 @@
 ﻿using AdvoSecure.Api.Attributes;
 using AdvoSecure.Api.Controllers;
-using AdvoSecure.Application.Dtos.ContactDtos;
 using AdvoSecure.Application.Dtos.MatterDtos;
+using AdvoSecure.Application.Dtos.Notes;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Infrastructure.Authorization;
-using AdvoSecure.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvoSecure.Api.Areas.Application.Controllers
@@ -14,88 +14,129 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
     public class MatterController : AdvoControllerBase
     {
         private readonly IMatterService _matterService;
+        private readonly INoteService _noteService;
 
-        public MatterController(IMatterService matterService)
+        public MatterController(IMatterService matterService, INoteService noteService)
         {
             _matterService = matterService;
+            _noteService = noteService;
         }
 
         [HttpGet("types")]
         public async Task<IActionResult> GetMatterTypes()
         {
-            IEnumerable<MatterTypeDto> result = await _matterService.GetMatterTypesAsync();
+            ServiceResult<IEnumerable<MatterTypeDto>> serviceResult = await _matterService.GetMatterTypesAsync();
 
-            return Ok(result);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("areas")]
         public async Task<IActionResult> GetMatterAreas()
         {
-            IEnumerable<MatterAreaDto> result = await _matterService.GetMatterAreasAsync();
+            ServiceResult<IEnumerable<MatterAreaDto>> serviceResult = await _matterService.GetMatterAreasAsync();
 
-            return Ok(result);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("court-city")]
         public async Task<IActionResult> GetCourtSittingInCities()
         {
-            IEnumerable<CourtSittingInCityDto> result = await _matterService.GetCourtSittingInCitiesAsync();
+            ServiceResult<IEnumerable<CourtSittingInCityDto>> serviceResult = await _matterService.GetCourtSittingInCitiesAsync();
 
-            return Ok(result);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("court-geo")]
         public async Task<IActionResult> GetCourtGeographicalJurisdictions()
         {
-            IEnumerable<CourtGeographicalJurisdictionDto> result = await _matterService.GetCourtGeographicalJurisdictionsAsync();
+            ServiceResult<IEnumerable<CourtGeographicalJurisdictionDto>> serviceResult = await _matterService.GetCourtGeographicalJurisdictionsAsync();
 
-            return Ok(result);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpGet("{id}/notes")]
+        public async Task<IActionResult> GetMatterNotes(string id)
+        {
+            ServiceResult<IEnumerable<NoteDto>> serviceResult = await _noteService.GetNotesByMatterIdAsync(id);
+
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPost("search")]
         public async Task<IActionResult> SearchMatters([FromBody] MatterSearchRequestDto request)
         {
-            IEnumerable<MatterDto> result = await _matterService.SearchMattersAsync(request);
+            ServiceResult<IEnumerable<MatterDto>> serviceResult = await _matterService.SearchMattersAsync(request);
 
-            return Ok(result);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            MatterDto matterDto = await _matterService.GetMatterAsync(id);
+            ServiceResult<MatterDto> serviceResult = await _matterService.GetMatterAsync(id);
 
-            return Ok(matterDto);
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] MatterDto matterRequestDto)
         {
-            try
-            {
-                MatterDto matterDto = await _matterService.CreateMatterAsync(matterRequestDto, CurrentUserName);
+            ServiceResult<MatterDto> serviceResult = await _matterService.CreateMatterAsync(matterRequestDto, CurrentUserName);
 
-                return Ok(matterDto);
-            }
-            catch (Exception ex)
+            if (serviceResult.Success)
             {
-                return StatusCode(500, $"Create matter internal server error: {ex}");
+                return Ok(serviceResult.Result);
             }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] MatterDto matterRequestDto)
         {
-            try
-            {
-                MatterDto matterDto = await _matterService.UpdateMatterAsync(id, matterRequestDto, CurrentUserName);
+            ServiceResult<MatterDto> serviceResult = await _matterService.UpdateMatterAsync(id, matterRequestDto, CurrentUserName);
 
-                return Ok(matterDto);
-            }
-            catch (Exception ex)
+            if (serviceResult.Success)
             {
-                return StatusCode(500, $"Update matter internal server error: {ex}");
+                return Ok(serviceResult.Result);
             }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

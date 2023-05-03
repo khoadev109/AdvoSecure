@@ -1,6 +1,8 @@
 ﻿using AdvoSecure.Application.Dtos;
+using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Infrastructure.Persistance;
 using AdvoSecure.Infrastructure.Persistance.App;
@@ -11,179 +13,150 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AdvoSecure.Infrastructure.Services
 {
-    public class UserService : IUserService
+    public class UserService : ServiceBase, IUserService
     {
         private readonly ApplicationDbContext _appDbContext;
+        private readonly IMgmtUnitOfWork _unitOfWork;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IUserRepository _userRepository;
-        private readonly ITenantRepository _tenantRepository;
-        private readonly IDirectoryRepository _directoryRepository;
         private readonly IRefreshTokenRepositoryFactory _refreshTokenRepositoryFactory;
         private readonly IMapper _mapper;
 
-        public UserService(ApplicationDbContext appDbContext, UserManager<ApplicationUser> userManager, IUserRepository userRepository, ITenantRepository tenantRepository, IDirectoryRepository directoryRepository, IRefreshTokenRepositoryFactory refreshTokenRepositoryFactory, IMapper mapper)
+        public UserService(ApplicationDbContext appDbContext, IMgmtUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager, IRefreshTokenRepositoryFactory refreshTokenRepositoryFactory, IMapper mapper)
         {
             _appDbContext = appDbContext;
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
-            _userRepository = userRepository;
-            _tenantRepository = tenantRepository;
-            _directoryRepository = directoryRepository;
             _refreshTokenRepositoryFactory = refreshTokenRepositoryFactory;
             _mapper = mapper;
         }
 
-        public async Task<bool> CheckPasswordAsync(string userName, string password)
+        public async Task<ServiceResult<bool>> CheckPasswordAsync(string userName, string password)
         {
-            bool existed = await _userRepository.CheckPasswordAsync(userName, password);
-            return existed;
-        }
-
-        public async Task<TenantUserDto> FindByEmailAsync(string email)
-        {
-            TenantUser user = await _userRepository.FindByEmailAsync(email);
-
-            TenantUserDto userDto = _mapper.Map<TenantUserDto>(user);
-
-            return userDto;
-        }
-
-        public async Task<TenantUserDto> FindByUserIdentifierAsync(Guid userIdentifier)
-        {
-            TenantUser user = await _userRepository.FindByUserIdentifierAsync(userIdentifier);
-
-            TenantUserDto userDto = _mapper.Map<TenantUserDto>(user);
-
-            return userDto;
-        }
-
-        public async Task<TenantUserDto> RegisterUserAsync(RegisterRequest request)
-        {
-            try
+            ServiceResult<bool> result = await ExecuteAsync<bool>(async () =>
             {
-                if (request.SetAsAdmin.GetValueOrDefault())
+                bool existed = await _unitOfWork.TenantUserRepository.CheckPasswordAsync(userName, password);
+
+                return new ServiceSuccessResult<bool>(existed);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<TenantUserDto>> FindByEmailAsync(string email)
+        {
+            ServiceResult<TenantUserDto> result = await ExecuteAsync<TenantUserDto>(async () =>
+            {
+                TenantUser user = await _unitOfWork.TenantUserRepository.GetAsync(x => x.Email == email);
+
+                TenantUserDto userDto = _mapper.Map<TenantUserDto>(user);
+
+                return new ServiceSuccessResult<TenantUserDto>(userDto);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<TenantUserDto>> FindByUserIdentifierAsync(Guid userIdentifier)
+        {
+            ServiceResult<TenantUserDto> result = await ExecuteAsync<TenantUserDto>(async () =>
+            {
+                TenantUser user = await _unitOfWork.TenantUserRepository.GetAsync(x => x.UserIdentifier == userIdentifier);
+
+                TenantUserDto userDto = _mapper.Map<TenantUserDto>(user);
+
+                return new ServiceSuccessResult<TenantUserDto>(userDto);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<IEnumerable<TenantUserDto>>> GetAllUsersAsync()
+        {
+            ServiceResult<IEnumerable<TenantUserDto>> result = await ExecuteAsync<IEnumerable<TenantUserDto>>(async () =>
+            {
+                IEnumerable<TenantUser> users = await _unitOfWork.TenantUserRepository.GetAllAsync();
+
+                IEnumerable<TenantUserDto> userDtos = _mapper.Map<IEnumerable<TenantUserDto>>(users);
+
+                return new ServiceSuccessResult<IEnumerable<TenantUserDto>>(userDtos);
+            });
+
+            return result;
+        }
+
+        public async Task<ServiceResult<ApplicationUser>> UpdateAppUserProfile(AppUserProfileRequestDto request)
+        {
+            ServiceResult<ApplicationUser> result = await ExecuteAsync<ApplicationUser>(async () =>
+            {
+                ApplicationUser user = await _userManager.GetUserAsync(request.User);
+
+                if (user == null)
                 {
-                    TenantUser newAdminUser = await _userRepository.CreateAsync(request);
-
-                    TenantSetting tenantAdmin = await _tenantRepository.GetAdminAsync(request.TenantAdminIdentifier);
-
-                    TenantDirectory mappedDirectory = await _directoryRepository.CreateAsync(tenantAdmin, newAdminUser);
-
-                    if (mappedDirectory == null)
-                    {
-                        return null;
-                    }
-
-                    TenantUserDto newAdminUserDto = _mapper.Map<TenantUserDto>(newAdminUser);
-
-                    return newAdminUserDto;
+                    return new ServiceFailResult<ApplicationUser>();
                 }
 
-                Guid.TryParse(request.TenantIdentifier, out Guid parsedTenantIdentifier);
+                user.DisplayName = request.DisplayName;
+                user.FirstName = request.FirstName;
+                user.LastName = request.LastName;
+                user.Email = request.Email;
+                user.UserName = request.Email;
 
-                TenantSetting tenant = await _tenantRepository.GetAsync(parsedTenantIdentifier);
-
-                if (tenant == null)
+                IdentityResult result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
                 {
-                    tenant = await _tenantRepository.CreateAsync(request.TenantAdminIdentifier);
+                    return new ServiceSuccessResult<ApplicationUser>(user);
                 }
 
-                TenantUser newUser = await _userRepository.CreateAsync(request);
+                return new ServiceFailResult<ApplicationUser>();
 
-                await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
+            });
 
-                if (tenant != null && newUser != null)
+            return result;
+        }
+
+        public async Task<ServiceResult<TenantUserDto>> UpdateTenantUser(AppUserProfileRequestDto request)
+        {
+            ServiceResult<TenantUserDto> result = await ExecuteAsync<TenantUserDto>(async () =>
+            {
+                if (!Guid.TryParse(request.UserIdentifier, out Guid parsedUserIdentifier))
                 {
-                    TenantDirectory mappedDirectory = await _directoryRepository.CreateAsync(tenant, newUser);
-
-                    if (mappedDirectory == null)
-                    {
-                        return null;
-                    }
-
-                    try
-                    {
-                        var appUser = new ApplicationUser
-                        {
-                            UserName = request.Email,
-                            DisplayName = request.DisplayName,
-                            Email = request.Email,
-                            FirstName = request.FirstName,
-                            LastName = request.LastName,
-                            UserIdentifier = newUser.UserIdentifier
-                        };
-
-                        IdentityResult result = await _userManager.CreateAsync(appUser, request.Password);
-
-                        if (result.Succeeded)
-                        {
-                            TenantUserDto userDto = _mapper.Map<TenantUserDto>(newUser);
-
-                            return userDto;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw;
-                    }
+                    return new ServiceFailResult<TenantUserDto>();
                 }
 
-                return null;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+                TenantUser user = await _unitOfWork.TenantUserRepository.GetAsync(x => x.UserIdentifier == parsedUserIdentifier);
 
-        public async Task<ApplicationUser> UpdateAppUserProfile(AppUserProfileRequestDto request)
-        {
-            ApplicationUser user = await _userManager.GetUserAsync(request.User);
+                TenantUser updatedUser = _unitOfWork.TenantUserRepository.Update(user);
 
-            if (user == null)
-            {
-                return null;
-            }
-
-            user.DisplayName = request.DisplayName;
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.Email = request.Email;
-            user.UserName = request.Email;
-
-            IdentityResult result = await _userManager.UpdateAsync(user);
-            if (result.Succeeded)
-            {
-                return user;
-            }
-
-            return null;
-        }
-
-        public async Task<TenantUserDto> UpdateTenantUser(AppUserProfileRequestDto request)
-        {
-            if (Guid.TryParse(request.UserIdentifier, out Guid parsedUserIdentifier))
-            {
-                TenantUser user = await _userRepository.FindByUserIdentifierAsync(parsedUserIdentifier);
-
-                TenantUser updatedUser = await _userRepository.SaveAsync(user);
+                await _unitOfWork.CommitAsync();
 
                 TenantUserDto updatedUserDto = _mapper.Map<TenantUserDto>(updatedUser);
 
-                return updatedUserDto;
-            }
+                return new ServiceSuccessResult<TenantUserDto>(updatedUserDto);
 
-            return null;
+            });
+
+            return result;
         }
 
-        public async Task<IEnumerable<TenantUserDto>> GetAllUsersAsync()
+        public async Task<ServiceResult> SetAppUserConnectionString(string userEmail)
         {
-            IEnumerable<TenantUser> users = (await _userRepository.GetAllAsync()).AsEnumerable();
+            ServiceResult result = await ExecuteAsync(async () =>
+            {
+                TenantSetting tenant = await _unitOfWork.TenantSettingRepository.GetByUserEmailAsync(userEmail);
 
-            IEnumerable<TenantUserDto> userDtos = _mapper.Map<IEnumerable<TenantUserDto>>(users);
+                if (tenant?.AdminId.HasValue ?? false) //temporary fix . Root tenant should not login via appFE
+                {
+                    await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
+                }
 
-            return userDtos;
+                return new ServiceSuccessResult();
+            });
+
+            return result;
         }
+
+
+        // TechDept RefreshToken
 
         public async Task SaveTenantRefreshTokenAsync(RefreshTokenDto dto)
         {
@@ -221,16 +194,6 @@ namespace AdvoSecure.Infrastructure.Services
             IRefreshTokenRepository refreshTokenRepository = _refreshTokenRepositoryFactory.GetInstance(typeof(ApplicationDbContext));
 
             await refreshTokenRepository.SaveAsync(dto);
-        }
-
-        public async Task SetAppUserConnectionString(string userEmail)
-        {
-            TenantSetting tenant = await _tenantRepository.GetByUserEmailAsync(userEmail);
-
-            if (tenant?.AdminId.HasValue ?? false) //temporary fix . Root tenant should not login via appFE
-            {
-                await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
-            }
         }
     }
 }

@@ -1,117 +1,86 @@
-﻿using AdvoSecure.Application.Dtos.ContactDtos;
-using AdvoSecure.Application.Interfaces.Repositories;
-using AdvoSecure.Domain.Entities;
+﻿using AdvoSecure.Application.Interfaces.Repositories;
+using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities.Contacts;
-using AdvoSecure.Domain.Entities.Language;
-using AdvoSecure.Domain.Entities.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 {
-    public class ContactRepository : IContactRepository
+    public class ContactRepository : Repository<Contact>, IContactRepository
     {
-        private readonly IMapper _mapper;
-        private readonly ApplicationDbContext _dbContext;
-
-        public ContactRepository(IMapper mapper, ApplicationDbContext dbContext)
+        public ContactRepository(ApplicationDbContext dbContext) : base (dbContext)
         {
-            _mapper = mapper;
-            _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Country>> GetAllCountriesAsync()
+        public async Task<IEnumerable<Contact>> GetContactsAsync(string searchTerm)
         {
-            IEnumerable<Country> Countries = await _dbContext.Countries.ToListAsync<Country>();
-            return Countries;
-        }
+            IQueryable<Contact> query = GetContactsQueryBySearchTerm(searchTerm);
 
-        public async Task<IEnumerable<Language>> GetLanguagesAsync()
-        {
-            IEnumerable<Language> Languages = await _dbContext.Languages.ToListAsync<Language>();
-            return Languages;
-        }
-
-        public async Task<IEnumerable<TaskType>> GetTaskType()
-        {
-            IEnumerable<TaskType> Tasktypes = await _dbContext.TaskTypes.ToListAsync<TaskType>();
-            return Tasktypes;
-        }
-
-        public IQueryable<Contact> GetContacts(string searchTerm)
-        {
-            IQueryable<Contact> contacts = _dbContext.Contacts;
-
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                contacts = contacts.Where(c => !string.IsNullOrWhiteSpace(searchTerm) && c.DisplayName.Contains(searchTerm));
-            }
+            IEnumerable < Contact > contacts = await query.ToListAsync();
 
             return contacts;
         }
 
-        public IQueryable<ContactIdType> GetIdTypes()
+        public async Task<IEnumerable<Contact>> GetCompaniesAsync(string searchTerm)
         {
-            return _dbContext.ContactIdTypes;
+            IQueryable<Contact> query = GetContactsQueryBySearchTerm(searchTerm);
+
+            query = query.Where(c => c.IsOrganization);
+
+            IEnumerable<Contact> contacts = await query.ToListAsync();
+
+            return contacts;
         }
 
-        public IQueryable<ContactCivilStatus> GetMaritalStatuses()
+        public async Task<IEnumerable<Contact>> GetEmployeesAsync(string searchTerm)
         {
-            return _dbContext.ContactCivilStatuses;
+            IQueryable<Contact> query = GetContactsQueryBySearchTerm(searchTerm);
+
+            query = query.Where(c => c.IsOurEmployee);
+
+            IEnumerable<Contact> contacts = await query.ToListAsync();
+
+            return contacts;
         }
 
-        public IQueryable<Language> GetLanguages()
+        public async Task<IEnumerable<Contact>> GetPersonsAsync(string searchTerm)
         {
-            return _dbContext.Languages;
+            IQueryable<Contact> query = GetContactsQueryBySearchTerm(searchTerm);
+
+            query = query.Where(c => !c.IsOrganization && !c.IsOurEmployee);
+
+            IEnumerable<Contact> contacts = await query.ToListAsync();
+
+            return contacts;
         }
 
-        public async Task<bool> IsExisting(int id)
+        public async Task<Contact> CreateAsync(Contact contact, string userName)
         {
-            return await _dbContext.Contacts.AnyAsync(c => c.Id == id);
+            contact.CreatedBy = userName;
+            
+            Contact result = await AddAsync(contact);
+
+            return result;
         }
 
-        public async Task<Contact> GetById(int id)
+        public Contact Update(Contact contact, string userName)
         {
-            Contact contact = await _dbContext.Contacts.FindAsync(id);
+            contact.ModifiedBy = userName;
 
-            return contact;
+            Contact result = Update(contact);
+
+            return result;
         }
 
-        public async Task<Contact> Create(Contact contact, string userEmail)
+        private IQueryable<Contact> GetContactsQueryBySearchTerm(string searchTerm)
         {
-            try
+            IQueryable<Contact> query = GetQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                contact.CreatedBy = userEmail;
-
-                EntityEntry<Contact> result = await _dbContext.Contacts.AddAsync(contact);
-
-                await _dbContext.SaveChangesAsync();
-
-                Contact createdContact = result.Entity;
-
-                return createdContact;
+                query = query.Where(c => !string.IsNullOrWhiteSpace(searchTerm) && c.DisplayName.Contains(searchTerm));
             }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
 
-        public async Task<Contact> Update(ContactDto contactDto, string userEmail)
-        {
-            Contact existingContact = await _dbContext.Contacts.FindAsync(contactDto.Id);
-            existingContact.CreatedBy = userEmail;
-
-            existingContact = _mapper.Map(contactDto, existingContact);
-
-            EntityEntry<Contact> result = _dbContext.Update<Contact>(existingContact);
-
-            await _dbContext.SaveChangesAsync();
-
-            Contact updatedContact = result.Entity;
-
-            return updatedContact;
+            return query;
         }
     }
 }

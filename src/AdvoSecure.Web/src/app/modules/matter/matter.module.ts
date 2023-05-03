@@ -14,6 +14,7 @@ import { MattersComponent } from './components/matters/matters.component';
 import { NewMatterComponent } from './components/new-matter/new-matter.component';
 import { MatterContactComponent } from './components/matter-contact/matter-contact.component';
 import { MatterDetailsComponent } from './components/matter-details/matter-details.component';
+import { MatterNotesComponent } from './components/matter-notes/matter-notes.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatterDetailsComponent } from './components/matter-details/matter-detai
     MatterContactComponent,
     MatterDetailsComponent,
     EditMatterComponent,
+    MatterNotesComponent
   ],
   imports: [
     CommonModule,
