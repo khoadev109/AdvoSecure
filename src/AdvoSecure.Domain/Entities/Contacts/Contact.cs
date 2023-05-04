@@ -1,8 +1,10 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Billings;
+using AdvoSecure.Domain.Entities.Leads;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Tasks;
+using AdvoSecure.Domain.Entities.Timing;
 
 namespace AdvoSecure.Domain.Entities.Contacts
 {
@@ -1067,5 +1069,13 @@ namespace AdvoSecure.Domain.Entities.Contacts
         public IList<TaskAssignedContact> TaskAssignedContacts { get; set; } = new List<TaskAssignedContact>();
 
         public IList<NoteNotification> NoteNotifications { get; set; } = new List<NoteNotification>();
+
+        public IList<LeadSource> LeadSources { get; set; } = new List<LeadSource>();
+
+        public IList<LeadFee> LeadFees { get; set; } = new List<LeadFee>();
+
+        public IList<Lead> Leads { get; set; } = new List<Lead>();
+
+        public IList<Time> Times { get; set; } = new List<Time>();
     }
 }
