@@ -8,6 +8,8 @@ using AdvoSecure.Domain.Entities.Tasks;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Reflection.Emit;
 
 namespace AdvoSecure.Infrastructure.Persistance.App
 {
@@ -53,7 +55,7 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<TaskAssignedContact> TaskAssignedContacts => Set<TaskAssignedContact>();
 
-        public DbSet<TaskMatter> TaskMatters => Set<TaskMatter>();
+        //public DbSet<TaskMatter> TaskMatters => Set<TaskMatter>();
 
         public DbSet<Note> Notes => Set<Note>();
 
@@ -66,6 +68,10 @@ namespace AdvoSecure.Infrastructure.Persistance.App
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            builder.Entity<InnerTask>()
+                .HasMany(e => e.Matters)
+                .WithMany(e => e.Tasks);
 
             base.OnModelCreating(builder);
         }

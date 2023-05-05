@@ -6,6 +6,7 @@ import { MatterComponent } from './matter.component';
 import { MatterDetailsComponent } from './components/matter-details/matter-details.component';
 import { EditMatterComponent } from './components/edit-matter/edit-matter.component';
 import { MatterNotesComponent } from './components/matter-notes/matter-notes.component';
+import { MatterTasksComponent } from './components/matter-tasks/matter-tasks.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: ':id/notes',
         component: MatterNotesComponent,
+      },
+      {
+        path: ':id/tasks',
+        component: MatterTasksComponent,
       },
       { path: '', redirectTo: 'search', pathMatch: 'full' },
       { path: '**', redirectTo: 'search', pathMatch: 'full' },

@@ -71,6 +71,7 @@ namespace AdvoSecure.Infrastructure.Persistance
             services.AddScoped<ITenantDirectoryRepository, TenantDirectoryRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IMatterRepository, MatterRepository>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IRefreshTokenRepository, Tenant.Repositories.RefreshTokenRepository>();
             services.AddScoped<IRefreshTokenRepository, App.Repositories.RefreshTokenRepository>();
             services.AddTransient<IRefreshTokenRepositoryFactory, RefreshTokenRepositoryFactory>();

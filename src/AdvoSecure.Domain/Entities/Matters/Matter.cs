@@ -80,7 +80,9 @@ namespace AdvoSecure.Domain.Entities.Matters
 
         public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
 
-        public IList<TaskMatter> TaskMatters { get; set; } = new List<TaskMatter>();
+        //public IList<TaskMatter> TaskMatters { get; set; } = new List<TaskMatter>();
+
+        public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
 
         public IList<NoteMatter> NoteMatters { get; set; } = new List<NoteMatter>();
     }

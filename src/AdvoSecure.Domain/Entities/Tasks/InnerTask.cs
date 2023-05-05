@@ -1,11 +1,12 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Tasks
 {
     [Table("Tasks")]
-    public class InnerTask : BaseEntity
+    public class InnerTask : BaseLongEntity
     {
         public string Title { get; set; }
 
@@ -37,7 +38,13 @@ namespace AdvoSecure.Domain.Entities.Tasks
 
         public IList<TaskAssignedContact> TaskAssignedContacts { get; set; } = new List<TaskAssignedContact>();
 
-        public IList<TaskMatter> TaskMatters { get; set; } = new List<TaskMatter>();
+        //public IList<TaskMatter> TaskMatters { get; set; } = new List<TaskMatter>();
+
+        public IList<Matter> Matters { get; set; } = new List<Matter>();
+
+        public IList<TaskTime> TaskTimes { get; set; } = new List<TaskTime>();
+
+        public IList<TaskTag> TaskTags { get; set; } = new List<TaskTag>();
 
         public IList<NoteTask> NoteTasks { get; set; } = new List<NoteTask>();
     }
