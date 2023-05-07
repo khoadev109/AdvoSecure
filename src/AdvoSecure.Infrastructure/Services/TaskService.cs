@@ -1,11 +1,6 @@
-﻿using AdvoSecure.Application.Interfaces;
-using AdvoSecure.Common;
+﻿using AdvoSecure.Common;
+using AdvoSecure.Domain.Interfaces;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvoSecure.Infrastructure.Services
 {

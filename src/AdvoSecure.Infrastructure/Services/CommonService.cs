@@ -1,13 +1,12 @@
 ﻿using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.BillingDtos;
-using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Tasks;
+using AdvoSecure.Domain.Interfaces;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace AdvoSecure.Infrastructure.Services
 {

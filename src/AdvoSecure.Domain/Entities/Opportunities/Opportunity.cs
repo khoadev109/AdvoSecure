@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Domain.Entities.Contacts;
 
 namespace AdvoSecure.Domain.Entities.Opportunities
 {
@@ -9,10 +10,6 @@ namespace AdvoSecure.Domain.Entities.Opportunities
         public decimal? Amount { get; set; }
 
         public DateTime? Closed { get; set; }
-
-        public Contacts.Contact Account { get; set; }
-
-        public List<Contacts.Contact> Contacts { get; set; }
 
         public int? StageId { get; set; }
 
@@ -25,5 +22,7 @@ namespace AdvoSecure.Domain.Entities.Opportunities
         public Guid? MatterId { get; set; }
 
         public Matters.Matter Matter { get; set; }
+
+        public IList<Contact> Contacts { get; set; } = new List<Contact>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Domain.Entities.Tagging
 {
@@ -9,5 +10,7 @@ namespace AdvoSecure.Domain.Entities.Tagging
         public int? TagCategoryId { get; set; }
 
         public TagCategory TagCategory { get; set; }
+
+        public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
     }
 }

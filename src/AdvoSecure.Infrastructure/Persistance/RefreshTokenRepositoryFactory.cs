@@ -1,4 +1,4 @@
-﻿using AdvoSecure.Application.Interfaces.Repositories;
+﻿using AdvoSecure.Domain.Interfaces.Repositories;
 
 namespace AdvoSecure.Infrastructure.Persistance
 {

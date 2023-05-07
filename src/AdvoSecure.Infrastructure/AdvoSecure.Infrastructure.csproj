@@ -33,8 +33,4 @@
     <ProjectReference Include="..\AdvoSecure.Security\AdvoSecure.Security.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>

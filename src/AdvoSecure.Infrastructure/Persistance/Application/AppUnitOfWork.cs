@@ -1,12 +1,12 @@
-﻿using AdvoSecure.Application.Interfaces;
-using AdvoSecure.Application.Interfaces.Repositories;
-using AdvoSecure.Common.Persistance;
+﻿using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Tasks;
+using AdvoSecure.Domain.Interfaces;
+using AdvoSecure.Domain.Interfaces.Repositories;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.App.Repositories;
 using AdvoSecure.Infrastructure.Persistance.Application.Repositories;
@@ -49,11 +49,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
 
         private IRepository<Note> _noteRepository;
 
-        private IRepository<NoteMatter> _noteMatterRepository;
-
         private IRepository<NoteNotification> _noteNotificationRepository;
-
-        private IRepository<NoteTask> _noteTaskRepository;
 
         public AppUnitOfWork(ApplicationDbContext dbContext)
         {
@@ -140,19 +136,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
             get { return _noteRepository ??= new Repository<Note>(_dbContext); }
         }
 
-        public IRepository<NoteMatter> NoteMatterRepository
-        {
-            get { return _noteMatterRepository ??= new Repository<NoteMatter>(_dbContext); }
-        }
-
         public IRepository<NoteNotification> NoteNotificationRepository
         {
             get { return _noteNotificationRepository ??= new Repository<NoteNotification>(_dbContext); }
-        }
-
-        public IRepository<NoteTask> NoteTaskRepository
-        {
-            get { return _noteTaskRepository ??= new Repository<NoteTask>(_dbContext); }
         }
 
         public void Commit() => _dbContext.SaveChanges();

@@ -20,6 +20,7 @@ export const locale = {
       ACCOUNTS: 'Accounts',
       SETTINGS: 'Settings',
       NEW_MATTER: 'New Matter',
+      EDIT_MATTER: 'Edit Matter',
       CONTACT: {
         CONTACTS: 'Contacts',
         ALL: 'All',
@@ -159,6 +160,8 @@ export const locale = {
         },
       },
       MATTER: {
+        SEAT: 'Seat',
+        TITLE: 'Title',
         MATTER: 'Matter#',
         CASE_NUMBER: 'Case number',
         RESUME: 'Resume',
@@ -174,6 +177,8 @@ export const locale = {
         DETAILS: 'Details',
         MATTER_NUMBER: 'Matter number',
         MATTER_TYPE: 'Matter type',
+        FILE_TYPE: 'File type',
+        STANDARD_DECLARATION_RATE: 'Standard declaration rate',
         SELECT_A_MATTER_TYPE: 'Select a matter type',
         ACTIVE: 'Active',
         SYNOPSIS: 'Synopsis',
@@ -207,7 +212,7 @@ export const locale = {
         ATTORNEY: 'Attorney',
         LEAD_ATTORNEY: 'Lead Attorney',
         SUPPORT_STAFF: 'Support Staff',
-        THIRD_PARTY_PAYOR: 'Third Party Payor'
+        THIRD_PARTY_PAYOR: 'Third Party Payor',
       },
     },
     FOOTER: {
@@ -220,7 +225,7 @@ export const locale = {
         SUBMIT_BUTTON: 'Submit',
         NO_ACCOUNT: "Don't have an account?",
         SIGNUP_BUTTON: 'Sign Up',
-        FORGOT_BUTTON: 'Forgot Password',
+        FORGOT_BUTTON: 'Forgot Password ?',
         BACK_BUTTON: 'Back',
         PRIVACY: 'Privacy',
         LEGAL: 'Legal',
@@ -321,7 +326,7 @@ export const locale = {
       ALL: 'All',
       TITLE: 'Title',
       CREATE: 'Create',
-      SEARCH: 'Search'
+      SEARCH: 'Search',
     },
   },
 };

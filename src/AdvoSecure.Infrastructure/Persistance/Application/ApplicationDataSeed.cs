@@ -50,11 +50,9 @@ namespace AdvoSecure.Infrastructure.Persistance
 
                 await context.SaveChangesAsync();
 
-                await SeedNotes(context);
+                await SeedMatterNotes(context);
 
                 await context.SaveChangesAsync();
-
-                await SeedNoteMatters(context);
 
                 await context.SaveChangesAsync();
             }
@@ -2571,7 +2569,8 @@ namespace AdvoSecure.Infrastructure.Persistance
             if (!context.TaskTypes.Any())
             {
                 await context.TaskTypes.AddRangeAsync(
-                    new Domain.Entities.Tasks.TaskType {
+                    new Domain.Entities.Tasks.TaskType
+                    {
                         Title = "Task",
                         Icon = "fa-check",
                         Group = "",
@@ -2635,21 +2634,21 @@ namespace AdvoSecure.Infrastructure.Persistance
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
-                         Title = "Research/Studie",
-                         Icon = "fa-mortar-board",
-                         Group = "",
+                        Title = "Research/Studie",
+                        Icon = "fa-mortar-board",
+                        Group = "",
                         CreatedBy = "TOAA"
                     },
                     new Domain.Entities.Tasks.TaskType
                     {
-                          Title = "Afspraak maken",
-                          Icon = "fa-calendar",
-                          Group = "",
-                          CreatedBy = "TOAA"
+                        Title = "Afspraak maken",
+                        Icon = "fa-calendar",
+                        Group = "",
+                        CreatedBy = "TOAA"
                     });
             }
         }
-        
+
         public static async Task SeedLanguages(ApplicationDbContext context)
         {
             if (!context.Languages.Any())
@@ -2876,7 +2875,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                     );
             }
         }
-        
+
         public static async Task SeedMatterAreas(ApplicationDbContext context)
         {
             if (!context.MatterAreas.Any())
@@ -3180,76 +3179,45 @@ namespace AdvoSecure.Infrastructure.Persistance
             }
         }
 
-        public static async Task SeedNotes(ApplicationDbContext context)
+        public static async Task SeedMatterNotes(ApplicationDbContext context)
         {
             if (!context.Notes.Any())
             {
                 List<Matter> matters = await context.Matters.Take(2).ToListAsync();
 
-                foreach (var matter in matters)
-                {
-                    await context.Notes.AddRangeAsync(
+                await context.Notes.AddRangeAsync(
                         new Note
                         {
-                            Title = "Note test 1 " + matter.MatterNumber,
-                            Body = "Note test 1 " + matter.MatterNumber,
+                            Title = "Note test 1 ",
+                            Body = "Note test 1 ",
                             Timestamp = DateTime.Now,
+                            Matters = new List<Matter> { matters[0] },
                             CreatedBy = "TOAA"
                         },
                         new Note
                         {
-                            Title = "Note test 2 " + matter.MatterNumber,
-                            Body = "Note test 2 " + matter.MatterNumber,
+                            Title = "Note test 2 ",
+                            Body = "Note test 2 ",
                             Timestamp = DateTime.Now,
+                            Matters = new List<Matter> { matters[0] },
                             CreatedBy = "TOAA"
                         },
                         new Note
                         {
-                            Title = "Note test 3 " + matter.MatterNumber,
-                            Body = "Note test 3 " + matter.MatterNumber,
+                            Title = "Note test 3 ",
+                            Body = "Note test 3 ",
                             Timestamp = DateTime.Now,
+                            Matters = new List<Matter> { matters[1] },
                             CreatedBy = "TOAA"
                         }
-                    );
-                }
-            }
-        }
+                );
 
-        public static async Task SeedNoteMatters(ApplicationDbContext context)
-        {
-            if (!context.NoteMatters.Any())
-            {
-                List<Matter> matters = await context.Matters.Take(2).ToListAsync();
+                await context.SaveChangesAsync();
 
-                List<Note> notes = await context.Notes.ToListAsync();
+                List<Note> notes = await context.Notes.Take(3).ToListAsync();
 
-                for (int i = 0; i < 3; i++)
-                {
-                    var noteMatter = new NoteMatter
-                    {
-                        Note = notes[i],
-                        Matter = matters[0],
-                        CreatedBy = "TOAA"
-                    };
-
-                    notes[i].NoteMatters.Add(noteMatter);
-
-                    matters[0].NoteMatters.Add(noteMatter);
-                }
-
-                for (int i = 3; i < notes.Count; i++)
-                {
-                    var noteMatter = new NoteMatter
-                    {
-                        Note = notes[i],
-                        Matter = matters[1],
-                        CreatedBy = "TOAA"
-                    };
-
-                    notes[i].NoteMatters.Add(noteMatter);
-
-                    matters[1].NoteMatters.Add(noteMatter);
-                }
+                matters[0].Notes = new List<Note> { notes[0], notes[1] };
+                matters[1].Notes = new List<Note> { notes[2] };
             }
         }
     }

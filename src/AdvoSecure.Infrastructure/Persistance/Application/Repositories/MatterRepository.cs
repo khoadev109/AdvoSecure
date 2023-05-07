@@ -1,7 +1,7 @@
-﻿using AdvoSecure.Application.Dtos.MatterDtos;
-using AdvoSecure.Application.Interfaces.Repositories;
-using AdvoSecure.Common.Persistance;
+﻿using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Interfaces.Repositories;
+using AdvoSecure.Domain.Interfaces.Requests;
 using AdvoSecure.Infrastructure.Persistance.App;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +28,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
             return matter;
         }
 
-        public async Task<IEnumerable<Matter>> SearchAsync(MatterSearchRequestDto request)
+        public async Task<IEnumerable<Matter>> SearchAsync(MatterSearchRequest request)
         {
             IQueryable<Matter> matters = GetQueryable().Include(x => x.BillToContact).Include(x => x.MatterArea);
 

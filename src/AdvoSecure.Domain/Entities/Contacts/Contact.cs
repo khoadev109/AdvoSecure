@@ -3,6 +3,7 @@ using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Leads;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Domain.Entities.Tasks;
 using AdvoSecure.Domain.Entities.Timing;
 
@@ -1062,8 +1063,6 @@ namespace AdvoSecure.Domain.Entities.Contacts
 
         public IList<BillingGroup> BillingGroups { get; set; } = new List<BillingGroup>();
 
-        public IList<Matter> Matters { get; set; } = new List<Matter>();
-
         public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
 
         public IList<TaskAssignedContact> TaskAssignedContacts { get; set; } = new List<TaskAssignedContact>();
@@ -1077,5 +1076,7 @@ namespace AdvoSecure.Domain.Entities.Contacts
         public IList<Lead> Leads { get; set; } = new List<Lead>();
 
         public IList<Time> Times { get; set; } = new List<Time>();
+
+        public IList<Opportunity> Opportunities { get; set; } = new List<Opportunity>();
     }
 }

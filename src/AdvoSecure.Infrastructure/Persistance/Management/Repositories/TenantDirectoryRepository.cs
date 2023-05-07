@@ -1,4 +1,4 @@
-﻿using AdvoSecure.Application.Interfaces.Repositories;
+﻿using AdvoSecure.Domain.Interfaces.Repositories;
 using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
 

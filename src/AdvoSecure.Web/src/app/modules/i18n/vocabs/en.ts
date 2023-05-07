@@ -225,7 +225,7 @@ export const locale = {
         SUBMIT_BUTTON: 'Submit',
         NO_ACCOUNT: "Don't have an account?",
         SIGNUP_BUTTON: 'Sign Up',
-        FORGOT_BUTTON: 'Forgot Password',
+        FORGOT_BUTTON: 'Forgot Password ?',
         BACK_BUTTON: 'Back',
         PRIVACY: 'Privacy',
         LEGAL: 'Legal',

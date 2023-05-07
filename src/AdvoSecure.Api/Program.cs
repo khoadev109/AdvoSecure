@@ -1,22 +1,19 @@
-using AdvoSecure.Api;
 using AdvoSecure.Api.Areas.Application.Models.Validators;
 using AdvoSecure.Api.Attributes;
 using AdvoSecure.Api.Authentication;
 using AdvoSecure.Application.Mappers;
 using AdvoSecure.Common.Persistance;
+using AdvoSecure.Common.Swagger;
 using AdvoSecure.Domain.Exceptions;
 using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Infrastructure.Notifications;
 using AdvoSecure.Infrastructure.Persistance;
-using AdvoSecure.Infrastructure.Services;
-using AdvoSecure.Infrastructure.Swagger;
+using AdvoSecure.Infrastructure.Services.Configurations;
 using AdvoSecure.Security;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.Options;
-using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -90,8 +87,9 @@ services.AddCors(options =>
 services.AddEndpointsApiExplorer();
 services.AddMemoryCache();
 services.AddSignalR();
-services.AddSwagger();
-services.AddMappers();
+services.AddSwagger("AdvoSecure");
+services.AddApplicationMappers();
+services.AddServiceMappers();
 services.AddValidatorsFromAssemblyContaining<CaseFilterValidator>();
 services.AddServices();
 services.AddScoped<JwtResolver>();

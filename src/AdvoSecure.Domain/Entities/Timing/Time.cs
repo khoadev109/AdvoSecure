@@ -21,6 +21,6 @@ namespace AdvoSecure.Domain.Entities.Timing
 
         public TimeCategory TimeCategory { get; set; }
 
-        public IList<TaskTime> TaskTimes { get; set; } = new List<TaskTime>();
+        public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
     }
 }

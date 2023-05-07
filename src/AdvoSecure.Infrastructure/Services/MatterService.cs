@@ -1,14 +1,10 @@
-﻿using AdvoSecure.Application.Dtos.ContactDtos;
-using AdvoSecure.Application.Dtos.MatterDtos;
-using AdvoSecure.Application.Interfaces;
+﻿using AdvoSecure.Application.Dtos.MatterDtos;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
-using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Interfaces;
+using AdvoSecure.Domain.Interfaces.Requests;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace AdvoSecure.Infrastructure.Services
 {
@@ -99,7 +95,9 @@ namespace AdvoSecure.Infrastructure.Services
         {
             ServiceResult<IEnumerable<MatterDto>> result = await ExecuteAsync<IEnumerable<MatterDto>>(async () =>
             {
-                IEnumerable<Matter> matters = await _unitOfWork.MatterRepository.SearchAsync(requestDto);
+                MatterSearchRequest searchRequest = _mapper.Map<MatterSearchRequest>(requestDto);
+
+                IEnumerable<Matter> matters = await _unitOfWork.MatterRepository.SearchAsync(searchRequest);
 
                 IEnumerable<MatterDto> matterDtos = _mapper.Map<IEnumerable<MatterDto>>(matters);
 

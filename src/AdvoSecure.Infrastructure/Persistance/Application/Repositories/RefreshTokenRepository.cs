@@ -1,6 +1,5 @@
-﻿using AdvoSecure.Application.Dtos;
-using AdvoSecure.Application.Interfaces.Repositories;
-using AdvoSecure.Domain.Entities;
+﻿using AdvoSecure.Domain.Entities;
+using AdvoSecure.Domain.Interfaces.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,18 +18,16 @@ namespace AdvoSecure.Infrastructure.Persistance.App.Repositories
 
         public Type DbContextType => typeof(ApplicationDbContext);
 
-        public async Task SaveAsync(RefreshTokenDto dto)
+        public async Task SaveAsync(RefreshToken refreshToken)
         {
-            RefreshToken refreshToken = _mapper.Map<RefreshToken>(dto);
-
             await _dbContext.RefreshTokens.AddAsync(refreshToken);
 
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(RefreshTokenDto dto)
+        public async Task DeleteAsync(RefreshToken refreshToken)
         {
-            RefreshToken refreshToken = await _dbContext.RefreshTokens.SingleOrDefaultAsync(x => x.UserIdentifier == dto.UserIdentifier && x.TenantIdentifier == dto.TenantIdentifier);
+            RefreshToken existingRefreshToken = await _dbContext.RefreshTokens.SingleOrDefaultAsync(x => x.UserIdentifier == refreshToken.UserIdentifier && x.TenantIdentifier == refreshToken.TenantIdentifier);
 
             if (refreshToken != null)
             {

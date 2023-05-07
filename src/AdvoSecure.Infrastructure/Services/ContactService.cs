@@ -1,10 +1,10 @@
 ﻿using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Dtos.ContactDtos;
-using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Interfaces;
 using AutoMapper;
 
 namespace AdvoSecure.Infrastructure.Services

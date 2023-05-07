@@ -1,4 +1,6 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Domain.Entities.Matters;
+using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Domain.Entities.Notes
 {
@@ -10,10 +12,10 @@ namespace AdvoSecure.Domain.Entities.Notes
 
         public DateTime? Timestamp { get; set; } = null;
 
-        public IList<NoteMatter> NoteMatters { get; set; } = new List<NoteMatter>();
+        public IList<Matter> Matters { get; set; } = new List<Matter>();
 
         public IList<NoteNotification> NoteNotifications { get; set; } = new List<NoteNotification>();
 
-        public IList<NoteTask> NoteTasks { get; set; } = new List<NoteTask>();
+        public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
     }
 }

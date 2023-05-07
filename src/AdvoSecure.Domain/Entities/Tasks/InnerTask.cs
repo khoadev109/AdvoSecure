@@ -1,6 +1,8 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Entities.Tagging;
+using AdvoSecure.Domain.Entities.Timing;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdvoSecure.Domain.Entities.Tasks
@@ -42,10 +44,10 @@ namespace AdvoSecure.Domain.Entities.Tasks
 
         public IList<Matter> Matters { get; set; } = new List<Matter>();
 
-        public IList<TaskTime> TaskTimes { get; set; } = new List<TaskTime>();
+        public IList<Time> Times { get; set; } = new List<Time>();
 
-        public IList<TaskTag> TaskTags { get; set; } = new List<TaskTag>();
+        public IList<TagBase> Tags { get; set; } = new List<TagBase>();
 
-        public IList<NoteTask> NoteTasks { get; set; } = new List<NoteTask>();
+        public IList<Note> Notes { get; set; } = new List<Note>();
     }
 }

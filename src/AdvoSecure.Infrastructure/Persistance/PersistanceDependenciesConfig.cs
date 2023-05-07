@@ -1,5 +1,6 @@
 ﻿using AdvoSecure.Application.Interfaces;
-using AdvoSecure.Application.Interfaces.Repositories;
+using AdvoSecure.Domain.Interfaces;
+using AdvoSecure.Domain.Interfaces.Repositories;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.App.Repositories;
 using AdvoSecure.Infrastructure.Persistance.Application;

@@ -1,9 +1,9 @@
 ﻿using AdvoSecure.Application.Dtos;
 using AdvoSecure.Application.Interfaces;
-using AdvoSecure.Application.Interfaces.Repositories;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities;
+using AdvoSecure.Domain.Interfaces.Repositories;
 using AdvoSecure.Infrastructure.Persistance;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Tenant;
@@ -162,9 +162,11 @@ namespace AdvoSecure.Infrastructure.Services
         {
             IRefreshTokenRepository refreshTokenRepository = _refreshTokenRepositoryFactory.GetInstance(typeof(MgmtDbContext));
 
-            await refreshTokenRepository.DeleteAsync(dto);
+            RefreshToken refreshToken = _mapper.Map<RefreshToken>(dto);
 
-            await refreshTokenRepository.SaveAsync(dto);
+            await refreshTokenRepository.DeleteAsync(refreshToken);
+
+            await refreshTokenRepository.SaveAsync(refreshToken);
         }
 
         public async Task<RefreshTokenDto> GetTenantRefreshTokenAsync(Guid userIdentifier, Guid tenantIdentifier)
@@ -193,7 +195,9 @@ namespace AdvoSecure.Infrastructure.Services
         {
             IRefreshTokenRepository refreshTokenRepository = _refreshTokenRepositoryFactory.GetInstance(typeof(ApplicationDbContext));
 
-            await refreshTokenRepository.SaveAsync(dto);
+            RefreshToken refreshToken = _mapper.Map<RefreshToken>(dto);
+
+            await refreshTokenRepository.SaveAsync(refreshToken);
         }
     }
 }

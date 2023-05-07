@@ -20,6 +20,6 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<ServiceResult<IEnumerable<TenantSettingDto>>> GetAllTenantsAsync();
 
-        Task<ServiceResult<TenantUserDto>> RegisterUserAsync(RegisterRequest request, string userName);
+        Task<ServiceResult<TenantUserDto>> RegisterUserAsync(AuthRegisterRequest request, string userName);
     }
 }

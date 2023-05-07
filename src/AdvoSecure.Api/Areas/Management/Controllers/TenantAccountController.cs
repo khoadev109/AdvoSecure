@@ -78,7 +78,7 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
         }
 
         [HttpPost("refreshtoken")]
-        public async Task<IActionResult> GenerateRefreshToken(RefreshTokenRequest request)
+        public async Task<IActionResult> GenerateRefreshToken(AuthRefreshTokenRequest request)
         {
             if (request == null)
             {
@@ -136,7 +136,7 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
 
         [HasPermission(Permission.AsTenantAdmin)]
         [HttpPost("register-user")]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterRequest request)
+        public async Task<IActionResult> RegisterUser([FromBody] AuthRegisterRequest request)
         {
             if (!Guid.TryParse(CurrentTenantAdminIdentifier, out Guid tenantAdminIdentifier))
             {

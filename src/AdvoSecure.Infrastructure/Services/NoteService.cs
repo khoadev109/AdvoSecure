@@ -1,8 +1,8 @@
 ﻿using AdvoSecure.Application.Dtos.Notes;
-using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +25,7 @@ namespace AdvoSecure.Infrastructure.Services
             {
                 _ = Guid.TryParse(matterId, out Guid parsedMatterId);
 
-                IEnumerable<Note> notes = await _unitOfWork.NoteRepository.GetQueryable().Include(x => x.NoteMatters).Where(x => x.NoteMatters.Any(y => y.MatterId == parsedMatterId)).ToListAsync();
+                IEnumerable<Note> notes = await _unitOfWork.NoteRepository.GetQueryable().Where(x => x.Matters.Any(y => y.Id == parsedMatterId)).ToListAsync();
 
                 IEnumerable<NoteDto> noteDtos = _mapper.Map<IEnumerable<NoteDto>>(notes);
 

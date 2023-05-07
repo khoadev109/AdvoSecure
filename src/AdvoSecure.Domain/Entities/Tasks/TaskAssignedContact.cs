@@ -8,7 +8,7 @@ namespace AdvoSecure.Domain.Entities.Tasks
     [Table("TaskAssignedContacts")]
     public class TaskAssignedContact : BaseGuidEntity
     {
-        public int TaskId { get; set; }
+        public long TaskId { get; set; }
 
         public InnerTask Task { get; set; }
 

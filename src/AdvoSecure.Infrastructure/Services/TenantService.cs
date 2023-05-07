@@ -3,6 +3,7 @@ using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities;
+using AdvoSecure.Domain.Interfaces.Requests;
 using AdvoSecure.Infrastructure.Persistance;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Security;
@@ -134,7 +135,7 @@ namespace AdvoSecure.Infrastructure.Services
             return result;
         }
 
-        public async Task<ServiceResult<TenantUserDto>> RegisterUserAsync(RegisterRequest request, string userName)
+        public async Task<ServiceResult<TenantUserDto>> RegisterUserAsync(AuthRegisterRequest request, string userName)
         {
             if (request.SetAsAdmin.GetValueOrDefault())
             {
@@ -150,11 +151,13 @@ namespace AdvoSecure.Infrastructure.Services
             }
         }
 
-        private async Task<ServiceResult<TenantUserDto>> RegisterAsAdminAsync(RegisterRequest request, string userName)
+        private async Task<ServiceResult<TenantUserDto>> RegisterAsAdminAsync(AuthRegisterRequest request, string userName)
         {
             ServiceResult<TenantUserDto> result = await ExecuteAsync<TenantUserDto>(async () =>
             {
-                TenantUser newAdmin = await _unitOfWork.TenantUserRepository.CreateAsync(request, userName);
+                RegisterRequest domainRegisterRequest = _mapper.Map<RegisterRequest>(request);
+
+                TenantUser newAdmin = await _unitOfWork.TenantUserRepository.CreateAsync(domainRegisterRequest, userName);
 
                 TenantSetting tenantAdmin = await _unitOfWork.TenantSettingRepository.GetAdminAsync(request.TenantAdminIdentifier);
 
@@ -177,7 +180,7 @@ namespace AdvoSecure.Infrastructure.Services
             return result;
         }
 
-        private async Task<ServiceResult<TenantUserDto>> RegisterAsUserAsync(RegisterRequest request, string userName)
+        private async Task<ServiceResult<TenantUserDto>> RegisterAsUserAsync(AuthRegisterRequest request, string userName)
         {
             ServiceResult<TenantUserDto> result = await ExecuteAsync<TenantUserDto>(async () =>
             {
@@ -187,8 +190,9 @@ namespace AdvoSecure.Infrastructure.Services
 
                 tenant ??= await _unitOfWork.TenantSettingRepository.CreateAsync(request.TenantAdminIdentifier);
 
+                RegisterRequest domainRegisterRequest = _mapper.Map<RegisterRequest>(request);
 
-                TenantUser newUser = await _unitOfWork.TenantUserRepository.CreateAsync(request, userName);
+                TenantUser newUser = await _unitOfWork.TenantUserRepository.CreateAsync(domainRegisterRequest, userName);
 
                 await _appDbContext.SetConnectionStringAndRunMigration(tenant.ConnectionString);
 

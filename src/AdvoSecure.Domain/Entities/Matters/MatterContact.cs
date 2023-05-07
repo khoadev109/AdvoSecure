@@ -30,7 +30,7 @@ namespace AdvoSecure.Domain.Entities.Matters
         public bool IsThirdPartyPayor { get; set; }
 
 
-        public string MatterId { get; set; }
+        public Guid MatterId { get; set; }
 
         public Matter Matter { get; set; }
 

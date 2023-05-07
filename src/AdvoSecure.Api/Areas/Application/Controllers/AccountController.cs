@@ -88,7 +88,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         }
 
         [HttpPost("refreshtoken")]
-        public async Task<IActionResult> GenerateRefreshToken(RefreshTokenRequest request)
+        public async Task<IActionResult> GenerateRefreshToken(AuthRefreshTokenRequest request)
         {
             if (request == null)
             {
