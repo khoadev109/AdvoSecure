@@ -1077,6 +1077,10 @@ namespace AdvoSecure.Domain.Entities.Contacts
 
         public IList<Time> Times { get; set; } = new List<Time>();
 
-        public IList<Opportunity> Opportunities { get; set; } = new List<Opportunity>();
+        public IList<Opportunity> AccountOpportunities { get; set; } = new List<Opportunity>();
+
+        public IList<OpportunityContact> OpportunityContacts { get; set; } = new List<OpportunityContact>();
+
+        public IList<Invoice> Invoices { get; set; } = new List<Invoice>();
     }
 }

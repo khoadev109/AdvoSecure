@@ -45,6 +45,8 @@ namespace AdvoSecure.Common.Persistance
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) => await _entitiySet.SingleOrDefaultAsync(expression);
 
+        public async Task<bool> ExistAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default) => await _entitiySet.AnyAsync(expression);
+
         public IQueryable<T> GetQueryable() => _entitiySet;
 
         public void Remove(T entity) => Context.Remove(entity);

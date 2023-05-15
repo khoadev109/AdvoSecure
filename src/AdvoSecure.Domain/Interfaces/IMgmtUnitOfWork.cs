@@ -1,10 +1,11 @@
-﻿using AdvoSecure.Domain.Interfaces.Repositories;
-using AdvoSecure.Common.Persistance;
+﻿using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
+using AdvoSecure.Domain.Interfaces;
+using AdvoSecure.Domain.Interfaces.Repositories;
 
 namespace AdvoSecure.Application.Interfaces
 {
-    public interface IMgmtUnitOfWork
+    public interface IMgmtUnitOfWork : IUnitOfWork
     {
         IRepository<RefreshToken> RefreshTokenRepository { get; }
 

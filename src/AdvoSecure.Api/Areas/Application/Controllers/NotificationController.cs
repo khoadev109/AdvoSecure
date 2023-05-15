@@ -1,5 +1,5 @@
-﻿using AdvoSecure.Infrastructure.Notifications;
-using AdvoSecure.Infrastructure.Notifications.Model;
+﻿using AdvoSecure.Application.Interfaces;
+using AdvoSecure.Infrastructure.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -19,7 +19,6 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTask()
         {
-            await _hub.Clients.All.BroadcastTaskNotification(new TaskNotification { TaskName = "Test" });
             return Ok("Called");
         }
     }

@@ -22,7 +22,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
                 .Include(x => x.MatterType)
                 .Include(x => x.MatterArea)
                 .Include(x => x.CourtSittingInCity)
-                .Include(x => x.CourtGeographicalJurisdiction)
+                .Include(x => x.CourtGeoJurisdiction)
                 .FirstOrDefaultAsync(x => x.Id == id) ?? new Matter();
 
             return matter;
@@ -61,7 +61,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
 
             if (request.CourtGeographicalJurisdictionId.HasValue && request.CourtGeographicalJurisdictionId.Value > 0)
             {
-                matters = matters.Where(x => x.CourtGeographicalJurisdictionId == request.CourtGeographicalJurisdictionId.Value);
+                matters = matters.Where(x => x.CourtGeoJurisdictionId == request.CourtGeographicalJurisdictionId.Value);
             }
 
             IList<Matter> atters = await matters.ToListAsync();

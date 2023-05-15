@@ -2,9 +2,12 @@
 using AdvoSecure.Domain.Entities.Base;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Leads;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Domain.Entities.Tasks;
+using AdvoSecure.Infrastructure.Persistance.Application.Configurations;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -41,11 +44,37 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<CourtSittingInCity> CourtSittingInCities => Set<CourtSittingInCity>();
 
-        public DbSet<CourtGeographicalJurisdiction> CourtGeographicalJurisdictions => Set<CourtGeographicalJurisdiction>();
+        public DbSet<CourtGeoJurisdiction> CourtGeographicalJurisdictions => Set<CourtGeoJurisdiction>();
 
         public DbSet<Matter> Matters => Set<Matter>();
 
         public DbSet<MatterContact> MatterContacts => Set<MatterContact>();
+
+        public DbSet<Opportunity> Opportunities => Set<Opportunity>();
+
+        public DbSet<OpportunityContact> OpportunityContacts => Set<OpportunityContact>();
+
+        public DbSet<Lead> Leads => Set<Lead>();
+
+        public DbSet<LeadStatus> LeadStatuses => Set<LeadStatus>();
+
+        public DbSet<LeadFee> LeadFees => Set<LeadFee>();
+
+        public DbSet<LeadSource> LeadSources => Set<LeadSource>();
+
+        public DbSet<LeadSourceType> LeadSourceTypes => Set<LeadSourceType>();
+
+        public DbSet<Invoice> Invoices => Set<Invoice>();
+
+        public DbSet<Fee> Fees => Set<Fee>();
+
+        public DbSet<Expense> Expenses => Set<Expense>();
+
+        public DbSet<InvoiceFee> InvoiceFees => Set<InvoiceFee>();
+
+        public DbSet<InvoiceExpense> InvoiceExpenses => Set<InvoiceExpense>();
+
+        public DbSet<InvoiceTime> InvoiceTimes => Set<InvoiceTime>();
 
         public DbSet<TaskType> TaskTypes => Set<TaskType>();
 
@@ -57,11 +86,21 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<NoteNotification> NoteNotifications => Set<NoteNotification>();
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            modelBuilder.ApplyConfiguration(new ContactConfiguration());
+            modelBuilder.ApplyConfiguration(new MatterConfiguration());
+            modelBuilder.ApplyConfiguration(new MatterContactConfiguration());
+            modelBuilder.ApplyConfiguration(new NoteNotificationConfiguration());
+            modelBuilder.ApplyConfiguration(new OpportunityConfiguration());
+            modelBuilder.ApplyConfiguration(new OpportunityContactConfiguration());
+            modelBuilder.ApplyConfiguration(new InvoiceExpenseConfiguration());
+            modelBuilder.ApplyConfiguration(new InvoiceFeeConfiguration());
+            modelBuilder.ApplyConfiguration(new InvoiceTimeConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskAssignedContactConfiguration());
+            modelBuilder.ApplyConfiguration(new TaskConfiguration());
 
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -4,6 +4,7 @@ import { MatterService } from '../../services/matter.service';
 import { Matter, defaultMatter } from '../../models/matter.model';
 import { ContactService } from 'src/app/modules/contact/services/contact.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Opportunity } from '../../models/opportunity.model';
 
 type Tabs =
   | 'task-activity-tab'
@@ -21,6 +22,8 @@ export class MatterDetailsComponent implements OnInit {
 
   routeMatterId: string;
   matter: Matter = defaultMatter;
+  opportunities: Opportunity[] = [];
+  opportunity: Opportunity = { id: 0 };
 
   constructor(
     private router: Router,
@@ -42,6 +45,7 @@ export class MatterDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.routeMatterId = this.route.snapshot.paramMap.get('id') || '';
     this.loadDetails();
+    this.loadMatterOpportunities();
   }
 
   loadDetails() {
@@ -53,6 +57,13 @@ export class MatterDetailsComponent implements OnInit {
       });
   }
 
+  loadMatterOpportunities() {
+    this.matterService.getOpportunities(this.routeMatterId).subscribe((res) => {
+      this.opportunities = res;
+      this.opportunity = this.opportunities[0];
+      this.changeDetectorRef.detectChanges();
+    });
+  }
   redirectToListPage() {
     this.router.navigate(['/management/matters/search']);
   }

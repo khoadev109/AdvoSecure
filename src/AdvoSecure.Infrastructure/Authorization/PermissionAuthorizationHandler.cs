@@ -1,4 +1,4 @@
-﻿using AdvoSecure.Infrastructure.Persistance.App;
+﻿using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;

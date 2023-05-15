@@ -892,7 +892,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [ngModel]="contact.birthday | date : 'yyyy-MM-dd'"
+                        [ngModel]="contact.birthday | date : 'DD-MM-YYYY'"
                         (ngModelChange)="contact.birthday = $event"
                       />
                     </div>
@@ -1063,7 +1063,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="idValidUntil"
-                        [ngModel]="contact.idDateExpiry | date : 'yyyy-MM-dd'"
+                        [ngModel]="contact.idDateExpiry | date : 'DD-MM-YYYY'"
                         (ngModelChange)="contact.idDateExpiry = $event"
                       />
                     </div>
@@ -1080,7 +1080,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="weddingDate"
-                        [ngModel]="contact.wedding | date : 'yyyy-MM-dd'"
+                        [ngModel]="contact.wedding | date : 'DD-MM-YYYY'"
                         (ngModelChange)="contact.wedding = $event"
                       />
                     </div>
@@ -1183,7 +1183,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [ngModel]="contact.birthday | date : 'yyyy-MM-dd'"
+                        [ngModel]="contact.birthday | date : 'DD-MM-YYYY'"
                         (ngModelChange)="contact.birthday = $event"
                       />
                     </div>
@@ -1349,7 +1349,7 @@
                         class="form-control form-control-lg form-control-solid mb-lg-0"
                         name="sepaEffectiveDate"
                         [ngModel]="
-                          contact.sepaMandateDate | date : 'yyyy-MM-dd'
+                          contact.sepaMandateDate | date : 'DD-MM-YYYY'
                         "
                         (ngModelChange)="contact.sepaMandateDate = $event"
                       />

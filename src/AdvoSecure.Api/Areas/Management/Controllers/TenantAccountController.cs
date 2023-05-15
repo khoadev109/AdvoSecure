@@ -59,7 +59,7 @@ namespace AdvoSecure.Api.Areas.Management.Controllers
                 Name = user.Name,
                 Email = user.Email,
                 UserIdentifier = user.UserIdentifier.ToString(),
-                TenantAdminIdentifier = tenant.TenantIdentifier.ToString()
+                TenantAdminIdentifier = tenant?.TenantIdentifier.ToString() ?? string.Empty
             };
 
             string accessToken = _jwtResolver.GenerateAccessToken(userClaims);

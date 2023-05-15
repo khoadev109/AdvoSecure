@@ -68,7 +68,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
                 Name = user.DisplayName,
                 Email = user.Email ?? string.Empty,
                 UserIdentifier = user.UserIdentifier.ToString(),
-                TenantAdminIdentifier = tenantAdmin.TenantIdentifier.ToString(),
+                TenantAdminIdentifier = tenantAdmin?.TenantIdentifier.ToString() ?? string.Empty,
                 TenantIdentifier = tenant.TenantIdentifier.ToString()
             };
 
@@ -242,7 +242,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
                 TenantIdentifier = tenantIdentifier
             };
 
-            await _userService.SaveTenantRefreshTokenAsync(refreshTokenDto);
+            await _userService.SaveAppRefreshTokenAsync(refreshTokenDto);
 
             return refreshToken.Token;
         }

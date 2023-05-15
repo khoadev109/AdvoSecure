@@ -1,7 +1,7 @@
 ﻿using AdvoSecure.Domain.Interfaces.Repositories;
 using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
-using AdvoSecure.Infrastructure.Persistance.Tenant;
+using AdvoSecure.Infrastructure.Persistance.Management;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdvoSecure.Infrastructure.Persistance.Management.Repositories

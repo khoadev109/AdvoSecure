@@ -1,5 +1,5 @@
 ﻿using AdvoSecure.Infrastructure.Persistance.App;
-using AdvoSecure.Infrastructure.Persistance.Tenant;
+using AdvoSecure.Infrastructure.Persistance.Management;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

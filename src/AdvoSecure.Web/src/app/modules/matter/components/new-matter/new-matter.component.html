@@ -153,7 +153,7 @@
               required
             >
               <option
-                value=""
+                value="0"
                 translate="PAGES.MATTER.SELECT_A_JURISDICTION"
               ></option>
               <option
@@ -281,7 +281,7 @@
               #defaultBillingRate="ngModel"
               required
             >
-              <option value="" translate="PAGES.MATTER.SELECT_A_FEE"></option>
+              <option value="0" translate="PAGES.MATTER.SELECT_A_FEE"></option>
               <option
                 *ngFor="let billingRate of billingRates"
                 [selected]="matter.defaultBillingRateId === billingRate.id"
@@ -396,8 +396,8 @@
             ></label>
             <select
               class="form-select form-select-solid form-select-lg fw-bold"
-              name="courtGeographicalJurisdictionId"
-              [(ngModel)]="matter.courtGeographicalJurisdictionId"
+              name="courtGeoJurisdictionId"
+              [(ngModel)]="matter.courtGeoJurisdictionId"
             >
               <option
                 value="0"
@@ -405,14 +405,14 @@
               ></option>
               <option
                 *ngFor="
-                  let courtGeographicalJurisdiction of courtGeographicalJurisdictions
+                  let courtGeoJurisdiction of courtGeoJurisdictions
                 "
                 [selected]="
-                  matter.courtGeographicalJurisdictionId ===
-                  courtGeographicalJurisdiction.id
+                  matter.courtGeoJurisdictionId ===
+                  courtGeoJurisdiction.id
                 "
-                [text]="courtGeographicalJurisdiction.title"
-                [value]="courtGeographicalJurisdiction.id"
+                [text]="courtGeoJurisdiction.title"
+                [value]="courtGeoJurisdiction.id"
               ></option>
             </select>
           </div>

@@ -21,8 +21,6 @@ namespace AdvoSecure.Application.Interfaces.Services
         Task<ServiceResult> SetAppUserConnectionString(string userEmail);
 
 
-        // TechDept RefreshToken
-
         Task<RefreshTokenDto> GetTenantRefreshTokenAsync(Guid userIdentifier, Guid tenantIdentifier);
 
         Task SaveTenantRefreshTokenAsync(RefreshTokenDto dto);

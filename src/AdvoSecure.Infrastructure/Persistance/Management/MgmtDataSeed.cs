@@ -2,7 +2,7 @@
 using AdvoSecure.Security;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdvoSecure.Infrastructure.Persistance.Tenant
+namespace AdvoSecure.Infrastructure.Persistance.Management
 {
     public static class ASMgmtDataSeed
     {

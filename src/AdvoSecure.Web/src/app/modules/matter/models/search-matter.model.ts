@@ -4,5 +4,5 @@ export interface SearchMatter {
   description?: string;
   caseNumber?: string;
   matterAreaId?: number;
-  courtGeographicalJurisdictionId?: number;
+  courtGeoJurisdictionId?: number;
 }

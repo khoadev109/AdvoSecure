@@ -1,8 +1,11 @@
 ﻿using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Infrastructure.Persistance.Application.Configurations;
+using AdvoSecure.Infrastructure.Persistance.Management.Configurations;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
-namespace AdvoSecure.Infrastructure.Persistance.Tenant
+namespace AdvoSecure.Infrastructure.Persistance.Management
 {
     public class MgmtDbContext : DbContext
     {
@@ -22,7 +25,8 @@ namespace AdvoSecure.Infrastructure.Persistance.Tenant
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MgmtDbContext).Assembly);
+            modelBuilder.ApplyConfiguration(new TenantDirectoryConfiguration());
+            modelBuilder.ApplyConfiguration(new TenantSettingConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

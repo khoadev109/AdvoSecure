@@ -4,11 +4,12 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { MatterType } from '../models/matter-type.model';
 import { MatterArea } from '../models/matter-area.model';
-import { CourtGeographicalJurisdiction } from '../models/court-geo-jurisdiction.model';
+import { CourtGeoJurisdiction } from '../models/court-geo-jurisdiction.model';
 import { Matter } from '../models/matter.model';
 import { SearchMatter } from '../models/search-matter.model';
 import { CourtSittingInCity } from '../models/court-sitting-city.model';
 import { Note } from '../models/note.model';
+import { Opportunity } from "../models/opportunity.model";
 
 @Injectable({
   providedIn: 'root',
@@ -32,8 +33,8 @@ export class MatterService {
     );
   }
 
-  getCourtGeoJurisdictions(): Observable<CourtGeographicalJurisdiction[]> {
-    return this.httpClient.get<CourtGeographicalJurisdiction[]>(
+  getCourtGeoJurisdictions(): Observable<CourtGeoJurisdiction[]> {
+    return this.httpClient.get<CourtGeoJurisdiction[]>(
       this.API_MATTER_URL + '/court-geo'
     );
   }
@@ -44,6 +45,11 @@ export class MatterService {
     );
   }
 
+  getOpportunities(matterId: string): Observable<Opportunity[]> {
+    return this.httpClient.get<Opportunity[]>(
+      this.API_MATTER_URL + '/' + matterId + '/opportunities'
+    );
+  }
   getDetails(id: string): Observable<Matter> {
     return this.httpClient.get<Matter>(this.API_MATTER_URL + '/' + id);
   }

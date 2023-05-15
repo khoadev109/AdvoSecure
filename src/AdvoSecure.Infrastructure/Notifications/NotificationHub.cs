@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using AdvoSecure.Application.Interfaces;
+using Microsoft.AspNetCore.SignalR;
 
 namespace AdvoSecure.Infrastructure.Notifications
 {

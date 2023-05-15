@@ -5,7 +5,7 @@ import { MatterService } from '../../services/matter.service';
 import { MatterType } from '../../models/matter-type.model';
 import { MatterArea } from '../../models/matter-area.model';
 import { CourtSittingInCity } from '../../models/court-sitting-city.model';
-import { CourtGeographicalJurisdiction } from '../../models/court-geo-jurisdiction.model';
+import { CourtGeoJurisdiction } from '../../models/court-geo-jurisdiction.model';
 import { Matter, defaultMatter } from '../../models/matter.model';
 import { ContactService } from 'src/app/modules/contact/services/contact.service';
 import { Contact } from 'src/app/modules/contact/models/contact.model';
@@ -28,7 +28,7 @@ export class EditMatterComponent implements OnInit {
   matterTypes: MatterType[] = [];
   matterAreas: MatterArea[] = [];
   courtSittingInCities: CourtSittingInCity[] = [];
-  courtGeographicalJurisdictions: CourtGeographicalJurisdiction[] = [];
+  courtGeoJurisdictions: CourtGeoJurisdiction[] = [];
   contacts: Contact[] = [];
   billingRates: BillingRate[] = [];
   billingGroups: BillingGroup[] = [];
@@ -70,8 +70,8 @@ export class EditMatterComponent implements OnInit {
 
     this.matterService
       .getCourtGeoJurisdictions()
-      .subscribe((result: CourtGeographicalJurisdiction[]) => {
-        this.courtGeographicalJurisdictions = result;
+      .subscribe((result: CourtGeoJurisdiction[]) => {
+        this.courtGeoJurisdictions = result;
         this.changeDetectorRef.detectChanges();
       });
 

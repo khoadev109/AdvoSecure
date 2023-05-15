@@ -8,8 +8,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Configurations
     {
         public void Configure(EntityTypeBuilder<Opportunity> builder)
         {
-            builder.HasMany(o => o.Contacts)
-                   .WithMany(c => c.Opportunities);
+            builder.HasOne(o => o.Account)
+                    .WithMany(c => c.AccountOpportunities)
+                    .HasForeignKey(o => o.AccountId);
         }
     }
 }

@@ -70,9 +70,9 @@ namespace AdvoSecure.Domain.Entities.Matters
 
         public MatterArea MatterArea { get; set; }
 
-        public int? CourtGeographicalJurisdictionId { get; set; }
+        public int? CourtGeoJurisdictionId { get; set; }
 
-        public CourtGeographicalJurisdiction CourtGeographicalJurisdiction { get; set; }
+        public CourtGeoJurisdiction CourtGeoJurisdiction { get; set; }
 
         public int? CourtSittingInCityId { get; set; }
 
@@ -83,5 +83,11 @@ namespace AdvoSecure.Domain.Entities.Matters
         public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
 
         public IList<Note> Notes { get; set; } = new List<Note>();
+
+        public IList<Fee> Fees { get; set; } = new List<Fee>();
+
+        public IList<Expense> Expenses { get; set; } = new List<Expense>();
+
+        public IList<Invoice> Invoices { get; set; } = new List<Invoice>();
     }
 }

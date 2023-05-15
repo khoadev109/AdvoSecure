@@ -13,6 +13,12 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Configurations
 
             builder.HasMany(m => m.Tasks)
                    .WithMany(t => t.Matters);
+
+            builder.HasMany(m => m.Fees)
+                   .WithMany(f => f.Matters);
+
+            builder.HasMany(m => m.Expenses)
+                   .WithMany(e => e.Matters);
         }
     }
 }

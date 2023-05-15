@@ -1,67 +1,15 @@
-using AdvoSecure.Api.Areas.Application.Models.Validators;
+using AdvoSecure.Api;
 using AdvoSecure.Api.Attributes;
-using AdvoSecure.Api.Authentication;
-using AdvoSecure.Application.Mappers;
-using AdvoSecure.Common.Persistance;
-using AdvoSecure.Common.Swagger;
 using AdvoSecure.Domain.Exceptions;
-using AdvoSecure.Infrastructure.Authorization;
 using AdvoSecure.Infrastructure.Notifications;
 using AdvoSecure.Infrastructure.Persistance;
-using AdvoSecure.Infrastructure.Services.Configurations;
-using AdvoSecure.Security;
-using FluentValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var services = builder.Services;
-var configuration = builder.Configuration;
 var env = builder.Environment;
 
-var loggerFactory = LoggerFactory.Create(builder =>
-{
-    builder.AddDebug();
-    builder.SetMinimumLevel(LogLevel.Information);
-});
+builder.Services.RegisterServices(builder.Configuration);
 
-services.AddHttpClient("AdvosecureApi", configureClient =>
-{
-    configureClient.BaseAddress = new Uri(configuration["Tenant:BaseApiUrl"] ?? string.Empty);
-    configureClient.DefaultRequestHeaders.Add("Accept", "application/json");
-});
-
-services.Configure<FormOptions>(o =>
-{
-    o.ValueLengthLimit = int.MaxValue;
-    o.MultipartBodyLengthLimit = int.MaxValue;
-    o.MemoryBufferThreshold = int.MaxValue;
-});
-
-services.AddDistributedMemoryCache();
-
-services.AddPersistance();
-
-services.AddHttpContextAccessor();
-
-services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new JwtResolver(configuration).GetTokenParameters();
-});
-
-services.AddAuthorization();
-services.AddScoped<IPermissionService, PermissionService>();
-services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
-services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
-
-services.AddControllers(options =>
+builder.Services.AddControllers(options =>
 {
     options.Filters.Add(typeof(ExceptionResultFilterAttribute));
     options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
@@ -69,32 +17,6 @@ services.AddControllers(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new ExceptionConverter());
 });
-
-
-var corsPolicy = "CorsPolicy";
-
-var validOrigins = configuration.GetSection("Client:ValidOrigins").Get<string[]>() ?? new string[] {};
-
-services.AddCors(options =>
-{
-    options.AddPolicy(corsPolicy, builder => builder
-        .WithOrigins(validOrigins)
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials());
-});
-
-services.AddEndpointsApiExplorer();
-services.AddMemoryCache();
-services.AddSignalR();
-services.AddSwagger("AdvoSecure");
-services.AddApplicationMappers();
-services.AddServiceMappers();
-services.AddValidatorsFromAssemblyContaining<CaseFilterValidator>();
-services.AddServices();
-services.AddScoped<JwtResolver>();
-services.AddScoped<RsaResolver>();
-services.AddSingleton<CacheProvider>();
 
 var app = builder.Build();
 
@@ -109,7 +31,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 await DataInitializer.BootstrapPostgres(app);
 
-app.UseCors(corsPolicy);
+app.UseCors(builder.Configuration["CorsPolicy"] ?? string.Empty);
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

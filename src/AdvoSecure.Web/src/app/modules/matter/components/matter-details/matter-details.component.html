@@ -95,7 +95,7 @@
                         </span>
                       </td>
                       <td>
-                        {{ matter.courtGeographicalJurisdiction?.title || "" }}
+                        {{ matter.courtGeoJurisdiction?.title || "" }}
                       </td>
                     </tr>
                     <tr>
@@ -245,7 +245,16 @@
                           Lead
                         </span>
                       </td>
-                      <td></td>
+                      <td>
+                        <a
+                          *ngIf="opportunity && opportunity.lead"
+                          class="text-dark text-hover-primary fs-6 cursor-pointer"
+                          >{{ opportunity.lead?.contact?.displayName }}</a
+                        >
+                        <div *ngIf="!opportunity || !opportunity.lead">
+                          Green
+                        </div>
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -253,7 +262,16 @@
                           Opportunity
                         </span>
                       </td>
-                      <td></td>
+                      <td>
+                        <a
+                          *ngIf="opportunity"
+                          class="text-dark text-hover-primary fs-6 cursor-pointer"
+                          >{{ opportunity.lead?.contact?.displayName }}</a
+                        >
+                        <div *ngIf="!opportunity || !opportunity.lead">
+                          Green
+                        </div>
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -261,7 +279,38 @@
                           Source
                         </span>
                       </td>
-                      <td></td>
+                      <td>
+                        <a
+                          *ngIf="
+                            opportunity &&
+                            opportunity.lead &&
+                            opportunity.lead.source &&
+                            opportunity.lead.source.contact
+                          "
+                          class="text-dark text-hover-primary fs-6 cursor-pointer"
+                        >
+                          {{ opportunity.lead.source.title }}
+                        </a>
+                        <div
+                          *ngIf="
+                            opportunity &&
+                            opportunity.lead &&
+                            opportunity.lead.source &&
+                            !opportunity.lead.source.contact
+                          "
+                        >
+                          {{ opportunity.lead.source.title }}
+                        </div>
+                        <div
+                          *ngIf="
+                            !opportunity ||
+                            !opportunity.lead ||
+                            !opportunity.lead.source
+                          "
+                        >
+                          Green
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                   <!-- end::Table body -->
@@ -285,7 +334,7 @@
                     <tr>
                       <td>
                         <span class="text-dark fw-bolder mb-1 fs-6">
-                          File value
+                          Matter value
                         </span>
                       </td>
                       <td></td>
@@ -296,7 +345,51 @@
                           Ref. Compensation
                         </span>
                       </td>
-                      <td></td>
+                      <td>
+                        <span
+                          class="text-danger"
+                          *ngIf="
+                            opportunity &&
+                            opportunity.lead &&
+                            opportunity.lead.fee &&
+                            opportunity.lead.fee.isEligible &&
+                            opportunity.lead.fee.amount &&
+                            opportunity.lead.fee.amount < 1
+                          "
+                          >Verkeerde waarde</span
+                        >
+
+                        <ng-container
+                          *ngIf="
+                            opportunity &&
+                            opportunity.lead &&
+                            opportunity.lead.fee &&
+                            opportunity.lead.fee.isEligible
+                          "
+                        >
+                          <span>{{ opportunity.lead.fee.amount }}</span>
+                          <a
+                            class="text-hover-primary fs-6 cursor-pointer"
+                            [ngClass]="{
+                              'text-dark': opportunity.lead.fee.paid,
+                              'text-warning': !opportunity.lead.fee.paid
+                            }"
+                          >
+                            {{ opportunity.lead.fee.to?.displayName }}
+                          </a>
+                        </ng-container>
+
+                        <div
+                          *ngIf="
+                            !opportunity ||
+                            !opportunity.lead ||
+                            !opportunity.lead.fee ||
+                            !opportunity.lead.fee.isEligible
+                          "
+                        >
+                          Green
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                   <!-- end::Table body -->

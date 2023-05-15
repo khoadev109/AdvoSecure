@@ -5,7 +5,7 @@ import { BillingRate } from 'src/app/models/billing-rate.model';
 import { Contact } from '../../contact/models/contact.model';
 import { MatterType } from './matter-type.model';
 import { CourtSittingInCity } from './court-sitting-city.model';
-import { CourtGeographicalJurisdiction } from './court-geo-jurisdiction.model';
+import { CourtGeoJurisdiction } from './court-geo-jurisdiction.model';
 
 export interface Matter {
   id: string;
@@ -40,8 +40,8 @@ export interface Matter {
   matterArea?: MatterArea;
   courtSittingInCityId?: number;
   courtSittingInCity?: CourtSittingInCity;
-  courtGeographicalJurisdictionId?: number;
-  courtGeographicalJurisdiction?: CourtGeographicalJurisdiction;
+  courtGeoJurisdictionId?: number;
+  courtGeoJurisdiction?: CourtGeoJurisdiction;
   matterContacts?: MatterContact[];
 }
 
@@ -57,7 +57,7 @@ export const defaultMatter: Matter = {
   matterAreaId: 0,
   defaultBillingRateId: 0,
   billToContactId: 0,
-  courtGeographicalJurisdictionId: 0,
+  courtGeoJurisdictionId: 0,
   courtSittingInCityId: 0,
   matterContacts: new Array<MatterContact>()
 };

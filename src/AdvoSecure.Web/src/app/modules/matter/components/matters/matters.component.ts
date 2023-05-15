@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatterService } from '../../services/matter.service';
 import { Matter } from '../../models/matter.model';
 import { MatterArea } from '../../models/matter-area.model';
-import { CourtGeographicalJurisdiction } from '../../models/court-geo-jurisdiction.model';
+import { CourtGeoJurisdiction } from '../../models/court-geo-jurisdiction.model';
 import { SearchMatter } from '../../models/search-matter.model';
 
 @Component({
@@ -18,12 +18,12 @@ export class MattersComponent implements OnInit {
   public tableSizes: any = [3, 6, 9, 12];
 
   matterAreas: MatterArea[] = [];
-  courtGeoJds: CourtGeographicalJurisdiction[] = [];
+  courtGeoJds: CourtGeoJurisdiction[] = [];
 
   searchRequest: SearchMatter = {
     status: '',
     matterAreaId: 0,
-    courtGeographicalJurisdictionId: 0,
+    courtGeoJurisdictionId: 0,
   };
 
   constructor(
@@ -54,7 +54,7 @@ export class MattersComponent implements OnInit {
 
     this.matterService
       .getCourtGeoJurisdictions()
-      .subscribe((result: CourtGeographicalJurisdiction[]) => {
+      .subscribe((result: CourtGeoJurisdiction[]) => {
         this.courtGeoJds = result;
         this.changeDetectorRef.detectChanges();
       });

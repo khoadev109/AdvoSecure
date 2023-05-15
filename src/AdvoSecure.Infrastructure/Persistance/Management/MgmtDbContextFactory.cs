@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace AdvoSecure.Infrastructure.Persistance.Tenant
+namespace AdvoSecure.Infrastructure.Persistance.Management
 {
     public class MgmtDbContextFactory : IDesignTimeDbContextFactory<MgmtDbContext>
     {

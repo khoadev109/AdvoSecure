@@ -4,8 +4,8 @@ using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Management.Repositories;
-using AdvoSecure.Infrastructure.Persistance.Tenant;
-using AdvoSecure.Infrastructure.Persistance.Tenant.Repositories;
+using AdvoSecure.Infrastructure.Persistance.Management;
+using AdvoSecure.Infrastructure.Persistance.Management.Repositories;
 
 namespace AdvoSecure.Infrastructure.Persistance.Management
 {

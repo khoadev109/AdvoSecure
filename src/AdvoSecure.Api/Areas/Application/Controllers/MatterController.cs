@@ -2,6 +2,7 @@
 using AdvoSecure.Api.Controllers;
 using AdvoSecure.Application.Dtos.MatterDtos;
 using AdvoSecure.Application.Dtos.Notes;
+using AdvoSecure.Application.Dtos.OpportunityDtos;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Infrastructure.Authorization;
@@ -15,11 +16,13 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
     {
         private readonly IMatterService _matterService;
         private readonly INoteService _noteService;
+        private readonly IOpportunityService _opportunityService;
 
-        public MatterController(IMatterService matterService, INoteService noteService)
+        public MatterController(IMatterService matterService, INoteService noteService, IOpportunityService opportunityService)
         {
             _matterService = matterService;
             _noteService = noteService;
+            _opportunityService = opportunityService;
         }
 
         [HttpGet("types")]
@@ -64,7 +67,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpGet("court-geo")]
         public async Task<IActionResult> GetCourtGeographicalJurisdictions()
         {
-            ServiceResult<IEnumerable<CourtGeographicalJurisdictionDto>> serviceResult = await _matterService.GetCourtGeographicalJurisdictionsAsync();
+            ServiceResult<IEnumerable<CourtGeoJurisdictionDto>> serviceResult = await _matterService.GetCourtGeographicalJurisdictionsAsync();
 
             if (serviceResult.Success)
             {
@@ -78,6 +81,19 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         public async Task<IActionResult> GetMatterNotes(string id)
         {
             ServiceResult<IEnumerable<NoteDto>> serviceResult = await _noteService.GetNotesByMatterIdAsync(id);
+
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpGet("{id}/opportunities")]
+        public async Task<IActionResult> GetMatterOpportunities(string id)
+        {
+            ServiceResult<IEnumerable<OpportunityDto>> serviceResult = await _opportunityService.GetOpportunitiesByMatterIdAsync(id);
 
             if (serviceResult.Success)
             {

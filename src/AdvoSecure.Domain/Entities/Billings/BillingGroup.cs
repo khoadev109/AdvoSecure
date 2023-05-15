@@ -18,5 +18,7 @@ namespace AdvoSecure.Domain.Entities.Billings
         public int BillToContactId { get; set; }
 
         public Contact BillToContact { get; set; }
+
+        public IList<Invoice> Invoices { get; set; } = new List<Invoice>();
     }
 }

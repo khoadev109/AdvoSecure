@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -62,7 +61,9 @@ namespace AdvoSecure.Security
                 signingCredentials: signinCredentials
             );
 
-            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return token;
         }
 
         public AuthRefreshToken GenerateRefreshToken()

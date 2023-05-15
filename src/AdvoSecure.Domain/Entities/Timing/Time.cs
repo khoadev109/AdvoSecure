@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Domain.Entities.Base;
+using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Tasks;
 
 namespace AdvoSecure.Domain.Entities.Timing
@@ -22,5 +23,7 @@ namespace AdvoSecure.Domain.Entities.Timing
         public TimeCategory TimeCategory { get; set; }
 
         public IList<InnerTask> Tasks { get; set; } = new List<InnerTask>();
+
+        public IList<InvoiceTime> InvoiceTimes { get; set; } = new List<InvoiceTime>();
     }
 }

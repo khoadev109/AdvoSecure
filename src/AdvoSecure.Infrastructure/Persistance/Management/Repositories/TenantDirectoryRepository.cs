@@ -1,8 +1,8 @@
-﻿using AdvoSecure.Domain.Interfaces.Repositories;
-using AdvoSecure.Common.Persistance;
+﻿using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
+using AdvoSecure.Domain.Interfaces.Repositories;
 
-namespace AdvoSecure.Infrastructure.Persistance.Tenant.Repositories
+namespace AdvoSecure.Infrastructure.Persistance.Management.Repositories
 {
     public class TenantDirectoryRepository : Repository<TenantDirectory>, ITenantDirectoryRepository
     {

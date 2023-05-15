@@ -434,8 +434,8 @@
             ></label>
             <select
               class="form-select form-select-solid form-select-lg fw-bold"
-              name="courtGeographicalJurisdictionId"
-              [(ngModel)]="matter.courtGeographicalJurisdictionId"
+              name="courtGeoJurisdictionId"
+              [(ngModel)]="matter.courtGeoJurisdictionId"
             >
               <option
                 value="0"
@@ -443,14 +443,14 @@
               ></option>
               <option
                 *ngFor="
-                  let courtGeographicalJurisdiction of courtGeographicalJurisdictions
+                  let courtGeoJurisdiction of courtGeoJurisdictions
                 "
                 [selected]="
-                  matter.courtGeographicalJurisdictionId ===
-                  courtGeographicalJurisdiction.id
+                  matter.courtGeoJurisdictionId ===
+                  courtGeoJurisdiction.id
                 "
-                [text]="courtGeographicalJurisdiction.title"
-                [value]="courtGeographicalJurisdiction.id"
+                [text]="courtGeoJurisdiction.title"
+                [value]="courtGeoJurisdiction.id"
               ></option>
             </select>
           </div>
@@ -463,8 +463,8 @@
             ></label>
             <select
               class="form-select form-select-solid form-select-lg fw-bold"
-              name="courtGeographicalJurisdictionId"
-              [(ngModel)]="matter.courtGeographicalJurisdictionId"
+              name="courtGeoJurisdictionId"
+              [(ngModel)]="matter.courtGeoJurisdictionId"
             >
               <option
                 value="0"
@@ -472,14 +472,14 @@
               ></option>
               <option
                 *ngFor="
-                  let courtGeographicalJurisdiction of courtGeographicalJurisdictions
+                  let courtGeoJurisdiction of courtGeoJurisdictions
                 "
                 [selected]="
-                  matter.courtGeographicalJurisdictionId ===
-                  courtGeographicalJurisdiction.id
+                  matter.courtGeoJurisdictionId ===
+                  courtGeoJurisdiction.id
                 "
-                [text]="courtGeographicalJurisdiction.title"
-                [value]="courtGeographicalJurisdiction.id"
+                [text]="courtGeoJurisdiction.title"
+                [value]="courtGeoJurisdiction.id"
               ></option>
             </select>
           </div>

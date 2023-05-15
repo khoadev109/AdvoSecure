@@ -1,30 +1,27 @@
-﻿using AdvoSecure.Infrastructure.Persistance.App;
-using AdvoSecure.Infrastructure.Persistance.Tenant;
-using Microsoft.EntityFrameworkCore;
+﻿using AdvoSecure.Application.Interfaces;
+using AdvoSecure.Infrastructure.Persistance.Management;
 
 namespace AdvoSecure.Infrastructure.Authorization
 {
     public class PermissionService : IPermissionService
     {
-        private readonly MgmtDbContext _tenantDbContext;
-        private readonly ApplicationDbContext _appDbContext;
+        private readonly IMgmtUnitOfWork _mgmtUnitOfWork;
 
-        public PermissionService(MgmtDbContext tenantDbContext, ApplicationDbContext appDbContext)
+        public PermissionService(IMgmtUnitOfWork mgmtUnitOfWork)
         {
-            _tenantDbContext = tenantDbContext;
-            _appDbContext = appDbContext;
+            _mgmtUnitOfWork = mgmtUnitOfWork;
         }
 
         public async Task<bool> CheckAsTenantAdminAsync(Guid tenantIndentifier)
         {
-            bool existed = await _tenantDbContext.TenantSettings.AnyAsync(t => t.TenantIdentifier == tenantIndentifier && !t.AdminId.HasValue);
+            bool existed = await _mgmtUnitOfWork.TenantSettingRepository.ExistAsync(t => t.TenantIdentifier == tenantIndentifier && !t.AdminId.HasValue);
 
             return existed;
         }
 
         public async Task<bool> CheckAsAppUserTenant(Guid tenantIndentifier)
         {
-            bool existing = await _tenantDbContext.TenantSettings?.AnyAsync(t => t.TenantIdentifier == tenantIndentifier && t.AdminId.HasValue);
+            bool existing = await _mgmtUnitOfWork.TenantSettingRepository.ExistAsync(t => t.TenantIdentifier == tenantIndentifier && t.AdminId.HasValue);
 
             return existing;
         }

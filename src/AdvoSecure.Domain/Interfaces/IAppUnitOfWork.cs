@@ -1,15 +1,19 @@
-﻿using AdvoSecure.Domain.Interfaces.Repositories;
-using AdvoSecure.Common.Persistance;
+﻿using AdvoSecure.Common.Persistance;
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Leads;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Domain.Entities.Tasks;
+using AdvoSecure.Domain.Entities.Timing;
+using AdvoSecure.Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdvoSecure.Domain.Interfaces
 {
-    public interface IAppUnitOfWork
+    public interface IAppUnitOfWork : IUnitOfWork
     {
         IRepository<RefreshToken> RefreshTokenRepository { get; }
 
@@ -39,11 +43,43 @@ namespace AdvoSecure.Domain.Interfaces
 
         IRepository<CourtSittingInCity> CourtSittingInCityRepository { get; }
 
-        IRepository<CourtGeographicalJurisdiction> CourtGeographicalJurisdictionRepository { get; }
+        IRepository<CourtGeoJurisdiction> CourtGeoJurisdictionRepository { get; }
 
         IRepository<Note> NoteRepository { get; }
 
         IRepository<NoteNotification> NoteNotificationRepository { get; }
+
+        IOpportunityRepository OpportunityRepository { get; }
+
+        IRepository<OpportunityContact> OpportunityContactRepository { get; }
+
+        IRepository<Lead> LeadRepository { get; }
+
+        IRepository<LeadStatus> LeadStatusRepository { get; }
+
+        IRepository<LeadFee> LeadFeeRepository { get; }
+
+        IRepository<LeadSource> LeadSourceRepository { get; }
+
+        IRepository<LeadSourceType> LeadSourceTypeRepository { get; }
+
+        IRepository<Invoice> InvoiceRepository { get; }
+
+        IFeeRepository FeeRepository { get; }
+
+        IRepository<InvoiceFee> InvoiceFeeRepository { get; }
+
+        IExpenseRepository ExpenseRepository { get; }
+
+        IRepository<InvoiceExpense> InvoiceExpenseRepository { get; }
+
+        IRepository<InvoiceTime> InvoiceTimeRepository { get; }
+
+        IRepository<Time> TimeRepository { get; }
+
+        IRepository<TimeCategory> TimeCategoryRepository { get; }
+
+        Task SetConnectionStringAndRunMigration(string connectionString);
 
         void Commit();
 

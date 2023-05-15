@@ -1,4 +1,6 @@
-﻿using AdvoSecure.Application.Dtos.MatterDtos;
+﻿using AdvoSecure.Application.Dtos.BillingDtos;
+using AdvoSecure.Application.Dtos.MatterDtos;
+using AdvoSecure.Application.Dtos.Timing;
 using AdvoSecure.Common;
 
 namespace AdvoSecure.Application.Interfaces.Services
@@ -11,9 +13,19 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<ServiceResult<IEnumerable<CourtSittingInCityDto>>> GetCourtSittingInCitiesAsync();
 
-        Task<ServiceResult<IEnumerable<CourtGeographicalJurisdictionDto>>> GetCourtGeographicalJurisdictionsAsync();
+        Task<ServiceResult<IEnumerable<CourtGeoJurisdictionDto>>> GetCourtGeographicalJurisdictionsAsync();
 
         Task<ServiceResult<MatterDto>> GetMatterAsync(string id);
+
+        Task<ServiceResult<IEnumerable<InvoiceExpenseDto>>> GetExpensesByMatterIdAsync(string id);
+
+        Task<ServiceResult<IEnumerable<ExpenseDto>>> GetUnbilledExpensesByMatterIdAsync(string id);
+
+        Task<ServiceResult<IEnumerable<InvoiceFeeDto>>> GetBilledFeesByMatterIdAsync(string id);
+
+        Task<ServiceResult<IEnumerable<FeeDto>>> GetUnbilledFeesByMatterIdAsync(string id);
+
+        Task<ServiceResult<IEnumerable<TimeDto>>> GetTimesByMatterIdAsync(string id);
 
         Task<ServiceResult<IEnumerable<MatterDto>>> SearchMattersAsync(MatterSearchRequestDto requestDto);
 

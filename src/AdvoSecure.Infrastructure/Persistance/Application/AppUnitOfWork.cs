@@ -2,9 +2,12 @@
 using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Leads;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Domain.Entities.Tasks;
+using AdvoSecure.Domain.Entities.Timing;
 using AdvoSecure.Domain.Interfaces;
 using AdvoSecure.Domain.Interfaces.Repositories;
 using AdvoSecure.Infrastructure.Persistance.App;
@@ -45,11 +48,41 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
 
         private IRepository<CourtSittingInCity> _courtSittingInCityRepository;
 
-        private IRepository<CourtGeographicalJurisdiction> _courtGeographicalJurisdictionRepository;
+        private IRepository<CourtGeoJurisdiction> _courtGeoJurisdictionRepository;
 
         private IRepository<Note> _noteRepository;
 
         private IRepository<NoteNotification> _noteNotificationRepository;
+
+        private IOpportunityRepository _opportunityRepository;
+
+        private IRepository<OpportunityContact> _opportunityContactRepository;
+
+        private IRepository<Lead> _leadRepository;
+
+        private IRepository<LeadStatus> _leadStatusRepository;
+
+        private IRepository<LeadFee> _leadFeeRepository;
+
+        private IRepository<LeadSource> _leadSourceRepository;
+
+        private IRepository<LeadSourceType> _leadSourceTypeRepository;
+
+        private IRepository<Invoice> _invoiceRepository;
+
+        private IFeeRepository _feeRepository;
+
+        private IRepository<InvoiceFee> _invoiceFeeRepository;
+
+        private IExpenseRepository _expenseRepository;
+
+        private IRepository<InvoiceExpense> _invoiceExpenseRepository;
+
+        private IRepository<InvoiceTime> _invoiceTimeRepository;
+
+        private IRepository<Time> _timeRepository;
+
+        private IRepository<TimeCategory> _timeCategoryRepository;
 
         public AppUnitOfWork(ApplicationDbContext dbContext)
         {
@@ -126,9 +159,9 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
             get { return _courtSittingInCityRepository ??= new Repository<CourtSittingInCity>(_dbContext); }
         }
 
-        public IRepository<CourtGeographicalJurisdiction> CourtGeographicalJurisdictionRepository
+        public IRepository<CourtGeoJurisdiction> CourtGeoJurisdictionRepository
         {
-            get { return _courtGeographicalJurisdictionRepository ??= new Repository<CourtGeographicalJurisdiction>(_dbContext); }
+            get { return _courtGeoJurisdictionRepository ??= new Repository<CourtGeoJurisdiction>(_dbContext); }
         }
 
         public IRepository<Note> NoteRepository
@@ -139,6 +172,86 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
         public IRepository<NoteNotification> NoteNotificationRepository
         {
             get { return _noteNotificationRepository ??= new Repository<NoteNotification>(_dbContext); }
+        }
+
+        public IOpportunityRepository OpportunityRepository
+        {
+            get { return _opportunityRepository ??= new OpportunityRepository(_dbContext); }
+        }
+
+        public IRepository<OpportunityContact> OpportunityContactRepository
+        {
+            get { return _opportunityContactRepository ??= new Repository<OpportunityContact>(_dbContext); }
+        }
+
+        public IRepository<Lead> LeadRepository
+        {
+            get { return _leadRepository ??= new Repository<Lead>(_dbContext); }
+        }
+
+        public IRepository<LeadStatus> LeadStatusRepository
+        {
+            get { return _leadStatusRepository ??= new Repository<LeadStatus>(_dbContext); }
+        }
+
+        public IRepository<LeadFee> LeadFeeRepository
+        {
+            get { return _leadFeeRepository ??= new Repository<LeadFee>(_dbContext); }
+        }
+
+        public IRepository<LeadSource> LeadSourceRepository
+        {
+            get { return _leadSourceRepository ??= new Repository<LeadSource>(_dbContext); }
+        }
+
+        public IRepository<LeadSourceType> LeadSourceTypeRepository
+        {
+            get { return _leadSourceTypeRepository ??= new Repository<LeadSourceType>(_dbContext); }
+        }
+
+        public IRepository<Invoice> InvoiceRepository
+        {
+            get { return _invoiceRepository ??= new Repository<Invoice>(_dbContext); }
+        }
+
+        public IFeeRepository FeeRepository
+        {
+            get { return _feeRepository ??= new FeeRepository(_dbContext); }
+        }
+
+        public IRepository<InvoiceFee> InvoiceFeeRepository
+        {
+            get { return _invoiceFeeRepository ??= new Repository<InvoiceFee>(_dbContext); }
+        }
+
+        public IExpenseRepository ExpenseRepository
+        {
+            get { return _expenseRepository ??= new ExpenseRepository(_dbContext); }
+        }
+
+        public IRepository<InvoiceExpense> InvoiceExpenseRepository
+        {
+            get { return _invoiceExpenseRepository ??= new Repository<InvoiceExpense>(_dbContext); }
+        }
+
+        public IRepository<InvoiceTime> InvoiceTimeRepository
+        {
+            get { return _invoiceTimeRepository ??= new Repository<InvoiceTime>(_dbContext); }
+        }
+
+        public IRepository<Time> TimeRepository
+        {
+            get { return _timeRepository ??= new Repository<Time>(_dbContext); }
+        }
+
+        public IRepository<TimeCategory> TimeCategoryRepository
+        {
+            get { return _timeCategoryRepository ??= new Repository<TimeCategory>(_dbContext); }
+        }
+
+        public async Task SetConnectionStringAndRunMigration(string connectionString)
+        {
+            await _dbContext.SetConnectionStringAndRunMigration(connectionString);
         }
 
         public void Commit() => _dbContext.SaveChanges();

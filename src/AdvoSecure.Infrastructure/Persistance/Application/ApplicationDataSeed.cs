@@ -1,9 +1,12 @@
 ﻿using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
+using AdvoSecure.Domain.Entities.Leads;
 using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
+using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Infrastructure.Persistance.App;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdvoSecure.Infrastructure.Persistance
@@ -54,7 +57,7 @@ namespace AdvoSecure.Infrastructure.Persistance
 
                 await context.SaveChangesAsync();
 
-                await context.SaveChangesAsync();
+                await SeedLeadsOpportunitiesAndRelations(context);
             }
             catch (Exception ex)
             {
@@ -2994,32 +2997,32 @@ namespace AdvoSecure.Infrastructure.Persistance
             if (!context.CourtGeographicalJurisdictions.Any())
             {
                 await context.CourtGeographicalJurisdictions.AddRangeAsync(
-                    new CourtGeographicalJurisdiction
+                    new CourtGeoJurisdiction
                     {
                         Title = "Noord Nederland",
                         CreatedBy = "TOAA"
                     },
-                    new CourtGeographicalJurisdiction
+                    new CourtGeoJurisdiction
                     {
                         Title = "Midden Nederland",
                         CreatedBy = "TOAA"
                     },
-                    new CourtGeographicalJurisdiction
+                    new CourtGeoJurisdiction
                     {
                         Title = "Limburg",
                         CreatedBy = "TOAA"
                     },
-                    new CourtGeographicalJurisdiction
+                    new CourtGeoJurisdiction
                     {
                         Title = "Oost Brabant",
                         CreatedBy = "TOAA"
                     },
-                    new CourtGeographicalJurisdiction
+                    new CourtGeoJurisdiction
                     {
                         Title = "Noord Holland",
                         CreatedBy = "TOAA"
                     },
-                    new CourtGeographicalJurisdiction
+                    new CourtGeoJurisdiction
                     {
                         Title = "Zeeland West Brabant",
                         CreatedBy = "TOAA"
@@ -3114,7 +3117,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         CaseNumber = "20190003AS",
                         AttorneyForPartyTitle = "testtest",
                         CourtSittingInCityId = 1,
-                        CourtGeographicalJurisdictionId = 1,
+                        CourtGeoJurisdictionId = 1,
                         CaptionPlaintiffOrSubjectShort = "blah",
                         CaptionPlaintiffOrSubjectRegular = "blah",
                         CaptionPlaintiffOrSubjectLong = "blah",
@@ -3139,7 +3142,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         CaseNumber = "20190002AS",
                         AttorneyForPartyTitle = "Eiser",
                         CourtSittingInCityId = 2,
-                        CourtGeographicalJurisdictionId = 2,
+                        CourtGeoJurisdictionId = 2,
                         CaptionPlaintiffOrSubjectShort = "Verzekeraar keert niet uit na brand i.v.m. vermeend brandstichting verzekerde. Verzekeraar heeft geen wettig bewijs",
                         CreatedBy = "TOAA"
                     },
@@ -3157,7 +3160,7 @@ namespace AdvoSecure.Infrastructure.Persistance
                         DefaultBillingRateId = 3,
                         OverrideMatterRateWithEmployeeRate = true,
                         CourtSittingInCityId = 3,
-                        CourtGeographicalJurisdictionId = 4,
+                        CourtGeoJurisdictionId = 4,
                         CreatedBy = "TOAA"
                     },
                     new Matter
@@ -3218,6 +3221,123 @@ namespace AdvoSecure.Infrastructure.Persistance
 
                 matters[0].Notes = new List<Note> { notes[0], notes[1] };
                 matters[1].Notes = new List<Note> { notes[2] };
+            }
+        }
+
+        public static async Task SeedLeadsOpportunitiesAndRelations(ApplicationDbContext context)
+        {
+            if (!context.LeadStatuses.Any())
+            {
+                await context.LeadStatuses.AddRangeAsync(
+                    new LeadStatus
+                    {
+                        Title = "Good Lead Status",
+                        CreatedBy = "John",
+                        CreatedDateTime = DateTime.Now
+                    }
+                );
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.LeadSourceTypes.Any())
+            {
+                await context.LeadSourceTypes.AddRangeAsync(
+                    new LeadSourceType
+                    {
+                        Title = "Source Type1",
+                        CreatedBy = "John Doe",
+                        CreatedDateTime = DateTime.Now,
+                    }
+                );
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.LeadSources.Any())
+            {
+                LeadSourceType sourceType = await context.LeadSourceTypes.FirstOrDefaultAsync();
+
+                await context.LeadSources.AddRangeAsync(
+                    new LeadSource
+                    {
+                        Title = "Lead source 1",
+                        AdditionalQuestion1 = "AdditionalQuestion1",
+                        AdditionalData1 = "AdditionalData1",
+                        AdditionalQuestion2 = "AdditionalQuestion2",
+                        AdditionalData2 = "AdditionalData2",
+                        TypeId = sourceType.Id,
+                        ContactId = 1,
+                        CreatedBy = "John Doe",
+                        CreatedDateTime = DateTime.Now,
+                    }
+                );
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.LeadFees.Any())
+            {
+                await context.LeadFees.AddRangeAsync(
+                    new LeadFee
+                    {
+                        AdditionalData = "Lead fee",
+                        ToId = 1,
+                        CreatedBy = "John Doe",
+                        CreatedDateTime = DateTime.Now,
+                    }
+                );
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.Leads.Any())
+            {
+                LeadStatus status = await context.LeadStatuses.FirstOrDefaultAsync();
+                LeadFee fee = await context.LeadFees.FirstOrDefaultAsync();
+                LeadSource source = await context.LeadSources.FirstOrDefaultAsync();
+
+                await context.Leads.AddRangeAsync(
+                    new Lead
+                    {
+                        Closed = DateTime.Now,
+                        Details = "Details",
+                        CreatedBy = "John Doe",
+                        CreatedDateTime = DateTime.Now,
+                        DeletedBy = "John Doe",
+                        DeletedDateTime = DateTime.Now,
+                        ModifiedBy = "John Doe",
+                        ModifiedDateTime = DateTime.Now,
+                        ContactId = 1,
+                        StatusId = status.Id,
+                        SourceId = source.Id,
+                        FeeId = fee.Id
+                    }
+                );
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.Opportunities.Any())
+            {
+                Lead lead = await context.Leads.FirstOrDefaultAsync();
+                Matter matter = await context.Matters.FirstOrDefaultAsync();
+
+                await context.Opportunities.AddRangeAsync(
+                    new Opportunity
+                    {
+                        Probability = 10,
+                        Amount = 10,
+                        Closed = DateTime.Now,
+                        CreatedBy = "John Doe",
+                        CreatedDateTime = DateTime.Now,
+                        AccountId = 1,
+                        LeadId = lead.Id,
+                        MatterId = matter.Id
+                    }
+                );
+
+                await context.SaveChangesAsync();
             }
         }
     }
