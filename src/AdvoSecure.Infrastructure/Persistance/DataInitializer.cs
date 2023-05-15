@@ -1,5 +1,8 @@
-﻿using AdvoSecure.Infrastructure.Persistance.App;
+﻿using AdvoSecure.Application.Interfaces.Services;
+using AdvoSecure.Domain.Entities;
+using AdvoSecure.Infrastructure.Persistance.App;
 using AdvoSecure.Infrastructure.Persistance.Management;
+using AdvoSecure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +28,41 @@ namespace AdvoSecure.Infrastructure.Persistance
             if (hostEnvironment?.IsDevelopment() ?? false)
             {
                 await ASMgmtDataSeed.SeedAsMgmtTables(context);
+
+                await RegisterDefaultAppUser(services);
+            }
+        }
+
+        private static async Task RegisterDefaultAppUser(IServiceProvider serviceProvider)
+        {
+            try
+            {
+                var context = serviceProvider.GetRequiredService<MgmtDbContext>();
+
+                TenantSetting tenantAdmin = await context.TenantSettings.FirstOrDefaultAsync(x => !x.AdminId.HasValue);
+
+                if (tenantAdmin == null)
+                {
+                    return;
+                }
+
+                var tenantService = serviceProvider.GetRequiredService<ITenantService>();
+
+                var request = new AuthRegisterRequest
+                {
+                    Email = "gj.dijkstra@totaldesk.nl",
+                    DisplayName = "TotalDesk",
+                    Password = "password",
+                    FirstName = "Total",
+                    LastName = "Desk",
+                    TenantAdminIdentifier = tenantAdmin.TenantIdentifier
+                };
+
+                await tenantService.RegisterUserAsync(request, "TOAA");
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
 

@@ -66,7 +66,7 @@ namespace AdvoSecure.Application.Services
             return result;
         }
 
-        public async Task<ServiceResult<IEnumerable<CourtGeoJurisdictionDto>>> GetCourtGeographicalJurisdictionsAsync()
+        public async Task<ServiceResult<IEnumerable<CourtGeoJurisdictionDto>>> GetCourtGeoJurisdictionsAsync()
         {
             ServiceResult<IEnumerable<CourtGeoJurisdictionDto>> result = await ExecuteAsync<IEnumerable<CourtGeoJurisdictionDto>>(async () =>
             {

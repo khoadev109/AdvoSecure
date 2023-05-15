@@ -65,9 +65,9 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         }
 
         [HttpGet("court-geo")]
-        public async Task<IActionResult> GetCourtGeographicalJurisdictions()
+        public async Task<IActionResult> GetCourtGeoJurisdictions()
         {
-            ServiceResult<IEnumerable<CourtGeoJurisdictionDto>> serviceResult = await _matterService.GetCourtGeographicalJurisdictionsAsync();
+            ServiceResult<IEnumerable<CourtGeoJurisdictionDto>> serviceResult = await _matterService.GetCourtGeoJurisdictionsAsync();
 
             if (serviceResult.Success)
             {

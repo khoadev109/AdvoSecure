@@ -12,8 +12,6 @@ using AdvoSecure.Infrastructure.Persistance.Application;
 using AdvoSecure.Infrastructure.Persistance.Application.Repositories;
 using AdvoSecure.Infrastructure.Persistance.Management;
 using AdvoSecure.Infrastructure.Persistance.Management.Repositories;
-using AdvoSecure.Infrastructure.Persistance.Management;
-using AdvoSecure.Infrastructure.Persistance.Management.Repositories;
 using AdvoSecure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

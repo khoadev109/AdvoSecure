@@ -4,6 +4,7 @@ using AdvoSecure.Domain.Entities;
 using AdvoSecure.Infrastructure.Persistance.App;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using AdvoSecure.Infrastructure.Persistance.Management;
 
 namespace AdvoSecure.Infrastructure.Persistance.Tenant.Repositories
 {

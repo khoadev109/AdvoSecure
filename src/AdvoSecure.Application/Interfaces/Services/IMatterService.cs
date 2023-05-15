@@ -13,7 +13,7 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<ServiceResult<IEnumerable<CourtSittingInCityDto>>> GetCourtSittingInCitiesAsync();
 
-        Task<ServiceResult<IEnumerable<CourtGeoJurisdictionDto>>> GetCourtGeographicalJurisdictionsAsync();
+        Task<ServiceResult<IEnumerable<CourtGeoJurisdictionDto>>> GetCourtGeoJurisdictionsAsync();
 
         Task<ServiceResult<MatterDto>> GetMatterAsync(string id);
 

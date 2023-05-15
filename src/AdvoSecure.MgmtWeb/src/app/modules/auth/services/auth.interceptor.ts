@@ -26,11 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let authRequest = request;
 
-    if (request.url.includes('/auth/login')) {
+    if (request.url.includes('/login')) {
+      request = this.addHeader(request);
       return next.handle(request);
     }
 
-    authRequest = this.addHeader(request, getAccessToken());
+    authRequest = this.addHeaderWithToken(request, getAccessToken());
 
     return next.handle(authRequest).pipe(
       catchError((error) => {
@@ -45,11 +46,10 @@ export class AuthInterceptor implements HttpInterceptor {
   handleRefreshToken(request: HttpRequest<any>, next: HttpHandler) {
     return this.authHttpService.generateRefreshToken().pipe(
       tap((tokenResponse: TokenResponse) => {
-        debugger;
         setTokenAndIdentifiers(tokenResponse);
       }),
       switchMap((tokenResponse: TokenResponse) => {
-        return next.handle(this.addHeader(request, tokenResponse.accessToken));
+        return next.handle(this.addHeaderWithToken(request, tokenResponse.accessToken));
       }),
       catchError((error) => {
         return throwError(error);
@@ -57,10 +57,18 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-  addHeader(request: HttpRequest<any>, token: any) {
+  addHeaderWithToken(request: HttpRequest<any>, token: any) {
     return request.clone({
       setHeaders: {
         Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  addHeader(request: HttpRequest<any>) {
+    return request.clone({
+      setHeaders: {
         'Content-Type': 'application/json',
       },
     });
