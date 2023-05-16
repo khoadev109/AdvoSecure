@@ -128,6 +128,7 @@ export const locale = {
         FEATURE_TITLE: 'Feature title',
         ADDRESS_TITLE: 'Address',
         LETTER_EMAIL_SALUTATION: 'Letter/email salutation',
+        SALUATION: 'Saluation',
         CONTACTS: 'Contacts',
         NEW_CONTACT: 'New contact',
         TYPE: 'Type',

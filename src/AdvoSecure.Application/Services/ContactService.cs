@@ -172,5 +172,48 @@ namespace AdvoSecure.Application.Services
 
             return result;
         }
+
+        public async Task<ServiceResult<IEnumerable<ContactTitleDTO>>> GetContactTitleAsync()
+        {
+            ServiceResult<IEnumerable<ContactTitleDTO>> result = await ExecuteAsync<IEnumerable<ContactTitleDTO>>(async () =>
+            {
+                IEnumerable<ContactTitle> contactTitle = await _unitOfWork.ContactTitleRepository.GetAllAsync();
+
+                IEnumerable<ContactTitleDTO> contactTitleDtos = _mapper.Map<IEnumerable<ContactTitleDTO>>(contactTitle);
+
+                return new ServiceSuccessResult<IEnumerable<ContactTitleDTO>>(contactTitleDtos);
+            });
+
+            return result;
+        }
+
+        public static void GenerateCodeIfEmpty( Contact contact)
+        {
+            if (string.IsNullOrEmpty(contact.Code))
+            {
+                char[] codeChars = new char[3];
+
+                if (!string.IsNullOrEmpty(contact.GivenName))
+                {
+                    codeChars[0] = contact.GivenName[0];
+                }
+
+                if (!string.IsNullOrEmpty(contact.MiddleName))
+                {
+                    codeChars[1] = contact.MiddleName[0];
+                }
+                else if (!string.IsNullOrEmpty(contact.Surname))
+                {
+                    codeChars[1] = contact.Surname[0];
+
+                    if (contact.Surname.Length > 1)
+                    {
+                        codeChars[2] = contact.Surname[1];
+                    }
+                }
+
+                contact.Code = new string(codeChars);
+            }
+        }
     }
 }

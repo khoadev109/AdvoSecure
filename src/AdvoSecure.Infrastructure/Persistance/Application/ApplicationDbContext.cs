@@ -28,6 +28,8 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<Contact> Contacts => Set<Contact>();
 
+        public DbSet<ContactTitle> ContactTitles => Set<ContactTitle>();
+
         public DbSet<Language> Languages => Set<Language>();
 
         public DbSet<CompanyLegalStatus> CompanyLegalStatuses => Set<CompanyLegalStatus>();

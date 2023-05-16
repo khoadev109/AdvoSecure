@@ -84,6 +84,8 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
 
         private IRepository<TimeCategory> _timeCategoryRepository;
 
+        private IRepository<ContactTitle> _contactTitleRepository;
+
         public AppUnitOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -248,11 +250,16 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
         {
             get { return _timeCategoryRepository ??= new Repository<TimeCategory>(_dbContext); }
         }
+        public IRepository<ContactTitle> ContactTitleRepository
+        {
+            get { return _contactTitleRepository ??= new Repository<ContactTitle>(_dbContext); }
+        }
 
         public async Task SetConnectionStringAndRunMigration(string connectionString)
         {
             await _dbContext.SetConnectionStringAndRunMigration(connectionString);
         }
+
 
         public void Commit() => _dbContext.SaveChanges();
 

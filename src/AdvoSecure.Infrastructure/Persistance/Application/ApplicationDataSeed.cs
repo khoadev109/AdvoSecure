@@ -55,9 +55,12 @@ namespace AdvoSecure.Infrastructure.Persistance
 
                 await SeedMatterNotes(context);
 
+                await SeedContactTitle(context);
+
                 await context.SaveChangesAsync();
 
                 await SeedLeadsOpportunitiesAndRelations(context);
+
             }
             catch (Exception ex)
             {
@@ -3337,6 +3340,21 @@ namespace AdvoSecure.Infrastructure.Persistance
                     }
                 );
 
+                await context.SaveChangesAsync();
+            }
+        }
+        public static async Task SeedContactTitle(ApplicationDbContext context)
+        {
+            if (!context.ContactTitles.Any())
+            {
+                await context.ContactTitles.AddRangeAsync(
+                    new ContactTitle
+                    {
+                        Profession = "Profession",
+                        Title = "Title",
+                        Saluation = "Saluation",
+                        CreatedBy = "TOAA"
+                    });
                 await context.SaveChangesAsync();
             }
         }

@@ -420,15 +420,27 @@
                   class="col-lg-4 fw-bold fs-6"
                   translate="PAGES.CONTACT.FEATURE_TITLE"
                 ></label>
-                <input
-                  type="text"
-                  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                  name="featureTitle"
+                <select
+                  class="form-select form-select-solid form-select-lg fw-bold"
+                  name="country1"
                   [(ngModel)]="contact.profession"
-                />
+                  (ngModelChange)="onTitleSelect()"
+                >
+                  <option
+                    value=""
+                    disabled
+                    translate="PAGES.CONTACT.FEATURE_TITLE"
+                  ></option>
+                  <option
+                    *ngFor="let title of contactTitles"
+                    [text]="title.profession"
+                    [value]="title.id"
+                  ></option>
+                </select>
               </div>
             </div>
           </div>
+
           <div class="row mb-3">
             <div class="col-lg-12">
               <div class="d-flex align-items-center me-4">
@@ -892,7 +904,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [ngModel]="contact.birthday | date : 'DD-MM-YYYY'"
+                        [ngModel]="contact.birthday | date : 'yyyy-MM-dd'"
                         (ngModelChange)="contact.birthday = $event"
                       />
                     </div>
@@ -1063,7 +1075,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="idValidUntil"
-                        [ngModel]="contact.idDateExpiry | date : 'DD-MM-YYYY'"
+                        [ngModel]="contact.idDateExpiry | date : 'yyyy-MM-dd'"
                         (ngModelChange)="contact.idDateExpiry = $event"
                       />
                     </div>
@@ -1080,7 +1092,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="weddingDate"
-                        [ngModel]="contact.wedding | date : 'DD-MM-YYYY'"
+                        [ngModel]="contact.wedding | date : 'yyyy-MM-dd'"
                         (ngModelChange)="contact.wedding = $event"
                       />
                     </div>
@@ -1183,7 +1195,7 @@
                         type="date"
                         class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                         name="dateOfBirth"
-                        [ngModel]="contact.birthday | date : 'DD-MM-YYYY'"
+                        [ngModel]="contact.birthday | date : 'yyyy-MM-dd'"
                         (ngModelChange)="contact.birthday = $event"
                       />
                     </div>
@@ -1349,7 +1361,7 @@
                         class="form-control form-control-lg form-control-solid mb-lg-0"
                         name="sepaEffectiveDate"
                         [ngModel]="
-                          contact.sepaMandateDate | date : 'DD-MM-YYYY'
+                          contact.sepaMandateDate | date : 'yyyy-MM-dd'
                         "
                         (ngModelChange)="contact.sepaMandateDate = $event"
                       />

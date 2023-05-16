@@ -79,6 +79,8 @@ namespace AdvoSecure.Domain.Interfaces
 
         IRepository<TimeCategory> TimeCategoryRepository { get; }
 
+        IRepository<ContactTitle> ContactTitleRepository { get; }
+
         Task SetConnectionStringAndRunMigration(string connectionString);
 
         void Commit();

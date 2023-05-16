@@ -20,6 +20,8 @@ namespace AdvoSecure.Application.Dtos.ContactDtos
         public byte[] PictureBin { get; set; }
 
         #region Contact Name
+        [MaxLength(6)]
+        public string? Code { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the nickname of the contact.

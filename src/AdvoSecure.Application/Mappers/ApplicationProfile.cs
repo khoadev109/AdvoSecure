@@ -99,6 +99,12 @@ namespace AdvoSecure.Application.Mappers
                     .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
                     .ForMember(x => x.DeletedBy, x => x.Ignore())
                     .ForMember(x => x.DeletedDateTime, x => x.Ignore());
+            CreateMap<ContactTitle, ContactTitleDTO>().ReverseMap()
+                    .ForMember(x => x.Id, x => x.Ignore())
+                    .ForMember(x => x.ModifiedBy, x => x.Ignore())
+                    .ForMember(x => x.ModifiedDateTime, x => x.Ignore())
+                    .ForMember(x => x.DeletedBy, x => x.Ignore())
+                    .ForMember(x => x.DeletedDateTime, x => x.Ignore());       
         }
 
         private void MapMatters()

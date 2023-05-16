@@ -149,5 +149,18 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
 
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
+
+        [HttpGet("contact-titles")]
+        public async Task<IActionResult> GetContactTitle()
+        {
+            ServiceResult<IEnumerable<ContactTitleDTO>> serviceResult = await _contactService.GetContactTitleAsync();
+
+            if (serviceResult.Success)
+            {
+                return Ok(serviceResult.Result);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 }

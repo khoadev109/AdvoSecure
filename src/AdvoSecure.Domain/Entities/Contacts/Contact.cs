@@ -6,6 +6,7 @@ using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Domain.Entities.Tasks;
 using AdvoSecure.Domain.Entities.Timing;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdvoSecure.Domain.Entities.Contacts
 {
@@ -42,6 +43,9 @@ namespace AdvoSecure.Domain.Entities.Contacts
         public byte[]? PictureBin { get; set; } = Array.Empty<byte>();
 
         #region Contact Name
+
+        [MaxLength(6)]
+        public string? Code { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the nickname of the contact or Companyname if it is a company
@@ -1049,7 +1053,7 @@ namespace AdvoSecure.Domain.Entities.Contacts
         /// The Civil/Maritial status.
         /// </value>
         /// <author>GJD</author>
-        public int? CivilStatusId { get; set; }
+        public int? CivilStatusId { get; set; } 
 
         public ContactCivilStatus CivilStatus { get; set; }
 

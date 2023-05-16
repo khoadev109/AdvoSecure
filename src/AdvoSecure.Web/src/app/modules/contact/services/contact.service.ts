@@ -6,6 +6,7 @@ import { Contact } from '../models/contact.model';
 import { ContactIdType } from '../models/contact-id-type.model';
 import { ContactMaritalStatus } from '../models/contact-marital-status.model';
 import { ContactLanguage } from '../models/contact-languages.model';
+import { ContactTitles } from '../models/contact-titles.model';
 
 @Injectable({
   providedIn: 'root',
@@ -66,6 +67,12 @@ export class ContactService {
   getLanguages(): Observable<ContactLanguage[]> {
     return this.httpClient.get<ContactLanguage[]>(
       this.API_CONTACT_URL + '/languages'
+    );
+  }
+
+  getContactTitle(): Observable<ContactTitles[]> {
+    return this.httpClient.get<ContactTitles[]>(
+      this.API_CONTACT_URL + '/contact-titles'
     );
   }
 

@@ -13,6 +13,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { genders } from 'src/app/helpers/staticListHelper';
 import { CompanyLegalStatus } from 'src/app/models/company-legal-status.model';
 import { Languages } from 'src/app/models/languages.model';
+import { ContactTitles } from '../../models/contact-titles.model';
 
 type Tabs = 'address-tab' | 'extra-tab' | 'financial-tab' | 'history-tab';
 
@@ -47,6 +48,7 @@ export class ContactDetailsComponent implements OnInit {
   billingRates: BillingRate[] = [];
   companyLegalStatuses: CompanyLegalStatus[] = [];
   countries: Country[] = [];
+  contactTitles: ContactTitles[] = [];
   genders = genders;
   dateErrorMessage = '';
   languages: Languages[] = [];
@@ -137,6 +139,14 @@ export class ContactDetailsComponent implements OnInit {
       this.languages = result;
       this.changeDetectorRef.detectChanges();
     });
+
+    this.contactService
+      .getContactTitle()
+      .subscribe((result: ContactTitles[]) => {
+        console.log('aaaaa', result);
+        this.contactTitles = result;
+        this.changeDetectorRef.detectChanges();
+      });
   }
 
   setTab(tab: Tabs) {
@@ -253,6 +263,11 @@ export class ContactDetailsComponent implements OnInit {
     } else {
       this.router.navigate(['/management/contacts/all']);
     }
+  }
+
+  onTitleSelect() {
+    this.contact.title = this.contactTitles[0].title;
+    this.contact.saluation = this.contactTitles[0].saluation;
   }
 
   ngOnDestroy() {

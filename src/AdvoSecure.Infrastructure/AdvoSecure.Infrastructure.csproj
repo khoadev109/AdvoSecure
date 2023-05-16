@@ -36,4 +36,9 @@
     <ProjectReference Include="..\AdvoSecure.Security\AdvoSecure.Security.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistance\Application\Migrations\" />
+    <Folder Include="Persistance\Management\Migrations\" />
+  </ItemGroup>
+
 </Project>
