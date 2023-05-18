@@ -106,7 +106,10 @@ export class NewMatterComponent implements OnInit {
   }
 
   addSelectedContacts(matterContact: MatterContact) {
-    this.matter.matterContacts?.push(matterContact);
+    const existingContact = this.matter.matterContacts?.some(x => x.contactId === matterContact.contactId);
+    if (!existingContact) {
+      this.matter.matterContacts?.push(matterContact);
+    }
   }
 
   redirectToListPage() {

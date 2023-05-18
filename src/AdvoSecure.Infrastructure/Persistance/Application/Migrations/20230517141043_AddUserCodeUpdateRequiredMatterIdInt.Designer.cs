@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230516111345_AddColumnCode")]
-    partial class AddColumnCode
+    [Migration("20230517141043_AddUserCodeUpdateRequiredMatterIdInt")]
+    partial class AddUserCodeUpdateRequiredMatterIdInt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1469,7 +1469,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     b.Property<decimal?>("EstimatedCharge")
                         .HasColumnType("numeric");
 
-                    b.Property<long?>("IdInt")
+                    b.Property<long>("IdInt")
                         .HasColumnType("bigint");
 
                     b.Property<int?>("MatterAreaId")
@@ -2234,6 +2234,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

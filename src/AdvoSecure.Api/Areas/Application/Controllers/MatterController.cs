@@ -132,7 +132,7 @@ namespace AdvoSecure.Api.Areas.Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] MatterDto matterRequestDto)
         {
-            ServiceResult<MatterDto> serviceResult = await _matterService.CreateMatterAsync(matterRequestDto, CurrentUserName);
+            ServiceResult<MatterDto> serviceResult = await _matterService.CreateMatterAsync(matterRequestDto, CurrentUserName, CurrentUserCode);
 
             if (serviceResult.Success)
             {

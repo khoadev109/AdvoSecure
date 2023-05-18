@@ -32,7 +32,7 @@
               type="checkbox"
               class="form-check-input"
               name="isClient_{{ contactNumber }}"
-              (change)="checkRole('isClient')" /><span
+              (change)="selectRole('isClient')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.CLIENT"
             ></span
@@ -44,7 +44,7 @@
               type="checkbox"
               class="form-check-input"
               name="isClientContact_{{ contactNumber }}"
-              (change)="checkRole('isClientContact')" /><span
+              (change)="selectRole('isClientContact')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.CLIENT_CONTACT"
             ></span
@@ -59,7 +59,7 @@
               type="checkbox"
               class="form-check-input"
               name="isAppointed_{{ contactNumber }}"
-              (change)="checkRole('isAppointed')" /><span
+              (change)="selectRole('isAppointed')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.APPOINTED"
             ></span
@@ -71,7 +71,7 @@
               type="checkbox"
               class="form-check-input"
               name="isParty_{{ contactNumber }}"
-              (change)="checkRole('isParty')" /><span
+              (change)="selectRole('isParty')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.PARTY"
             ></span
@@ -86,7 +86,7 @@
               type="checkbox"
               class="form-check-input"
               name="isJudge_{{ contactNumber }}"
-              (change)="checkRole('isJudge')" /><span
+              (change)="selectRole('isJudge')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.JUDGE"
             ></span
@@ -98,7 +98,7 @@
               type="checkbox"
               class="form-check-input"
               name="isSupportStaff_{{ contactNumber }}"
-              (change)="checkRole('isWitness')" /><span
+              (change)="selectRole('isWitness')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.WITNESS"
             ></span
@@ -113,7 +113,7 @@
               type="checkbox"
               class="form-check-input"
               name="isAttorney_{{ contactNumber }}"
-              (change)="checkRole('isAttorney')" /><span
+              (change)="selectRole('isAttorney')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.ATTORNEY"
             ></span
@@ -125,7 +125,7 @@
               type="checkbox"
               class="form-check-input"
               name="isLeadAttorney_{{ contactNumber }}"
-              (change)="checkRole('isLeadAttorney')" /><span
+              (change)="selectRole('isLeadAttorney')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.LEAD_ATTORNEY"
             ></span
@@ -140,7 +140,7 @@
               type="checkbox"
               class="form-check-input"
               name="isSupportStaff_{{ contactNumber }}"
-              (change)="checkRole('isSupportStaff')" /><span
+              (change)="selectRole('isSupportStaff')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.SUPPORT_STAFF"
             ></span
@@ -152,7 +152,7 @@
               type="checkbox"
               class="form-check-input"
               name="isThirdPartyPayor_{{ contactNumber }}"
-              (change)="checkRole('isThirdPartyPayor')" /><span
+              (change)="selectRole('isThirdPartyPayor')" /><span
               class="fw-bold ps-2 fs-6"
               translate="PAGES.MATTER.THIRD_PARTY_PAYOR"
             ></span

@@ -1,4 +1,5 @@
-﻿using AdvoSecure.Domain.Entities;
+﻿using AdvoSecure.Application.Extensions;
+using AdvoSecure.Domain.Entities;
 using AdvoSecure.Domain.Entities.Billings;
 using AdvoSecure.Domain.Entities.Contacts;
 using AdvoSecure.Domain.Entities.Leads;
@@ -3091,7 +3092,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Matter
                     {
                         Id = Guid.NewGuid(),
-                        MatterNumber = "20/0021CCC",
+                        IdInt = 1,
+                        MatterNumber = GeneratorExtension.GenerateMatterNumber(1, "TOA"),
                         Title = "BESTBV/aandeelhouders conflict",
                         Active = true,
                         MatterTypeId = 1,
@@ -3107,7 +3109,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Matter
                     {
                         Id = Guid.NewGuid(),
-                        MatterNumber = "21/0038ACU",
+                        IdInt = 2,
+                        MatterNumber = GeneratorExtension.GenerateMatterNumber(2, "TOA"),
                         Title = "Boogert/Cornelis ontbinding huwelijk",
                         Active = true,
                         MatterTypeId = 2,
@@ -3132,7 +3135,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Matter
                     {
                         Id = Guid.NewGuid(),
-                        MatterNumber = "20/0138BKE",
+                        IdInt = 3,
+                        MatterNumber = GeneratorExtension.GenerateMatterNumber(3, "TOA"),
                         Title = "BNNV/Brenders - Verzekeringsfraude brand",
                         Active = true,
                         MatterTypeId = 3,
@@ -3152,7 +3156,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Matter
                     {
                         Id = Guid.NewGuid(),
-                        MatterNumber = "19/0007CCC",
+                        IdInt = 4,
+                        MatterNumber = GeneratorExtension.GenerateMatterNumber(4, "TOA"),
                         Title = "Schade aanrijding",
                         Active = true,
                         MatterTypeId = 2,
@@ -3169,7 +3174,8 @@ namespace AdvoSecure.Infrastructure.Persistance
                     new Matter
                     {
                         Id = Guid.NewGuid(),
-                        MatterNumber = "20/0022CCC",
+                        IdInt = 5,
+                        MatterNumber = GeneratorExtension.GenerateMatterNumber(5, "TOA"),
                         Title = "IND/Mulovi - bijstand asielprocedure",
                         Active = true,
                         MatterTypeId = 3,

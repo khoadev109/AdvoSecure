@@ -94,7 +94,7 @@
               </div>
               <div
                 *ngIf="contact.isOurEmployee"
-                class="d-flex mt-4 ml-3"
+                class="d-flex mt-12 ml-3"
                 style="margin-left: 50px"
               >
                 <div class="d-flex flex-column">
@@ -1411,4 +1411,15 @@
     </div>
   </div>
   <!-- end::Tabs-->
+
+  <div class="card mb-5 mb-xl-10">
+    <!-- <div class="card-body pt-9 pb-0 mb-6"> -->
+    <div>
+      <iframe
+        [src]="mapIframeUrl | safe"
+        frameborder="0"
+        style="width: 100%; height: auto; border: 0"
+      ></iframe>
+    </div>
+  </div>
 </form>

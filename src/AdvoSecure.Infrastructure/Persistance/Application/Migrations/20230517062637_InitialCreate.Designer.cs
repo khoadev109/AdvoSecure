@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230516075653_AddContactTi1tles")]
-    partial class AddContactTi1tles
+    [Migration("20230517062637_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -546,6 +546,10 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 
                     b.Property<int?>("CivilStatusId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(6)
+                        .HasColumnType("character varying(6)");
 
                     b.Property<int?>("CompanyLegalStatusId")
                         .HasColumnType("integer");

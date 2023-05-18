@@ -11,6 +11,8 @@ namespace AdvoSecure.Api.Controllers
 
         public string CurrentUserName => User.Claims.First(x => x.Type == ClaimConstants.UserName)?.Value ?? string.Empty;
 
+        public string CurrentUserCode => User.Claims.First(x => x.Type == ClaimConstants.UserCode)?.Value ?? string.Empty;
+
         public string CurrentUserDisplayName => User.Claims.First(x => x.Type == ClaimConstants.DisplayName)?.Value ?? string.Empty;
 
         public string CurrentUserIdentifier => User.Claims.First(x => x.Type == ClaimConstants.UserIdentifier)?.Value ?? string.Empty;

@@ -1,6 +1,7 @@
 ﻿using AdvoSecure.Application.Dtos.BillingDtos;
 using AdvoSecure.Application.Dtos.MatterDtos;
 using AdvoSecure.Application.Dtos.Timing;
+using AdvoSecure.Application.Extensions;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
 using AdvoSecure.Domain.Entities.Billings;
@@ -211,7 +212,7 @@ namespace AdvoSecure.Application.Services
             return result;
         }
 
-        public async Task<ServiceResult<MatterDto>> CreateMatterAsync(MatterDto matterDto, string userName)
+        public async Task<ServiceResult<MatterDto>> CreateMatterAsync(MatterDto matterDto, string userName, string userCode)
         {
             ServiceResult<MatterDto> result = await ExecuteAsync<MatterDto>(async () =>
             {
@@ -220,8 +221,12 @@ namespace AdvoSecure.Application.Services
                 matterDto.MatterAreaId = matterDto.MatterAreaId == 0 ? null : matterDto.MatterAreaId;
                 matterDto.CourtSittingInCityId = matterDto.CourtSittingInCityId == 0 ? null : matterDto.CourtSittingInCityId;
                 matterDto.CourtGeoJurisdictionId = matterDto.CourtGeoJurisdictionId == 0 ? null : matterDto.CourtGeoJurisdictionId;
-
+                
                 Matter newMatter = _mapper.Map<Matter>(matterDto);
+
+                var sequence = await _unitOfWork.MatterRepository.GetLatestSequenceAsync();
+
+                newMatter.MatterNumber = GeneratorExtension.GenerateMatterNumber(sequence, userCode);
 
                 Matter createdMatter = await _unitOfWork.MatterRepository.CreateAsync(newMatter, userName);
 

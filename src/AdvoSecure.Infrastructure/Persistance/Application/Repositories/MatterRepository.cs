@@ -28,6 +28,15 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
             return matter;
         }
 
+        public async Task<long> GetLatestSequenceAsync()
+        {
+            Matter lastMatter = await GetQueryable().OrderByDescending(x => x.IdInt).FirstOrDefaultAsync();
+
+            long sequence = (lastMatter?.IdInt ?? 0) + 1;
+
+            return sequence;
+        }
+
         public async Task<IEnumerable<Matter>> SearchAsync(MatterSearchRequest request)
         {
             IQueryable<Matter> matters = GetQueryable().Include(x => x.BillToContact).Include(x => x.MatterArea);
@@ -72,6 +81,11 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Repositories
         public async Task<Matter> CreateAsync(Matter matter, string userName)
         {
             matter.CreatedBy = userName;
+
+            foreach (var matterContact in matter.MatterContacts)
+            {
+                matterContact.CreatedBy = userName;
+            }
 
             Matter result = await AddAsync(matter);
 

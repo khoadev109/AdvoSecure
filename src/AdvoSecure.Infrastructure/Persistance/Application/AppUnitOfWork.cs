@@ -86,6 +86,8 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
 
         private IRepository<ContactTitle> _contactTitleRepository;
 
+        private IRepository<Setting> _settingRepository;
+
         public AppUnitOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -253,6 +255,11 @@ namespace AdvoSecure.Infrastructure.Persistance.Application
         public IRepository<ContactTitle> ContactTitleRepository
         {
             get { return _contactTitleRepository ??= new Repository<ContactTitle>(_dbContext); }
+        }
+
+        public IRepository<Setting> SettingRepository
+        {
+            get { return _settingRepository ??= new Repository<Setting>(_dbContext); }
         }
 
         public async Task SetConnectionStringAndRunMigration(string connectionString)

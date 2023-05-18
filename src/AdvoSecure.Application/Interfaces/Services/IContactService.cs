@@ -26,8 +26,6 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<ServiceResult<ContactDto>> CreateContactAsync(ContactDto contactDto, string userName);
 
-        Task<ServiceResult<ContactDto>> CreateEmployee(ContactDto contactDto, string Code);
-
         Task<ServiceResult<ContactDto>> UpdateContactAsync(int id, ContactDto contactDto, string userName);
     }
 }

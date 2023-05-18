@@ -29,7 +29,7 @@ namespace AdvoSecure.Application.Interfaces.Services
 
         Task<ServiceResult<IEnumerable<MatterDto>>> SearchMattersAsync(MatterSearchRequestDto requestDto);
 
-        Task<ServiceResult<MatterDto>> CreateMatterAsync(MatterDto matterDto, string userName);
+        Task<ServiceResult<MatterDto>> CreateMatterAsync(MatterDto matterDto, string userName, string userCode);
 
         Task<ServiceResult<MatterDto>> UpdateMatterAsync(string id, MatterDto matterDto, string userName);
     }

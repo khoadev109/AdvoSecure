@@ -18,6 +18,7 @@ import { CompaniesComponent } from './components/companies/companies.component';
 import { PagingContactListComponent } from './paging-contact-list.component';
 import { ContactMattersComponent } from './components/matters/matters.component';
 import { ContactTasksComponent } from './components/tasks/tasks.component';
+import { SafePipe } from 'src/app/common/pipe/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ContactTasksComponent } from './components/tasks/tasks.component';
     ContactDetailsComponent,
     ConflictsComponent,
     ContactMattersComponent,
-    ContactTasksComponent
+    ContactTasksComponent,
+    SafePipe
   ],
   imports: [
     CommonModule,

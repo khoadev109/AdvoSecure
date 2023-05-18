@@ -1,4 +1,5 @@
 ﻿using AdvoSecure.Application.Dtos;
+using AdvoSecure.Application.Extensions;
 using AdvoSecure.Application.Interfaces;
 using AdvoSecure.Application.Interfaces.Services;
 using AdvoSecure.Common;
@@ -210,7 +211,8 @@ namespace AdvoSecure.Application.Services
                     Email = request.Email,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
-                    UserIdentifier = newUser.UserIdentifier
+                    UserIdentifier = newUser.UserIdentifier,
+                    Code = GeneratorExtension.GenerateUserCode(request.FirstName, request.LastName)
                 };
 
                 IdentityResult result = await _userManager.CreateAsync(appUser, request.Password);

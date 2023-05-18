@@ -88,6 +88,8 @@ namespace AdvoSecure.Infrastructure.Persistance.App
 
         public DbSet<NoteNotification> NoteNotifications => Set<NoteNotification>();
 
+        public DbSet<Setting> Settings => Set<Setting>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ContactConfiguration());

@@ -8,6 +8,8 @@ namespace AdvoSecure.Domain.Interfaces.Repositories
     {
         Task<Matter> GetByIdAsync(Guid id);
 
+        Task<long> GetLatestSequenceAsync();
+
         Task<IEnumerable<Matter>> SearchAsync(MatterSearchRequest request);
 
         Task<Matter> CreateAsync(Matter matter, string userName);

@@ -37,7 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistance\Application\Migrations\" />
     <Folder Include="Persistance\Management\Migrations\" />
   </ItemGroup>
 

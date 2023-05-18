@@ -53,33 +53,6 @@
           <div class="d-flex align-items-center justify-content-start">
             <label
               class="col-lg-3 col-form-label fw-bold fs-6 required"
-              translate="PAGES.MATTER.MATTER_NUMBER"
-            ></label>
-            <input
-              type="text"
-              class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-              name="matterNumber"
-              [(ngModel)]="matter.matterNumber"
-              #matterNumber="ngModel"
-              required
-            />
-          </div>
-          <div
-            *ngIf="
-              matterNumber.invalid &&
-              (matterNumber.dirty || matterNumber.touched)
-            "
-            class="alert"
-          >
-            <div *ngIf="matterNumber.errors?.required">
-              Matter number is required.
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="d-flex align-items-center justify-content-start">
-            <label
-              class="col-lg-3 col-form-label fw-bold fs-6 required"
               translate="COMMON.TITLE"
             ></label>
             <input
@@ -100,9 +73,6 @@
             <div *ngIf="matterTitle.errors?.required">Title is required.</div>
           </div>
         </div>
-      </div>
-
-      <div class="row mb-6">
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-start">
             <label
@@ -139,6 +109,9 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="row mb-6">
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-start">
             <label
@@ -175,9 +148,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="row mb-6">
         <div class="col-lg-6">
           <div class="d-flex align-items-center justify-content-start">
             <label
@@ -404,12 +374,9 @@
                 translate="PAGES.MATTER.SELECT_A_DISTRICT"
               ></option>
               <option
-                *ngFor="
-                  let courtGeoJurisdiction of courtGeoJurisdictions
-                "
+                *ngFor="let courtGeoJurisdiction of courtGeoJurisdictions"
                 [selected]="
-                  matter.courtGeoJurisdictionId ===
-                  courtGeoJurisdiction.id
+                  matter.courtGeoJurisdictionId === courtGeoJurisdiction.id
                 "
                 [text]="courtGeoJurisdiction.title"
                 [value]="courtGeoJurisdiction.id"
@@ -458,9 +425,51 @@
       </div>
 
       <div class="row mb-6">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="1"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="2"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="3"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+      </div>
+
+      <div class="row mb-6">
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="4"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="5"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
+        <div class="col-lg-4">
+          <app-matter-contact
+            [contactNumber]="6"
+            [contacts]="contacts"
+            (selectContactEvent)="addSelectedContacts($event)"
+          ></app-matter-contact>
+        </div>
       </div>
     </div>
     <!-- end::Contacts-->

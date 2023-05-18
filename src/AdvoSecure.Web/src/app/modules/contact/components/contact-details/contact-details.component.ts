@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit, NgModule } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { ContactService } from '../../services/contact.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { Contact } from '../../models/contact.model';
 import { ContactIdType } from '../../models/contact-id-type.model';
 import { ContactMaritalStatus } from '../../models/contact-marital-status.model';
@@ -30,6 +30,8 @@ export class ContactDetailsComponent implements OnInit {
 
   avatarFile: File;
   avatarSrc: string | SafeUrl = '/assets/media/avatars/blank.png';
+
+  mapIframeUrl: string = '';
 
   routeContactId: string | null;
   routeContactTypeParam: string | null;
@@ -88,6 +90,7 @@ export class ContactDetailsComponent implements OnInit {
 
   loadNewContact() {
     this.contact.isOrganization = this.routeContactTypeParam === 'company';
+    this.mapIframeUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD1ivZXIL9V7TTqCYahMmeCHfuz_ZN06C8&q=${this.contact.address1AddressStreet}+${this.contact.address1AddressHouseNo},${this.contact.address1AddressCity})`;
   }
 
   loadExistingContact(id: number) {
@@ -100,6 +103,8 @@ export class ContactDetailsComponent implements OnInit {
             'data:image/jpeg;base64,' + this.contact.pictureBin
           );
       }
+
+      this.mapIframeUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD1ivZXIL9V7TTqCYahMmeCHfuz_ZN06C8&q=${this.contact.address1AddressStreet}+${this.contact.address1AddressHouseNo},${this.contact.address1AddressCity})`;
 
       this.changeDetectorRef.detectChanges();
     });
@@ -143,7 +148,6 @@ export class ContactDetailsComponent implements OnInit {
     this.contactService
       .getContactTitle()
       .subscribe((result: ContactTitles[]) => {
-        console.log('aaaaa', result);
         this.contactTitles = result;
         this.changeDetectorRef.detectChanges();
       });

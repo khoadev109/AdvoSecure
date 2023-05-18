@@ -39,14 +39,23 @@ namespace AdvoSecure.Infrastructure.Persistance
             {
                 var context = serviceProvider.GetRequiredService<MgmtDbContext>();
 
-                TenantSetting tenantAdmin = await context.TenantSettings.FirstOrDefaultAsync(x => !x.AdminId.HasValue);
+                bool hasAdmin = await context.TenantSettings.AnyAsync(x => !x.AdminId.HasValue);
 
-                if (tenantAdmin == null)
+                if (!hasAdmin)
+                {
+                    return;
+                }
+
+                bool hasUser = await context.TenantSettings.AnyAsync(x => x.AdminId.HasValue);
+
+                if (hasUser)
                 {
                     return;
                 }
 
                 var tenantService = serviceProvider.GetRequiredService<ITenantService>();
+
+                TenantSetting tenantAdmin = await context.TenantSettings.FirstOrDefaultAsync(x => !x.AdminId.HasValue);
 
                 var request = new AuthRegisterRequest
                 {

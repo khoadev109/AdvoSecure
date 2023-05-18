@@ -77,6 +77,6 @@ namespace AdvoSecure.Application.Dtos.MatterDtos
 
         public CourtGeoJurisdictionDto CourtGeoJurisdiction { get; set; }
 
-        public IList<MatterContact> MatterContacts { get; set; } = new List<MatterContact>();
+        public IList<MatterContactDto> MatterContacts { get; set; } = new List<MatterContactDto>();
     }
 }

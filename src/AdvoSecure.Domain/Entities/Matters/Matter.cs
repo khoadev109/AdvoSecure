@@ -10,7 +10,7 @@ namespace AdvoSecure.Domain.Entities.Matters
     [Table("Matters")]
     public class Matter : BaseGuidEntity
     {
-        public long? IdInt { get; set; }
+        public long IdInt { get; set; }
 
         public string MatterNumber { get; set; }
 

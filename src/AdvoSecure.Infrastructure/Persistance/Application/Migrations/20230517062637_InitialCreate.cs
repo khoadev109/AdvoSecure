@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
 {
     /// <inheritdoc />
-    public partial class AddContactTi1tles : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -602,6 +602,7 @@ namespace AdvoSecure.Infrastructure.Persistance.Application.Migrations
                     IsOrganization = table.Column<bool>(type: "boolean", nullable: false),
                     Picture = table.Column<string>(type: "text", nullable: true),
                     PictureBin = table.Column<byte[]>(type: "bytea", nullable: true),
+                    Code = table.Column<string>(type: "character varying(6)", maxLength: 6, nullable: true),
                     Nickname = table.Column<string>(type: "text", nullable: true),
                     Generation = table.Column<string>(type: "text", nullable: true),
                     DisplayNamePrefix = table.Column<string>(type: "text", nullable: true),

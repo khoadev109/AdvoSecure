@@ -81,6 +81,8 @@ namespace AdvoSecure.Domain.Interfaces
 
         IRepository<ContactTitle> ContactTitleRepository { get; }
 
+        IRepository<Setting> SettingRepository { get; }
+
         Task SetConnectionStringAndRunMigration(string connectionString);
 
         void Commit();

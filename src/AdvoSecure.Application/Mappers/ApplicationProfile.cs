@@ -13,7 +13,6 @@ using AdvoSecure.Domain.Entities.Matters;
 using AdvoSecure.Domain.Entities.Notes;
 using AdvoSecure.Domain.Entities.Opportunities;
 using AdvoSecure.Domain.Entities.Tasks;
-using AdvoSecure.Domain.Interfaces.Requests;
 using AutoMapper;
 
 namespace AdvoSecure.Application.Mappers

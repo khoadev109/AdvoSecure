@@ -8,5 +8,6 @@
         public const string UserId = "https://schemas.microsoft.com/identity/claims/uid";
         public const string UserName = "https://schemas.microsoft.com/identity/claims/username";
         public const string DisplayName = "https://schemas.microsoft.com/identity/claims/displayname";
+        public const string UserCode = "https://schemas.microsoft.com/identity/claims/code";
     }
 }
